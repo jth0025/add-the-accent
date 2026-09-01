@@ -7,12 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Neutral base — the "grey" JT builds against, so the accent color
+        // Neutral base — the grey JT builds against, so the accent color
         // actually announces itself. Tweak these two lines to change the
         // whole site's mood.
-        ink: "#181715",
-        paper: "#f4f1ea",
-        stone: "#3a372f",
+        ink: "#1b1c1e",
+        paper: "#cbcfce",
+        stone: "#474b4d",
         accent: "#c2703d", // warm terracotta — swap for the jungle green if you want that instead
       },
       fontFamily: {
@@ -22,10 +22,10 @@ module.exports = {
       typography: () => ({
         accent: {
           css: {
-            "--tw-prose-body": "#3a372f",
-            "--tw-prose-headings": "#181715",
+            "--tw-prose-body": "#474b4d",
+            "--tw-prose-headings": "#1b1c1e",
             "--tw-prose-links": "#c2703d",
-            "--tw-prose-bold": "#181715",
+            "--tw-prose-bold": "#1b1c1e",
             maxWidth: "none",
           },
         },

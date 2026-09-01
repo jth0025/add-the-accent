@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body className="font-sans antialiased">
         <div className="flex min-h-screen flex-col">
-          <header className="border-b border-stone/10">
+          <header className="border-b border-stone/20">
             <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-6">
               <Link
                 href="/"
@@ -46,8 +46,8 @@ export default function RootLayout({ children }) {
 
           <main className="flex-1">{children}</main>
 
-          <footer className="border-t border-stone/10 py-10">
-            <div className="mx-auto max-w-3xl px-6 text-sm text-stone/70">
+          <footer className="border-t border-stone/20 py-10">
+            <div className="mx-auto max-w-3xl px-6 text-sm text-stone/80">
               Add the Accent — when the road is unclear, clean a room.
             </div>
           </footer>
