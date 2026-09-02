@@ -52,13 +52,12 @@ export default function HeroCarousel({ children }) {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/icons/brush-icon.png"
+          src="/icons/brush-icon-blue.png"
           alt=""
           aria-hidden="true"
           className="absolute left-3 top-3 z-10 w-10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
-          style={{ filter: "brightness(0) invert(1)" }}
         />
-        <div className="marquee-track flex h-full w-max items-center gap-4 py-4 pl-4">
+        <div className="marquee-track flex h-full w-max items-center gap-4 pl-4 pt-2 pb-6">
           {strip.map((img, i) => (
             <div
               key={`${img.src}-${i}`}
