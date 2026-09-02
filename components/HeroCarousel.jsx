@@ -38,6 +38,10 @@ export default function HeroCarousel({ children }) {
   }, []);
 
   const strip = [...CAROUSEL_IMAGES, ...CAROUSEL_IMAGES];
+  // Each framed image is sized down from the full carousel height so the
+  // whole strip is visible at a glance, rather than one giant photo at a
+  // time — the image itself still fills its own frame edge to edge.
+  const frameHeight = heroHeight ? Math.round(heroHeight * 0.68) : 190;
 
   return (
     <>
@@ -46,11 +50,12 @@ export default function HeroCarousel({ children }) {
         style={heroHeight ? { height: heroHeight } : { minHeight: 260 }}
         aria-label="A scrolling selection of Add the Accent design work"
       >
-        <div className="marquee-track flex h-full w-max items-stretch gap-4 py-4 pl-4">
+        <div className="marquee-track flex h-full w-max items-center gap-4 py-4 pl-4">
           {strip.map((img, i) => (
             <div
               key={`${img.src}-${i}`}
-              className="flex h-full shrink-0 items-center justify-center rounded-md border border-ink/40 bg-[#efeee6] p-3 shadow-[0_6px_18px_rgba(0,0,0,0.18)]"
+              className="flex shrink-0 items-center justify-center rounded-md border border-ink/40 bg-[#efeee6] p-1.5 shadow-[0_6px_18px_rgba(0,0,0,0.18)]"
+              style={{ height: frameHeight }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

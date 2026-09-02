@@ -31,7 +31,7 @@ export default function HomePage() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-center text-stone">
             <span className="block md:whitespace-nowrap">
-              <span className="font-bold italic">Add the Accent</span> is a
+              <span className="font-display italic">Add the Accent</span> is a
               multidisciplinary creative studio built on one belief:
             </span>
             <span
