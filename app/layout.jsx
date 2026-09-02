@@ -1,4 +1,4 @@
-import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Caveat } from "next/font/google";
+import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
@@ -39,12 +39,14 @@ const poppins = Poppins({
   display: "swap",
 });
 
-// Handwritten script — a one-off accent for "Add the Accent" wherever it
-// needs to read as personally signed rather than typeset.
-const caveat = Caveat({
+// Elegant handwritten script — a one-off accent for "Add the Accent"
+// wherever it needs to read as personally signed rather than typeset.
+// (Requested font "Adelia" is personal-use-only; this is the closest
+// free-for-commercial-use match — smooth, flowing, premium feel.)
+const alexBrush = Alex_Brush({
   subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-caveat",
+  weight: "400",
+  variable: "--font-script",
   display: "swap",
 });
 
@@ -58,7 +60,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${caveat.variable}`}
+      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable}`}
     >
       <body className="font-sans antialiased">
         <div className="flex min-h-screen flex-col">
