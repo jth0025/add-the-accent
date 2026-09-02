@@ -25,8 +25,8 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body className="font-sans antialiased">
         <div className="flex min-h-screen flex-col">
-          <header className="relative border-b-2 border-ink/55">
-            <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
+          <header className="relative border-b-2 border-ink/55 pb-3">
+            <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 pt-4">
               <Link href="/" className="flex items-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/logo.png" alt="Add the Accent" className="h-11 w-auto" />
