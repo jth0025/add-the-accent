@@ -40,8 +40,17 @@ export default function EntryList({ section, heading, intro, entries }) {
                 href={`/${section}/${entry.slug}`}
                 className={`${paperClass} corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9`}
               >
-                <h2 className="font-serif text-2xl text-ink group-hover:text-accent">
-                  {entry.title}
+                <h2 className="flex items-center gap-2 font-serif text-2xl text-ink group-hover:text-accent">
+                  {isJournal && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src="/icons/pencil-icon.png"
+                      alt=""
+                      aria-hidden="true"
+                      className="h-[1em] w-auto shrink-0"
+                    />
+                  )}
+                  <span>{entry.title}</span>
                 </h2>
                 {entry.date && (
                   <p className="mt-1 font-mono text-xs uppercase tracking-wide text-stone/60">

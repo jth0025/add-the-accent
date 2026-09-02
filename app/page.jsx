@@ -141,8 +141,15 @@ export default function HomePage() {
             {journal.map((entry) => (
               <li key={entry.slug}>
                 <Link href={`/journal/${entry.slug}`} className="group block">
-                  <h3 className="font-serif text-xl text-ink group-hover:text-accent">
-                    {entry.title}
+                  <h3 className="flex items-center gap-2 font-serif text-xl text-ink group-hover:text-accent">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/icons/pencil-icon.png"
+                      alt=""
+                      aria-hidden="true"
+                      className="h-[1em] w-auto shrink-0"
+                    />
+                    <span>{entry.title}</span>
                   </h3>
                   {entry.date && (
                     <p className="mt-1 font-mono text-xs uppercase tracking-wide text-stone/60">
