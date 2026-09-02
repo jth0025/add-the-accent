@@ -36,14 +36,14 @@ export default function AboutPage() {
           <span>About</span>
           <span className="h-px flex-1 bg-accent/40" />
         </div>
-        <h1 className="mt-4 font-display text-3xl uppercase leading-tight tracking-tight text-ink sm:text-4xl">
+        <h1 className="mt-4 text-center font-display text-3xl uppercase leading-tight tracking-tight text-ink sm:text-4xl">
           Add the Accent
         </h1>
-        <p className="mt-5 font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
+        <p className="mt-5 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
           &ldquo;Your perspective is the masterpiece. Everything else is the
           medium.&rdquo;
         </p>
-        <p className="mt-6 max-w-xl text-stone">
+        <p className="mx-auto mt-6 max-w-xl text-center text-stone">
           A multidisciplinary creative studio, umbrella brand, and philosophy
           built around the power of individual perspective. Through design,
           writing, photography, film, and apparel, the goal is the same
@@ -60,15 +60,15 @@ export default function AboutPage() {
         <h2 className="mt-3 font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
           The Core Idea
         </h2>
-        <p className="mt-5 max-w-xl text-stone">
+        <p className="mx-auto mt-5 max-w-xl text-center text-stone">
           Creative work is not ultimately about a logo, photograph, article,
           film, garment, or product. Those are the mediums. The real value is
           the perspective behind them. Two people can have access to the same
           camera, software, blank page, room, or opportunity and create
           completely different outcomes.
         </p>
-        <p className="mt-5 font-serif text-xl italic text-ink">
-          The difference is the accent.
+        <p className="mt-5 text-center font-serif text-xl italic text-ink">
+          The difference is you.
         </p>
       </section>
 
@@ -83,14 +83,19 @@ export default function AboutPage() {
         </h2>
         <p className="mt-5 max-w-xl text-stone">
           To add the accent is to bring your own particular touch and essence
-          into whatever you are doing. It is the decision to participate in
-          life as yourself instead of simply repeating what already exists.
+          into whatever you are doing.
         </p>
-        <ul className="mt-6 space-y-2 border-t border-ink/10 pt-6">
+        <p className="mt-4 max-w-xl font-serif text-lg italic leading-relaxed text-ink">
+          It is the decision to participate in life as yourself instead of
+          simply repeating what already exists.
+        </p>
+        <ul className="mt-6 space-y-3 border-t border-ink/10 pt-6">
           {PRINCIPLES.map((line) => (
             <li key={line} className="flex gap-3 text-stone">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-              <span>{line}</span>
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+              <span className="font-mono text-xs uppercase tracking-wide leading-relaxed">
+                {line}
+              </span>
             </li>
           ))}
         </ul>
