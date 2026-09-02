@@ -41,7 +41,7 @@ export default function HeroCarousel({ children }) {
   // Each framed image is sized down from the full carousel height so the
   // whole strip is visible at a glance, rather than one giant photo at a
   // time — the image itself still fills its own frame edge to edge.
-  const frameHeight = heroHeight ? Math.round(heroHeight * 0.68) : 190;
+  const frameHeight = heroHeight ? Math.round(heroHeight * 0.78) : 220;
 
   return (
     <>
@@ -50,6 +50,23 @@ export default function HeroCarousel({ children }) {
         style={heroHeight ? { height: heroHeight } : { minHeight: 260 }}
         aria-label="A scrolling selection of Add the Accent design work"
       >
+        <div className="absolute left-2.5 top-2.5 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-[#f1f0ea]/90 shadow-sm">
+          <svg
+            viewBox="0 0 24 24"
+            className="h-4 w-4"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <g transform="rotate(45 12 12)">
+              <rect x="10" y="1" width="4" height="9" rx="1.5" fill="#1a1a1a" />
+              <rect x="9" y="9" width="6" height="2.5" fill="#1a1a1a" />
+              <path
+                d="M9 11.5 H15 L13.2 18.5 Q12 20.5 10.8 18.5 Z"
+                fill="#1a1a1a"
+              />
+            </g>
+          </svg>
+        </div>
         <div className="marquee-track flex h-full w-max items-center gap-4 py-4 pl-4">
           {strip.map((img, i) => (
             <div
