@@ -1,4 +1,4 @@
-import { Fraunces, Inter } from "next/font/google";
+import { Fraunces, Inter, Archivo_Black } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
@@ -14,6 +14,14 @@ const inter = Inter({
   display: "swap",
 });
 
+// Bold display face matching the "Homebody" title treatment in the pitch deck.
+const archivoBlack = Archivo_Black({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-archivo-black",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Add the Accent",
   description:
@@ -22,7 +30,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable}`}
+    >
       <body className="font-sans antialiased">
         <div className="flex min-h-screen flex-col">
           <header className="relative border-b-2 border-ink/55">

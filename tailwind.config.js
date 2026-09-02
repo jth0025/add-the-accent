@@ -18,6 +18,7 @@ module.exports = {
       fontFamily: {
         serif: ["var(--font-fraunces)", "Georgia", "serif"],
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-archivo-black)", "Impact", "Arial Black", "sans-serif"],
       },
       typography: () => ({
         accent: {

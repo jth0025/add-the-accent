@@ -8,23 +8,33 @@ export default function HomePage() {
   return (
     <div className="mx-auto max-w-3xl px-6">
       <section className="py-20">
-        <div className="overflow-hidden rounded-2xl border border-ink/20 bg-ink/[0.04] shadow-sm">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/homebody-feature.jpg"
-            alt="Homebody series"
-            className="h-72 w-full object-cover sm:h-96"
-            style={{ objectPosition: "50% 12%" }}
-          />
-          <div className="p-6 sm:p-10">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-ink/[0.08] px-3 py-1 font-sans text-xs tracking-wide text-stone">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              Homebody series
+        <div
+          className="flex flex-col overflow-hidden rounded-[20px] border border-black/30 shadow-lg sm:flex-row"
+          style={{
+            background:
+              "linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
+          }}
+        >
+          <div className="flex flex-col items-center justify-center gap-3.5 bg-black/15 p-7 sm:w-[42%]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/homebody-feature.jpg"
+              alt="Homebody series"
+              className="max-h-[380px] w-full rounded-[10px] object-contain"
+            />
+            <p className="text-center font-serif text-sm italic text-[#f1e6d8]/90">
+              &ldquo;When the road is unclear, clean a room.&rdquo;
+            </p>
+          </div>
+          <div className="flex flex-1 flex-col justify-center px-8 py-9 sm:px-10">
+            <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1 font-sans text-xs tracking-wide text-[#ecd9a8]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#9aa83c]" />
+              A series by Add the Accent
             </span>
-            <h1 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-              When the road is unclear, clean a room.
+            <h1 className="font-display mt-4 text-6xl leading-[0.92] text-white">
+              Homebody
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-stone">
+            <p className="mt-4 max-w-md text-lg text-[#e7ded2]">
               This is where the writing lives — case studies from the Homebody
               series alongside the raw journal entries they grew out of.
             </p>
