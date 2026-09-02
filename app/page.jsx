@@ -28,12 +28,20 @@ export default function HomePage() {
               Everything else is the medium.
             </span>
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-center text-stone">
-            <span className="font-bold italic">Add the Accent</span> is a
-            multidisciplinary creative studio built on one belief: every
-            person, brand, and idea has something only it can contribute.
-            Through design, writing, photography, film, and apparel, we bring
-            that difference to the surface and give it form.
+          <p className="mx-auto mt-6 max-w-2xl text-center text-stone">
+            <span className="block md:whitespace-nowrap">
+              <span className="font-black italic">Add the Accent</span> is a
+              multidisciplinary creative studio built on one belief:
+            </span>
+            <span
+              className="mt-2 block font-bold"
+              style={{ textWrap: "balance" }}
+            >
+              every person, brand, and idea has something only it can
+              contribute. Through design, writing, photography, film, and
+              apparel, we bring that difference to the surface and give it
+              form.
+            </span>
           </p>
           <p className="mt-5 text-center font-serif text-lg italic text-ink">
             It&rsquo;s about finding and leaving the mark only you can make.
