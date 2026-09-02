@@ -107,7 +107,7 @@ export default function RootLayout({ children }) {
                   <img
                     src="/logo.png"
                     alt="Add the Accent"
-                    className="block h-11 w-auto"
+                    className="block h-16 w-auto"
                   />
                 </Link>
                 <span className="mb-2 hidden font-logo text-[11px] font-semibold lowercase leading-none tracking-wide text-ink sm:ml-4 sm:inline-flex">
