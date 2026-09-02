@@ -7,7 +7,55 @@ html {
 }
 
 body {
-  background-color: #989898;
+  background-color: #96958d;
   color: #1a1a1a;
 }
 
+/* Corner-bracket motif — the stenciled viewfinder marks from the pitch
+   deck, reused everywhere a section needs its own clearly-separated box.
+   Put class="corner-box" (plus position: relative, which the utility
+   below provides) on any card. */
+.corner-box {
+  position: relative;
+}
+
+.corner-box::before,
+.corner-box::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.corner-box::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid #1a1a1a;
+  border-left: 2px solid #1a1a1a;
+}
+
+.corner-box::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid #1a1a1a;
+  border-right: 2px solid #1a1a1a;
+}
+
+/* The grass clump in the header sways gently, like it's catching a
+   breeze — small and slow, not a full animation, just a bit of life. */
+@keyframes grass-sway {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+.grass-sway {
+  transform-origin: bottom center;
+  animation: grass-sway 3.4s ease-in-out infinite;
+}

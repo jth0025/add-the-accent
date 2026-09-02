@@ -7,23 +7,27 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Neutral base — the grey JT builds against, so the accent color
-        // actually announces itself. Tweak these two lines to change the
-        // whole site's mood.
+        // Grey is the canvas, not the subject — "grey isn't fighting for
+        // attention, so it becomes a kind of visual silence around the
+        // note you actually want people to hear." Everything else is
+        // built to pop against these three greys.
         ink: "#1a1a1a",
-        paper: "#989898",
-        stone: "#333537",
+        paper: "#96958d", // page background — the concrete/canvas grey
+        card: "#c9c7bd", // section boxes sit a shade lighter, like raw canvas
+        stone: "#33322d",
         accent: "#af691e", // amber-gold sampled from the logo
+        moss: "#9aa83c", // olive pop, lifted from the pitch deck
       },
       fontFamily: {
         serif: ["var(--font-fraunces)", "Georgia", "serif"],
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         display: ["var(--font-archivo-black)", "Impact", "Arial Black", "sans-serif"],
+        mono: ["var(--font-plex-mono)", "ui-monospace", "monospace"],
       },
       typography: () => ({
         accent: {
           css: {
-            "--tw-prose-body": "#333537",
+            "--tw-prose-body": "#33322d",
             "--tw-prose-headings": "#1a1a1a",
             "--tw-prose-links": "#af691e",
             "--tw-prose-bold": "#1a1a1a",
