@@ -67,3 +67,71 @@ body {
     animation: none;
   }
 }
+
+/* Paper texture overlays — a subtle secondary layer behind each box's
+   own background, so cards read like they're printed/written on
+   something rather than sitting on a flat fill. Three moods (newsprint
+   halftone, aged journal grain, ruled notebook lines), each with a
+   "-dark" variant tuned for the brown gradient cards. All are low-alpha
+   so the box's own color still dominates. */
+.paper-notebook {
+  background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(26, 26, 26, 0.07) 0,
+      rgba(26, 26, 26, 0.07) 1px,
+      transparent 1px,
+      transparent 27px
+    ),
+    linear-gradient(
+      to right,
+      transparent 0,
+      transparent 34px,
+      rgba(175, 105, 30, 0.22) 34px,
+      rgba(175, 105, 30, 0.22) 35px,
+      transparent 35px
+    );
+  background-repeat: repeat, no-repeat;
+}
+
+.paper-notebook-dark {
+  background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(231, 222, 210, 0.09) 0,
+      rgba(231, 222, 210, 0.09) 1px,
+      transparent 1px,
+      transparent 27px
+    ),
+    linear-gradient(
+      to right,
+      transparent 0,
+      transparent 34px,
+      rgba(231, 222, 210, 0.25) 34px,
+      rgba(231, 222, 210, 0.25) 35px,
+      transparent 35px
+    );
+  background-repeat: repeat, no-repeat;
+}
+
+.paper-newspaper {
+  background-image: radial-gradient(rgba(26, 26, 26, 0.12) 1px, transparent 1.3px),
+    radial-gradient(rgba(26, 26, 26, 0.07) 1px, transparent 1.3px);
+  background-size: 6px 6px, 6px 6px;
+  background-position: 0 0, 3px 3px;
+}
+
+.paper-newspaper-dark {
+  background-image: radial-gradient(rgba(231, 222, 210, 0.14) 1px, transparent 1.3px),
+    radial-gradient(rgba(231, 222, 210, 0.08) 1px, transparent 1.3px);
+  background-size: 6px 6px, 6px 6px;
+  background-position: 0 0, 3px 3px;
+}
+
+.paper-journal {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.42 0 0 0 0 0.30 0 0 0 0 0.15 0 0 0 0.10 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+.paper-journal-dark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.91 0 0 0 0 0.87 0 0 0 0 0.82 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}

@@ -46,7 +46,7 @@ export default function HeroCarousel({ children }) {
   return (
     <>
       <div
-        className="corner-box relative mt-14 overflow-hidden rounded-xl border border-ink/15 bg-card"
+        className="paper-newspaper corner-box relative mt-14 overflow-hidden rounded-xl border border-ink/15 bg-card"
         style={heroHeight ? { height: heroHeight } : { minHeight: 260 }}
         aria-label="A scrolling selection of Add the Accent design work"
       >
@@ -79,7 +79,7 @@ export default function HeroCarousel({ children }) {
 
       <section
         ref={heroRef}
-        className="corner-box relative mt-6 overflow-hidden rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12"
+        className="paper-notebook corner-box relative mt-6 overflow-hidden rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12"
       >
         {children}
       </section>

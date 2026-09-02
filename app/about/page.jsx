@@ -31,7 +31,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       {/* Hero */}
-      <section className="corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+      <section className="paper-notebook corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
         <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
           <span>About</span>
           <span className="h-px flex-1 bg-accent/40" />
@@ -52,7 +52,7 @@ export default function AboutPage() {
       </section>
 
       {/* The core idea */}
-      <section className="corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
+      <section className="paper-newspaper corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
         <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-moss">
           <span>Section 01</span>
           <span className="h-px flex-1 bg-moss/40" />
@@ -73,7 +73,7 @@ export default function AboutPage() {
       </section>
 
       {/* What it means */}
-      <section className="corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
+      <section className="paper-journal corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
         <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
           <span>Section 02</span>
           <span className="h-px flex-1 bg-accent/40" />
@@ -102,7 +102,7 @@ export default function AboutPage() {
       </section>
 
       {/* Guiding principle */}
-      <section className="corner-box mt-10 rounded-xl border border-black/30 px-7 py-9 text-[#e7ded2] shadow-lg sm:px-10 sm:py-11"
+      <section className="paper-journal-dark corner-box mt-10 rounded-xl border border-black/30 px-7 py-9 text-[#e7ded2] shadow-lg sm:px-10 sm:py-11"
         style={{
           background:
             "linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
@@ -135,7 +135,7 @@ export default function AboutPage() {
       </section>
 
       {/* In JT's own words */}
-      <section className="corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
+      <section className="paper-notebook corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
         <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-moss">
           <span>Section 04</span>
           <span className="h-px flex-1 bg-moss/40" />

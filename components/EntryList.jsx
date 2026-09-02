@@ -5,11 +5,12 @@ export default function EntryList({ section, heading, intro, entries }) {
   const isJournal = section === "journal";
   const tagTextClass = isJournal ? "text-moss" : "text-accent";
   const tagRuleClass = isJournal ? "bg-moss/40" : "bg-accent/40";
+  const paperClass = isJournal ? "paper-journal" : "paper-newspaper";
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       <div
-        className={`corner-box rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9`}
+        className={`${paperClass} corner-box rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9`}
       >
         <div
           className={`flex items-center gap-3 font-mono text-xs uppercase tracking-widest ${tagTextClass}`}
@@ -37,7 +38,7 @@ export default function EntryList({ section, heading, intro, entries }) {
             <li key={entry.slug}>
               <Link
                 href={`/${section}/${entry.slug}`}
-                className="corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9"
+                className={`${paperClass} corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9`}
               >
                 <h2 className="font-serif text-2xl text-ink group-hover:text-accent">
                   {entry.title}

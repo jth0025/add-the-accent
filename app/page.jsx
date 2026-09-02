@@ -57,7 +57,7 @@ export default function HomePage() {
 
       <section className="py-6">
         <div
-          className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
+          className="paper-journal-dark corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
           style={{
             background:
               "linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
@@ -82,7 +82,7 @@ export default function HomePage() {
       </section>
 
       {portfolio.length > 0 && (
-        <section className="corner-box mb-10 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+        <section className="paper-newspaper corner-box mb-10 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
             <span>Section 01</span>
             <span className="h-px flex-1 bg-accent/40" />
@@ -121,7 +121,7 @@ export default function HomePage() {
       )}
 
       {journal.length > 0 && (
-        <section className="corner-box mb-16 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+        <section className="paper-journal corner-box mb-16 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-moss">
             <span>Section 02</span>
             <span className="h-px flex-1 bg-moss/40" />
