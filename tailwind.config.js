@@ -23,6 +23,7 @@ module.exports = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         display: ["var(--font-archivo-black)", "Impact", "Arial Black", "sans-serif"],
         mono: ["var(--font-plex-mono)", "ui-monospace", "monospace"],
+        logo: ["var(--font-poppins)", "system-ui", "sans-serif"],
       },
       typography: () => ({
         accent: {

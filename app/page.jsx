@@ -17,13 +17,13 @@ export default function HomePage() {
           <br />
           Everything else is the medium.
         </h1>
-        <p className="mt-6 max-w-xl text-stone">
+        <p className="mx-auto mt-6 max-w-xl text-center text-stone">
           Add the Accent is a multidisciplinary creative studio built on one
           belief: every person, brand, and idea has something only it can
           contribute. Through design, writing, photography, film, and
           apparel, we bring that difference to the surface and give it form.
         </p>
-        <p className="mt-5 font-serif text-lg italic text-ink">
+        <p className="mt-5 text-center font-serif text-lg italic text-ink">
           It&rsquo;s about finding and leaving the mark only you can make.
         </p>
       </section>
@@ -48,7 +48,7 @@ export default function HomePage() {
             className="w-full object-contain"
           />
           <div className="px-8 py-8 sm:px-10">
-            <p className="max-w-md text-lg text-[#e7ded2]">
+            <p className="mx-auto max-w-md text-center text-lg text-[#e7ded2]">
               This is where the writing lives — case studies from the Homebody
               series alongside the raw journal entries they grew out of.
             </p>
@@ -86,7 +86,7 @@ export default function HomePage() {
                     </p>
                   )}
                   {entry.excerpt && (
-                    <p className="mt-2 text-stone">{entry.excerpt}</p>
+                    <p className="mt-2 text-center text-stone">{entry.excerpt}</p>
                   )}
                 </Link>
               </li>
@@ -125,7 +125,7 @@ export default function HomePage() {
                     </p>
                   )}
                   {entry.excerpt && (
-                    <p className="mt-2 text-stone">{entry.excerpt}</p>
+                    <p className="mt-2 text-center text-stone">{entry.excerpt}</p>
                   )}
                 </Link>
               </li>

@@ -20,7 +20,11 @@ export default function EntryList({ section, heading, intro, entries }) {
         <h1 className="mt-3 font-display text-3xl uppercase tracking-tight text-ink sm:text-4xl">
           {heading}
         </h1>
-        {intro && <p className="mt-4 max-w-xl text-stone">{intro}</p>}
+        {intro && (
+          <p className="mx-auto mt-4 max-w-xl text-center text-stone">
+            {intro}
+          </p>
+        )}
       </div>
 
       {entries.length === 0 ? (
@@ -48,7 +52,7 @@ export default function EntryList({ section, heading, intro, entries }) {
                   </p>
                 )}
                 {entry.excerpt && (
-                  <p className="mt-3 text-stone">{entry.excerpt}</p>
+                  <p className="mt-3 text-center text-stone">{entry.excerpt}</p>
                 )}
               </Link>
             </li>
