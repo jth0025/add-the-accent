@@ -163,10 +163,10 @@ body {
    shape repeating in lockstep. */
 @keyframes cloud-drift {
   from {
-    transform: translateX(-15vw);
+    transform: translateX(115vw);
   }
   to {
-    transform: translateX(115vw);
+    transform: translateX(-15vw);
   }
 }
 

@@ -55,7 +55,7 @@ export default function HeroCarousel({ children }) {
           src="/icons/brush-icon-blue.png"
           alt=""
           aria-hidden="true"
-          className="absolute left-3 top-3 z-10 w-10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
+          className="absolute left-3 top-1 z-10 w-10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
         />
         <div className="marquee-track flex h-full w-max items-center gap-4 pl-4 pt-2 pb-6">
           {strip.map((img, i) => (

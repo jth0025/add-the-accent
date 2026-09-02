@@ -60,11 +60,11 @@ export const metadata = {
 // logo (h-11 / 44px), staggered with negative animation-delay values so
 // they read as several independent clouds rather than one repeating copy.
 const HEADER_CLOUDS = [
-  { top: 3, width: 26, duration: 34, delay: -6, opacity: 0.95 },
-  { top: 11, width: 18, duration: 26, delay: -16, opacity: 0.7 },
-  { top: 1, width: 22, duration: 40, delay: -28, opacity: 0.85 },
-  { top: 8, width: 15, duration: 22, delay: -2, opacity: 0.6 },
-  { top: 5, width: 20, duration: 30, delay: -21, opacity: 0.8 },
+  { top: 3, width: 26, duration: 61, delay: -11, opacity: 0.95 },
+  { top: 11, width: 18, duration: 47, delay: -29, opacity: 0.7 },
+  { top: 1, width: 22, duration: 72, delay: -50, opacity: 0.85 },
+  { top: 8, width: 15, duration: 40, delay: -4, opacity: 0.6 },
+  { top: 5, width: 20, duration: 54, delay: -38, opacity: 0.8 },
 ];
 
 export default function RootLayout({ children }) {
