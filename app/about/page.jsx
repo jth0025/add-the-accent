@@ -39,11 +39,11 @@ export default function AboutPage() {
         <h1 className="mt-4 font-display text-3xl uppercase leading-tight tracking-tight text-ink sm:text-4xl">
           Add the Accent
         </h1>
-        <p className="mt-5 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
+        <p className="mt-5 font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
           &ldquo;Your perspective is the masterpiece. Everything else is the
           medium.&rdquo;
         </p>
-        <p className="mx-auto mt-6 max-w-xl text-center text-stone">
+        <p className="mt-6 max-w-xl text-stone">
           A multidisciplinary creative studio, umbrella brand, and philosophy
           built around the power of individual perspective. Through design,
           writing, photography, film, and apparel, the goal is the same
@@ -60,14 +60,14 @@ export default function AboutPage() {
         <h2 className="mt-3 font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
           The Core Idea
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-center text-stone">
+        <p className="mt-5 max-w-xl text-stone">
           Creative work is not ultimately about a logo, photograph, article,
           film, garment, or product. Those are the mediums. The real value is
           the perspective behind them. Two people can have access to the same
           camera, software, blank page, room, or opportunity and create
           completely different outcomes.
         </p>
-        <p className="mt-5 text-center font-serif text-xl italic text-ink">
+        <p className="mt-5 font-serif text-xl italic text-ink">
           The difference is the accent.
         </p>
       </section>
@@ -81,7 +81,7 @@ export default function AboutPage() {
         <h2 className="mt-3 font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
           What &ldquo;Add the Accent&rdquo; Means
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-center text-stone">
+        <p className="mt-5 max-w-xl text-stone">
           To add the accent is to bring your own particular touch and essence
           into whatever you are doing. It is the decision to participate in
           life as yourself instead of simply repeating what already exists.
@@ -94,7 +94,7 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
-        <p className="mx-auto mt-6 max-w-xl text-center text-stone">
+        <p className="mt-6 max-w-xl text-stone">
           The goal is not to force originality for originality&rsquo;s sake.
           It is to uncover what is authentic, specific, and memorable, then
           give it form.
@@ -143,7 +143,7 @@ export default function AboutPage() {
         <h2 className="mt-3 font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
           How I&rsquo;d Explain It
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-center font-serif text-lg italic leading-relaxed text-ink">
+        <p className="mt-5 max-w-xl font-serif text-lg italic leading-relaxed text-ink">
           &ldquo;For me, the accent is that part of you that nobody else can
           duplicate. It&rsquo;s your taste, your story, your eye, your
           voice. So Add the Accent became the umbrella for everything I

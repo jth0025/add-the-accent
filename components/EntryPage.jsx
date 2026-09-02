@@ -33,7 +33,7 @@ export default function EntryPage({ section, backLabel, entry }) {
         )}
 
         <div
-          className="prose prose-accent mt-10 text-center font-serif text-lg"
+          className="prose prose-accent mt-10 font-serif text-lg"
           dangerouslySetInnerHTML={{ __html: entry.html }}
         />
       </article>

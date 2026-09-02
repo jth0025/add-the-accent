@@ -110,7 +110,7 @@ export default function HomePage() {
                     </p>
                   )}
                   {entry.excerpt && (
-                    <p className="mt-2 text-center text-stone">{entry.excerpt}</p>
+                    <p className="mt-2 text-stone">{entry.excerpt}</p>
                   )}
                 </Link>
               </li>
@@ -149,7 +149,7 @@ export default function HomePage() {
                     </p>
                   )}
                   {entry.excerpt && (
-                    <p className="mt-2 text-center text-stone">{entry.excerpt}</p>
+                    <p className="mt-2 text-stone">{entry.excerpt}</p>
                   )}
                 </Link>
               </li>

@@ -94,9 +94,11 @@ export default function RootLayout({ children }) {
           <footer className="border-t-2 border-ink/55 py-10">
             <div className="mx-auto flex max-w-3xl items-center gap-3 px-6">
               <span className="h-2 w-2 shrink-0 rounded-full bg-accent" />
-              <p className="font-mono text-xs uppercase tracking-widest text-stone">
-                <span className="font-bold text-accent">Add the Accent</span>{" "}
-                — <span className="text-accent">The difference is you.</span>
+              <p className="font-mono text-xs uppercase tracking-widest text-ink">
+                <span className="font-bold">
+                  Add <span className="text-accent">the</span> Accent
+                </span>{" "}
+                — The difference is <span className="text-accent">you.</span>
               </p>
             </div>
           </footer>
