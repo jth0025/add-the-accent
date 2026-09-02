@@ -24,6 +24,7 @@ module.exports = {
         display: ["var(--font-archivo-black)", "Impact", "Arial Black", "sans-serif"],
         mono: ["var(--font-plex-mono)", "ui-monospace", "monospace"],
         logo: ["var(--font-poppins)", "system-ui", "sans-serif"],
+        script: ["var(--font-caveat)", "cursive"],
       },
       typography: () => ({
         accent: {

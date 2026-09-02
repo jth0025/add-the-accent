@@ -1,4 +1,4 @@
-import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins } from "next/font/google";
+import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Caveat } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
@@ -39,6 +39,15 @@ const poppins = Poppins({
   display: "swap",
 });
 
+// Handwritten script — a one-off accent for "Add the Accent" wherever it
+// needs to read as personally signed rather than typeset.
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-caveat",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Add the Accent",
   description:
@@ -49,7 +58,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable}`}
+      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${caveat.variable}`}
     >
       <body className="font-sans antialiased">
         <div className="flex min-h-screen flex-col">

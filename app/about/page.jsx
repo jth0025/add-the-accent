@@ -79,7 +79,11 @@ export default function AboutPage() {
           <span className="h-px flex-1 bg-accent/40" />
         </div>
         <h2 className="mt-3 font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
-          What &ldquo;Add the Accent&rdquo; Means
+          What &ldquo;
+          <span className="font-script normal-case tracking-normal">
+            Add the Accent
+          </span>
+          &rdquo; Means
         </h2>
         <p className="mt-5 max-w-xl text-stone">
           To add the accent is to bring your own particular touch and essence
