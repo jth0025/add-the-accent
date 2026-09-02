@@ -61,6 +61,9 @@ export default function RootLayout({ children }) {
                 <Link href="/journal" className="hover:text-accent">
                   Journal
                 </Link>
+                <Link href="/about" className="hover:text-accent">
+                  About
+                </Link>
               </div>
             </nav>
             {/* eslint-disable-next-line @next/next/no-img-element */}

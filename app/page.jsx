@@ -7,7 +7,33 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-6">
-      <section className="py-16">
+      <section className="corner-box mt-14 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
+          <span>Add the Accent</span>
+          <span className="h-px flex-1 bg-accent/40" />
+        </div>
+        <h1 className="mt-4 font-display text-3xl uppercase leading-tight tracking-tight text-ink sm:text-4xl">
+          Your perspective is the masterpiece.
+          <br />
+          Everything else is the medium.
+        </h1>
+        <p className="mt-6 max-w-xl text-stone">
+          Add the Accent is a multidisciplinary creative studio built on one
+          belief: every person, brand, and idea has something only it can
+          contribute. Through design, writing, photography, film, and
+          apparel, we bring that difference to the surface and give it form.
+        </p>
+        <p className="mt-5 font-serif text-lg italic text-ink">
+          It&rsquo;s about finding and leaving the mark only you can make.
+        </p>
+      </section>
+
+      <div className="mt-10 flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-stone/70">
+        <span>Currently</span>
+        <span className="h-px flex-1 bg-ink/10" />
+      </div>
+
+      <section className="py-6">
         <div
           className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
           style={{
