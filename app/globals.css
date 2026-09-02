@@ -58,7 +58,7 @@ body {
 }
 
 .marquee-track {
-  animation: marquee-scroll 48s linear infinite;
+  animation: marquee-scroll 90s linear infinite;
   will-change: transform;
 }
 

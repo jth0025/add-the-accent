@@ -46,17 +46,21 @@ export default function HeroCarousel({ children }) {
         style={heroHeight ? { height: heroHeight } : { minHeight: 260 }}
         aria-label="A scrolling selection of Add the Accent design work"
       >
-        <div className="marquee-track flex h-full w-max items-stretch gap-3 py-3 pl-3">
+        <div className="marquee-track flex h-full w-max items-stretch gap-4 py-4 pl-4">
           {strip.map((img, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <div
               key={`${img.src}-${i}`}
-              src={img.src}
-              alt={i < CAROUSEL_IMAGES.length ? img.alt : ""}
-              aria-hidden={i < CAROUSEL_IMAGES.length ? undefined : "true"}
-              className="h-full w-auto shrink-0 rounded-lg border border-ink/10 object-cover"
-              draggable={false}
-            />
+              className="flex h-full shrink-0 items-center justify-center rounded-md border border-ink/40 bg-[#efeee6] p-3 shadow-[0_6px_18px_rgba(0,0,0,0.18)]"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={img.src}
+                alt={i < CAROUSEL_IMAGES.length ? img.alt : ""}
+                aria-hidden={i < CAROUSEL_IMAGES.length ? undefined : "true"}
+                className="h-full w-auto max-w-none object-contain"
+                draggable={false}
+              />
+            </div>
           ))}
         </div>
       </div>
