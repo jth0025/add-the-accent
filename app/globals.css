@@ -155,3 +155,33 @@ body {
 .corner-box.on-dark::after {
   border-color: rgba(231, 222, 210, 0.6);
 }
+
+/* Header clouds — a handful of tiny flat white puffs drifting left to
+   right across the very top of the header, on every page. Each instance
+   gets its own width/duration/opacity plus a negative animation-delay
+   (set inline) so the set reads as independent clouds instead of one
+   shape repeating in lockstep. */
+@keyframes cloud-drift {
+  from {
+    transform: translateX(-15vw);
+  }
+  to {
+    transform: translateX(115vw);
+  }
+}
+
+.header-cloud {
+  position: absolute;
+  left: 0;
+  animation-name: cloud-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-cloud {
+    animation: none;
+    left: 8%;
+  }
+}

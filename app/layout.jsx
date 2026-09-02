@@ -56,6 +56,17 @@ export const metadata = {
     "Refining taste, identity, and creative living — essays, journals, and the Homebody series.",
 };
 
+// Small drifting header clouds — flat 2D puffs, sized well below the
+// logo (h-11 / 44px), staggered with negative animation-delay values so
+// they read as several independent clouds rather than one repeating copy.
+const HEADER_CLOUDS = [
+  { top: 3, width: 26, duration: 34, delay: -6, opacity: 0.95 },
+  { top: 11, width: 18, duration: 26, delay: -16, opacity: 0.7 },
+  { top: 1, width: 22, duration: 40, delay: -28, opacity: 0.85 },
+  { top: 8, width: 15, duration: 22, delay: -2, opacity: 0.6 },
+  { top: 5, width: 20, duration: 30, delay: -21, opacity: 0.8 },
+];
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -65,7 +76,31 @@ export default function RootLayout({ children }) {
       <body className="font-sans antialiased">
         <div className="flex min-h-screen flex-col">
           <header className="relative border-b-2 border-ink/55 bg-paper">
-            <nav className="mx-auto flex max-w-3xl items-end justify-between px-6 pt-4">
+            <div
+              className="pointer-events-none absolute inset-x-0 top-0 z-0 h-6 overflow-hidden"
+              aria-hidden="true"
+            >
+              {HEADER_CLOUDS.map((cloud, i) => (
+                <svg
+                  key={i}
+                  viewBox="0 0 64 40"
+                  className="header-cloud absolute"
+                  style={{
+                    top: cloud.top,
+                    width: cloud.width,
+                    opacity: cloud.opacity,
+                    animationDuration: `${cloud.duration}s`,
+                    animationDelay: `${cloud.delay}s`,
+                  }}
+                >
+                  <rect x="10" y="24" width="44" height="10" rx="5" fill="#fff" />
+                  <ellipse cx="20" cy="24" rx="14" ry="10" fill="#fff" />
+                  <ellipse cx="34" cy="18" rx="16" ry="13" fill="#fff" />
+                  <ellipse cx="48" cy="24" rx="12" ry="9" fill="#fff" />
+                </svg>
+              ))}
+            </div>
+            <nav className="relative z-10 mx-auto flex max-w-3xl items-end justify-between px-6 pt-4">
               <div className="flex items-end gap-3">
                 <Link href="/" className="flex items-end">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
