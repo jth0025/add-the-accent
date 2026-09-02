@@ -136,16 +136,17 @@ body {
   background-size: 200px 200px;
 }
 
-/* Black marble — solid black with faint, stretched white veining, used
-   for the carousel box. The anisotropic base frequencies (x vs y) pull
-   the turbulence into long streaks instead of an even speckle, and the
-   color matrix thresholds it so only the brightest noise reads as a
-   visible white vein against the black. */
+/* Black marble — JT's own black-and-gold marble photo, used for the
+   carousel box. Sized to exactly the box's width (background-size:
+   100% auto keeps the image's own aspect ratio at that width); if the
+   box runs taller than one tile, it repeats vertically rather than
+   stretching out of proportion. */
 .marble-dark {
   background-color: #0a0a0a;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='mb'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.05' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.9 0.9 0.9 0 -0.65'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23mb)'/%3E%3C/svg%3E");
-  background-size: 400px 400px;
-  background-repeat: repeat;
+  background-image: url("/textures/marble-bg.jpg");
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: repeat-y;
 }
 
 /* Corner-bracket color override for boxes sitting on a dark/black fill,
