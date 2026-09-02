@@ -7,25 +7,34 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-6">
-      <section className="corner-box mt-14 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
-        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
-          <span>Add the Accent</span>
-          <span className="h-px flex-1 bg-accent/40" />
+      <section className="corner-box relative mt-14 overflow-hidden rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/hero-bg.jpg"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.08]"
+        />
+        <div className="relative">
+          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
+            <span>The difference is you.</span>
+            <span className="h-px flex-1 bg-accent/40" />
+          </div>
+          <h1 className="mt-4 text-center font-display text-3xl uppercase leading-tight tracking-tight text-ink sm:text-4xl">
+            Your perspective is the masterpiece.
+            <br />
+            Everything else is the medium.
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-center text-stone">
+            Add the Accent is a multidisciplinary creative studio built on one
+            belief: every person, brand, and idea has something only it can
+            contribute. Through design, writing, photography, film, and
+            apparel, we bring that difference to the surface and give it form.
+          </p>
+          <p className="mt-5 text-center font-serif text-lg italic text-ink">
+            It&rsquo;s about finding and leaving the mark only you can make.
+          </p>
         </div>
-        <h1 className="mt-4 font-display text-3xl uppercase leading-tight tracking-tight text-ink sm:text-4xl">
-          Your perspective is the masterpiece.
-          <br />
-          Everything else is the medium.
-        </h1>
-        <p className="mx-auto mt-6 max-w-xl text-center text-stone">
-          Add the Accent is a multidisciplinary creative studio built on one
-          belief: every person, brand, and idea has something only it can
-          contribute. Through design, writing, photography, film, and
-          apparel, we bring that difference to the surface and give it form.
-        </p>
-        <p className="mt-5 text-center font-serif text-lg italic text-ink">
-          It&rsquo;s about finding and leaving the mark only you can make.
-        </p>
       </section>
 
       <div className="mt-10 flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-stone/70">
@@ -51,6 +60,9 @@ export default function HomePage() {
             <p className="mx-auto max-w-md text-center text-lg text-[#e7ded2]">
               This is where the writing lives — case studies from the Homebody
               series alongside the raw journal entries they grew out of.
+            </p>
+            <p className="mx-auto mt-3 max-w-md text-center font-serif text-base italic text-[#e7ded2]/80">
+              When the road is unclear, clean a room.
             </p>
           </div>
         </div>
