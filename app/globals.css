@@ -8,7 +8,18 @@ html {
 
 body {
   background-color: #96958d;
-  background-image: linear-gradient(180deg, #2c2b27 0%, #96958d 800px);
+  /* Holds the dark tone through the first stretch of the page, then eases
+     down to the paper grey over a much longer, multi-stop run (instead of
+     one flat linear ramp) so the fade reads as smooth rather than abrupt. */
+  background-image: linear-gradient(
+    180deg,
+    #2c2b27 0px,
+    #2c2b27 260px,
+    #464640 558px,
+    #66655f 915px,
+    #818079 1212px,
+    #96958d 1450px
+  );
   background-repeat: no-repeat;
   color: #1a1a1a;
 }
