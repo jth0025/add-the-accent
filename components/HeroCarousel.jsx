@@ -50,23 +50,13 @@ export default function HeroCarousel({ children }) {
         style={heroHeight ? { height: heroHeight } : { minHeight: 260 }}
         aria-label="A scrolling selection of Add the Accent design work"
       >
-        <div className="absolute left-2.5 top-2.5 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-[#f1f0ea]/90 shadow-sm">
-          <svg
-            viewBox="0 0 24 24"
-            className="h-4 w-4"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <g transform="rotate(45 12 12)">
-              <rect x="10" y="1" width="4" height="9" rx="1.5" fill="#1a1a1a" />
-              <rect x="9" y="9" width="6" height="2.5" fill="#1a1a1a" />
-              <path
-                d="M9 11.5 H15 L13.2 18.5 Q12 20.5 10.8 18.5 Z"
-                fill="#1a1a1a"
-              />
-            </g>
-          </svg>
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/icons/brush-icon.png"
+          alt=""
+          aria-hidden="true"
+          className="absolute left-3 top-3 z-10 w-10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]"
+        />
         <div className="marquee-track flex h-full w-max items-center gap-4 py-4 pl-4">
           {strip.map((img, i) => (
             <div
