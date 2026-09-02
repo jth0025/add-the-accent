@@ -8,17 +8,28 @@ export default function HomePage() {
   return (
     <div className="mx-auto max-w-3xl px-6">
       <section className="py-20">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-ink/[0.08] px-3 py-1 font-sans text-xs tracking-wide text-stone">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          Homebody series
-        </span>
-        <h1 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-          When the road is unclear, clean a room.
-        </h1>
-        <p className="mt-6 max-w-xl text-lg text-stone">
-          This is where the writing lives — case studies from the Homebody
-          series alongside the raw journal entries they grew out of.
-        </p>
+        <div className="overflow-hidden rounded-2xl border border-ink/20 bg-ink/[0.04] shadow-sm">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/homebody-feature.jpg"
+            alt="Homebody series"
+            className="h-72 w-full object-cover sm:h-96"
+            style={{ objectPosition: "50% 12%" }}
+          />
+          <div className="p-6 sm:p-10">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-ink/[0.08] px-3 py-1 font-sans text-xs tracking-wide text-stone">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              Homebody series
+            </span>
+            <h1 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">
+              When the road is unclear, clean a room.
+            </h1>
+            <p className="mt-6 max-w-xl text-lg text-stone">
+              This is where the writing lives — case studies from the Homebody
+              series alongside the raw journal entries they grew out of.
+            </p>
+          </div>
+        </div>
       </section>
 
       {portfolio.length > 0 && (
