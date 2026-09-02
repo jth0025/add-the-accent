@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAllEntries, formatDate } from "@/lib/content";
+import HeroCarousel from "@/components/HeroCarousel";
 
 export default function HomePage() {
   const portfolio = getAllEntries("portfolio").slice(0, 3);
@@ -7,7 +8,7 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-6">
-      <section className="corner-box relative mt-14 overflow-hidden rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+      <HeroCarousel>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/hero-bg.jpg"
@@ -30,7 +31,7 @@ export default function HomePage() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-center text-stone">
             <span className="block md:whitespace-nowrap">
-              <span className="font-black italic">Add the Accent</span> is a
+              <span className="font-bold italic">Add the Accent</span> is a
               multidisciplinary creative studio built on one belief:
             </span>
             <span
@@ -47,7 +48,7 @@ export default function HomePage() {
             It&rsquo;s about finding and leaving the mark only you can make.
           </p>
         </div>
-      </section>
+      </HeroCarousel>
 
       <div className="mt-10 flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-stone/70">
         <span>Currently</span>

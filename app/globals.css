@@ -44,3 +44,26 @@ body {
   border-bottom: 2px solid #1a1a1a;
   border-right: 2px solid #1a1a1a;
 }
+
+/* Homepage image carousel — an infinite horizontal scroll. The track
+   holds two copies of the image list back to back and animates exactly
+   half its own width so the loop is seamless. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-scroll 48s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
