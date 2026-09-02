@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
                     className="block h-11 w-auto"
                   />
                 </Link>
-                <span className="mb-2 hidden font-logo text-[11px] font-semibold lowercase leading-none tracking-wide text-ink sm:inline-flex">
+                <span className="mb-2 hidden font-logo text-[11px] font-semibold lowercase leading-none tracking-wide text-ink sm:ml-32 sm:inline-flex">
                   the difference is you.
                 </span>
               </div>
@@ -95,7 +95,7 @@ export default function RootLayout({ children }) {
             <div className="mx-auto flex max-w-3xl items-center gap-3 px-6">
               <span className="h-2 w-2 shrink-0 rounded-full bg-accent" />
               <p className="font-mono text-xs uppercase tracking-widest text-stone">
-                The difference is you.
+                Add the Accent — The difference is you.
               </p>
             </div>
           </footer>
