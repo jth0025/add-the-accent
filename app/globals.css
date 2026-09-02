@@ -7,6 +7,19 @@ html {
 }
 
 body {
-  background-color: #cbcfce;
-  color: #1b1c1e;
+  background-color: #989898;
+  color: #1a1a1a;
+}
+
+.grass-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -19px;
+  height: 20px;
+  background-image: url("/grass.svg");
+  background-repeat: repeat-x;
+  background-position: bottom left;
+  opacity: 0.85;
+  pointer-events: none;
 }

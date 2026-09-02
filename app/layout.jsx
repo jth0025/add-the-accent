@@ -25,13 +25,11 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body className="font-sans antialiased">
         <div className="flex min-h-screen flex-col">
-          <header className="border-b border-stone/20">
-            <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-6">
-              <Link
-                href="/"
-                className="font-serif text-lg tracking-tight text-ink"
-              >
-                Add the Accent
+          <header className="relative border-b-2 border-ink/55">
+            <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
+              <Link href="/" className="flex items-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo.png" alt="Add the Accent" className="h-11 w-auto" />
               </Link>
               <div className="flex gap-6 text-sm text-stone">
                 <Link href="/portfolio" className="hover:text-accent">
@@ -42,6 +40,7 @@ export default function RootLayout({ children }) {
                 </Link>
               </div>
             </nav>
+            <div className="grass-strip" />
           </header>
 
           <main className="flex-1">{children}</main>
