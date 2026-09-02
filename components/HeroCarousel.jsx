@@ -46,7 +46,7 @@ export default function HeroCarousel({ children }) {
   return (
     <>
       <div
-        className="paper-newspaper corner-box relative mt-14 overflow-hidden rounded-xl border border-ink/15 bg-card"
+        className="marble-dark corner-box on-dark relative mt-14 overflow-hidden rounded-xl border border-white/20"
         style={heroHeight ? { height: heroHeight } : { minHeight: 260 }}
         aria-label="A scrolling selection of Add the Accent design work"
       >
@@ -55,7 +55,8 @@ export default function HeroCarousel({ children }) {
           src="/icons/brush-icon.png"
           alt=""
           aria-hidden="true"
-          className="absolute left-3 top-3 z-10 w-10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]"
+          className="absolute left-3 top-3 z-10 w-10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
+          style={{ filter: "brightness(0) invert(1)" }}
         />
         <div className="marquee-track flex h-full w-max items-center gap-4 py-4 pl-4">
           {strip.map((img, i) => (
