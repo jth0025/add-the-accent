@@ -37,32 +37,16 @@ export default function RootLayout({ children }) {
       <body className="font-sans antialiased">
         <div className="flex min-h-screen flex-col">
           <header className="relative border-b-2 border-ink/55">
-            <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-              <Link href="/" className="relative flex items-center overflow-visible">
+            <nav className="mx-auto flex max-w-3xl items-end justify-between px-6 pt-4">
+              <Link href="/" className="flex items-end">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/logo.png"
                   alt="Add the Accent"
-                  className="logo-walk h-11 w-auto"
+                  className="block h-11 w-auto"
                 />
-                <svg
-                  className="leaf-accent leaf-1"
-                  style={{ left: "10px", width: "9px", height: "12px" }}
-                  viewBox="0 0 12 16"
-                  aria-hidden="true"
-                >
-                  <path d="M6 16 C6 9 2 6 4 0 C9 6 11 12 6 16 Z" fill="#1a1a1a" />
-                </svg>
-                <svg
-                  className="leaf-accent leaf-2"
-                  style={{ left: "26px", width: "7px", height: "9px" }}
-                  viewBox="0 0 12 16"
-                  aria-hidden="true"
-                >
-                  <path d="M6 16 C6 9 2 6 4 0 C9 6 11 12 6 16 Z" fill="#1a1a1a" />
-                </svg>
               </Link>
-              <div className="flex gap-6 text-sm text-stone">
+              <div className="flex gap-6 pb-1.5 text-sm text-stone">
                 <Link href="/portfolio" className="hover:text-accent">
                   Portfolio
                 </Link>
@@ -71,6 +55,13 @@ export default function RootLayout({ children }) {
                 </Link>
               </div>
             </nav>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/grass-side.png"
+              alt=""
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-0 right-4 h-9 w-auto sm:right-6 sm:h-11"
+            />
           </header>
 
           <main className="flex-1">{children}</main>
