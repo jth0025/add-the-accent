@@ -14,11 +14,12 @@ const LINKS = [
 ];
 
 export default function JournalNav({ className = "", tone = "dark" }) {
-  // White on the dark page, olive inside the light filtered-view card.
+  // White on the dark page, olive inside the light filtered-view card;
+  // both settle on the site accent on hover, like the header nav links.
   const linkClass =
     tone === "light"
-      ? "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55)] hover:text-white"
-      : "text-[#4a5714] hover:text-ink";
+      ? "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55)] hover:text-accent"
+      : "text-[#4a5714] hover:text-accent";
 
   const handleClick = (event, id) => {
     const target =

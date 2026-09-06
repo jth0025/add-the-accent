@@ -203,7 +203,10 @@ export default function RootLayout({ children }) {
                   the difference is you.
                 </span>
               </div>
-              <div className="-mr-3 flex gap-6 pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-stone sm:-mr-5">
+              {/* Desktop menu — on phones this is replaced by the full-width
+                  bar below the header (see MobileMenu) so nothing overlaps
+                  the logo or the grass. */}
+              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-stone sm:-mr-5 sm:flex sm:gap-6">
                 <Link href="/" className="hover:text-accent">
                   Home
                 </Link>
@@ -287,6 +290,27 @@ export default function RootLayout({ children }) {
               className="pointer-events-none absolute bottom-0 left-1/2 h-9 w-auto -translate-x-1/2 sm:h-11"
             />
           </header>
+
+          {/* Phone menu — its own full-width bar directly under the header,
+              on a dark ground with white type so it stays legible and clear
+              of the logo and grass. Hidden from tablets up. */}
+          <nav
+            aria-label="Primary"
+            className="flex flex-wrap justify-center gap-x-7 gap-y-1 border-b-2 border-ink/55 bg-ink px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-white sm:hidden"
+          >
+            <Link href="/" className="hover:text-accent">
+              Home
+            </Link>
+            <Link href="/portfolio" className="hover:text-accent">
+              Portfolio
+            </Link>
+            <Link href="/journal" className="hover:text-accent">
+              Journal
+            </Link>
+            <Link href="/about" className="hover:text-accent">
+              About
+            </Link>
+          </nav>
 
           <main className="flex-1">{children}</main>
 
