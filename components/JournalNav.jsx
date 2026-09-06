@@ -14,12 +14,11 @@ const LINKS = [
 ];
 
 export default function JournalNav({ className = "", tone = "dark" }) {
-  // Distressed type, real color underneath — white on the dark page,
-  // olive inside the light filtered-view card — and green on hover.
+  // White on the dark page, olive inside the light filtered-view card.
   const linkClass =
     tone === "light"
-      ? "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55)] hover:text-[#3aa856]"
-      : "text-[#4a5714] hover:text-[#2e8b3d]";
+      ? "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55)] hover:text-white"
+      : "text-[#4a5714] hover:text-ink";
 
   const handleClick = (event, id) => {
     const target =
@@ -42,7 +41,7 @@ export default function JournalNav({ className = "", tone = "dark" }) {
           key={link.id}
           href={`/journal#${link.id}`}
           onClick={(event) => handleClick(event, link.id)}
-          className={`grunge-text underline-offset-4 transition-colors hover:underline ${linkClass}`}
+          className={`underline-offset-4 transition-colors hover:underline ${linkClass}`}
         >
           {link.label}
         </a>

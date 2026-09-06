@@ -74,7 +74,7 @@ export default function JournalIndex({ searchParams }) {
   // behind them), so headings and blurbs read light. The section titles
   // pick up the same distressed type as the top submenu.
   const sectionHeadingClass =
-    "grunge-text font-display text-2xl uppercase tracking-tight text-white transition-colors hover:text-[#3aa856] sm:text-3xl [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]";
+    "grunge-text font-display text-2xl uppercase tracking-tight text-white sm:text-3xl [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]";
   const sectionBlurbClass = "mt-2 max-w-xl text-sm text-white/70";
 
   // Per-series label color; green on hover.
@@ -94,7 +94,7 @@ export default function JournalIndex({ searchParams }) {
           {seriesGroups.map((group) => (
             <div key={group.name}>
               <h3
-                className={`font-serif text-xl italic transition-colors hover:text-[#3aa856] [text-shadow:0_1px_3px_rgba(0,0,0,0.55)] ${
+                className={`font-serif text-xl italic [text-shadow:0_1px_3px_rgba(0,0,0,0.55)] ${
                   SERIES_LABEL_COLOR[group.name] || "text-white"
                 }`}
               >

@@ -49,7 +49,13 @@ export default function EntryList({ section, heading, intro, entries }) {
               >
                 {isJournal && <PaperClip />}
                 {isJournal && <EntryBadge entry={entry} className="block" />}
-                <h2 className="flex items-center gap-2 font-serif text-2xl text-ink group-hover:text-accent">
+                <h2
+                  className={`flex items-center gap-2 font-serif text-2xl text-ink transition-colors ${
+                    isJournal
+                      ? "group-hover:text-[#2e8b3d]"
+                      : "group-hover:text-accent"
+                  }`}
+                >
                   {isJournal && (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img

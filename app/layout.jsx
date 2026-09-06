@@ -85,8 +85,7 @@ const HEADER_CLOUDS = [
 
 // Journal dropdown contents — the two ordered series plus the
 // "Interludes" pool of standalone reflections that surface inside both.
-// Each series carries its own label color (purple / red); all of them
-// go green on hover.
+// Each series carries its own label color (purple / red).
 const JOURNAL_SERIES = [
   {
     name: "Domain Expansion",
@@ -230,10 +229,10 @@ export default function RootLayout({ children }) {
                         <Link
                           key={s.name}
                           href={s.href}
-                          className="group/item block rounded-md py-2 pl-[22px] pr-3 hover:bg-accent/10"
+                          className="block rounded-md py-2 pl-[22px] pr-3 hover:bg-accent/10"
                         >
                           <span
-                            className={`block font-serif text-[13px] font-bold transition-colors group-hover/item:text-[#2e8b3d] ${s.nameClass}`}
+                            className={`block font-serif text-[13px] font-bold ${s.nameClass}`}
                           >
                             {s.name}
                           </span>
@@ -247,9 +246,9 @@ export default function RootLayout({ children }) {
 
                       <Link
                         href="/journal?category=Interludes"
-                        className="group/item block rounded-md px-3 py-2 hover:bg-accent/10"
+                        className="block rounded-md px-3 py-2 hover:bg-accent/10"
                       >
-                        <span className="block font-serif text-sm font-bold transition-colors group-hover/item:text-[#2e8b3d]">
+                        <span className="block font-serif text-sm font-bold">
                           Interludes
                         </span>
                         <span className="block max-w-[210px] whitespace-normal font-sans text-[10.5px] italic normal-case leading-snug tracking-wide text-stone">
@@ -262,9 +261,9 @@ export default function RootLayout({ children }) {
 
                       <Link
                         href="/journal"
-                        className="group/item block rounded-md px-3 py-2 hover:bg-accent/10"
+                        className="block rounded-md px-3 py-2 hover:bg-accent/10"
                       >
-                        <span className="block font-serif text-sm font-bold transition-colors group-hover/item:text-[#2e8b3d]">
+                        <span className="block font-serif text-sm font-bold">
                           All Entries
                         </span>
                         <span className="block font-sans text-[10.5px] italic normal-case tracking-wide text-stone">

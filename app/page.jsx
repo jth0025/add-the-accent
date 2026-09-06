@@ -285,7 +285,7 @@ export default function HomePage() {
                 >
                   <PaperClip />
                   <EntryBadge entry={entry} className="block" />
-                  <h3 className="flex items-center gap-2 font-serif text-xl text-ink group-hover:text-accent">
+                  <h3 className="flex items-center gap-2 font-serif text-xl text-ink transition-colors group-hover:text-[#2e8b3d]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/icons/pencil-icon.png"
