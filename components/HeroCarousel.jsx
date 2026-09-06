@@ -62,16 +62,21 @@ export default function HeroCarousel({ children }) {
   }, [lightbox]);
 
   const strip = [...CAROUSEL_IMAGES, ...CAROUSEL_IMAGES];
-  // Each framed image is sized down from the full carousel height so the
-  // whole strip is visible at a glance, rather than one giant photo at a
-  // time — the image itself still fills its own frame edge to edge.
-  const frameHeight = heroHeight ? Math.round(heroHeight * 0.78) : 220;
+  // The carousel box is a fraction of the hero copy's height — smaller
+  // than the text block beside it, but never below a sensible floor.
+  const carouselHeight = heroHeight
+    ? Math.max(200, Math.round(heroHeight * 0.7))
+    : 220;
+  // Each framed image is sized down from the box height so the whole
+  // strip is visible at a glance, rather than one giant photo at a time
+  // — the image itself still fills its own frame edge to edge.
+  const frameHeight = Math.round(carouselHeight * 0.8);
 
   return (
     <>
       <div
         className="marble-dark corner-box on-dark relative mt-14 overflow-hidden rounded-xl border border-white/20"
-        style={heroHeight ? { height: heroHeight } : { minHeight: 260 }}
+        style={{ height: carouselHeight }}
         aria-label="A scrolling selection of Add the Accent design work"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
