@@ -63,7 +63,7 @@ export default function HomePage() {
 
       <HeroCarousel>
         <div className="relative">
-          <div className="text-center font-mono text-xs uppercase tracking-widest text-[#2e8b3d]">
+          <div className="text-center font-mono text-xs uppercase tracking-widest text-[#2e8b3d] [text-shadow:0_1px_2px_rgba(0,0,0,0.75),0_0_10px_rgba(255,255,255,0.25)]">
             <span className="italic">The difference is you!</span>
           </div>
           <h1 className="mt-4 text-center normal-case leading-none tracking-tighter text-white">
@@ -82,7 +82,7 @@ export default function HomePage() {
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-center italic leading-snug text-white">
             <span className="block md:whitespace-nowrap">
-              <span className="font-playfair font-bold text-lg text-[#8f6414]">Add the Accent</span> is a
+              <span className="font-playfair font-bold text-lg text-black">Add the Accent</span> is a
               multidisciplinary creative studio built on one belief:
             </span>
             <span
