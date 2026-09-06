@@ -207,3 +207,10 @@ body {
     left: 8%;
   }
 }
+
+/* Distressed / grunge type — roughens letter edges and chips small holes
+   out of the fill via the SVG filter defined once in app/layout.jsx.
+   The element keeps its real color, so hover/color changes still work. */
+.grunge-text {
+  filter: url("#grunge-text");
+}

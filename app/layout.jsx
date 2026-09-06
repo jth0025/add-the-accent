@@ -85,9 +85,21 @@ const HEADER_CLOUDS = [
 
 // Journal dropdown contents — the two ordered series plus the
 // "Interludes" pool of standalone reflections that surface inside both.
+// Each series carries its own label color (purple / red); all of them
+// go green on hover.
 const JOURNAL_SERIES = [
-  { name: "Domain Expansion", sub: "Day One → Day Two", href: "/journal?series=Domain%20Expansion" },
-  { name: "Back to Oui", sub: "The Question", href: "/journal?series=Back%20to%20Oui" },
+  {
+    name: "Domain Expansion",
+    sub: "Day One → Day Two",
+    href: "/journal?series=Domain%20Expansion",
+    nameClass: "text-[#7e22ce]",
+  },
+  {
+    name: "Back to Oui",
+    sub: "The Question",
+    href: "/journal?series=Back%20to%20Oui",
+    nameClass: "text-[#c0202a]",
+  },
 ];
 
 export default function RootLayout({ children }) {
@@ -97,6 +109,61 @@ export default function RootLayout({ children }) {
       className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable} ${playfairDisplay.variable}`}
     >
       <body className="font-sans antialiased">
+        {/* Grunge/distressed-type filter — referenced by `.grunge-text`
+            (see app/globals.css). Edge displacement plus a sparse
+            turbulence mask that chips small holes out of the fill. */}
+        <svg
+          className="pointer-events-none absolute h-0 w-0"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <defs>
+            <filter
+              id="grunge-text"
+              x="-20%"
+              y="-20%"
+              width="140%"
+              height="140%"
+            >
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.72"
+                numOctaves="2"
+                seed="4"
+                result="edge"
+              />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="edge"
+                scale="1.7"
+                xChannelSelector="R"
+                yChannelSelector="G"
+                result="rough"
+              />
+              <feTurbulence
+                type="turbulence"
+                baseFrequency="0.35"
+                numOctaves="2"
+                seed="11"
+                result="specks"
+              />
+              <feColorMatrix
+                in="specks"
+                type="matrix"
+                values="0 0 0 0 0
+                        0 0 0 0 0
+                        0 0 0 0 0
+                        0 0 0 3.2 -1.9"
+                result="holes"
+              />
+              <feComposite
+                in="rough"
+                in2="holes"
+                operator="out"
+              />
+            </filter>
+          </defs>
+        </svg>
         <div className="flex min-h-screen flex-col">
           <header className="relative border-b-2 border-ink/55 bg-[linear-gradient(180deg,#eaf7fd_0%,#d3edf9_40%,#b7e0f3_75%,#9ed3ec_100%)]">
             <div
@@ -150,53 +217,61 @@ export default function RootLayout({ children }) {
                   <Link href="/journal" className="hover:text-accent">
                     Journal <span aria-hidden="true">▾</span>
                   </Link>
-                  <div className="invisible absolute left-1/2 top-full z-20 mt-4 w-60 -translate-x-1/2 rounded-lg border border-ink/15 bg-white p-2 text-left normal-case tracking-normal text-ink opacity-0 shadow-xl transition-opacity duration-150 group-hover:visible group-hover:opacity-100">
-                    <div className="px-3 pb-1 pt-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
-                      Series
-                    </div>
-                    {JOURNAL_SERIES.map((s) => (
+                  {/* Wrapper is absolutely positioned flush to the trigger
+                      (top-full) and its pt-4 bridges the visual gap so the
+                      pointer never crosses dead space on the way to the
+                      items — they stay hoverable and clickable. */}
+                  <div className="invisible absolute left-1/2 top-full z-20 w-60 -translate-x-1/2 pt-4 opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100">
+                    <div className="rounded-lg border border-ink/15 bg-white p-2 text-left normal-case tracking-normal text-ink shadow-xl">
+                      <div className="px-3 pb-1 pt-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+                        Series
+                      </div>
+                      {JOURNAL_SERIES.map((s) => (
+                        <Link
+                          key={s.name}
+                          href={s.href}
+                          className="group/item block rounded-md py-2 pl-[22px] pr-3 hover:bg-accent/10"
+                        >
+                          <span
+                            className={`block font-serif text-[13px] font-bold transition-colors group-hover/item:text-[#2e8b3d] ${s.nameClass}`}
+                          >
+                            {s.name}
+                          </span>
+                          <span className="block font-sans text-[10.5px] italic normal-case tracking-wide text-stone">
+                            {s.sub}
+                          </span>
+                        </Link>
+                      ))}
+
+                      <hr className="my-1.5 border-ink/10" />
+
                       <Link
-                        key={s.name}
-                        href={s.href}
-                        className="block rounded-md py-2 pl-[22px] pr-3 hover:bg-accent/10"
+                        href="/journal?category=Interludes"
+                        className="group/item block rounded-md px-3 py-2 hover:bg-accent/10"
                       >
-                        <span className="block font-serif text-[13px] font-bold">
-                          {s.name}
+                        <span className="block font-serif text-sm font-bold transition-colors group-hover/item:text-[#2e8b3d]">
+                          Interludes
                         </span>
-                        <span className="block font-sans text-[10.5px] italic normal-case tracking-wide text-stone">
-                          {s.sub}
+                        <span className="block max-w-[210px] whitespace-normal font-sans text-[10.5px] italic normal-case leading-snug tracking-wide text-stone">
+                          Short reflections and sparks that surface inside the
+                          series above — not a story of their own.
                         </span>
                       </Link>
-                    ))}
 
-                    <hr className="my-1.5 border-ink/10" />
+                      <hr className="my-1.5 border-ink/10" />
 
-                    <Link
-                      href="/journal?category=Interludes"
-                      className="block rounded-md px-3 py-2 hover:bg-accent/10"
-                    >
-                      <span className="block font-serif text-sm font-bold">
-                        Interludes
-                      </span>
-                      <span className="block max-w-[210px] whitespace-normal font-sans text-[10.5px] italic normal-case leading-snug tracking-wide text-stone">
-                        Short reflections and sparks that surface inside the
-                        series above — not a story of their own.
-                      </span>
-                    </Link>
-
-                    <hr className="my-1.5 border-ink/10" />
-
-                    <Link
-                      href="/journal"
-                      className="block rounded-md px-3 py-2 hover:bg-accent/10"
-                    >
-                      <span className="block font-serif text-sm font-bold">
-                        All Entries
-                      </span>
-                      <span className="block font-sans text-[10.5px] italic normal-case tracking-wide text-stone">
-                        Everything, newest first
-                      </span>
-                    </Link>
+                      <Link
+                        href="/journal"
+                        className="group/item block rounded-md px-3 py-2 hover:bg-accent/10"
+                      >
+                        <span className="block font-serif text-sm font-bold transition-colors group-hover/item:text-[#2e8b3d]">
+                          All Entries
+                        </span>
+                        <span className="block font-sans text-[10.5px] italic normal-case tracking-wide text-stone">
+                          Everything, newest first
+                        </span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
 

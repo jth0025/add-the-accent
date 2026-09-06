@@ -71,22 +71,33 @@ export default function JournalIndex({ searchParams }) {
   const interludes = allEntries.filter((e) => e.category === "Interludes");
 
   // The sections now sit straight on the page's dark ground (no card
-  // behind them), so headings and blurbs read light.
+  // behind them), so headings and blurbs read light. The section titles
+  // pick up the same distressed type as the top submenu.
   const sectionHeadingClass =
-    "font-display text-2xl uppercase tracking-tight text-white sm:text-3xl [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]";
+    "grunge-text font-display text-2xl uppercase tracking-tight text-white transition-colors hover:text-[#3aa856] sm:text-3xl [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]";
   const sectionBlurbClass = "mt-2 max-w-xl text-sm text-white/70";
+
+  // Per-series label color; green on hover.
+  const SERIES_LABEL_COLOR = {
+    "Domain Expansion": "text-[#a855f7]",
+    "Back to Oui": "text-[#e0555f]",
+  };
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="sr-only">Journal</h1>
-      <JournalNav tone="light" />
+      <JournalNav tone="light" className="justify-center" />
 
       <section id="series" className="mt-12 scroll-mt-24">
         <h2 className={sectionHeadingClass}>Series</h2>
         <div className="mt-8 space-y-12">
           {seriesGroups.map((group) => (
             <div key={group.name}>
-              <h3 className="font-serif text-xl italic text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]">
+              <h3
+                className={`font-serif text-xl italic transition-colors hover:text-[#3aa856] [text-shadow:0_1px_3px_rgba(0,0,0,0.55)] ${
+                  SERIES_LABEL_COLOR[group.name] || "text-white"
+                }`}
+              >
                 {group.name}
               </h3>
               {group.intro && (
