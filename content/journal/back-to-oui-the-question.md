@@ -1,6 +1,6 @@
 ---
 title: "Back to Oui: The Question"
-date: "2026-09-03"
+date: "2026-09-04"
 excerpt: "The first writing in the Back to Oui series — an 8-year-old is asked to choose, and the road to yes begins."
 draft: false
 series: "Back to Oui"
@@ -8,42 +8,36 @@ part: 1
 cover: "/back-to-oui-cover.jpg"
 ---
 
-8 year olds are increasingly becoming much more aware of how the world works socially, emotionally, and logically. They're on the move. They can follow more complex rules, understand cause and effect more deeply, make greater comparisons, think beyond the immediate present moment. They have a sound sense of...fairness.
+Eight-year-olds are learning, fast, how the world actually works — socially, emotionally, logically. They're on the move. They can follow more complicated rules, understand cause and effect, hold two ideas against each other and feel the difference. They have a sound sense of fairness, even before they have the words for it.
 
-The first trauma I can remember, was at 8 years old. It wasn't fair. I immediately only remember purple. There was nothing glorious or royal about this hue. Purple hadn't been necessarily introduced to me as a significant...sensation at that age. I knew it was around like some random toy amongst a mountain of legos hoarding in a boys room, but this was literally a spiritual foreshadowing darkening the halls of our home, and now the living room.
+The first trauma I can remember happened when I was eight. It wasn't fair. What I remember first isn't a sentence or a face — it's a color. Purple. Not the glorious kind, not royal, not anything I'd been taught to reach for. I knew purple the way a kid knows any color: background noise, one more hue in a pile of toys on the floor. But that night it wasn't background. It was a foreshadowing, dark enough to fill the hallway and then the living room.
 
-Alas, a gold stroke exploded from the doorway. My dad appeared from the entry seemingly returning from some chore outside. Relief and comfort possessed me instantly, but the purple remained.
+Then a gold stroke broke through the doorway. My dad, back from some chore outside. Relief found me instantly. The purple didn't leave — it just made room for him.
 
-I don't pretend to remember every word in our dialogue, but then it happened.
+I don't remember every word we said to each other. But I remember what came next.
 
-He kneeled towards me and asked, "Do you wanna come with me or stay with your momma?"
+He kneeled down to my level and asked, "Do you wanna come with me, or stay with your momma?"
 
-He had never asked me this question before. I would almost bet that he knew what my answer would be. This was my hero. He had to have known that. I loved my momma. I loved sister; my family. We would never part. An agreement that could never unravel. But my dad was my blueprint. I knew that even at that age. He was me. I knew that.
+He had never asked me anything like that before. And I'd bet he already knew what I'd say — he was my hero, and heroes know that about the people who love them. I loved my momma. I loved my sister. I loved my family, and I believed, the way only a kid can believe something, that we were a promise that could never come apart. But my dad was my blueprint. Even at eight, I knew that. He was me, in the way a boy that age still believes his father is him.
 
-"I'm comin with you!" I returned with an adolescent eye roll as if it were an obnoxious question.
+"I'm comin' with you," I said, rolling my eyes like it was an obnoxious question to even ask.
 
 "You sure?"
 
-That was the moment I noticed, he was purple.
+That was the moment I noticed — he was purple too. Not the purple. But close enough to it, folded into whatever new arrangement was being built for me to swallow.
 
-Not THE purple, but he was apart of this new capitulation formed to be digestible for me.
+I froze. I'm not even sure I said anything back. I'd like to believe I at least nodded.
 
-I froze for a moment.
+He stood, and I followed him to the door. The gold came back as it opened. It was cold outside.
 
-I'm not even sure I answered him but I'd like to believe I at least nodded.
+One of the cars was already packed. I didn't say a word, but I knew, even then, what was happening. I never asked where my momma was. Where my sister was. Instead I told myself a story I needed to believe: I'm going with my hero, and he'll protect me, he'll take care of me, I'll see them again soon — maybe even for dinner. I was as naïve as an eight-year-old is supposed to be. Of course I was.
 
-He rose and I followed him to the door. The gold reappeared as the door reopened.
+I was only eight. It wasn't fair.
 
-It was cold.
+I looked down and found a small suitcase already in my hand. We walked to the car.
 
-One of our cars was filled. I didn't make a sound but I knew what was happening even at that age. I never uttered, "Where's Momma? Where's Brandi?" I told myself, "I'm going with my Hero. And he will protect me. He would take care of me. I will see them again soon. Maybe for dinner." How naïve I was, but of course I was.
+Somewhere, the saddest symphony I'd ever heard started playing. I never found out where the music was coming from. Music had always been part of my life, but this was the saddest it had ever sounded.
 
-I was only 8. It was unfair.
+We were leaving. We weren't coming back.
 
-I looked down slowly to discover a small suitcase attached to my grip. We progressed to the car.
-
-The saddest symphony began to play. I never asked where the music was coming from. Music was always apart of my life and this was the saddest trauma of my life.
-
-We were leaving, never to return.
-
-There was a disagreement.
+There had been a disagreement.
