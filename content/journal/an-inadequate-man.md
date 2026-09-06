@@ -1,11 +1,23 @@
 ---
 title: "An Inadequate Man"
-date: "2026-08-22"
-excerpt: "A late-night reckoning with what it means to build instead of admire."
+date: "2026-08-26"
+excerpt: "A late-night reckoning with what it means to build instead of admire — carrying the warmest morning as its anchor."
 draft: false
 category: "Interludes"
 ---
 
-"Now let's be real"…always my saving clutch to reality. Always have a way out of the bullshit by the way. A safety word if you will.
+Now let's be real…that's always my way out. My saving clutch back to the truth. A safety word, if you need one.
 
-Not literal but subliminal. Let's be real about where we are. The empty room is NOT the same as a clean room. A clean room is what you see on an influencer page. You see the color pallet; the aesthetic; the bold and the beautiful ideas; the boring and the bewildered ones as well. You may not see you, but you see a clean clear…vision. No…the empty room is a seasonal period of reboot. Neo to the Source. The morning comes. The sun sets. The night is present and peaceful. This has always been the timespace where I've been the most, efficient. An inefficient man does not feel…beautiful if you will. However, if I were to describe one, I would refer to my outside…bewildered neighbors. Rugged, jagged, free. Picasso, smudged, colossus. Giants that roam. Still beautiful if I were to depict. I can find God everywhere; see Him everywhere. But the sensation; the sensation feels terrible. At least to me. To others probably far more liberating. But as for me, I feel and hear the endless call of Purpose and intention. It sounds faintly like the Warmest Morning; My comforting friend. That Liberation lies dormant in the bows of my creations. I must create, for it waits. Create this life; fulfill this purpose. That's the sole distinction. So to the room we go. We must clean. We must start anew. We must become…giant and free. We can not remain an inadequate man.
+Not literal. Subliminal. Let's be real about where we actually are. The empty room is not the same as a clean room. A clean room is what you scroll past on someone else's page…the color palette, the aesthetic, the bold ideas and the timid ones, laid out for you to admire. You may never see them in it. Just the vision. Clean. Clear. Curated.
+
+No. The empty room is something else. A seasonal reboot. Neo to the Source. The morning comes…the sun sets…the night arrives and stays peaceful. This has always been my timespace. Where I am, somehow, most efficient.
+
+An inefficient man does not feel…beautiful. If I had to describe one, I'd point outside, to my bewildered neighbors. Rugged. Jagged. Free. Picasso, smudged into colossus. Giants who roam the block like they own the light. Still beautiful, if you ask me.
+
+I can find God everywhere. See Him everywhere. But the sensation…it feels terrible. At least to me. Liberating, probably, to everyone else. Still, I hear it — the endless call of purpose, of intention. It sounds faintly like the warmest morning. My comforting friend.
+
+That liberation lies dormant, somewhere in the bows of everything I haven't made yet. I must create. It's waiting on me. Create this life. Fulfill this purpose. That's the only real distinction there is.
+
+So to the room we go. We clean. We start again. We become giant, and we become free.
+
+We cannot stay an inadequate man.
