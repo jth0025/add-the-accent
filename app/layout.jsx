@@ -137,7 +137,7 @@ export default function RootLayout({ children }) {
                   the difference is you.
                 </span>
               </div>
-              <div className="flex gap-6 pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-stone">
+              <div className="-mr-3 flex gap-6 pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-stone sm:-mr-5">
                 <Link href="/" className="hover:text-accent">
                   Home
                 </Link>
