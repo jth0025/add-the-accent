@@ -138,6 +138,10 @@ export default function RootLayout({ children }) {
                 </span>
               </div>
               <div className="flex gap-6 pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-stone">
+                <Link href="/" className="hover:text-accent">
+                  Home
+                </Link>
+
                 <Link href="/portfolio" className="hover:text-accent">
                   Portfolio
                 </Link>
