@@ -81,8 +81,7 @@ body {
 
 /* Paper texture overlays — a subtle secondary layer behind each box's
    own background, so cards read like they're printed/written on
-   something rather than sitting on a flat fill. Three moods (newsprint
-   halftone, aged journal grain, ruled notebook lines), each with a
+   something rather than sitting on a flat fill. Each mood, plus a
    "-dark" variant tuned for the brown gradient cards. All are low-alpha
    so the box's own color still dominates. */
 .paper-notebook {
@@ -147,6 +146,18 @@ body {
   background-size: 200px 200px;
 }
 
+/* Crinkled journal paper — a genuine crumpled-paper photo texture (not a
+   flat pattern), used specifically for Journal boxes: the /journal
+   section box, every entry card, and the full article pages. Needs
+   public/textures/crinkled-paper.jpg (included alongside this file) —
+   a seamlessly-tileable, lightly-shaded paper-fold texture tinted to
+   match --card so it still reads as "the box", just with texture. */
+.paper-crinkled {
+  background-image: url("/textures/crinkled-paper.jpg");
+  background-size: 260px 260px;
+  background-repeat: repeat;
+}
+
 /* Black marble — JT's own black-and-gold marble photo, used for the
    carousel box. Sized to exactly the box's width (background-size:
    100% auto keeps the image's own aspect ratio at that width); if the
@@ -167,11 +178,11 @@ body {
   border-color: rgba(231, 222, 210, 0.6);
 }
 
-/* Header clouds — a handful of tiny flat white puffs drifting left to
-   right across the very top of the header, on every page. Each instance
-   gets its own width/duration/opacity plus a negative animation-delay
-   (set inline) so the set reads as independent clouds instead of one
-   shape repeating in lockstep. */
+/* Header clouds — a handful of tiny flat puffs (mostly black, a couple
+   grey) drifting left to right across the very top of the header, on
+   every page. Each instance gets its own width/duration/opacity/color
+   plus a negative animation-delay (set inline) so the set reads as
+   independent clouds instead of one shape repeating in lockstep. */
 @keyframes cloud-drift {
   from {
     transform: translateX(115vw);

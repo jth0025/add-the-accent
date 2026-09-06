@@ -3,6 +3,7 @@ title: "An Inadequate Man (Warmest Morning Version)"
 date: "2026-08-26"
 excerpt: "The reckoning, revised — now carrying the warmest morning as its anchor."
 draft: false
+category: "Interludes"
 ---
 
 Now let's be real…that's always my way out. My saving clutch back to the truth. A safety word, if you need one.

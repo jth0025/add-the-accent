@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/content";
+import EntryBadge from "@/components/EntryBadge";
+import PaperClip from "@/components/PaperClip";
 
 export default function EntryList({ section, heading, intro, entries }) {
   const isJournal = section === "journal";
   const tagTextClass = isJournal ? "text-moss" : "text-accent";
   const tagRuleClass = isJournal ? "bg-moss/40" : "bg-accent/40";
-  const paperClass = isJournal ? "paper-journal" : "paper-newspaper";
+  // Journal boxes read as crinkled paper; everything else keeps its own mood.
+  const paperClass = isJournal ? "paper-crinkled" : "paper-newspaper";
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
@@ -40,6 +43,8 @@ export default function EntryList({ section, heading, intro, entries }) {
                 href={`/${section}/${entry.slug}`}
                 className={`${paperClass} corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9`}
               >
+                {isJournal && <PaperClip />}
+                {isJournal && <EntryBadge entry={entry} className="block" />}
                 <h2 className="flex items-center gap-2 font-serif text-2xl text-ink group-hover:text-accent">
                   {isJournal && (
                     /* eslint-disable-next-line @next/next/no-img-element */

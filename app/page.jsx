@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getAllEntries, formatDate } from "@/lib/content";
 import HeroCarousel from "@/components/HeroCarousel";
+import EntryBadge from "@/components/EntryBadge";
+import PaperClip from "@/components/PaperClip";
 
 export default function HomePage() {
   const portfolio = getAllEntries("portfolio").slice(0, 3);
@@ -9,33 +11,31 @@ export default function HomePage() {
   return (
     <div className="mx-auto max-w-3xl px-6">
       <HeroCarousel>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/hero-bg.jpg"
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.2]"
-        />
         <div className="relative">
-          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
-            <span>The difference is you.</span>
-            <span className="h-px flex-1 bg-accent/40" />
+          <div className="text-center font-mono text-xs uppercase tracking-widest text-accent">
+            <span className="italic">The difference is you!</span>
           </div>
-          <h1 className="mt-4 text-center font-display uppercase tracking-tight text-ink">
-            <span className="block text-lg font-bold sm:text-xl">
-              Your perspective is the masterpiece.
+          <h1 className="mt-4 text-center normal-case leading-none tracking-tighter text-white">
+            <span className="block font-playfair text-4xl font-bold not-italic sm:text-5xl md:text-6xl lg:text-[64px]">
+              Your perspective is
             </span>
-            <span className="mt-2 block text-lg font-bold sm:text-xl">
-              Everything else is the medium.
+            <span className="block font-playfair text-4xl font-bold not-italic sm:text-5xl md:text-6xl lg:text-[64px]">
+              the masterpiece.
+            </span>
+            <span className="mt-2 block font-playfair text-4xl font-bold not-italic sm:text-5xl md:text-6xl lg:text-[64px]">
+              Everything else
+            </span>
+            <span className="block font-playfair text-4xl font-bold not-italic sm:text-5xl md:text-6xl lg:text-[64px]">
+              is the medium.
             </span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-center text-stone">
+          <p className="mx-auto mt-6 max-w-xl text-center italic leading-snug text-white">
             <span className="block md:whitespace-nowrap">
-              <span className="font-display italic">Add the Accent</span> is a
+              <span className="font-playfair font-bold text-lg">Add the Accent</span> is a
               multidisciplinary creative studio built on one belief:
             </span>
             <span
-              className="mt-2 block font-bold"
+              className="mx-6 mt-2 block font-bold sm:mx-10"
               style={{ textWrap: "balance" }}
             >
               every person, brand, and idea has something only it can
@@ -44,45 +44,133 @@ export default function HomePage() {
               form.
             </span>
           </p>
-          <p className="mt-5 text-center font-serif text-lg italic text-ink">
-            It&rsquo;s about finding and leaving the mark only you can make.
+          <p className="mt-5 text-center font-serif text-lg italic text-white">
+            &ldquo;It&rsquo;s about finding and leaving the mark only you can make.&rdquo;
           </p>
         </div>
       </HeroCarousel>
 
-      <div className="mt-10 flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-stone/70">
-        <span>Currently</span>
-        <span className="h-px flex-1 bg-ink/10" />
+      <div className="mt-10 flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
+        <span className="text-white [text-shadow:0_1px_2px_rgba(0,0,0,.35)]">
+          Features
+        </span>
+        <span className="h-px flex-1 bg-white/35" />
       </div>
 
       <section className="py-6">
         <div
-          className="paper-journal-dark corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
+          className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
           style={{
-            background:
-              "linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
+            backgroundImage:
+              "repeating-linear-gradient(to bottom, rgba(231,222,210,.08) 0, rgba(231,222,210,.08) 1px, transparent 1px, transparent 27px), linear-gradient(to right, transparent 0, transparent 34px, rgba(224,168,96,.4) 34px, rgba(224,168,96,.4) 35px, transparent 35px), linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
+            backgroundRepeat: "repeat, no-repeat, no-repeat",
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/homebody-feature.jpg"
-            alt="Homebody series"
-            className="w-full object-contain"
-          />
-          <div className="px-8 py-8 sm:px-10">
-            <p className="mx-auto max-w-md text-center text-lg text-[#e7ded2]">
-              This is where the writing lives — case studies from the Homebody
-              series alongside the raw journal entries they grew out of.
+          <Link
+            href="/portfolio"
+            className="group relative block overflow-hidden"
+            aria-label="View the Homebody case studies"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/homebody-feature.jpg"
+              alt="Homebody series"
+              className="w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+            <span className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-black/70 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#e7ded2] opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
+              View the case studies &rarr;
+            </span>
+          </Link>
+          <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+            <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
+              <span className="font-bold italic">Homebody</span> is a
+              visual storytelling series exploring masculinity, identity,
+              vulnerability, and the quiet pressures of becoming. Presented
+              as a creative case study, the project examines how concept,
+              art direction, design, and narrative can work together to
+              turn personal experience into a cohesive cultural story; a
+              journey to healing.
             </p>
-            <p className="mx-auto mt-3 max-w-md text-center font-serif text-base italic text-[#e7ded2]/80">
-              When the road is unclear, clean a room.
+          </div>
+        </div>
+      </section>
+
+      <section className="py-6">
+        <div
+          className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(to bottom, rgba(231,222,210,.08) 0, rgba(231,222,210,.08) 1px, transparent 1px, transparent 27px), linear-gradient(to right, transparent 0, transparent 34px, rgba(224,168,96,.4) 34px, rgba(224,168,96,.4) 35px, transparent 35px), linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
+            backgroundRepeat: "repeat, no-repeat, no-repeat",
+          }}
+        >
+          <Link
+            href="/journal?series=Domain%20Expansion"
+            className="group relative block overflow-hidden"
+            aria-label="Read the Domain Expansion series"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/domain-expansion-feature.jpg"
+              alt="Domain Expansion series"
+              className="w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+            <span className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-black/70 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#e7ded2] opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
+              Read the series &rarr;
+            </span>
+          </Link>
+          <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+            <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
+              A <span className="font-bold italic">Homebody</span> Series
+              details the accounts of reimagining a new home; inspired by
+              the tale of the stoic majestic black samurai, Kenji; in
+              pursuit of a distant treasure, a symbol of enlightenment,
+              self-awareness, and the power buried within. His path becomes
+              a bridge, shaped by every trial, every truth, and every piece
+              of himself he learns to reclaim.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-6">
+        <div
+          className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(to bottom, rgba(231,222,210,.08) 0, rgba(231,222,210,.08) 1px, transparent 1px, transparent 27px), linear-gradient(to right, transparent 0, transparent 34px, rgba(224,168,96,.4) 34px, rgba(224,168,96,.4) 35px, transparent 35px), linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
+            backgroundRepeat: "repeat, no-repeat, no-repeat",
+          }}
+        >
+          <Link
+            href="/journal?series=Back%20to%20Oui"
+            className="group relative block overflow-hidden"
+            aria-label="Read the Back to Oui series"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/back-to-oui-cover-wide.jpg"
+              alt="Back to Oui series"
+              className="w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+            <span className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-black/70 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#e7ded2] opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
+              Read the series &rarr;
+            </span>
+          </Link>
+          <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+            <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
+              &ldquo;<span className="font-bold italic">Back to Oui</span>
+              &rdquo; traces the distance between love and despair;
+              loneliness and belonging; agreeing and retreating. Through
+              loss, faith, and self-discovery, it explores how becoming
+              whole within can make what we build together more powerful.
             </p>
           </div>
         </div>
       </section>
 
       {portfolio.length > 0 && (
-        <section className="paper-newspaper corner-box mb-10 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+        <section className="paper-notebook corner-box mb-10 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
             <span>Section 01</span>
             <span className="h-px flex-1 bg-accent/40" />
@@ -121,7 +209,7 @@ export default function HomePage() {
       )}
 
       {journal.length > 0 && (
-        <section className="paper-journal corner-box mb-16 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+        <section className="paper-crinkled corner-box mb-16 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-moss">
             <span>Section 02</span>
             <span className="h-px flex-1 bg-moss/40" />
@@ -140,7 +228,12 @@ export default function HomePage() {
           <ul className="mt-8 space-y-8 border-t border-ink/10 pt-8">
             {journal.map((entry) => (
               <li key={entry.slug}>
-                <Link href={`/journal/${entry.slug}`} className="group block">
+                <Link
+                  href={`/journal/${entry.slug}`}
+                  className="paper-crinkled corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9"
+                >
+                  <PaperClip />
+                  <EntryBadge entry={entry} className="block" />
                   <h3 className="flex items-center gap-2 font-serif text-xl text-ink group-hover:text-accent">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img

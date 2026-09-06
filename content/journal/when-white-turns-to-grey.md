@@ -3,6 +3,7 @@ title: "When White Turns to Grey"
 date: "2026-08-28"
 excerpt: "On grey as a canvas, a shadow, and the color that lets everything else announce itself."
 draft: false
+category: "Interludes"
 ---
 
 My white has turned to Grey…my color is better seen against the calming yet crashing Pacific of the grey. Focus is intentional and carved specifically to you and who you are designed to be.

@@ -3,6 +3,7 @@ title: "The Warmest Morning"
 date: "2026-08-20"
 excerpt: "On empty rooms, new beginnings, and choosing to be intentional."
 draft: false
+category: "Interludes"
 ---
 
 The warmest morning…always feels like the beginning. Never lose your relationship with a new beginning.

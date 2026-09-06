@@ -25,6 +25,7 @@ module.exports = {
         mono: ["var(--font-plex-mono)", "ui-monospace", "monospace"],
         logo: ["var(--font-poppins)", "system-ui", "sans-serif"],
         script: ["var(--font-script)", "cursive"],
+        playfair: ["var(--font-playfair)", "Georgia", "serif"],
       },
       typography: () => ({
         accent: {

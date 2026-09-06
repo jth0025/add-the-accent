@@ -3,6 +3,7 @@ title: "An Inadequate Man"
 date: "2026-08-22"
 excerpt: "A late-night reckoning with what it means to build instead of admire."
 draft: false
+category: "Interludes"
 ---
 
 "Now let's be real"…always my saving clutch to reality. Always have a way out of the bullshit by the way. A safety word if you will.

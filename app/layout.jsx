@@ -1,4 +1,4 @@
-import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush } from "next/font/google";
+import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
@@ -50,6 +50,15 @@ const alexBrush = Alex_Brush({
   display: "swap",
 });
 
+// Heavy hero-headline serif — matched from businessiswhimsical.com for
+// the home page hero headline treatment (bold, tight, dramatic).
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Add the Accent",
   description:
@@ -59,25 +68,39 @@ export const metadata = {
 // Small drifting header clouds — flat 2D puffs, sized well below the
 // logo (h-11 / 44px), staggered with negative animation-delay values so
 // they read as several independent clouds rather than one repeating copy.
+// Mostly black with a couple of grey ones mixed in.
 const HEADER_CLOUDS = [
-  { top: 3, width: 26, duration: 61, delay: -11, opacity: 0.95 },
-  { top: 11, width: 18, duration: 47, delay: -29, opacity: 0.7 },
-  { top: 1, width: 22, duration: 72, delay: -50, opacity: 0.85 },
-  { top: 8, width: 15, duration: 40, delay: -4, opacity: 0.6 },
-  { top: 5, width: 20, duration: 54, delay: -38, opacity: 0.8 },
+  { top: 3, width: 26, duration: 61, delay: -11, opacity: 0.95, color: "#1a1a1a" },
+  { top: 11, width: 18, duration: 47, delay: -29, opacity: 0.7, color: "#6b6b6b" },
+  { top: 1, width: 22, duration: 72, delay: -50, opacity: 0.85, color: "#1a1a1a" },
+  { top: 8, width: 15, duration: 40, delay: -4, opacity: 0.6, color: "#8a8a8a" },
+  { top: 5, width: 20, duration: 54, delay: -38, opacity: 0.8, color: "#1a1a1a" },
+  { top: 14, width: 24, duration: 66, delay: -6, opacity: 0.65, color: "#1a1a1a" },
+  { top: 2, width: 16, duration: 44, delay: -20, opacity: 0.9, color: "#6b6b6b" },
+  { top: 9, width: 21, duration: 58, delay: -44, opacity: 0.75, color: "#1a1a1a" },
+  { top: 0, width: 19, duration: 49, delay: -15, opacity: 0.88, color: "#1a1a1a" },
+  { top: 12, width: 14, duration: 63, delay: -33, opacity: 0.55, color: "#8a8a8a" },
+  { top: 6, width: 23, duration: 70, delay: -58, opacity: 0.82, color: "#1a1a1a" },
+];
+
+// Journal dropdown contents — the two ordered series plus the
+// "Interludes" pool of standalone reflections that surface inside both.
+const JOURNAL_SERIES = [
+  { name: "Domain Expansion", sub: "Day One → Day Two", href: "/journal?series=Domain%20Expansion" },
+  { name: "Back to Oui", sub: "The Question", href: "/journal?series=Back%20to%20Oui" },
 ];
 
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable}`}
+      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable} ${playfairDisplay.variable}`}
     >
       <body className="font-sans antialiased">
         <div className="flex min-h-screen flex-col">
-          <header className="relative border-b-2 border-ink/55 bg-paper">
+          <header className="relative border-b-2 border-ink/55 bg-[linear-gradient(180deg,#eaf7fd_0%,#d3edf9_40%,#b7e0f3_75%,#9ed3ec_100%)]">
             <div
-              className="pointer-events-none absolute inset-x-0 top-0 z-0 h-6 overflow-hidden"
+              className="pointer-events-none absolute inset-x-0 top-0 z-0 h-8 overflow-hidden"
               aria-hidden="true"
             >
               {HEADER_CLOUDS.map((cloud, i) => (
@@ -93,10 +116,10 @@ export default function RootLayout({ children }) {
                     animationDelay: `${cloud.delay}s`,
                   }}
                 >
-                  <rect x="10" y="24" width="44" height="10" rx="5" fill="#fff" />
-                  <ellipse cx="20" cy="24" rx="14" ry="10" fill="#fff" />
-                  <ellipse cx="34" cy="18" rx="16" ry="13" fill="#fff" />
-                  <ellipse cx="48" cy="24" rx="12" ry="9" fill="#fff" />
+                  <rect x="10" y="24" width="44" height="10" rx="5" fill={cloud.color} />
+                  <ellipse cx="20" cy="24" rx="14" ry="10" fill={cloud.color} />
+                  <ellipse cx="34" cy="18" rx="16" ry="13" fill={cloud.color} />
+                  <ellipse cx="48" cy="24" rx="12" ry="9" fill={cloud.color} />
                 </svg>
               ))}
             </div>
@@ -118,9 +141,61 @@ export default function RootLayout({ children }) {
                 <Link href="/portfolio" className="hover:text-accent">
                   Portfolio
                 </Link>
-                <Link href="/journal" className="hover:text-accent">
-                  Journal
-                </Link>
+
+                <div className="group relative">
+                  <Link href="/journal" className="hover:text-accent">
+                    Journal <span aria-hidden="true">▾</span>
+                  </Link>
+                  <div className="invisible absolute left-1/2 top-full z-20 mt-4 w-60 -translate-x-1/2 rounded-lg border border-ink/15 bg-white p-2 text-left normal-case tracking-normal text-ink opacity-0 shadow-xl transition-opacity duration-150 group-hover:visible group-hover:opacity-100">
+                    <div className="px-3 pb-1 pt-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+                      Series
+                    </div>
+                    {JOURNAL_SERIES.map((s) => (
+                      <Link
+                        key={s.name}
+                        href={s.href}
+                        className="block rounded-md py-2 pl-[22px] pr-3 hover:bg-accent/10"
+                      >
+                        <span className="block font-serif text-[13px] font-bold">
+                          {s.name}
+                        </span>
+                        <span className="block font-sans text-[10.5px] italic normal-case tracking-wide text-stone">
+                          {s.sub}
+                        </span>
+                      </Link>
+                    ))}
+
+                    <hr className="my-1.5 border-ink/10" />
+
+                    <Link
+                      href="/journal?category=Interludes"
+                      className="block rounded-md px-3 py-2 hover:bg-accent/10"
+                    >
+                      <span className="block font-serif text-sm font-bold">
+                        Interludes
+                      </span>
+                      <span className="block max-w-[210px] whitespace-normal font-sans text-[10.5px] italic normal-case leading-snug tracking-wide text-stone">
+                        Short reflections and sparks that surface inside the
+                        series above — not a story of their own.
+                      </span>
+                    </Link>
+
+                    <hr className="my-1.5 border-ink/10" />
+
+                    <Link
+                      href="/journal"
+                      className="block rounded-md px-3 py-2 hover:bg-accent/10"
+                    >
+                      <span className="block font-serif text-sm font-bold">
+                        All Entries
+                      </span>
+                      <span className="block font-sans text-[10.5px] italic normal-case tracking-wide text-stone">
+                        Everything, newest first
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+
                 <Link href="/about" className="hover:text-accent">
                   About
                 </Link>

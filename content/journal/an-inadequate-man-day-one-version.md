@@ -3,6 +3,7 @@ title: "An Inadequate Man (Day One Version)"
 date: "2026-08-24"
 excerpt: "The first pass at cleaning up the room — same reckoning, sharper edges."
 draft: false
+category: "Interludes"
 ---
 
 I have a phrase I return to more than any other: now let's be real. It's always been my way out — my saving clutch back to the truth whenever I start slipping into the bullshit. Not literal. Subliminal. A safety word, if I need one.
