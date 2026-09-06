@@ -63,7 +63,7 @@ export default function HomePage() {
 
       <HeroCarousel>
         <div className="relative">
-          <div className="text-center font-mono text-xs uppercase tracking-widest text-[#2e8b3d] [text-shadow:0_1px_2px_rgba(0,0,0,0.75),0_0_10px_rgba(255,255,255,0.25)]">
+          <div className="text-center font-mono text-xs uppercase tracking-widest text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.75),0_0_10px_rgba(255,255,255,0.25)]">
             <span className="italic">The difference is you!</span>
           </div>
           <h1 className="mt-4 text-center normal-case leading-none tracking-tighter text-white">
