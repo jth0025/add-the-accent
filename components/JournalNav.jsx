@@ -13,7 +13,12 @@ const LINKS = [
   { label: "All Entries", id: "all-entries" },
 ];
 
-export default function JournalNav({ className = "" }) {
+export default function JournalNav({ className = "", tone = "dark" }) {
+  const linkClass =
+    tone === "light"
+      ? "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55)] hover:text-white"
+      : "text-[#4a5714] hover:text-ink";
+
   const handleClick = (event, id) => {
     const target =
       typeof document !== "undefined" && document.getElementById(id);
@@ -35,7 +40,7 @@ export default function JournalNav({ className = "" }) {
           key={link.id}
           href={`/journal#${link.id}`}
           onClick={(event) => handleClick(event, link.id)}
-          className="text-[#4a5714] underline-offset-4 transition-colors hover:text-ink hover:underline"
+          className={`underline-offset-4 transition-colors hover:underline ${linkClass}`}
         >
           {link.label}
         </a>

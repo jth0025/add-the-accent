@@ -24,11 +24,6 @@ const CATEGORY_INTROS = {
 
 const JOURNAL_INTRO = "Field notes — the raw material, before it becomes a piece.";
 
-// A section label ("Section 02") that actually reads against the light
-// card — the olive token was too pale here.
-const SECTION_LABEL = "text-[#4a5714]";
-const SECTION_RULE = "bg-[#4a5714]/40";
-
 // The Journal nav dropdown links here with ?series=... or ?category=...
 // (see app/layout.jsx) to pre-filter the list. With neither, this shows
 // the full sectioned index: Series, Interludes, All Entries, with
@@ -75,35 +70,27 @@ export default function JournalIndex({ searchParams }) {
 
   const interludes = allEntries.filter((e) => e.category === "Interludes");
 
+  // The sections now sit straight on the page's dark ground (no card
+  // behind them), so headings and blurbs read light.
   const sectionHeadingClass =
-    "font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl";
+    "font-display text-2xl uppercase tracking-tight text-white sm:text-3xl [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]";
+  const sectionBlurbClass = "mt-2 max-w-xl text-sm text-white/70";
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <div className="paper-crinkled corner-box rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
-        <div
-          className={`flex items-center gap-3 font-mono text-xs uppercase tracking-widest ${SECTION_LABEL}`}
-        >
-          <span>Section 02</span>
-          <span className={`h-px flex-1 ${SECTION_RULE}`} />
-        </div>
-        <h1 className="mt-3 font-display text-3xl uppercase tracking-tight text-ink sm:text-4xl">
-          Journal
-        </h1>
-        <p className="mt-4 max-w-xl text-stone">{JOURNAL_INTRO}</p>
-        <JournalNav className="mt-6 border-t border-ink/10 pt-5" />
-      </div>
+      <h1 className="sr-only">Journal</h1>
+      <JournalNav tone="light" />
 
-      <section id="series" className="mt-14 scroll-mt-24">
+      <section id="series" className="mt-12 scroll-mt-24">
         <h2 className={sectionHeadingClass}>Series</h2>
         <div className="mt-8 space-y-12">
           {seriesGroups.map((group) => (
             <div key={group.name}>
-              <h3 className="font-serif text-xl italic text-ink">
+              <h3 className="font-serif text-xl italic text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]">
                 {group.name}
               </h3>
               {group.intro && (
-                <p className="mt-1 max-w-xl text-sm text-stone">
+                <p className="mt-1 max-w-xl text-sm text-white/70">
                   {group.intro}
                 </p>
               )}
@@ -121,9 +108,7 @@ export default function JournalIndex({ searchParams }) {
 
       <section id="interludes" className="mt-14 scroll-mt-24">
         <h2 className={sectionHeadingClass}>Interludes</h2>
-        <p className="mt-1 max-w-xl text-sm text-stone">
-          {CATEGORY_INTROS.Interludes}
-        </p>
+        <p className={sectionBlurbClass}>{CATEGORY_INTROS.Interludes}</p>
         <ul className="mt-8 space-y-5">
           {interludes.map((entry) => (
             <li key={entry.slug}>
