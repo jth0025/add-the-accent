@@ -10,6 +10,16 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-6">
+      <figure className="mt-12 text-center text-white">
+        <blockquote className="mx-auto max-w-xl font-serif text-lg italic leading-snug">
+          &ldquo;The goal of an artist is to create the definitive work that
+          cannot be surpassed.&rdquo;
+        </blockquote>
+        <figcaption className="mt-2 font-serif text-sm not-italic text-white/70">
+          &mdash; George Bernard Shaw
+        </figcaption>
+      </figure>
+
       <HeroCarousel>
         <div className="relative">
           <div className="text-center font-mono text-xs uppercase tracking-widest text-accent">
