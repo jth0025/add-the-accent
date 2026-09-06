@@ -2,11 +2,14 @@ import Link from "next/link";
 import { formatDate } from "@/lib/content";
 import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
+import JournalNav from "@/components/JournalNav";
 
 export default function EntryList({ section, heading, intro, entries }) {
   const isJournal = section === "journal";
-  const tagTextClass = isJournal ? "text-moss" : "text-accent";
-  const tagRuleClass = isJournal ? "bg-moss/40" : "bg-accent/40";
+  // A darker olive than the `moss` token so the "Section" label actually
+  // reads against the light card.
+  const tagTextClass = isJournal ? "text-[#4a5714]" : "text-accent";
+  const tagRuleClass = isJournal ? "bg-[#4a5714]/40" : "bg-accent/40";
   // Journal boxes read as crinkled paper; everything else keeps its own mood.
   const paperClass = isJournal ? "paper-crinkled" : "paper-newspaper";
 
@@ -25,6 +28,7 @@ export default function EntryList({ section, heading, intro, entries }) {
           {heading}
         </h1>
         {intro && <p className="mt-4 max-w-xl text-stone">{intro}</p>}
+        {isJournal && <JournalNav className="mt-6 border-t border-ink/10 pt-5" />}
       </div>
 
       {entries.length === 0 ? (

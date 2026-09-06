@@ -261,9 +261,9 @@ export default function HomePage() {
 
       {journal.length > 0 && (
         <section className="paper-crinkled corner-box mb-16 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
-          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-moss">
+          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-[#4a5714]">
             <span>Section 02</span>
-            <span className="h-px flex-1 bg-moss/40" />
+            <span className="h-px flex-1 bg-[#4a5714]/40" />
           </div>
           <div className="mt-3 flex items-baseline justify-between gap-4">
             <h2 className="font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
@@ -271,7 +271,7 @@ export default function HomePage() {
             </h2>
             <Link
               href="/journal"
-              className="shrink-0 font-mono text-xs uppercase tracking-widest text-moss hover:underline"
+              className="shrink-0 font-mono text-xs uppercase tracking-widest text-[#4a5714] hover:underline"
             >
               View all
             </Link>
