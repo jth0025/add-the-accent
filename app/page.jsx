@@ -11,13 +11,42 @@ export default function HomePage() {
   return (
     <div className="mx-auto max-w-3xl px-6">
       <figure className="mt-12 text-center text-white">
-        <blockquote className="mx-auto max-w-xl font-serif text-lg italic leading-snug">
+        <blockquote className="whitespace-nowrap font-serif italic leading-snug text-[clamp(0.5rem,2.05vw,1.125rem)]">
           &ldquo;The goal of an artist is to create the definitive work that
           cannot be surpassed.&rdquo;
         </blockquote>
-        <figcaption className="mt-2 font-serif text-sm not-italic text-white/70">
+        <figcaption className="mt-1 font-serif text-sm not-italic text-white/70">
           &mdash; George Bernard Shaw
         </figcaption>
+        <div
+          className="mt-3 flex items-center justify-center gap-4 text-white"
+          role="img"
+          aria-label="Photography, writing, podcasting, and music"
+        >
+          {/* Camera */}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+            <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7H7l1.4-2h7.2L18 7h1.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z" />
+            <circle cx="12" cy="12.75" r="3.2" />
+          </svg>
+          {/* Pencil */}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z" />
+            <path d="M14 6l3 3" />
+          </svg>
+          {/* Podcast microphone */}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+            <rect x="9" y="2.5" width="6" height="11" rx="3" />
+            <path d="M5.5 11a6.5 6.5 0 0 0 13 0" />
+            <path d="M12 17.5V21" />
+            <path d="M8.5 21h7" />
+          </svg>
+          {/* Music note */}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+            <path d="M9 17.5V5l11-2v12.5" />
+            <circle cx="6" cy="17.5" r="3" />
+            <circle cx="17" cy="15.5" r="3" />
+          </svg>
+        </div>
       </figure>
 
       <HeroCarousel>
