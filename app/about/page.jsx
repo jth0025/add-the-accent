@@ -43,7 +43,7 @@ export default function AboutPage() {
         <img
           src="/logo-man.png"
           alt="The Add the Accent character — a figure with a leaf motif, cap, and no face"
-          className="mx-auto mt-6 h-52 w-auto sm:h-64"
+          className="mx-auto mt-6 h-[10.4rem] w-auto sm:h-[12.8rem]"
         />
         <p className="mt-6 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
           &ldquo;Your perspective is the masterpiece. Everything else is the
