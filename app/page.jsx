@@ -4,6 +4,7 @@ import HeroCarousel from "@/components/HeroCarousel";
 import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
 import VoiceClip from "@/components/VoiceClip";
+import WordOfTheDay from "@/components/WordOfTheDay";
 
 export default function HomePage() {
   const portfolio = getAllEntries("portfolio").slice(0, 3);
@@ -111,6 +112,8 @@ export default function HomePage() {
           </p>
         </div>
       </HeroCarousel>
+
+      <WordOfTheDay />
 
       <div className="mt-10 flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
         <span className="text-white [text-shadow:0_1px_2px_rgba(0,0,0,.35)]">
