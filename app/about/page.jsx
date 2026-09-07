@@ -115,9 +115,16 @@ export default function AboutPage() {
       <section className="paper-journal corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
         <SectionLabel>Section 02</SectionLabel>
         <h2 className={headingClass}>Minimalism vs. Maximalism</h2>
-        <p className="mx-auto mt-5 max-w-xl text-center text-stone">
-          Two ways to hold the same idea — one that fits in your hand, and one
-          you can fall into.
+
+        {/* reads like a dictionary entry for the title */}
+        <p className="mt-2 text-center font-serif text-[13px] italic tracking-[0.35em] text-stone/55">
+          ideology
+        </p>
+        <p className="mx-auto mt-4 max-w-xl text-center font-serif leading-relaxed text-stone">
+          &mdash; two dials on one belief. Turn the first down until only what
+          is essential remains; turn the second up until every part of you is
+          in the room. Add the Accent runs on both. I live closer to the
+          second.
         </p>
 
         <div className="mt-8 border-t border-ink/10 pt-8 text-center">
@@ -128,7 +135,8 @@ export default function AboutPage() {
             &ldquo;Add your touch.&rdquo;
           </p>
           <p className="mx-auto mt-3 max-w-md text-sm text-stone">
-            Three words. The whole thing fits there.
+            Three words. The whole thing fits there — and some ideas only ring
+            true once they&rsquo;re stripped that bare.
           </p>
         </div>
 
@@ -136,12 +144,21 @@ export default function AboutPage() {
           <p className="font-mono text-xs uppercase tracking-widest text-accent">
             Maximalism
           </p>
-          <p className="mx-auto mt-4 max-w-xl font-serif text-lg italic leading-relaxed text-ink">
-            The accent is the part of you that came before you — inherited,
-            lived-in, unrepeatable. To add it is to refuse the copy: to make
-            the thing the way only your history, your ear, and your eye would
-            make it. It is the decision to participate in life as yourself
-            rather than repeat what already exists. Not louder. Truer.
+          <p className="mx-auto mt-3 max-w-lg font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
+            &ldquo;Add all of you.&rdquo;
+          </p>
+          <p className="mx-auto mt-3 max-w-md text-sm text-stone">
+            History, taste, ear, eye — layered in until the work could only be
+            yours. This is the dial I reach for first.
+          </p>
+        </div>
+
+        <div className="mt-8 border-t border-ink/10 pt-8 text-center">
+          <p className="mx-auto max-w-xl font-serif text-lg italic leading-relaxed text-ink">
+            I lean maximalist: more texture, more story, more of the thing that
+            makes it mine. But I meet the ideas that need it with restraint.
+            Same conviction, opposite hands &mdash; and I refuse to pick only
+            one.
           </p>
         </div>
 
