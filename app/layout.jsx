@@ -1,6 +1,7 @@
 import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display, UnifrakturCook } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
+import VisitCounter from "@/components/VisitCounter";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -198,7 +199,8 @@ export default function RootLayout({ children }) {
               ))}
             </div>
             <nav className="relative z-10 mx-auto flex max-w-3xl items-end justify-between px-6 pt-4">
-              <div className="flex items-end gap-3">
+              <div className="flex items-end gap-2.5">
+                <VisitCounter />
                 <Link href="/" className="flex items-end">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
