@@ -1,4 +1,4 @@
-import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display, UnifrakturCook, Caveat } from "next/font/google";
+import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display, UnifrakturCook, Caveat, Anton } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import VisitCounter from "@/components/VisitCounter";
@@ -77,6 +77,14 @@ const caveat = Caveat({
   display: "swap",
 });
 
+// Condensed poster face — the cinematic one-line principles on the About page.
+const anton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-cinema",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Add the Accent",
   description:
@@ -123,7 +131,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable} ${playfairDisplay.variable} ${unifrakturCook.variable} ${caveat.variable}`}
+      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable} ${playfairDisplay.variable} ${unifrakturCook.variable} ${caveat.variable} ${anton.variable}`}
     >
       <body className="font-sans antialiased">
         {/* Grunge/distressed-type filter — referenced by `.grunge-text`

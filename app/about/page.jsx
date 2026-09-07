@@ -221,17 +221,17 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <ul className="mx-auto mt-8 max-w-xl list-none space-y-6 border-t border-ink/10 pt-8">
+        <ul className="mt-8 list-none space-y-5 border-t border-ink/10 pt-8">
           {PRINCIPLES.map((line) => (
             <li
               key={line}
-              className="flex origin-center items-start justify-center gap-3 text-center font-display text-sm uppercase leading-snug tracking-[0.14em] text-ink transition-all duration-200 hover:scale-[1.05] hover:text-accent sm:text-base"
+              className="flex origin-center items-center justify-center gap-2 whitespace-nowrap text-center font-cinema uppercase leading-none tracking-[0.03em] text-ink transition-all duration-200 hover:scale-[1.04] hover:text-accent text-[clamp(0.56rem,2.5vw,1.25rem)]"
             >
               <span
                 aria-hidden="true"
-                className="mt-[0.5em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                className="h-1 w-1 shrink-0 rounded-full bg-accent"
               />
-              <span>{line}</span>
+              <span className="shrink-0">{line}</span>
             </li>
           ))}
         </ul>
