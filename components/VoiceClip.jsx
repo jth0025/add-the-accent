@@ -1,6 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { AUDIOBUS_PLAY, announcePlay, announceStop } from "@/lib/audioBus";
+
+const SOURCE_ID = "voiceclip";
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
@@ -81,6 +84,15 @@ export default function VoiceClip({ src, label = "Voice note" }) {
     if (el && el.readyState >= 1) resolveDuration(el);
   }, [resolveDuration]);
 
+  // Pause when another player (the music strip) takes over.
+  useEffect(() => {
+    const onOtherPlay = (e) => {
+      if (e.detail?.sourceId !== SOURCE_ID) audioRef.current?.pause();
+    };
+    window.addEventListener(AUDIOBUS_PLAY, onOtherPlay);
+    return () => window.removeEventListener(AUDIOBUS_PLAY, onOtherPlay);
+  }, []);
+
   const pct = duration ? (current / duration) * 100 : 0;
 
   return (
@@ -141,11 +153,18 @@ export default function VoiceClip({ src, label = "Voice note" }) {
         ref={audioRef}
         src={src}
         preload="metadata"
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
+        onPlay={() => {
+          setPlaying(true);
+          announcePlay(SOURCE_ID);
+        }}
+        onPause={() => {
+          setPlaying(false);
+          announceStop(SOURCE_ID);
+        }}
         onEnded={() => {
           setPlaying(false);
           setCurrent(0);
+          announceStop(SOURCE_ID);
         }}
         onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
         onLoadedMetadata={(e) => resolveDuration(e.currentTarget)}
