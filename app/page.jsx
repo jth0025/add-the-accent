@@ -3,6 +3,7 @@ import { getAllEntries, formatDate } from "@/lib/content";
 import HeroCarousel from "@/components/HeroCarousel";
 import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
+import VoiceClip from "@/components/VoiceClip";
 
 export default function HomePage() {
   const portfolio = getAllEntries("portfolio").slice(0, 3);
@@ -18,6 +19,12 @@ export default function HomePage() {
         <figcaption className="mt-1 font-serif text-sm not-italic text-white/70">
           &mdash; George Bernard Shaw
         </figcaption>
+
+        <VoiceClip
+          src="/audio/the-difference-is-you.m4a"
+          label="The difference is you"
+        />
+
         <div
           className="mt-6 flex items-center justify-center gap-5 text-white/95 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.3))]"
           role="img"
