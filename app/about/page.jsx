@@ -225,7 +225,7 @@ export default function AboutPage() {
           {PRINCIPLES.map((line) => (
             <li
               key={line}
-              className="flex origin-center items-center justify-center gap-2 whitespace-nowrap text-center font-cinema uppercase leading-none tracking-[0.03em] text-ink transition-all duration-200 hover:scale-[1.04] hover:text-accent text-[clamp(0.56rem,2.5vw,1.25rem)]"
+              className="metal-hover flex origin-center items-center justify-center gap-2 whitespace-nowrap text-center font-cinema uppercase leading-none tracking-[0.03em] text-ink transition-transform duration-200 hover:scale-[1.04] text-[clamp(0.56rem,2.5vw,1.25rem)]"
             >
               <span
                 aria-hidden="true"
