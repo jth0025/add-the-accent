@@ -51,30 +51,24 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* Portrait */}
+      {/* Portrait — two overlapping polaroids, no captions */}
       <section className="mt-12 flex justify-center py-4">
-        <div className="relative flex items-center" style={{ height: 300 }}>
-          <div className="relative z-10 -rotate-6 rounded-sm border border-black/10 bg-white p-3 pb-9 shadow-xl">
+        <div className="relative flex items-center">
+          <div className="relative z-10 -rotate-6 rounded-sm border border-black/10 bg-white p-3 shadow-xl">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/jt-portrait-1.jpg"
               alt="Portrait of JT, the founder of Add the Accent"
               className="h-56 w-44 object-cover sm:h-64 sm:w-52"
             />
-            <p className="mt-3 text-center font-script text-xl text-ink/70">
-              JT
-            </p>
           </div>
-          <div className="relative z-20 -ml-14 rotate-6 rounded-sm border border-black/10 bg-white p-3 pb-9 shadow-xl sm:-ml-16">
+          <div className="relative z-20 -ml-14 rotate-6 rounded-sm border border-black/10 bg-white p-3 shadow-xl sm:-ml-16">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/jt-portrait-2.jpg"
-              alt="A second, silhouetted portrait of JT"
+              alt="JT holding a vintage Pentax film camera up to his face"
               className="h-56 w-44 object-cover sm:h-64 sm:w-52"
             />
-            <p className="mt-3 text-center font-script text-xl text-ink/70">
-              the difference is you.
-            </p>
           </div>
         </div>
       </section>
