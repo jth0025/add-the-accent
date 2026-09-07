@@ -34,6 +34,7 @@ export default function MusicBar() {
   const fading = useRef(false);
   const wantsToPlay = useRef(true);
   const commitTimer = useRef(null);
+  const armed = useRef(false); // true once a gesture has unmuted playback
 
   // Web Audio graph (created lazily once a gesture allows it)
   const ctxRef = useRef(null);
@@ -164,8 +165,8 @@ export default function MusicBar() {
     lp.frequency.value = 7200;
     const hg = ctx.createGain();
     hg.gain.setValueAtTime(0.0001, now);
-    hg.gain.linearRampToValueAtTime(0.09, now + 0.04);
-    hg.gain.setValueAtTime(0.09, Math.max(now + 0.05, end - 0.14));
+    hg.gain.linearRampToValueAtTime(0.045, now + 0.14);
+    hg.gain.setValueAtTime(0.045, Math.max(now + 0.15, end - 0.2));
     hg.gain.linearRampToValueAtTime(0.0001, end);
     hiss.connect(hp).connect(lp).connect(hg).connect(ctx.destination);
     hiss.start(now);
@@ -194,8 +195,8 @@ export default function MusicBar() {
     cf.Q.value = 0.7;
     const cg = ctx.createGain();
     cg.gain.setValueAtTime(0.0001, now);
-    cg.gain.linearRampToValueAtTime(0.15, now + 0.03);
-    cg.gain.setValueAtTime(0.15, Math.max(now + 0.04, end - 0.1));
+    cg.gain.linearRampToValueAtTime(0.1, now + 0.1);
+    cg.gain.setValueAtTime(0.1, Math.max(now + 0.11, end - 0.16));
     cg.gain.linearRampToValueAtTime(0.0001, end);
     crackle.connect(cf).connect(cg).connect(ctx.destination);
     crackle.start(now);
@@ -239,7 +240,7 @@ export default function MusicBar() {
     lp.type = "lowpass";
     lp.frequency.value = 5200;
     const g = ctx.createGain();
-    g.gain.value = 0.02; // subtle
+    g.gain.value = 0.05; // subtle, but present — the sound of a live signal
     src.connect(bp).connect(lp).connect(g).connect(ctx.destination);
     src.start();
     ambientRef.current = { src, gain: g };
@@ -291,6 +292,7 @@ export default function MusicBar() {
       } catch {
         /* ignore */
       }
+      to.muted = !armed.current;
       if (!ctxRef.current) to.volume = 0;
       to.play().catch(() => {});
 
@@ -336,6 +338,11 @@ export default function MusicBar() {
     setIndex(start);
     primary.current = 0;
 
+    // Start muted so the browser lets it autoplay right away — the track
+    // is already running when the visitor's first gesture unmutes it.
+    els.forEach((r) => {
+      if (r.current) r.current.muted = true;
+    });
     const el = els[0].current;
     if (el) {
       el.volume = MUSIC_LEVEL;
@@ -343,20 +350,36 @@ export default function MusicBar() {
       el.play().catch(() => {});
     }
 
+    const EVENTS = [
+      "pointerdown",
+      "mousedown",
+      "keydown",
+      "touchstart",
+      "click",
+      "scroll",
+      "wheel",
+    ];
     const kick = () => {
+      armed.current = true;
       resumeCtx();
+      els.forEach((r) => {
+        if (r.current) r.current.muted = false;
+      });
       window.setTimeout(() => {
         if (wantsToPlay.current) primaryEl()?.play().catch(() => {});
-      }, 200);
+      }, 150);
       remove();
     };
-    const remove = () =>
-      ["pointerdown", "keydown", "touchstart", "scroll"].forEach((e) =>
-        window.removeEventListener(e, kick),
-      );
-    ["pointerdown", "keydown", "touchstart", "scroll"].forEach((e) =>
-      window.addEventListener(e, kick, { once: true, passive: true }),
-    );
+    const remove = () => {
+      EVENTS.forEach((e) => {
+        window.removeEventListener(e, kick, true);
+        document.removeEventListener(e, kick, true);
+      });
+    };
+    EVENTS.forEach((e) => {
+      window.addEventListener(e, kick, { capture: true, passive: true });
+      document.addEventListener(e, kick, { capture: true, passive: true });
+    });
     return () => {
       remove();
       clearTimeout(commitTimer.current);
@@ -386,6 +409,7 @@ export default function MusicBar() {
       setGain(primary.current ^ 1, 0, 0);
       const el = primaryEl();
       if (el) {
+        if (armed.current) el.muted = false;
         if (!ctxRef.current) el.volume = MUSIC_LEVEL;
         el.play().catch(() => {});
       }
@@ -408,7 +432,11 @@ export default function MusicBar() {
   const toggle = () => {
     const el = primaryEl();
     if (!el) return;
+    armed.current = true;
     resumeCtx();
+    els.forEach((r) => {
+      if (r.current) r.current.muted = false;
+    });
     if (el.paused) {
       wantsToPlay.current = true;
       setGain(primary.current, MUSIC_LEVEL, 0);

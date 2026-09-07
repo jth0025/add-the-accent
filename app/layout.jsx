@@ -336,9 +336,9 @@ export default function RootLayout({ children }) {
           <main className="flex-1">{children}</main>
 
           <footer className="border-t-2 border-ink/55 py-10">
-            <div className="mx-auto flex max-w-3xl items-center gap-3 px-6">
+            <div className="mx-auto flex max-w-3xl items-center justify-center gap-3 px-6">
               <span className="h-2 w-2 shrink-0 rounded-full bg-accent" />
-              <p className="font-mono text-xs uppercase tracking-widest text-ink">
+              <p className="text-center font-mono text-xs uppercase tracking-widest text-ink">
                 <span className="font-bold">
                   Add <span className="text-accent">the</span> Accent
                 </span>{" "}
