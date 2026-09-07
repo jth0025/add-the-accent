@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
@@ -56,6 +56,30 @@ export default function VoiceClip({ src, label = "Voice note" }) {
     },
     [duration, toggle],
   );
+
+  // Voice-memo .m4a files often report `duration: Infinity` until the
+  // browser is nudged to resolve it — seek past the end once, then reset.
+  const resolveDuration = useCallback((el) => {
+    if (!el) return;
+    if (Number.isFinite(el.duration)) {
+      setDuration(el.duration);
+      return;
+    }
+    const onTimeUpdate = () => {
+      el.removeEventListener("timeupdate", onTimeUpdate);
+      el.currentTime = 0;
+      if (Number.isFinite(el.duration)) setDuration(el.duration);
+    };
+    el.addEventListener("timeupdate", onTimeUpdate);
+    el.currentTime = 1e101;
+  }, []);
+
+  // The <audio> element can fire loadedmetadata before React attaches its
+  // handlers (hydration race), so also sync once on mount.
+  useEffect(() => {
+    const el = audioRef.current;
+    if (el && el.readyState >= 1) resolveDuration(el);
+  }, [resolveDuration]);
 
   const pct = duration ? (current / duration) * 100 : 0;
 
@@ -115,7 +139,12 @@ export default function VoiceClip({ src, label = "Voice note" }) {
           setCurrent(0);
         }}
         onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+        onLoadedMetadata={(e) => resolveDuration(e.currentTarget)}
+        onDurationChange={(e) => {
+          if (Number.isFinite(e.currentTarget.duration)) {
+            setDuration(e.currentTarget.duration);
+          }
+        }}
       />
     </div>
   );
