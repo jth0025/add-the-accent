@@ -39,7 +39,13 @@ export default function AboutPage() {
         <h1 className="mt-4 text-center font-display text-3xl uppercase leading-tight tracking-tight text-ink sm:text-4xl">
           Add the Accent
         </h1>
-        <p className="mt-5 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo-man.png"
+          alt="The Add the Accent character — a figure with a leaf motif, cap, and no face"
+          className="mx-auto mt-6 h-52 w-auto sm:h-64"
+        />
+        <p className="mt-6 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
           &ldquo;Your perspective is the masterpiece. Everything else is the
           medium.&rdquo;
         </p>
