@@ -89,15 +89,24 @@ export default function VoiceClip({ src, label = "Voice note" }) {
         type="button"
         onClick={toggle}
         aria-label={playing ? `Pause ${label}` : `Play ${label}`}
-        className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-accent text-white shadow-[0_2px_6px_rgba(0,0,0,0.35)] transition-transform hover:scale-105"
+        className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full text-[#2c1a08] ring-1 ring-[#3a2410]/60 transition-transform hover:scale-105 shadow-[0_3px_8px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,244,230,0.75),inset_0_-4px_7px_rgba(60,30,10,0.55)]"
+        style={{
+          backgroundImage:
+            "radial-gradient(130% 130% at 32% 22%, #fbe6c8 0%, #e6b784 26%, #bd813f 52%, #8a541f 78%, #5a3512 100%)",
+        }}
       >
+        {/* top glint — the shine on the metal */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-1.5 top-1 h-1/3 rounded-full bg-white/45 blur-[1.5px]"
+        />
         {playing ? (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="relative drop-shadow-[0_1px_0_rgba(255,240,220,0.5)]">
             <rect x="5" y="4" width="5" height="16" rx="1" />
             <rect x="14" y="4" width="5" height="16" rx="1" />
           </svg>
         ) : (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="relative drop-shadow-[0_1px_0_rgba(255,240,220,0.5)]">
             <path d="M7 4.5v15l13-7.5-13-7.5z" />
           </svg>
         )}

@@ -21,7 +21,7 @@ export default function HomePage() {
         </figcaption>
 
         <VoiceClip
-          src="/audio/the-difference-is-you.m4a"
+          src="/audio/the-difference-is-you.mp3"
           label="The difference is you"
         />
 
