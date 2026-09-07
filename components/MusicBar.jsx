@@ -131,9 +131,9 @@ export default function MusicBar() {
     ctxRef.current?.resume?.().catch(() => {});
   }, [ensureGraph]);
 
-  // A short burst of filtered static + a tuning whistle, layered over the
-  // crossfade so the switch sounds like dialing between stations on an old
-  // radio.
+  // A burst of dead-air radio static — a steady band of hiss plus
+  // procedural crackle pops — layered over the crossfade so switching
+  // tracks sounds like the signal cutting in and out on an old set.
   const playTuningBurst = useCallback((seconds) => {
     const ctx = ctxRef.current;
     if (!ctx) return;
@@ -148,41 +148,56 @@ export default function MusicBar() {
 
     const now = ctx.currentTime;
     const end = now + seconds;
+    const rate = ctx.sampleRate;
 
-    // Static: white noise, band-limited and swept like a dial.
-    const noise = ctx.createBufferSource();
-    noise.buffer = noiseBufRef.current;
-    noise.loop = true;
+    // --- steady hiss: bright, band-limited white noise ---
+    const hiss = ctx.createBufferSource();
+    hiss.buffer = noiseBufRef.current;
+    hiss.loop = true;
     const hp = ctx.createBiquadFilter();
     hp.type = "highpass";
-    hp.frequency.value = 450;
-    const bp = ctx.createBiquadFilter();
-    bp.type = "bandpass";
-    bp.Q.value = 2.4;
-    bp.frequency.setValueAtTime(850, now);
-    bp.frequency.linearRampToValueAtTime(3400, now + seconds * 0.55);
-    bp.frequency.linearRampToValueAtTime(1300, end);
-    const ng = ctx.createGain();
-    ng.gain.setValueAtTime(0.0001, now);
-    ng.gain.linearRampToValueAtTime(0.16, now + 0.1);
-    ng.gain.setValueAtTime(0.16, Math.max(now + 0.11, end - 0.3));
-    ng.gain.linearRampToValueAtTime(0.0001, end);
-    noise.connect(hp).connect(bp).connect(ng).connect(ctx.destination);
-    noise.start(now);
-    noise.stop(end + 0.05);
+    hp.frequency.value = 820;
+    const lp = ctx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 7200;
+    const hg = ctx.createGain();
+    hg.gain.setValueAtTime(0.0001, now);
+    hg.gain.linearRampToValueAtTime(0.42, now + 0.04);
+    hg.gain.setValueAtTime(0.42, Math.max(now + 0.05, end - 0.14));
+    hg.gain.linearRampToValueAtTime(0.0001, end);
+    hiss.connect(hp).connect(lp).connect(hg).connect(ctx.destination);
+    hiss.start(now);
+    hiss.stop(end + 0.05);
 
-    // Whistle: a sine that slides, the sound of passing a station.
-    const osc = ctx.createOscillator();
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(1600, now + 0.15);
-    osc.frequency.exponentialRampToValueAtTime(2700, now + seconds * 0.7);
-    const og = ctx.createGain();
-    og.gain.setValueAtTime(0.0001, now);
-    og.gain.linearRampToValueAtTime(0.035, now + 0.2);
-    og.gain.exponentialRampToValueAtTime(0.0001, now + seconds * 0.85);
-    osc.connect(og).connect(ctx.destination);
-    osc.start(now + 0.12);
-    osc.stop(now + seconds);
+    // --- crackle: sparse decaying pops, freshly generated each time ---
+    const clen = Math.floor(rate * seconds);
+    const cbuf = ctx.createBuffer(1, clen, rate);
+    const cd = cbuf.getChannelData(0);
+    for (let i = 0; i < clen; i += 1) {
+      if (Math.random() < 0.0007) {
+        const plen = 10 + ((Math.random() * 170) | 0);
+        let amp = 0.6 + Math.random() * 0.4;
+        for (let k = 0; k < plen && i + k < clen; k += 1) {
+          cd[i + k] += (Math.random() * 2 - 1) * amp;
+          amp *= 0.9 + Math.random() * 0.05;
+        }
+        i += plen;
+      }
+    }
+    const crackle = ctx.createBufferSource();
+    crackle.buffer = cbuf;
+    const cf = ctx.createBiquadFilter();
+    cf.type = "bandpass";
+    cf.frequency.value = 2000;
+    cf.Q.value = 0.7;
+    const cg = ctx.createGain();
+    cg.gain.setValueAtTime(0.0001, now);
+    cg.gain.linearRampToValueAtTime(0.7, now + 0.03);
+    cg.gain.setValueAtTime(0.7, Math.max(now + 0.04, end - 0.1));
+    cg.gain.linearRampToValueAtTime(0.0001, end);
+    crackle.connect(cf).connect(cg).connect(ctx.destination);
+    crackle.start(now);
+    crackle.stop(end + 0.05);
   }, []);
 
   const load = (el, i) => {
