@@ -179,6 +179,31 @@ export default function RootLayout({ children }) {
                 operator="out"
               />
             </filter>
+            {/* Hand-drawn "urban sketch" roughen — warps geometric strokes
+                into loose ink lines. Used by the epigraph icons and the
+                About-page expression icons. */}
+            <filter
+              id="urban-sketch"
+              x="-35%"
+              y="-35%"
+              width="170%"
+              height="170%"
+            >
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.055 0.07"
+                numOctaves="3"
+                seed="7"
+                result="noise"
+              />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="noise"
+                scale="3.6"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
           </defs>
         </svg>
         <div className="flex min-h-screen flex-col">

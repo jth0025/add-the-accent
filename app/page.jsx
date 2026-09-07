@@ -31,18 +31,7 @@ export default function HomePage() {
           role="img"
           aria-label="Photography, writing, podcasting, and music"
         >
-          {/* Shared hand-drawn "urban sketch" roughen filter — a low-frequency
-              turbulence displacement warps the otherwise-geometric strokes so
-              they read as loose ink-pen lines rather than icon-set vectors. */}
-          <svg width="0" height="0" className="absolute" aria-hidden="true">
-            <defs>
-              <filter id="urban-sketch" x="-35%" y="-35%" width="170%" height="170%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.055 0.07" numOctaves="3" seed="7" result="noise" />
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.6" xChannelSelector="R" yChannelSelector="G" />
-              </filter>
-            </defs>
-          </svg>
-
+          {/* The #urban-sketch roughen filter lives in app/layout.jsx. */}
           {/* Camera */}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 -rotate-[7deg] [filter:url(#urban-sketch)]" aria-hidden="true">
             <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7H7l1.4-2h7.2L18 7h1.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z" />

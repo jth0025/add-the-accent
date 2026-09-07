@@ -9,14 +9,73 @@ const PRINCIPLES = [
   "No one else will ever arrive exactly as you.",
 ];
 
+// Each expression carries a sketch icon; Shop and Bon Roux aren't live yet.
 const EXPRESSIONS = [
-  "Design",
-  "Photography",
-  "Copywriting & Journals",
-  "Film",
-  "Shop",
-  "Bon Roux",
+  { label: "Design", icon: "brush", rotate: -6, available: true },
+  { label: "Photography", icon: "camera", rotate: 4, available: true },
+  { label: "Copywriting & Journals", icon: "pencil", rotate: -3, available: true },
+  { label: "Film", icon: "clapper", rotate: 5, available: true },
+  { label: "Shop", icon: "bag", rotate: -4, available: false },
+  { label: "Bon Roux", icon: "bottle", rotate: 6, available: false },
 ];
+
+// Loose ink-line icons, matched to the ones on the home page.
+const ICON_PATHS = {
+  brush: (
+    <>
+      <path d="M14 3.5 20.5 10 12.5 18 6 11.5Z" />
+      <path d="M6 11.5c-2.4 2.2-2.6 6.8-2.6 6.8s4.6-.2 6.8-2.6" />
+    </>
+  ),
+  camera: (
+    <>
+      <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7H7l1.4-2h7.2L18 7h1.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z" />
+      <circle cx="12" cy="12.75" r="3.3" />
+    </>
+  ),
+  pencil: (
+    <>
+      <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z" />
+      <path d="M14 6l3 3" />
+    </>
+  ),
+  clapper: (
+    <>
+      <rect x="3" y="9" width="18" height="12" rx="1.5" />
+      <path d="M3 9 6.5 4l3.5 4 3-4.5 3.5 4 3-4.5" />
+    </>
+  ),
+  bag: (
+    <>
+      <path d="M6 8h12l1 11.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19.5z" />
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    </>
+  ),
+  bottle: (
+    <>
+      <path d="M10 3h4v3.2l1.4 2.3a3 3 0 0 1 .6 1.8v8.2a2.5 2.5 0 0 1-2.5 2.5h-2A2.5 2.5 0 0 1 9 20.5v-8.2a3 3 0 0 1 .6-1.8L11 8.2V3" />
+      <path d="M9.5 13h5" />
+    </>
+  ),
+};
+
+function ExprIcon({ name, rotate, className = "" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.9"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`h-4 w-4 shrink-0 [filter:url(#urban-sketch)] ${className}`}
+      style={{ transform: `rotate(${rotate}deg)` }}
+      aria-hidden="true"
+    >
+      {ICON_PATHS[name]}
+    </svg>
+  );
+}
 
 // Sticky-note taglines, each with its own color and a hand-placed tilt.
 const NOTES = [
@@ -162,21 +221,28 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="mt-8 space-y-4 border-t border-ink/10 pt-8 text-center">
+        <ul className="mx-auto mt-8 max-w-xl list-none space-y-5 border-t border-ink/10 pt-8">
           {PRINCIPLES.map((line) => (
-            <p
+            <li
               key={line}
-              className="mx-auto max-w-lg font-serif text-lg italic leading-snug text-ink"
+              className="flex origin-center items-start justify-center gap-3 text-center font-playfair text-xl font-bold leading-snug text-ink transition-transform duration-200 hover:scale-[1.06] sm:text-2xl"
             >
-              {line}
-            </p>
+              <span
+                aria-hidden="true"
+                className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+              />
+              <span>{line}</span>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <p className="mx-auto mt-8 max-w-xl text-center text-stone">
-          The goal is not originality for its own sake. It is to find what is
-          authentic, specific, and unmistakable — and give it form.
-        </p>
+        <figure className="mx-auto mt-10 max-w-xl border-t border-ink/10 pt-8">
+          <blockquote className="text-center font-serif text-xl italic leading-snug text-ink sm:text-2xl">
+            &ldquo;The goal is not originality for its own sake. It is to find
+            what is authentic, specific, and unmistakable — and give it
+            form.&rdquo;
+          </blockquote>
+        </figure>
       </section>
 
       {/* Guiding principle */}
@@ -198,17 +264,59 @@ export default function AboutPage() {
           building a point of view people can enter through different
           doors.&rdquo;
         </p>
-        <p className="mx-auto mt-5 max-w-xl text-center text-[#e7ded2]/90">
+
+        <svg
+          viewBox="0 0 120 176"
+          className="mx-auto mt-6 h-36 w-auto text-[#e7ded2] sm:h-40"
+          aria-hidden="true"
+        >
+          <ellipse cx="60" cy="168" rx="33" ry="5" fill="#000" opacity="0.3" />
+          <g
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="[filter:url(#urban-sketch)]"
+          >
+            <rect x="24" y="8" width="72" height="152" rx="3" />
+            <rect x="34" y="20" width="52" height="52" rx="2" />
+            <rect x="34" y="84" width="52" height="60" rx="2" />
+            <circle cx="82" cy="90" r="3.4" />
+          </g>
+        </svg>
+
+        <p className="mx-auto mt-6 max-w-xl text-center text-[#e7ded2]/90">
           That distinction gives Add the Accent enough room to grow without
           feeling random. As new interests, products, collaborations, or
           forms of storytelling emerge, they can belong to the same world as
           long as they carry the same philosophy: bring something
           unmistakably yours.
         </p>
-        <div className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-[#e7ded2]/20 pt-6 font-mono text-xs uppercase tracking-widest text-[#e7ded2]/80">
-          {EXPRESSIONS.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
+        <div className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-3 border-t border-[#e7ded2]/20 pt-6 font-mono text-xs uppercase tracking-widest">
+          {EXPRESSIONS.map((item) =>
+            item.available ? (
+              <span
+                key={item.label}
+                className="inline-flex items-center gap-2 text-[#e7ded2]/85 transition-colors duration-150 hover:text-[#f6e0bd]"
+              >
+                <ExprIcon name={item.icon} rotate={item.rotate} />
+                {item.label}
+              </span>
+            ) : (
+              <span
+                key={item.label}
+                className="inline-flex cursor-default items-center gap-2 text-[#e7ded2]/30"
+                title="Coming soon"
+              >
+                <ExprIcon name={item.icon} rotate={item.rotate} />
+                {item.label}
+                <span className="ml-0.5 text-[9px] normal-case tracking-normal text-[#e7ded2]/25">
+                  soon
+                </span>
+              </span>
+            ),
+          )}
         </div>
       </section>
 
