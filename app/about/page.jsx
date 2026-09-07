@@ -1,11 +1,12 @@
 export const metadata = { title: "About — Add the Accent" };
 
+// Rewritten as profound, centered lines for Section 02.
 const PRINCIPLES = [
-  "Your history affects the way you see.",
-  "Your taste affects the way you choose.",
-  "Your voice affects the way you communicate.",
-  "Your presence affects the energy of a space.",
-  "Your lived experience gives you something no one else can duplicate exactly.",
+  "What you have lived becomes how you look.",
+  "Your taste is memory, quietly choosing.",
+  "Your presence changes a room before you speak.",
+  "The mark you leave is made of everything that made you.",
+  "No one else will ever arrive exactly as you.",
 ];
 
 const EXPRESSIONS = [
@@ -17,25 +18,38 @@ const EXPRESSIONS = [
   "Bon Roux",
 ];
 
-const TAGLINES = [
-  "Add what only you can.",
-  "Make your presence part of the work.",
-  "Your point of view changes everything.",
-  "Leave the part only you could leave.",
-  "Different medium. Same signature.",
-  "The detail that makes it yours.",
-  "Not more noise. More you.",
+// Sticky-note taglines, each with its own color and a hand-placed tilt.
+const NOTES = [
+  { text: "Add what only you can.", color: "#fde68a", rotate: -6 },
+  { text: "Make your presence part of the work.", color: "#bfdbfe", rotate: 4 },
+  { text: "Your point of view changes everything.", color: "#bbf7d0", rotate: -3 },
+  { text: "Leave the part only you could leave.", color: "#fbcfe8", rotate: 7 },
+  { text: "Different medium. Same signature.", color: "#fed7aa", rotate: -8 },
+  { text: "The detail that makes it yours.", color: "#fde68a", rotate: 3 },
+  { text: "Not more noise. More you.", color: "#ddd6fe", rotate: -4 },
 ];
+
+function SectionLabel({ children, tone = "text-accent", rule = "bg-accent/40" }) {
+  return (
+    <div
+      className={`flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest ${tone}`}
+    >
+      <span className={`h-px w-8 ${rule}`} />
+      <span>{children}</span>
+      <span className={`h-px w-8 ${rule}`} />
+    </div>
+  );
+}
+
+const headingClass =
+  "mt-3 text-center font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl";
 
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       {/* Hero */}
       <section className="paper-notebook corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
-        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
-          <span>About</span>
-          <span className="h-px flex-1 bg-accent/40" />
-        </div>
+        <SectionLabel>About</SectionLabel>
         <h1 className="mt-4 text-center font-display text-3xl uppercase leading-tight tracking-tight text-ink sm:text-4xl">
           Add the Accent
         </h1>
@@ -81,13 +95,10 @@ export default function AboutPage() {
 
       {/* The core idea */}
       <section className="paper-newspaper corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
-        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-moss">
-          <span>Section 01</span>
-          <span className="h-px flex-1 bg-moss/40" />
-        </div>
-        <h2 className="mt-3 font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
-          The Core Idea
-        </h2>
+        <SectionLabel tone="text-moss" rule="bg-moss/40">
+          Section 01
+        </SectionLabel>
+        <h2 className={headingClass}>The Core Idea</h2>
         <p className="mx-auto mt-5 max-w-xl text-center text-stone">
           Creative work is not ultimately about a logo, photograph, article,
           film, garment, or product. Those are the mediums. The real value is
@@ -100,56 +111,69 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* What it means */}
+      {/* Section 02 — Minimalism vs. Maximalism */}
       <section className="paper-journal corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
-        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
-          <span>Section 02</span>
-          <span className="h-px flex-1 bg-accent/40" />
+        <SectionLabel>Section 02</SectionLabel>
+        <h2 className={headingClass}>Minimalism vs. Maximalism</h2>
+        <p className="mx-auto mt-5 max-w-xl text-center text-stone">
+          Two ways to hold the same idea — one that fits in your hand, and one
+          you can fall into.
+        </p>
+
+        <div className="mt-8 border-t border-ink/10 pt-8 text-center">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent">
+            Minimalism
+          </p>
+          <p className="mx-auto mt-3 max-w-lg font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
+            &ldquo;Add your touch.&rdquo;
+          </p>
+          <p className="mx-auto mt-3 max-w-md text-sm text-stone">
+            Three words. The whole thing fits there.
+          </p>
         </div>
-        <h2 className="mt-3 font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
-          What &ldquo;
-          <span className="font-script normal-case tracking-normal">
-            Add the Accent
-          </span>
-          &rdquo; Means
-        </h2>
-        <p className="mt-5 max-w-xl text-stone">
-          To add the accent is to bring your own particular touch and essence
-          into whatever you are doing.
-        </p>
-        <p className="mt-4 max-w-xl font-serif text-lg italic leading-relaxed text-ink">
-          It is the decision to participate in life as yourself instead of
-          simply repeating what already exists.
-        </p>
-        <ul className="mt-6 space-y-3 border-t border-ink/10 pt-6">
+
+        <div className="mt-8 border-t border-ink/10 pt-8 text-center">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent">
+            Maximalism
+          </p>
+          <p className="mx-auto mt-4 max-w-xl font-serif text-lg italic leading-relaxed text-ink">
+            The accent is the part of you that came before you — inherited,
+            lived-in, unrepeatable. To add it is to refuse the copy: to make
+            the thing the way only your history, your ear, and your eye would
+            make it. It is the decision to participate in life as yourself
+            rather than repeat what already exists. Not louder. Truer.
+          </p>
+        </div>
+
+        <div className="mt-8 space-y-4 border-t border-ink/10 pt-8 text-center">
           {PRINCIPLES.map((line) => (
-            <li key={line} className="flex gap-3 text-stone">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-              <span className="font-mono text-xs uppercase tracking-wide leading-relaxed">
-                {line}
-              </span>
-            </li>
+            <p
+              key={line}
+              className="mx-auto max-w-lg font-serif text-lg italic leading-snug text-ink"
+            >
+              {line}
+            </p>
           ))}
-        </ul>
-        <p className="mt-6 max-w-xl text-stone">
-          The goal is not to force originality for originality&rsquo;s sake.
-          It is to uncover what is authentic, specific, and memorable, then
-          give it form.
+        </div>
+
+        <p className="mx-auto mt-8 max-w-xl text-center text-stone">
+          The goal is not originality for its own sake. It is to find what is
+          authentic, specific, and unmistakable — and give it form.
         </p>
       </section>
 
       {/* Guiding principle */}
-      <section className="paper-journal-dark corner-box mt-10 rounded-xl border border-black/30 px-7 py-9 text-[#e7ded2] shadow-lg sm:px-10 sm:py-11"
+      <section
+        className="paper-journal-dark corner-box mt-10 rounded-xl border border-black/30 px-7 py-9 text-[#e7ded2] shadow-lg sm:px-10 sm:py-11"
         style={{
           background:
             "linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
         }}
       >
-        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-[#e7ded2]/80">
-          <span>Section 03</span>
-          <span className="h-px flex-1 bg-[#e7ded2]/30" />
-        </div>
-        <h2 className="mt-3 font-display text-2xl uppercase tracking-tight text-white sm:text-3xl">
+        <SectionLabel tone="text-[#e7ded2]/80" rule="bg-[#e7ded2]/30">
+          Section 03
+        </SectionLabel>
+        <h2 className="mt-3 text-center font-display text-2xl uppercase tracking-tight text-white sm:text-3xl">
           The Guiding Principle
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-center font-serif text-xl italic leading-snug">
@@ -164,7 +188,7 @@ export default function AboutPage() {
           long as they carry the same philosophy: bring something
           unmistakably yours.
         </p>
-        <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 border-t border-[#e7ded2]/20 pt-6 font-mono text-xs uppercase tracking-widest text-[#e7ded2]/80">
+        <div className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-[#e7ded2]/20 pt-6 font-mono text-xs uppercase tracking-widest text-[#e7ded2]/80">
           {EXPRESSIONS.map((item) => (
             <span key={item}>{item}</span>
           ))}
@@ -173,14 +197,11 @@ export default function AboutPage() {
 
       {/* In JT's own words */}
       <section className="paper-notebook corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
-        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-moss">
-          <span>Section 04</span>
-          <span className="h-px flex-1 bg-moss/40" />
-        </div>
-        <h2 className="mt-3 font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
-          How I&rsquo;d Explain It
-        </h2>
-        <p className="mt-5 max-w-xl font-serif text-lg italic leading-relaxed text-ink">
+        <SectionLabel tone="text-moss" rule="bg-moss/40">
+          Section 04
+        </SectionLabel>
+        <h2 className={headingClass}>How I&rsquo;d Explain It</h2>
+        <p className="mx-auto mt-5 max-w-xl text-center font-serif text-lg italic leading-relaxed text-ink">
           &ldquo;For me, the accent is that part of you that nobody else can
           duplicate. It&rsquo;s your taste, your story, your eye, your
           voice. So Add the Accent became the umbrella for everything I
@@ -190,14 +211,20 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* Tagline chips */}
-      <section className="mt-10 flex flex-wrap gap-2">
-        {TAGLINES.map((line) => (
+      {/* Sticky-note taglines — hand-scrawled and pasted at the bottom */}
+      <section className="mt-14 flex flex-wrap items-center justify-center gap-x-3 gap-y-6 pb-4">
+        {NOTES.map((note) => (
           <span
-            key={line}
-            className="rounded-full border border-ink/20 bg-card px-4 py-1.5 font-mono text-xs uppercase tracking-wide text-stone"
+            key={note.text}
+            className="inline-flex h-36 w-36 items-center justify-center p-4 text-center font-hand text-xl leading-tight text-ink/85 shadow-[3px_5px_10px_rgba(0,0,0,0.28)]"
+            style={{
+              backgroundColor: note.color,
+              transform: `rotate(${note.rotate}deg)`,
+              backgroundImage:
+                "linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0) 12%)",
+            }}
           >
-            {line}
+            {note.text}
           </span>
         ))}
       </section>

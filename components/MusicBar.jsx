@@ -38,6 +38,7 @@ export default function MusicBar() {
   // Web Audio graph (created lazily once a gesture allows it)
   const ctxRef = useRef(null);
   const gainRefs = useRef([null, null]);
+  const noiseBufRef = useRef(null);
 
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -130,6 +131,60 @@ export default function MusicBar() {
     ctxRef.current?.resume?.().catch(() => {});
   }, [ensureGraph]);
 
+  // A short burst of filtered static + a tuning whistle, layered over the
+  // crossfade so the switch sounds like dialing between stations on an old
+  // radio.
+  const playTuningBurst = useCallback((seconds) => {
+    const ctx = ctxRef.current;
+    if (!ctx) return;
+
+    if (!noiseBufRef.current) {
+      const len = Math.floor(ctx.sampleRate * 2);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < len; i += 1) data[i] = Math.random() * 2 - 1;
+      noiseBufRef.current = buf;
+    }
+
+    const now = ctx.currentTime;
+    const end = now + seconds;
+
+    // Static: white noise, band-limited and swept like a dial.
+    const noise = ctx.createBufferSource();
+    noise.buffer = noiseBufRef.current;
+    noise.loop = true;
+    const hp = ctx.createBiquadFilter();
+    hp.type = "highpass";
+    hp.frequency.value = 450;
+    const bp = ctx.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.Q.value = 2.4;
+    bp.frequency.setValueAtTime(850, now);
+    bp.frequency.linearRampToValueAtTime(3400, now + seconds * 0.55);
+    bp.frequency.linearRampToValueAtTime(1300, end);
+    const ng = ctx.createGain();
+    ng.gain.setValueAtTime(0.0001, now);
+    ng.gain.linearRampToValueAtTime(0.16, now + 0.1);
+    ng.gain.setValueAtTime(0.16, Math.max(now + 0.11, end - 0.3));
+    ng.gain.linearRampToValueAtTime(0.0001, end);
+    noise.connect(hp).connect(bp).connect(ng).connect(ctx.destination);
+    noise.start(now);
+    noise.stop(end + 0.05);
+
+    // Whistle: a sine that slides, the sound of passing a station.
+    const osc = ctx.createOscillator();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(1600, now + 0.15);
+    osc.frequency.exponentialRampToValueAtTime(2700, now + seconds * 0.7);
+    const og = ctx.createGain();
+    og.gain.setValueAtTime(0.0001, now);
+    og.gain.linearRampToValueAtTime(0.035, now + 0.2);
+    og.gain.exponentialRampToValueAtTime(0.0001, now + seconds * 0.85);
+    osc.connect(og).connect(ctx.destination);
+    osc.start(now + 0.12);
+    osc.stop(now + seconds);
+  }, []);
+
   const load = (el, i) => {
     if (el) {
       el.src = PLAYLIST[i].src;
@@ -151,6 +206,8 @@ export default function MusicBar() {
       const dur = quick ? QUICK_FADE : FADE;
       const fromSlot = primary.current;
       const toSlot = primary.current ^ 1;
+
+      playTuningBurst(quick ? 0.7 : 1.5);
 
       load(to, nextIdx);
       try {
@@ -187,7 +244,7 @@ export default function MusicBar() {
         dur * 1000 + 80,
       );
     },
-    [primaryEl, otherEl, resumeCtx, setGain],
+    [primaryEl, otherEl, resumeCtx, setGain, playTuningBurst],
   );
 
   // ---- mount: resume position, start playback, gesture fallback ----

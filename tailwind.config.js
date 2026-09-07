@@ -27,6 +27,7 @@ module.exports = {
         script: ["var(--font-script)", "cursive"],
         playfair: ["var(--font-playfair)", "Georgia", "serif"],
         oldenglish: ["var(--font-oldenglish)", "\"Old English Text MT\"", "Georgia", "serif"],
+        hand: ["var(--font-hand)", "\"Bradley Hand\"", "\"Comic Sans MS\"", "cursive"],
       },
       typography: () => ({
         accent: {
