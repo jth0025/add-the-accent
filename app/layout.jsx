@@ -1,4 +1,4 @@
-import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display } from "next/font/google";
+import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display, UnifrakturCook } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
@@ -59,6 +59,14 @@ const playfairDisplay = Playfair_Display({
   display: "swap",
 });
 
+// Old English blackletter — a single profound line under the epigraph.
+const unifrakturCook = UnifrakturCook({
+  subsets: ["latin"],
+  weight: "700",
+  variable: "--font-oldenglish",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Add the Accent",
   description:
@@ -105,7 +113,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable} ${playfairDisplay.variable}`}
+      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable} ${playfairDisplay.variable} ${unifrakturCook.variable}`}
     >
       <body className="font-sans antialiased">
         {/* Grunge/distressed-type filter — referenced by `.grunge-text`

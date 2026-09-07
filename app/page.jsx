@@ -66,6 +66,10 @@ export default function HomePage() {
             <circle cx="17" cy="15.5" r="3" />
           </svg>
         </div>
+
+        <p className="mt-7 font-oldenglish text-3xl leading-tight text-[#b8860b] [text-shadow:0_1px_3px_rgba(0,0,0,0.6)] sm:text-4xl">
+          This is all a true story.
+        </p>
       </figure>
 
       <HeroCarousel>

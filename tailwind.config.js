@@ -26,6 +26,7 @@ module.exports = {
         logo: ["var(--font-poppins)", "system-ui", "sans-serif"],
         script: ["var(--font-script)", "cursive"],
         playfair: ["var(--font-playfair)", "Georgia", "serif"],
+        oldenglish: ["var(--font-oldenglish)", "\"Old English Text MT\"", "Georgia", "serif"],
       },
       typography: () => ({
         accent: {
