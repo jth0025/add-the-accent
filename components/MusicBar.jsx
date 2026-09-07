@@ -8,7 +8,7 @@ const SOURCE_ID = "music";
 const STORE_KEY = "ata-music-track";
 const FADE = 2.5; // crossfade length, seconds
 const QUICK_FADE = 0.8; // manual skip / very short previews
-const MUSIC_LEVEL = 0.24; // sits low, almost ambient, under everything on the page
+const MUSIC_LEVEL = 0.07; // barely-there ambient bed, well under everything else
 
 function fmt(t) {
   if (!Number.isFinite(t) || t < 0) return "0:00";
@@ -165,8 +165,8 @@ export default function MusicBar() {
     lp.frequency.value = 7200;
     const hg = ctx.createGain();
     hg.gain.setValueAtTime(0.0001, now);
-    hg.gain.linearRampToValueAtTime(0.045, now + 0.14);
-    hg.gain.setValueAtTime(0.045, Math.max(now + 0.15, end - 0.2));
+    hg.gain.linearRampToValueAtTime(0.022, now + 0.14);
+    hg.gain.setValueAtTime(0.022, Math.max(now + 0.15, end - 0.2));
     hg.gain.linearRampToValueAtTime(0.0001, end);
     hiss.connect(hp).connect(lp).connect(hg).connect(ctx.destination);
     hiss.start(now);
@@ -195,8 +195,8 @@ export default function MusicBar() {
     cf.Q.value = 0.7;
     const cg = ctx.createGain();
     cg.gain.setValueAtTime(0.0001, now);
-    cg.gain.linearRampToValueAtTime(0.1, now + 0.1);
-    cg.gain.setValueAtTime(0.1, Math.max(now + 0.11, end - 0.16));
+    cg.gain.linearRampToValueAtTime(0.05, now + 0.1);
+    cg.gain.setValueAtTime(0.05, Math.max(now + 0.11, end - 0.16));
     cg.gain.linearRampToValueAtTime(0.0001, end);
     crackle.connect(cf).connect(cg).connect(ctx.destination);
     crackle.start(now);
@@ -240,7 +240,7 @@ export default function MusicBar() {
     lp.type = "lowpass";
     lp.frequency.value = 5200;
     const g = ctx.createGain();
-    g.gain.value = 0.05; // subtle, but present — the sound of a live signal
+    g.gain.value = 0.035; // subtle, but present — the sound of a live signal
     src.connect(bp).connect(lp).connect(g).connect(ctx.destination);
     src.start();
     ambientRef.current = { src, gain: g };
