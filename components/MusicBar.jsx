@@ -6,6 +6,8 @@ import { AUDIOBUS_PLAY, AUDIOBUS_STOP, announcePlay } from "@/lib/audioBus";
 
 const SOURCE_ID = "music";
 const STORE_KEY = "ata-music-track";
+const FADE = 2.5; // crossfade length, seconds
+const QUICK_FADE = 0.8; // manual skip / very short previews
 
 function fmt(t) {
   if (!Number.isFinite(t) || t < 0) return "0:00";
@@ -16,76 +18,236 @@ function fmt(t) {
 
 /**
  * A one-line music strip under the header, styled like the voice clip:
- * a bronze play/pause button, the current track, and a thin progress
- * line clear across the screen. It plays 30-second previews of the
- * "Melanated Soul" playlist back to back and tries to start itself as
- * soon as the page loads (falling back to the visitor's first gesture,
- * per browser autoplay rules). Coordinates with the audio bus so it and
- * the voice clip never play over each other.
+ * bronze play/pause button, the current track only, and a thin progress
+ * line across the screen.
+ *
+ * Two <audio> elements are routed through a Web Audio gain graph so each
+ * preview crossfades into the next on the audio thread (smooth even when
+ * the tab is backgrounded). It autoplays on load (first-gesture fallback)
+ * and, via the audio bus, yields to the voice clip and resumes after.
  */
 export default function MusicBar() {
-  const audioRef = useRef(null);
-  const wantsToPlay = useRef(true); // desired state; a clip can borrow the floor
+  const els = [useRef(null), useRef(null)];
+  const primary = useRef(0); // which <audio> is foreground
+  const idxRef = useRef(0);
+  const fading = useRef(false);
+  const wantsToPlay = useRef(true);
+  const commitTimer = useRef(null);
+
+  // Web Audio graph (created lazily once a gesture allows it)
+  const ctxRef = useRef(null);
+  const gainRefs = useRef([null, null]);
+
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
 
+  const primaryEl = useCallback(() => els[primary.current].current, [els]);
+  const otherEl = useCallback(() => els[primary.current ^ 1].current, [els]);
   const track = PLAYLIST[index] || PLAYLIST[0];
 
-  // Resume on the track the visitor left off on.
-  useEffect(() => {
+  const persist = (i) => {
     try {
-      const saved = parseInt(sessionStorage.getItem(STORE_KEY) || "", 10);
-      if (Number.isInteger(saved) && saved >= 0 && saved < PLAYLIST.length) {
-        setIndex(saved);
-      }
+      sessionStorage.setItem(STORE_KEY, String(i));
     } catch {
       /* ignore */
     }
-  }, []);
+  };
 
-  const tryPlay = useCallback(() => {
-    const el = audioRef.current;
-    if (!el) return;
-    el.play().catch(() => {
-      /* autoplay blocked — a global gesture listener will retry */
-    });
-  }, []);
+  const ensureGraph = useCallback(() => {
+    if (ctxRef.current) return ctxRef.current;
+    try {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      const ctx = new AC();
+      els.forEach((r, i) => {
+        const node = ctx.createMediaElementSource(r.current);
+        const gain = ctx.createGain();
+        gain.gain.value = i === primary.current ? 1 : 0;
+        node.connect(gain).connect(ctx.destination);
+        gainRefs.current[i] = gain;
+      });
+      ctxRef.current = ctx;
+      return ctx;
+    } catch {
+      return null; // fall back to element .volume
+    }
+  }, [els]);
 
-  // Attempt autoplay on mount; if the browser blocks it, start on the
-  // first interaction anywhere on the page.
+  const setGain = useCallback(
+    (slot, target, seconds) => {
+      const ctx = ctxRef.current;
+      const gain = gainRefs.current[slot];
+      if (ctx && gain) {
+        const now = ctx.currentTime;
+        gain.gain.cancelScheduledValues(now);
+        gain.gain.setValueAtTime(gain.gain.value, now);
+        if (seconds > 0) gain.gain.linearRampToValueAtTime(target, now + seconds);
+        else gain.gain.setValueAtTime(target, now);
+      } else {
+        // no graph — ramp the element volume with a timer
+        const el = els[slot].current;
+        if (!el) return;
+        const from = Number.isFinite(el.volume) ? el.volume : 1;
+        if (seconds <= 0) {
+          try {
+            el.volume = target;
+          } catch {
+            /* ignore */
+          }
+          return;
+        }
+        const steps = Math.max(1, Math.round(seconds / 0.05));
+        let n = 0;
+        const id = setInterval(() => {
+          n += 1;
+          try {
+            el.volume = Math.max(
+              0,
+              Math.min(1, from + (target - from) * (n / steps)),
+            );
+          } catch {
+            /* ignore */
+          }
+          if (n >= steps) clearInterval(id);
+        }, 50);
+      }
+    },
+    [els],
+  );
+
+  const resumeCtx = useCallback(() => {
+    ensureGraph();
+    ctxRef.current?.resume?.().catch(() => {});
+  }, [ensureGraph]);
+
+  const load = (el, i) => {
+    if (el) {
+      el.src = PLAYLIST[i].src;
+      el.load();
+    }
+  };
+
+  const nextIndex = () => (idxRef.current + 1) % PLAYLIST.length;
+
+  const crossfade = useCallback(
+    (nextIdx, quick = false) => {
+      if (fading.current || !wantsToPlay.current) return;
+      const from = primaryEl();
+      const to = otherEl();
+      if (!from || !to) return;
+
+      resumeCtx();
+      fading.current = true;
+      const dur = quick ? QUICK_FADE : FADE;
+      const fromSlot = primary.current;
+      const toSlot = primary.current ^ 1;
+
+      load(to, nextIdx);
+      try {
+        to.currentTime = 0;
+      } catch {
+        /* ignore */
+      }
+      if (!ctxRef.current) to.volume = 0;
+      to.play().catch(() => {});
+
+      setGain(toSlot, 1, dur);
+      setGain(fromSlot, 0, dur);
+
+      clearTimeout(commitTimer.current);
+      commitTimer.current = setTimeout(
+        () => {
+          try {
+            from.pause();
+          } catch {
+            /* ignore */
+          }
+          if (!ctxRef.current) {
+            from.volume = 1;
+            to.volume = 1;
+          }
+          primary.current = toSlot;
+          idxRef.current = nextIdx;
+          persist(nextIdx);
+          setIndex(nextIdx);
+          setCurrent(0);
+          setDuration(Number.isFinite(to.duration) ? to.duration : 0);
+          fading.current = false;
+        },
+        dur * 1000 + 80,
+      );
+    },
+    [primaryEl, otherEl, resumeCtx, setGain],
+  );
+
+  // ---- mount: resume position, start playback, gesture fallback ----
   useEffect(() => {
-    tryPlay();
+    let start = 0;
+    try {
+      const s = parseInt(sessionStorage.getItem(STORE_KEY) || "", 10);
+      if (Number.isInteger(s) && s >= 0 && s < PLAYLIST.length) start = s;
+    } catch {
+      /* ignore */
+    }
+    idxRef.current = start;
+    setIndex(start);
+    primary.current = 0;
+
+    const el = els[0].current;
+    if (el) {
+      el.volume = 1;
+      load(el, start);
+      el.play().catch(() => {});
+    }
+
     const kick = () => {
-      // Let any player that the same gesture started claim the floor first.
+      resumeCtx();
       window.setTimeout(() => {
-        if (wantsToPlay.current) tryPlay();
+        if (wantsToPlay.current) primaryEl()?.play().catch(() => {});
       }, 200);
       remove();
     };
-    const remove = () => {
+    const remove = () =>
       ["pointerdown", "keydown", "touchstart", "scroll"].forEach((e) =>
         window.removeEventListener(e, kick),
       );
-    };
     ["pointerdown", "keydown", "touchstart", "scroll"].forEach((e) =>
       window.addEventListener(e, kick, { once: true, passive: true }),
     );
-    return remove;
-  }, [tryPlay]);
+    return () => {
+      remove();
+      clearTimeout(commitTimer.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // Audio bus: yield to the voice clip, take the floor back when it stops.
+  // ---- audio bus: yield to the voice clip, resume when it stops ----
   useEffect(() => {
     const onOther = (e) => {
       if (e.detail?.sourceId === SOURCE_ID) return;
       wantsToPlay.current = false;
-      audioRef.current?.pause();
+      clearTimeout(commitTimer.current);
+      fading.current = false;
+      els.forEach((r) => {
+        try {
+          r.current?.pause();
+        } catch {
+          /* ignore */
+        }
+      });
     };
     const onOtherStop = (e) => {
       if (e.detail?.sourceId === SOURCE_ID) return;
       wantsToPlay.current = true;
-      tryPlay();
+      setGain(primary.current, 1, 0);
+      setGain(primary.current ^ 1, 0, 0);
+      const el = primaryEl();
+      if (el) {
+        if (!ctxRef.current) el.volume = 1;
+        el.play().catch(() => {});
+      }
     };
     window.addEventListener(AUDIOBUS_PLAY, onOther);
     window.addEventListener(AUDIOBUS_STOP, onOtherStop);
@@ -93,55 +255,100 @@ export default function MusicBar() {
       window.removeEventListener(AUDIOBUS_PLAY, onOther);
       window.removeEventListener(AUDIOBUS_STOP, onOtherStop);
     };
-  }, [tryPlay]);
+  }, [els, primaryEl, setGain]);
 
   const toggle = () => {
-    const el = audioRef.current;
+    const el = primaryEl();
     if (!el) return;
+    resumeCtx();
     if (el.paused) {
       wantsToPlay.current = true;
+      setGain(primary.current, 1, 0);
+      if (!ctxRef.current) el.volume = 1;
       el.play().catch(() => {});
     } else {
       wantsToPlay.current = false;
+      clearTimeout(commitTimer.current);
+      fading.current = false;
+      try {
+        otherEl()?.pause();
+      } catch {
+        /* ignore */
+      }
       el.pause();
     }
   };
 
-  const advance = useCallback(
-    (dir = 1) => {
-      setIndex((i) => {
-        const next = (i + dir + PLAYLIST.length) % PLAYLIST.length;
-        try {
-          sessionStorage.setItem(STORE_KEY, String(next));
-        } catch {
-          /* ignore */
-        }
-        return next;
-      });
-      setCurrent(0);
-    },
-    [],
-  );
+  const onTimeUpdate = (e) => {
+    const el = e.currentTarget;
+    if (el !== primaryEl()) return;
+    setCurrent(el.currentTime);
+    if (
+      !fading.current &&
+      wantsToPlay.current &&
+      Number.isFinite(el.duration) &&
+      el.duration > FADE + 3 &&
+      el.duration - el.currentTime <= FADE
+    ) {
+      crossfade(nextIndex());
+    }
+  };
 
-  // When the track src changes, keep playing if that was the intent.
-  useEffect(() => {
-    const el = audioRef.current;
-    if (el && wantsToPlay.current) el.play().catch(() => {});
-  }, [index]);
+  const onEnded = (e) => {
+    if (e.currentTarget !== primaryEl() || fading.current) return;
+    crossfade(nextIndex(), true);
+  };
+
+  const onError = (e) => {
+    const el = e.currentTarget;
+    if (fading.current && el === otherEl()) {
+      clearTimeout(commitTimer.current);
+      fading.current = false;
+      setGain(primary.current, 1, 0);
+      crossfade((idxRef.current + 2) % PLAYLIST.length, true);
+      return;
+    }
+    if (el === primaryEl()) {
+      clearTimeout(commitTimer.current);
+      fading.current = false;
+      const n = nextIndex();
+      idxRef.current = n;
+      persist(n);
+      setIndex(n);
+      load(el, n);
+      if (!ctxRef.current) el.volume = 1;
+      if (wantsToPlay.current) el.play().catch(() => {});
+    }
+  };
 
   const seek = (e) => {
-    const el = audioRef.current;
+    const el = primaryEl();
     if (!el || !duration) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const ratio = Math.min(
-      1,
-      Math.max(0, (e.clientX - rect.left) / rect.width),
-    );
+    const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
     el.currentTime = ratio * duration;
     setCurrent(el.currentTime);
   };
 
   const pct = duration ? (current / duration) * 100 : 0;
+
+  const audioProps = {
+    preload: "auto",
+    crossOrigin: "anonymous",
+    onPlay: () => {
+      setPlaying(true);
+      announcePlay(SOURCE_ID);
+    },
+    onPause: (e) => {
+      if (e.currentTarget === primaryEl() && !fading.current) setPlaying(false);
+    },
+    onLoadedMetadata: (e) => {
+      if (e.currentTarget === primaryEl()) setDuration(e.currentTarget.duration);
+    },
+    onTimeUpdate,
+    onEnded,
+    onError,
+  };
 
   return (
     <div className="w-full border-b-2 border-ink/55 bg-ink">
@@ -196,7 +403,7 @@ export default function MusicBar() {
 
         <button
           type="button"
-          onClick={() => advance(1)}
+          onClick={() => crossfade(nextIndex(), true)}
           aria-label="Next track"
           className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-white/45 transition-colors hover:text-white/80"
         >
@@ -204,20 +411,8 @@ export default function MusicBar() {
         </button>
       </div>
 
-      <audio
-        ref={audioRef}
-        src={track.src}
-        preload="auto"
-        onPlay={() => {
-          setPlaying(true);
-          announcePlay(SOURCE_ID);
-        }}
-        onPause={() => setPlaying(false)}
-        onEnded={() => advance(1)}
-        onError={() => advance(1)}
-        onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
-      />
+      <audio ref={els[0]} {...audioProps} />
+      <audio ref={els[1]} {...audioProps} />
     </div>
   );
 }
