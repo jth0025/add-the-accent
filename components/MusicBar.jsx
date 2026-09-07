@@ -8,6 +8,7 @@ const SOURCE_ID = "music";
 const STORE_KEY = "ata-music-track";
 const FADE = 2.5; // crossfade length, seconds
 const QUICK_FADE = 0.8; // manual skip / very short previews
+const MUSIC_LEVEL = 0.6; // foreground playback level (background music sits under everything)
 
 function fmt(t) {
   if (!Number.isFinite(t) || t < 0) return "0:00";
@@ -62,9 +63,16 @@ export default function MusicBar() {
       if (!AC) return null;
       const ctx = new AC();
       els.forEach((r, i) => {
+        // The gain node is now the single level control — the element's own
+        // volume would otherwise multiply on top of it.
+        try {
+          r.current.volume = 1;
+        } catch {
+          /* ignore */
+        }
         const node = ctx.createMediaElementSource(r.current);
         const gain = ctx.createGain();
-        gain.gain.value = i === primary.current ? 1 : 0;
+        gain.gain.value = i === primary.current ? MUSIC_LEVEL : 0;
         node.connect(gain).connect(ctx.destination);
         gainRefs.current[i] = gain;
       });
@@ -153,7 +161,7 @@ export default function MusicBar() {
       if (!ctxRef.current) to.volume = 0;
       to.play().catch(() => {});
 
-      setGain(toSlot, 1, dur);
+      setGain(toSlot, MUSIC_LEVEL, dur);
       setGain(fromSlot, 0, dur);
 
       clearTimeout(commitTimer.current);
@@ -165,8 +173,8 @@ export default function MusicBar() {
             /* ignore */
           }
           if (!ctxRef.current) {
-            from.volume = 1;
-            to.volume = 1;
+            from.volume = MUSIC_LEVEL;
+            to.volume = MUSIC_LEVEL;
           }
           primary.current = toSlot;
           idxRef.current = nextIdx;
@@ -197,7 +205,7 @@ export default function MusicBar() {
 
     const el = els[0].current;
     if (el) {
-      el.volume = 1;
+      el.volume = MUSIC_LEVEL;
       load(el, start);
       el.play().catch(() => {});
     }
@@ -241,11 +249,11 @@ export default function MusicBar() {
     const onOtherStop = (e) => {
       if (e.detail?.sourceId === SOURCE_ID) return;
       wantsToPlay.current = true;
-      setGain(primary.current, 1, 0);
+      setGain(primary.current, MUSIC_LEVEL, 0);
       setGain(primary.current ^ 1, 0, 0);
       const el = primaryEl();
       if (el) {
-        if (!ctxRef.current) el.volume = 1;
+        if (!ctxRef.current) el.volume = MUSIC_LEVEL;
         el.play().catch(() => {});
       }
     };
@@ -263,8 +271,8 @@ export default function MusicBar() {
     resumeCtx();
     if (el.paused) {
       wantsToPlay.current = true;
-      setGain(primary.current, 1, 0);
-      if (!ctxRef.current) el.volume = 1;
+      setGain(primary.current, MUSIC_LEVEL, 0);
+      if (!ctxRef.current) el.volume = MUSIC_LEVEL;
       el.play().catch(() => {});
     } else {
       wantsToPlay.current = false;
@@ -304,7 +312,7 @@ export default function MusicBar() {
     if (fading.current && el === otherEl()) {
       clearTimeout(commitTimer.current);
       fading.current = false;
-      setGain(primary.current, 1, 0);
+      setGain(primary.current, MUSIC_LEVEL, 0);
       crossfade((idxRef.current + 2) % PLAYLIST.length, true);
       return;
     }
@@ -316,7 +324,7 @@ export default function MusicBar() {
       persist(n);
       setIndex(n);
       load(el, n);
-      if (!ctxRef.current) el.volume = 1;
+      if (!ctxRef.current) el.volume = MUSIC_LEVEL;
       if (wantsToPlay.current) el.play().catch(() => {});
     }
   };
