@@ -67,7 +67,7 @@ export default function HomePage() {
           </svg>
         </div>
 
-        <p className="mt-7 font-oldenglish text-xl leading-tight text-[#38362e] sm:text-2xl">
+        <p className="mt-7 font-oldenglish text-xl leading-tight text-[#1c1b17] sm:text-2xl">
           This is all a true story.
         </p>
       </figure>
