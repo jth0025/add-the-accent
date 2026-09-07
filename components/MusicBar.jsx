@@ -39,6 +39,8 @@ export default function MusicBar() {
   const ctxRef = useRef(null);
   const gainRefs = useRef([null, null]);
   const noiseBufRef = useRef(null);
+  const crackleBufRef = useRef(null);
+  const ambientRef = useRef(null); // { src, gain } — the quiet always-on crackle
 
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -162,8 +164,8 @@ export default function MusicBar() {
     lp.frequency.value = 7200;
     const hg = ctx.createGain();
     hg.gain.setValueAtTime(0.0001, now);
-    hg.gain.linearRampToValueAtTime(0.42, now + 0.04);
-    hg.gain.setValueAtTime(0.42, Math.max(now + 0.05, end - 0.14));
+    hg.gain.linearRampToValueAtTime(0.21, now + 0.04);
+    hg.gain.setValueAtTime(0.21, Math.max(now + 0.05, end - 0.14));
     hg.gain.linearRampToValueAtTime(0.0001, end);
     hiss.connect(hp).connect(lp).connect(hg).connect(ctx.destination);
     hiss.start(now);
@@ -192,12 +194,71 @@ export default function MusicBar() {
     cf.Q.value = 0.7;
     const cg = ctx.createGain();
     cg.gain.setValueAtTime(0.0001, now);
-    cg.gain.linearRampToValueAtTime(0.7, now + 0.03);
-    cg.gain.setValueAtTime(0.7, Math.max(now + 0.04, end - 0.1));
+    cg.gain.linearRampToValueAtTime(0.35, now + 0.03);
+    cg.gain.setValueAtTime(0.35, Math.max(now + 0.04, end - 0.1));
     cg.gain.linearRampToValueAtTime(0.0001, end);
     crackle.connect(cf).connect(cg).connect(ctx.destination);
     crackle.start(now);
     crackle.stop(end + 0.05);
+  }, []);
+
+  // A very quiet crackle that runs under the music the whole time it
+  // plays — the sound of a slightly noisy signal.
+  const startAmbientCrackle = useCallback(() => {
+    const ctx = ensureGraph();
+    if (!ctx || ambientRef.current) return;
+
+    if (!crackleBufRef.current) {
+      const secs = 8;
+      const len = Math.floor(ctx.sampleRate * secs);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i += 1) {
+        d[i] = (Math.random() * 2 - 1) * 0.05; // faint hiss floor
+        if (Math.random() < 0.00035) {
+          const plen = 8 + ((Math.random() * 50) | 0);
+          let amp = 0.5 + Math.random() * 0.5;
+          for (let k = 0; k < plen && i + k < len; k += 1) {
+            d[i + k] += (Math.random() * 2 - 1) * amp;
+            amp *= 0.88 + Math.random() * 0.06;
+          }
+          i += plen;
+        }
+      }
+      crackleBufRef.current = buf;
+    }
+
+    const src = ctx.createBufferSource();
+    src.buffer = crackleBufRef.current;
+    src.loop = true;
+    const bp = ctx.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.frequency.value = 2600;
+    bp.Q.value = 0.5;
+    const lp = ctx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 5200;
+    const g = ctx.createGain();
+    g.gain.value = 0.045; // subtle
+    src.connect(bp).connect(lp).connect(g).connect(ctx.destination);
+    src.start();
+    ambientRef.current = { src, gain: g };
+  }, [ensureGraph]);
+
+  const stopAmbientCrackle = useCallback(() => {
+    const a = ambientRef.current;
+    if (!a) return;
+    ambientRef.current = null;
+    try {
+      a.gain.gain.setTargetAtTime(0, ctxRef.current.currentTime, 0.1);
+      a.src.stop(ctxRef.current.currentTime + 0.4);
+    } catch {
+      try {
+        a.src.stop();
+      } catch {
+        /* ignore */
+      }
+    }
   }, []);
 
   const load = (el, i) => {
@@ -336,6 +397,13 @@ export default function MusicBar() {
       window.removeEventListener(AUDIOBUS_STOP, onOtherStop);
     };
   }, [els, primaryEl, setGain]);
+
+  // The ambient crackle follows whether music is actually sounding.
+  useEffect(() => {
+    if (playing) startAmbientCrackle();
+    else stopAmbientCrackle();
+    return () => stopAmbientCrackle();
+  }, [playing, startAmbientCrackle, stopAmbientCrackle]);
 
   const toggle = () => {
     const el = primaryEl();
