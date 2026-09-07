@@ -12,7 +12,7 @@ export default function PortfolioIndex() {
           <span className="h-px w-8 bg-accent/40" />
         </div>
 
-        <div className="mt-10 flex items-end justify-center gap-2 sm:gap-4">
+        <div className="mt-10 flex items-end justify-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo-man.png"
@@ -21,7 +21,7 @@ export default function PortfolioIndex() {
           />
           <svg
             viewBox="0 0 104 96"
-            className="mb-1 h-24 w-auto sm:h-28"
+            className="-ml-4 h-14 w-auto sm:-ml-5 sm:h-16"
             aria-hidden="true"
           >
             <ellipse cx="54" cy="90" rx="40" ry="5" fill="#000" opacity="0.25" />
