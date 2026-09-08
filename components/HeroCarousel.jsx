@@ -90,15 +90,36 @@ export default function HeroCarousel({ children }) {
   return (
     <>
       <div className="relative mt-14">
-        {/* Real rabbit-ear antenna, standing on the top-right edge of the
-            box; shown at its natural proportions. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/tv-antenna.png"
-          alt=""
+        {/* Real rabbit-ear antenna, standing on top of the box's top-right
+            edge. An electric signal crackles between the ears now and
+            then, as if it's pulling in a picture. */}
+        <div
+          className="pointer-events-none absolute bottom-full right-6 z-20 w-16 -translate-y-[3px] sm:right-10 sm:w-20"
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-full right-6 z-20 w-20 translate-y-[12px] sm:right-10 sm:w-24 [filter:drop-shadow(0_3px_4px_rgba(0,0,0,0.45))]"
-        />
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/tv-antenna.png"
+            alt=""
+            className="w-full [filter:drop-shadow(0_3px_4px_rgba(0,0,0,0.45))]"
+          />
+          <svg
+            viewBox="0 0 100 20"
+            className="tv-signal absolute left-0 top-[15%] w-full overflow-visible"
+          >
+            <path
+              d="M10 10 L22 4 L18 13 L32 5 L27 14 L45 5 L40 13 L57 4 L52 13 L70 4 L65 12 L82 5 L92 8"
+              fill="none"
+              stroke="#dcf4ff"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="[filter:drop-shadow(0_0_2.5px_#8fdcff)]"
+            />
+            <circle cx="10" cy="10" r="1.8" fill="#eef9ff" className="[filter:drop-shadow(0_0_3px_#8fdcff)]" />
+            <circle cx="92" cy="8" r="1.8" fill="#eef9ff" className="[filter:drop-shadow(0_0_3px_#8fdcff)]" />
+          </svg>
+        </div>
 
         {/* Real tapered TV legs, planted on the bottom edge; their wide
             tops tuck behind the box so they read as attached. */}
@@ -154,7 +175,7 @@ export default function HeroCarousel({ children }) {
 
       <section
         ref={heroRef}
-        className="relative mt-6 px-2 py-8 sm:px-6 sm:py-10"
+        className="relative mt-16 px-2 py-8 sm:mt-24 sm:px-6 sm:py-10"
       >
         {children}
       </section>

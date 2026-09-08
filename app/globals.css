@@ -79,6 +79,46 @@ body {
   }
 }
 
+/* TV-antenna signal — a short electric crackle that jumps between the
+   rabbit-ear tips on the homepage carousel every several seconds, so the
+   set looks like it's pulling in a picture. Hidden the rest of the time. */
+.tv-signal {
+  opacity: 0;
+  animation: tv-signal 7s linear infinite;
+}
+
+@keyframes tv-signal {
+  0%,
+  85% {
+    opacity: 0;
+  }
+  86% {
+    opacity: 0.95;
+  }
+  87.5% {
+    opacity: 0.1;
+  }
+  89% {
+    opacity: 1;
+  }
+  90.5% {
+    opacity: 0.25;
+  }
+  92% {
+    opacity: 0.8;
+  }
+  93.5%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tv-signal {
+    animation: none;
+  }
+}
+
 /* Paper texture overlays — a subtle secondary layer behind each box's
    own background, so cards read like they're printed/written on
    something rather than sitting on a flat fill. Each mood, plus a
