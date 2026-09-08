@@ -84,7 +84,7 @@ body {
    set looks like it's pulling in a picture. Hidden the rest of the time. */
 .tv-signal {
   opacity: 0;
-  animation: tv-signal 7s linear infinite;
+  animation: tv-signal 4.5s linear infinite;
 }
 
 @keyframes tv-signal {

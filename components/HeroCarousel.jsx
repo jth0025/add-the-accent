@@ -94,7 +94,7 @@ export default function HeroCarousel({ children }) {
             edge. An electric signal crackles between the ears now and
             then, as if it's pulling in a picture. */}
         <div
-          className="pointer-events-none absolute bottom-full right-6 z-20 w-16 -translate-y-[3px] sm:right-10 sm:w-20"
+          className="pointer-events-none absolute bottom-full right-6 z-20 w-16 -translate-y-[1px] sm:right-10 sm:w-20"
           aria-hidden="true"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -105,7 +105,7 @@ export default function HeroCarousel({ children }) {
           />
           <svg
             viewBox="0 0 100 20"
-            className="tv-signal absolute left-0 top-[15%] w-full overflow-visible"
+            className="tv-signal absolute left-[14%] top-[17%] w-[72%] overflow-visible"
           >
             <path
               d="M10 10 L22 4 L18 13 L32 5 L27 14 L45 5 L40 13 L57 4 L52 13 L70 4 L65 12 L82 5 L92 8"
