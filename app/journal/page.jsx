@@ -6,7 +6,7 @@ import { getAllEntries } from "@/lib/content";
 export const metadata = { title: "Journal — Add the Accent" };
 
 // The ordered series, in the sequence they should read on the page.
-const SERIES_ORDER = ["Domain Expansion", "Back to Oui"];
+const SERIES_ORDER = ["Domain Expansion", "Back to Oui", "Homebody"];
 
 // Shown under the heading when the dropdown links here with a filter,
 // and as the blurb under each series on the sectioned index.
@@ -15,6 +15,8 @@ const SERIES_INTROS = {
     "The home-curation journey — moving in, and the shape a room takes on the way to becoming home.",
   "Back to Oui":
     "Traces the distance between love and despair; loneliness and belonging; agreeing and retreating.",
+  "Homebody":
+    "A visual storytelling series exploring masculinity, identity, vulnerability, and the quiet pressures of becoming — a journey to healing.",
 };
 
 const CATEGORY_INTROS = {
@@ -40,7 +42,9 @@ export default function JournalIndex({ searchParams }) {
     let intro = JOURNAL_INTRO;
 
     if (series) {
-      entries = allEntries.filter((e) => e.series === series);
+      entries = allEntries
+        .filter((e) => e.series === series)
+        .sort((a, b) => (a.part || 0) - (b.part || 0));
       heading = series;
       intro = SERIES_INTROS[series] || intro;
     } else {
@@ -81,6 +85,7 @@ export default function JournalIndex({ searchParams }) {
   const SERIES_LABEL_COLOR = {
     "Domain Expansion": "text-[#a855f7]",
     "Back to Oui": "text-[#e0555f]",
+    "Homebody": "text-[#d3ac52]",
   };
 
   return (

@@ -2,7 +2,6 @@ import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Pla
 import Link from "next/link";
 import "./globals.css";
 import VisitCounter from "@/components/VisitCounter";
-import MusicBar from "@/components/MusicBar";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -109,9 +108,9 @@ const HEADER_CLOUDS = [
   { top: 6, width: 23, duration: 70, delay: -58, opacity: 0.82, color: "#1a1a1a" },
 ];
 
-// Journal dropdown contents — the two ordered series plus the
-// "Interludes" pool of standalone reflections that surface inside both.
-// Each series carries its own label color (purple / red).
+// Journal dropdown contents — the three ordered series plus the
+// "Interludes" pool of standalone reflections that surface inside all of
+// them. Each series carries its own label color (purple / red / bronze gold).
 const JOURNAL_SERIES = [
   {
     name: "Domain Expansion",
@@ -124,6 +123,12 @@ const JOURNAL_SERIES = [
     sub: "The Question",
     href: "/journal?series=Back%20to%20Oui",
     nameClass: "text-[#c0202a]",
+  },
+  {
+    name: "Homebody",
+    sub: "The Difference → Away Game",
+    href: "/journal?series=Homebody",
+    nameClass: "text-[#9a7420]",
   },
 ];
 
@@ -342,8 +347,6 @@ export default function RootLayout({ children }) {
               className="pointer-events-none absolute bottom-0 left-1/2 h-9 w-auto -translate-x-1/2 sm:h-11"
             />
           </header>
-
-          <MusicBar />
 
           {/* Phone menu — its own full-width bar directly under the header,
               on a dark ground with white type so it stays legible and clear

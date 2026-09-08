@@ -4,11 +4,13 @@
  * surface inside those series, the "Interludes" pool. Renders nothing
  * for entries with neither (e.g. portfolio pieces).
  *
- * Series labels are color-coded — Domain Expansion purple, Back to Oui red.
+ * Series labels are color-coded — Domain Expansion purple, Back to Oui red,
+ * Homebody bronze gold.
  */
 const SERIES_STYLE = {
   "Domain Expansion": "bg-[#7e22ce]/15 text-[#7e22ce]",
   "Back to Oui": "bg-[#c0202a]/15 text-[#c0202a]",
+  "Homebody": "bg-[#9a7420]/15 text-[#9a7420]",
 };
 
 export default function EntryBadge({ entry, className = "" }) {

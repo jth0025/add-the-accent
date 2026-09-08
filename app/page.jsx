@@ -3,7 +3,6 @@ import { getAllEntries, formatDate } from "@/lib/content";
 import HeroCarousel from "@/components/HeroCarousel";
 import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
-import VoiceClip from "@/components/VoiceClip";
 import WordOfTheDay from "@/components/WordOfTheDay";
 
 export default function HomePage() {
@@ -20,11 +19,6 @@ export default function HomePage() {
         <figcaption className="mt-1 font-serif text-sm not-italic text-white/70">
           &mdash; George Bernard Shaw
         </figcaption>
-
-        <VoiceClip
-          src="/audio/the-difference-is-you.mp3"
-          label="The difference is you"
-        />
 
         <div
           className="mt-6 flex items-center justify-center gap-5 text-white/95 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.3))]"
@@ -121,9 +115,9 @@ export default function HomePage() {
           }}
         >
           <Link
-            href="/portfolio"
+            href="/journal?series=Homebody"
             className="group relative block overflow-hidden"
-            aria-label="View the Homebody case studies"
+            aria-label="Read the Homebody series"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -132,7 +126,7 @@ export default function HomePage() {
               className="w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
             />
             <span className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-black/70 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#e7ded2] opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
-              View the case studies &rarr;
+              Read the series &rarr;
             </span>
           </Link>
           <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">

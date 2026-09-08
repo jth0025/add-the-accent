@@ -3,7 +3,8 @@ title: "The Difference"
 date: "2026-09-07"
 excerpt: "On names, monikers, and the accent that was always yours before you arrived — the voice-over welcoming visitors to the site."
 draft: false
-category: "Interludes"
+series: "Homebody"
+part: 1
 ---
 
 If you're like me, you had a mother who never let you forget your name.
