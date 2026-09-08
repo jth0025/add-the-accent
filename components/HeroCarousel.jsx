@@ -87,73 +87,28 @@ export default function HeroCarousel({ children }) {
   // — the image itself still fills its own frame edge to edge.
   const frameHeight = Math.round(carouselHeight * 0.8);
 
-  // The screen box is dressed as a playful mid-century TV set: a rabbit-ear
-  // antenna whose mount plate sits on top of the bezel, and four splayed
-  // legs beneath it. The antenna rides in front of the box; the legs sit
-  // behind it, so both read as bolted on rather than floating.
-  const tvLegs = [
-    { left: "10%", rotate: -17 },
-    { left: "34%", rotate: -6 },
-    { left: "66%", rotate: 6 },
-    { left: "90%", rotate: 17 },
-  ];
-
   return (
     <>
       <div className="relative mt-14">
-        {/* Rabbit-ear antenna — its metal mount plate rests on top of the
-            bezel near the top-right corner. */}
-        <div
-          className="pointer-events-none absolute -top-6 right-6 z-20 w-[4.5rem] sm:-top-7 sm:right-10 sm:w-20"
+        {/* Real rabbit-ear antenna, standing on the top-right edge of the
+            box; shown at its natural proportions. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/tv-antenna.png"
+          alt=""
           aria-hidden="true"
-        >
-          <svg
-            viewBox="0 0 92 60"
-            className="w-full [filter:drop-shadow(0_2px_2px_rgba(0,0,0,0.5))]"
-          >
-            <defs>
-              <linearGradient id="tv-antenna-metal" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#d8d0c0" />
-                <stop offset="1" stopColor="#5f584d" />
-              </linearGradient>
-            </defs>
-            {/* ears */}
-            <path d="M46 44 Q30 24 11 9" fill="none" stroke="#e7e0d0" strokeWidth="3.2" strokeLinecap="round" />
-            <path d="M46 44 Q68 25 87 13" fill="none" stroke="#e7e0d0" strokeWidth="3.2" strokeLinecap="round" />
-            <circle cx="11" cy="9" r="4.2" fill="#f0cb98" stroke="#8a541f" strokeWidth="1.1" />
-            <circle cx="87" cy="13" r="4.2" fill="#f0cb98" stroke="#8a541f" strokeWidth="1.1" />
-            {/* mount: collar + base plate sitting on the bezel */}
-            <rect x="40" y="39" width="12" height="8" rx="2" fill="#8f887a" stroke="#241f18" strokeWidth="0.7" />
-            <rect x="33" y="45" width="26" height="14" rx="3" fill="url(#tv-antenna-metal)" stroke="#241f18" strokeWidth="0.8" />
-            <circle cx="46" cy="45" r="2" fill="#2a2620" />
-          </svg>
-        </div>
+          className="pointer-events-none absolute bottom-full right-6 z-20 w-20 translate-y-[12px] sm:right-10 sm:w-24 [filter:drop-shadow(0_3px_4px_rgba(0,0,0,0.45))]"
+        />
 
-        {/* Splayed TV legs, tucked behind the lower edge. */}
-        <div className="pointer-events-none absolute inset-x-0 -bottom-5 z-0 sm:-bottom-6" aria-hidden="true">
-          {tvLegs.map((leg) => (
-            <svg
-              key={leg.left}
-              viewBox="0 0 26 38"
-              className="absolute bottom-0 w-7 sm:w-8 [filter:drop-shadow(0_3px_3px_rgba(0,0,0,0.45))]"
-              style={{
-                left: leg.left,
-                transform: `translateX(-50%) rotate(${leg.rotate}deg)`,
-                transformOrigin: "50% 0%",
-              }}
-            >
-              <defs>
-                <linearGradient id="tv-leg-wood" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stopColor="#9a6638" />
-                  <stop offset="1" stopColor="#43260f" />
-                </linearGradient>
-              </defs>
-              <path d="M6 0 L20 0 L16.5 29 L9.5 29 Z" fill="url(#tv-leg-wood)" />
-              <path d="M6 0 L9.6 0 L8.4 29 L9.5 29 Z" fill="#b9824c" />
-              <ellipse cx="13" cy="30.5" rx="5.6" ry="3.2" fill="#f0cb98" stroke="#7a4a1c" strokeWidth="1.2" />
-            </svg>
-          ))}
-        </div>
+        {/* Real tapered TV legs, planted on the bottom edge; their wide
+            tops tuck behind the box so they read as attached. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/tv-legs.png"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute top-full left-1/2 z-0 w-[30%] max-w-[260px] -translate-x-1/2 -translate-y-[16%] sm:w-[26%] [filter:drop-shadow(0_4px_4px_rgba(0,0,0,0.4))]"
+        />
 
         <div
           className="marble-dark corner-box on-dark relative z-10 overflow-hidden rounded-xl border border-white/20"
