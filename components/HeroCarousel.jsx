@@ -87,63 +87,70 @@ export default function HeroCarousel({ children }) {
   // — the image itself still fills its own frame edge to edge.
   const frameHeight = Math.round(carouselHeight * 0.8);
 
-  // The screen box is dressed as a playful mid-century TV set: rabbit-ear
-  // antennas clamped to the top-right of the bezel and four little splayed
-  // legs underneath. Both are drawn *behind* the box (lower z-index) so
-  // they read as bolted on rather than floating in front of the picture.
+  // The screen box is dressed as a playful mid-century TV set: a rabbit-ear
+  // antenna whose mount plate sits on top of the bezel, and four splayed
+  // legs beneath it. The antenna rides in front of the box; the legs sit
+  // behind it, so both read as bolted on rather than floating.
   const tvLegs = [
-    { left: "9%", rotate: -17 },
-    { left: "31%", rotate: -6 },
-    { left: "69%", rotate: 6 },
-    { left: "91%", rotate: 17 },
+    { left: "10%", rotate: -17 },
+    { left: "34%", rotate: -6 },
+    { left: "66%", rotate: 6 },
+    { left: "90%", rotate: 17 },
   ];
 
   return (
     <>
       <div className="relative mt-14">
-        {/* Rabbit-ear antenna, clamped to the top-right corner. Its metal
-            foot straddles the bezel edge so the ears look bolted on. */}
+        {/* Rabbit-ear antenna — its metal mount plate rests on top of the
+            bezel near the top-right corner. */}
         <div
-          className="pointer-events-none absolute -top-8 right-6 z-20 w-[4.25rem] sm:-top-9 sm:right-10 sm:w-20"
+          className="pointer-events-none absolute -top-6 right-6 z-20 w-[4.5rem] sm:-top-7 sm:right-10 sm:w-20"
           aria-hidden="true"
         >
           <svg
-            viewBox="0 0 92 58"
+            viewBox="0 0 92 60"
             className="w-full [filter:drop-shadow(0_2px_2px_rgba(0,0,0,0.5))]"
           >
             <defs>
               <linearGradient id="tv-antenna-metal" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#d6cebe" />
-                <stop offset="1" stopColor="#655d51" />
+                <stop offset="0" stopColor="#d8d0c0" />
+                <stop offset="1" stopColor="#5f584d" />
               </linearGradient>
             </defs>
             {/* ears */}
-            <path d="M46 45 Q29 25 11 9" fill="none" stroke="#e3dccd" strokeWidth="3" strokeLinecap="round" />
-            <path d="M46 45 Q67 26 86 14" fill="none" stroke="#e3dccd" strokeWidth="3" strokeLinecap="round" />
-            <circle cx="11" cy="9" r="4" fill="#efc999" stroke="#8a541f" strokeWidth="1.1" />
-            <circle cx="86" cy="14" r="4" fill="#efc999" stroke="#8a541f" strokeWidth="1.1" />
-            {/* foot gripping the bezel */}
-            <rect x="37" y="38" width="18" height="16" rx="3.5" fill="url(#tv-antenna-metal)" stroke="#241f18" strokeWidth="0.75" />
-            <circle cx="46" cy="46" r="1.6" fill="#2a2620" />
+            <path d="M46 44 Q30 24 11 9" fill="none" stroke="#e7e0d0" strokeWidth="3.2" strokeLinecap="round" />
+            <path d="M46 44 Q68 25 87 13" fill="none" stroke="#e7e0d0" strokeWidth="3.2" strokeLinecap="round" />
+            <circle cx="11" cy="9" r="4.2" fill="#f0cb98" stroke="#8a541f" strokeWidth="1.1" />
+            <circle cx="87" cy="13" r="4.2" fill="#f0cb98" stroke="#8a541f" strokeWidth="1.1" />
+            {/* mount: collar + base plate sitting on the bezel */}
+            <rect x="40" y="39" width="12" height="8" rx="2" fill="#8f887a" stroke="#241f18" strokeWidth="0.7" />
+            <rect x="33" y="45" width="26" height="14" rx="3" fill="url(#tv-antenna-metal)" stroke="#241f18" strokeWidth="0.8" />
+            <circle cx="46" cy="45" r="2" fill="#2a2620" />
           </svg>
         </div>
 
         {/* Splayed TV legs, tucked behind the lower edge. */}
-        <div className="pointer-events-none absolute inset-x-0 -bottom-4 z-0" aria-hidden="true">
+        <div className="pointer-events-none absolute inset-x-0 -bottom-5 z-0 sm:-bottom-6" aria-hidden="true">
           {tvLegs.map((leg) => (
             <svg
               key={leg.left}
-              viewBox="0 0 26 36"
-              className="absolute bottom-0 w-[1.3rem] sm:w-6 [filter:drop-shadow(0_2px_2px_rgba(0,0,0,0.4))]"
+              viewBox="0 0 26 38"
+              className="absolute bottom-0 w-7 sm:w-8 [filter:drop-shadow(0_3px_3px_rgba(0,0,0,0.45))]"
               style={{
                 left: leg.left,
                 transform: `translateX(-50%) rotate(${leg.rotate}deg)`,
                 transformOrigin: "50% 0%",
               }}
             >
-              <path d="M7 0 L19 0 L16 27 L10 27 Z" fill="#5a3512" />
-              <path d="M7 0 L10 0 L8.7 27 L10 27 Z" fill="#8a5c37" />
-              <ellipse cx="13" cy="28.5" rx="5" ry="3" fill="#efc999" stroke="#8a541f" strokeWidth="1.1" />
+              <defs>
+                <linearGradient id="tv-leg-wood" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#9a6638" />
+                  <stop offset="1" stopColor="#43260f" />
+                </linearGradient>
+              </defs>
+              <path d="M6 0 L20 0 L16.5 29 L9.5 29 Z" fill="url(#tv-leg-wood)" />
+              <path d="M6 0 L9.6 0 L8.4 29 L9.5 29 Z" fill="#b9824c" />
+              <ellipse cx="13" cy="30.5" rx="5.6" ry="3.2" fill="#f0cb98" stroke="#7a4a1c" strokeWidth="1.2" />
             </svg>
           ))}
         </div>

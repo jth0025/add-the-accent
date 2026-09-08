@@ -2,6 +2,7 @@ import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Pla
 import Link from "next/link";
 import "./globals.css";
 import VisitCounter from "@/components/VisitCounter";
+import MusicBar from "@/components/MusicBar";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -347,6 +348,8 @@ export default function RootLayout({ children }) {
               className="pointer-events-none absolute bottom-0 left-1/2 h-9 w-auto -translate-x-1/2 sm:h-11"
             />
           </header>
+
+          <MusicBar />
 
           {/* Phone menu — its own full-width bar directly under the header,
               on a dark ground with white type so it stays legible and clear
