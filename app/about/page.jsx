@@ -238,7 +238,7 @@ export default function AboutPage() {
         </ul>
 
         <figure className="mx-auto mt-10 max-w-xl border-t border-ink/10 pt-8">
-          <blockquote className="text-center font-serif text-xl italic leading-snug text-ink sm:text-2xl">
+          <blockquote className="gleam-quote text-center font-serif text-xl italic leading-snug text-ink sm:text-2xl">
             &ldquo;The goal is not originality for its own sake. It is to find
             what is authentic, specific, and unmistakable — and give it
             form.&rdquo;
