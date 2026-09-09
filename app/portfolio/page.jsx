@@ -8,38 +8,42 @@ export const metadata = { title: "Portfolio — Add the Accent" };
 // the whole arrangement scales together. Positions were packed to stay
 // clear of one another; edit with that in mind.
 const SCATTER = [
-  { n: "star-outline", l: 19.4, t: 72.6, w: 11.5, r: -9 },
-  { n: "comet", l: 80.0, t: 37.6, w: 11.0, r: -10 },
-  { n: "sun", l: 82.3, t: 71.2, w: 10.5, r: 4 },
-  { n: "crown", l: 21.6, t: 22.6, w: 10.5, r: 3 },
-  { n: "moon", l: 20.9, t: 52.6, w: 10.0, r: -6 },
-  { n: "sparkle", l: 57.3, t: 8.4, w: 9.0, r: -12 },
-  { n: "heart", l: 78.7, t: 12.1, w: 9.0, r: 12 },
-  { n: "sunny-side", l: 81.6, t: 86.0, w: 9.5, r: 2 },
-  { n: "moon-lg", l: 32.4, t: 8.7, w: 8.5, r: -7 },
-  { n: "triangle-coral", l: 67.3, t: 71.0, w: 8.5, r: -3 },
-  { n: "star", l: 20.5, t: 35.4, w: 8.5, r: 11 },
-  { n: "arc", l: 77.5, t: 53.6, w: 8.0, r: -11 },
-  { n: "triangle", l: 18.0, t: 8.9, w: 8.0, r: -12 },
-  { n: "arrow", l: 90.3, t: 54.7, w: 7.5, r: -12 },
-  { n: "cross", l: 22.4, t: 87.3, w: 7.5, r: 4 },
-  { n: "bolt-lg", l: 9.5, t: 38.1, w: 6.5, r: -5 },
-  { n: "bolt", l: 90.1, t: 9.7, w: 6.3, r: 10 },
-  { n: "bolt-coral", l: 42.7, t: 8.1, w: 6.3, r: -4 },
-  { n: "bolt-sm", l: 93.9, t: 74.9, w: 6.3, r: 9 },
-  { n: "triangle-sm", l: 11.7, t: 88.0, w: 7.0, r: 4 },
-  { n: "star-four", l: 80.3, t: 23.8, w: 6.0, r: 3 },
-  { n: "diamond", l: 10.4, t: 52.2, w: 5.6, r: 0 },
-  { n: "star-sm", l: 11.4, t: 22.2, w: 5.0, r: 6 },
-  { n: "star-four", l: 68.0, t: 10.7, w: 5.4, r: 2 },
-  { n: "diamond", l: 92.3, t: 87.0, w: 5.0, r: 7 },
-  { n: "raindrop", l: 87.5, t: 24.0, w: 4.0, r: 3 },
-  { n: "raindrop", l: 8.4, t: 67.1, w: 3.6, r: -11 },
-  { n: "dot-a", l: 90.0, t: 37.1, w: 3.0, r: 4 },
-  { n: "dot-b", l: 9.1, t: 76.9, w: 2.8, r: -2 },
-  { n: "dot-c", l: 90.3, t: 44.9, w: 2.8, r: 4 },
-  { n: "dot-a", l: 74.0, t: 23.6, w: 2.6, r: -3 },
-  { n: "dot-b", l: 68.8, t: 3.3, w: 2.6, r: -9 },
+  { n: "star-outline", l: 19.9, t: 75.7, w: 11.0, r: 5 },
+  { n: "comet", l: 56.9, t: 12.5, w: 10.5, r: -1 },
+  { n: "sun", l: 20.7, t: 54.2, w: 10.0, r: 6 },
+  { n: "crown", l: 67.3, t: 55.5, w: 10.0, r: 11 },
+  { n: "moon", l: 32.7, t: 34.5, w: 9.5, r: -9 },
+  { n: "sparkle", l: 36.4, t: 13.8, w: 8.8, r: 8 },
+  { n: "heart", l: 81.3, t: 76.8, w: 8.8, r: 6 },
+  { n: "sunny-side", l: 67.0, t: 28.7, w: 9.0, r: 13 },
+  { n: "moon-lg", l: 15.4, t: 34.2, w: 8.2, r: 11 },
+  { n: "triangle-coral", l: 21.2, t: 89.3, w: 8.2, r: 1 },
+  { n: "star", l: 72.8, t: 14.7, w: 8.2, r: 3 },
+  { n: "arc", l: 67.6, t: 69.7, w: 7.8, r: -4 },
+  { n: "triangle", l: 82.8, t: 62.7, w: 7.8, r: 7 },
+  { n: "arrow", l: 70.7, t: 42.2, w: 7.3, r: -7 },
+  { n: "cross", l: 24.1, t: 21.7, w: 7.3, r: -9 },
+  { n: "bolt-lg", l: 92.3, t: 76.6, w: 6.3, r: -1 },
+  { n: "bolt", l: 9.2, t: 54.1, w: 6.1, r: -8 },
+  { n: "bolt-coral", l: 8.0, t: 74.4, w: 6.1, r: 13 },
+  { n: "bolt-sm", l: 46.4, t: 12.4, w: 6.1, r: 0 },
+  { n: "triangle-sm", l: 81.2, t: 88.8, w: 6.8, r: 6 },
+  { n: "star-four", l: 24.5, t: 6.7, w: 5.8, r: -5 },
+  { n: "diamond", l: 80.8, t: 27.4, w: 5.4, r: -8 },
+  { n: "star-sm", l: 10.9, t: 89.4, w: 4.8, r: -7 },
+  { n: "star-four", l: 79.6, t: 41.9, w: 5.2, r: 5 },
+  { n: "diamond", l: 82.2, t: 16.1, w: 4.8, r: -1 },
+  { n: "raindrop", l: 79.7, t: 51.1, w: 3.9, r: -10 },
+  { n: "raindrop", l: 6.4, t: 42.5, w: 3.5, r: 3 },
+  { n: "sparkle", l: 93.7, t: 63.7, w: 5.0, r: 11 },
+  { n: "star", l: 13.2, t: 22.2, w: 5.4, r: -12 },
+  { n: "moon", l: 87.5, t: 52.5, w: 5.6, r: -3 },
+  { n: "dot-a", l: 35.5, t: 23.7, w: 3.0, r: 3 },
+  { n: "dot-b", l: 63.1, t: 46.2, w: 2.8, r: 0 },
+  { n: "dot-c", l: 23.6, t: 40.8, w: 2.8, r: 3 },
+  { n: "dot-a", l: 21.7, t: 64.8, w: 2.6, r: 8 },
+  { n: "dot-b", l: 16.1, t: 64.2, w: 2.6, r: 0 },
+  { n: "dot-c", l: 65.3, t: 17.7, w: 2.5, r: 3 },
 ];
 
 export default function PortfolioIndex() {
@@ -72,13 +76,14 @@ export default function PortfolioIndex() {
             ))}
           </div>
 
-          {/* The cloud sits over his head, in front of everything. */}
+          {/* The cloud hovers above his head — small, a touch bigger than
+              the other cut-outs, and clear of the mascot. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/portfolio-stickers/cloud.png"
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[19%] z-40 w-[37%] -translate-x-1/2 select-none drop-shadow-[0_8px_12px_rgba(0,0,0,0.2)]"
+            className="pointer-events-none absolute left-1/2 top-[25%] z-40 w-[13.5%] -translate-x-1/2 select-none drop-shadow-[0_6px_10px_rgba(0,0,0,0.18)]"
           />
 
           {/* Mascot + suitcase, anchored to the bottom of the scene. */}
