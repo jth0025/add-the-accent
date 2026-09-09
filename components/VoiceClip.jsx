@@ -96,7 +96,7 @@ export default function VoiceClip({ src, label = "Voice note" }) {
   const pct = duration ? (current / duration) * 100 : 0;
 
   return (
-    <div className="corner-box on-dark mx-auto mt-5 flex w-full max-w-sm items-center gap-3 rounded-lg border border-white/25 bg-white/10 px-4 py-3 text-left backdrop-blur-sm">
+    <div className="corner-box on-dark flex w-full max-w-sm items-center gap-3 rounded-lg border border-white/25 bg-white/10 px-4 py-3 text-left backdrop-blur-sm">
       <button
         type="button"
         onClick={toggle}

@@ -21,10 +21,34 @@ export default function HomePage() {
           &mdash; George Bernard Shaw
         </figcaption>
 
-        <VoiceClip
-          src="/audio/the-difference-is-you.mp3"
-          label="The difference is you"
-        />
+        <div className="relative mx-auto mt-5 w-full max-w-sm">
+          {/* Hand-drawn note pointing at the intro clip — desktop only,
+              where there's room in the gutter beside the centered track. */}
+          <div className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 select-none items-center gap-1.5 md:flex">
+            <span className="whitespace-nowrap text-right font-hand text-[17px] font-semibold leading-[1.15] -rotate-[4deg] text-white/90 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.35))]">
+              a brief intro
+              <br />
+              from me
+            </span>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.9"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="point-bounce h-5 w-5 shrink-0 text-white/95 [filter:url(#urban-sketch)]"
+              aria-hidden="true"
+            >
+              <path d="M3 12h16" />
+              <path d="M13 6l7 6-7 6" />
+            </svg>
+          </div>
+          <VoiceClip
+            src="/audio/the-difference-is-you.mp3"
+            label="The difference is you"
+          />
+        </div>
 
         <div
           className="mt-6 flex items-center justify-center gap-5 text-white/95 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.3))]"

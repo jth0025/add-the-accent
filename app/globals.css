@@ -302,6 +302,28 @@ body {
   }
 }
 
+/* The little "a brief intro from me" arrow by the voice clip — a steady
+   nudge toward the track so the eye follows it. */
+.point-bounce {
+  animation: point-bounce 1.15s ease-in-out infinite;
+}
+
+@keyframes point-bounce {
+  0%,
+  100% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .point-bounce {
+    animation: none;
+  }
+}
+
 /* Distressed / grunge type — roughens letter edges and chips small holes
    out of the fill via the SVG filter defined once in app/layout.jsx.
    The element keeps its real color, so hover/color changes still work. */
