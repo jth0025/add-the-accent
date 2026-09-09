@@ -318,8 +318,24 @@ body {
   }
 }
 
+/* Same idea, pointing up — the mobile sticky-note arrow toward the play button. */
+.point-bounce-up {
+  animation: point-bounce-up 1.15s ease-in-out infinite;
+}
+
+@keyframes point-bounce-up {
+  0%,
+  100% {
+    transform: translateY(2px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .point-bounce {
+  .point-bounce,
+  .point-bounce-up {
     animation: none;
   }
 }
