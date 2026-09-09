@@ -109,7 +109,7 @@ export default function HomePage() {
           </svg>
         </div>
 
-        <p className="mt-11 font-oldenglish text-xl leading-tight text-[#302d26] sm:text-2xl">
+        <p className="mt-11 bg-gradient-to-b from-[#3f3a30] to-[#282520] bg-clip-text font-oldenglish text-xl leading-tight text-transparent sm:text-2xl">
           This is all a true story.
         </p>
       </figure>
