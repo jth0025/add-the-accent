@@ -111,24 +111,13 @@ export default function AboutPage() {
         <SectionLabel>About</SectionLabel>
 
         {/* Title logo for this block: the wooden "AA" fence with the
-            character standing on top of the second A. Replaces the
-            wordmark. The man is sized to roughly match the fence and
-            tucked so his feet meet the right A's peak. */}
-        <div className="relative mx-auto mt-20 w-[19rem] max-w-full sm:mt-28 sm:w-[24rem]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/fence-logo.png"
-            alt="Add the Accent — a weathered wooden fence built into a double-A, rooted in soil with sprouting leaves"
-            className="w-full drop-shadow-[0_8px_14px_rgba(0,0,0,0.22)]"
-          />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo-man.png"
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none absolute left-[74%] top-0 w-[25%] -translate-x-1/2 -translate-y-[92%] select-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.18)]"
-          />
-        </div>
+            character standing on the second A. Replaces the wordmark. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/fence-logo.png"
+          alt="Add the Accent — the character standing on a weathered wooden fence built into a double-A, rooted in soil with sprouting leaves"
+          className="mx-auto mt-6 w-[21rem] max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.22)] sm:mt-8 sm:w-[26rem]"
+        />
 
         <p className="mt-6 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
           &ldquo;Your perspective is the masterpiece. Everything else is the
