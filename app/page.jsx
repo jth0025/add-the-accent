@@ -28,7 +28,7 @@ export default function HomePage() {
             <span className="whitespace-nowrap text-right font-hand text-[17px] font-semibold leading-[1.15] -rotate-[4deg] text-white/90 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.35))]">
               a brief intro
               <br />
-              from me
+              from yours truly!
             </span>
             <svg
               viewBox="0 0 24 24"
@@ -72,7 +72,7 @@ export default function HomePage() {
                 <path d="M6 11l6-7 6 7" />
               </svg>
               <span className="font-hand text-[16px] font-semibold leading-[1.15] text-[#4b3f24]">
-                a brief intro from me
+                a brief intro from yours truly!
               </span>
             </div>
           </div>
