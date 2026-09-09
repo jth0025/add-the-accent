@@ -245,6 +245,33 @@ export default function RootLayout({ children }) {
                   <ellipse cx="48" cy="24" rx="12" ry="9" fill={cloud.color} />
                 </svg>
               ))}
+
+              {/* One lone thunderhead mixed into the parade — darker, with
+                  rain and a flickering bolt, on its own slower schedule so
+                  it only drifts through every so often. */}
+              <svg
+                viewBox="0 0 72 50"
+                className="header-cloud header-cloud--storm absolute"
+                style={{ top: 2, width: 28, opacity: 0.92 }}
+                aria-hidden="true"
+              >
+                <g stroke="#7ea6c6" strokeWidth="2" strokeLinecap="round" opacity="0.75">
+                  <line x1="24" y1="32" x2="21" y2="40" />
+                  <line x1="34" y1="33" x2="31" y2="41" />
+                  <line x1="44" y1="32" x2="41" y2="40" />
+                </g>
+                <path
+                  className="storm-bolt"
+                  d="M36 22 L30 33 L35 33 L27 47 L42 31 L36.5 31 L42 22 Z"
+                  fill="#f4c752"
+                  stroke="#c9962e"
+                  strokeWidth="0.75"
+                />
+                <rect x="9" y="18" width="52" height="14" rx="7" fill="#343b42" />
+                <ellipse cx="21" cy="19" rx="15" ry="11" fill="#343b42" />
+                <ellipse cx="37" cy="12" rx="18" ry="14" fill="#3d454d" />
+                <ellipse cx="53" cy="19" rx="13" ry="10" fill="#2e343a" />
+              </svg>
             </div>
             <nav className="relative z-10 mx-auto flex max-w-3xl items-end justify-between px-6 pt-4">
               <div className="flex items-end gap-2.5">

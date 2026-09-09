@@ -241,10 +241,64 @@ body {
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08));
 }
 
+/* The lone thunderhead rides its own slower keyframe that parks it
+   off-screen for part of every cycle, so it reads as an occasional
+   visitor rather than one more cloud in the steady parade. */
+.header-cloud.header-cloud--storm {
+  animation-name: storm-drift;
+  animation-duration: 96s;
+  animation-delay: -20s;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.16));
+}
+
+@keyframes storm-drift {
+  0%,
+  12% {
+    transform: translateX(122vw);
+  }
+  60% {
+    transform: translateX(-28vw);
+  }
+  100% {
+    transform: translateX(-28vw);
+  }
+}
+
+/* Its bolt stays dimly lit, then flashes every few seconds. */
+.storm-bolt {
+  filter: drop-shadow(0 0 1.5px #f4c752);
+  animation: storm-bolt 4s linear infinite;
+}
+
+@keyframes storm-bolt {
+  0%,
+  68%,
+  100% {
+    opacity: 0.4;
+  }
+  70% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 0.25;
+  }
+  74% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 0.4;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .header-cloud {
+  .header-cloud,
+  .header-cloud.header-cloud--storm {
     animation: none;
     left: 8%;
+  }
+  .storm-bolt {
+    animation: none;
+    opacity: 0.6;
   }
 }
 
