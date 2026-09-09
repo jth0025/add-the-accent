@@ -109,15 +109,27 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="paper-notebook corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
         <SectionLabel>About</SectionLabel>
-        <h1 className="mt-4 text-center font-display text-3xl uppercase leading-tight tracking-tight text-ink sm:text-4xl">
-          Add the Accent
-        </h1>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo-man.png"
-          alt="The Add the Accent character — a figure with a leaf motif, cap, and no face"
-          className="mx-auto mt-6 h-[10.4rem] w-auto sm:h-[12.8rem]"
-        />
+
+        {/* Title logo for this block: the wooden "AA" fence with the
+            character standing on top of the second A. Replaces the
+            wordmark. The man is sized to roughly match the fence and
+            tucked so his feet meet the right A's peak. */}
+        <div className="relative mx-auto mt-20 w-[19rem] max-w-full sm:mt-28 sm:w-[24rem]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/fence-logo.png"
+            alt="Add the Accent — a weathered wooden fence built into a double-A, rooted in soil with sprouting leaves"
+            className="w-full drop-shadow-[0_8px_14px_rgba(0,0,0,0.22)]"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo-man.png"
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute left-[74%] top-0 w-[25%] -translate-x-1/2 -translate-y-[92%] select-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.18)]"
+          />
+        </div>
+
         <p className="mt-6 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
           &ldquo;Your perspective is the masterpiece. Everything else is the
           medium.&rdquo;
