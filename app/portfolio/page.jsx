@@ -2,32 +2,44 @@ import Link from "next/link";
 
 export const metadata = { title: "Portfolio — Add the Accent" };
 
-// Puffy 3D cut-outs scattered around the mascot. Positions are all
-// relative to the scene box so they scale together; a few of the
-// smaller ones drop out below `sm` to keep the phone view uncluttered.
-const STICKERS = [
-  { n: "sun", c: "left-[-5%] top-[4%] w-[18%] -rotate-6" },
-  { n: "moon-lg", c: "left-[16%] top-[5%] w-[13%] -rotate-[24deg] hidden sm:block" },
-  { n: "diamond", c: "left-[24%] top-[2%] w-[8%] -rotate-6 hidden sm:block" },
-  { n: "dot-a", c: "left-[41%] top-[6%] w-[4.5%]" },
-  { n: "sparkle", c: "right-[3%] top-[1%] w-[15%] rotate-3" },
-  { n: "star-sm", c: "right-[24%] top-[8%] w-[7%] hidden sm:block" },
-  { n: "crown", c: "right-[-3%] top-[15%] w-[19%] rotate-[12deg]" },
-  { n: "moon", c: "left-[-7%] top-[19%] w-[17%] -rotate-[14deg]" },
-  { n: "arrow", c: "right-[13%] top-[43%] w-[11%] rotate-[128deg] hidden sm:block" },
-  { n: "comet", c: "right-[-6%] top-[34%] w-[20%] rotate-[14deg]" },
-  { n: "triangle-coral", c: "left-[3%] top-[43%] w-[12%] -rotate-[8deg] hidden sm:block" },
-  { n: "star-four", c: "left-[-2%] top-[46%] w-[9%]" },
-  { n: "star", c: "right-[-3%] top-[54%] w-[14%] rotate-[8deg]" },
-  { n: "bolt", c: "left-[-3%] top-[64%] w-[11%] -rotate-[18deg]" },
-  { n: "bolt-coral", c: "right-[1%] top-[71%] w-[10%] rotate-[14deg] hidden sm:block" },
-  { n: "arc", c: "right-[-6%] top-[74%] w-[13%] rotate-[26deg] hidden sm:block" },
-  { n: "sunny-side", c: "left-[-6%] top-[75%] w-[16%] hidden sm:block" },
-  { n: "heart", c: "left-[6%] bottom-[1%] w-[15%] -rotate-[10deg]" },
-  { n: "triangle", c: "left-[27%] bottom-[-4%] w-[13%] -rotate-[8deg]" },
-  { n: "cross", c: "right-[27%] bottom-[-2%] w-[11%] rotate-[4deg] hidden sm:block" },
-  { n: "star-outline", c: "right-[2%] bottom-[0%] w-[20%] rotate-[10deg]" },
-  { n: "dot-b", c: "left-[46%] bottom-[-3%] w-[3.5%] hidden sm:block" },
+// Puffy 3D cut-outs ringed around the mascot — never over him, the
+// cloud, the suitcase, or below the ground he stands on. Each entry is
+// a centre point (l, t) and width as a percentage of the scene box, so
+// the whole arrangement scales together. Positions were packed to stay
+// clear of one another; edit with that in mind.
+const SCATTER = [
+  { n: "star-outline", l: 19.4, t: 72.6, w: 11.5, r: -9 },
+  { n: "comet", l: 80.0, t: 37.6, w: 11.0, r: -10 },
+  { n: "sun", l: 82.3, t: 71.2, w: 10.5, r: 4 },
+  { n: "crown", l: 21.6, t: 22.6, w: 10.5, r: 3 },
+  { n: "moon", l: 20.9, t: 52.6, w: 10.0, r: -6 },
+  { n: "sparkle", l: 57.3, t: 8.4, w: 9.0, r: -12 },
+  { n: "heart", l: 78.7, t: 12.1, w: 9.0, r: 12 },
+  { n: "sunny-side", l: 81.6, t: 86.0, w: 9.5, r: 2 },
+  { n: "moon-lg", l: 32.4, t: 8.7, w: 8.5, r: -7 },
+  { n: "triangle-coral", l: 67.3, t: 71.0, w: 8.5, r: -3 },
+  { n: "star", l: 20.5, t: 35.4, w: 8.5, r: 11 },
+  { n: "arc", l: 77.5, t: 53.6, w: 8.0, r: -11 },
+  { n: "triangle", l: 18.0, t: 8.9, w: 8.0, r: -12 },
+  { n: "arrow", l: 90.3, t: 54.7, w: 7.5, r: -12 },
+  { n: "cross", l: 22.4, t: 87.3, w: 7.5, r: 4 },
+  { n: "bolt-lg", l: 9.5, t: 38.1, w: 6.5, r: -5 },
+  { n: "bolt", l: 90.1, t: 9.7, w: 6.3, r: 10 },
+  { n: "bolt-coral", l: 42.7, t: 8.1, w: 6.3, r: -4 },
+  { n: "bolt-sm", l: 93.9, t: 74.9, w: 6.3, r: 9 },
+  { n: "triangle-sm", l: 11.7, t: 88.0, w: 7.0, r: 4 },
+  { n: "star-four", l: 80.3, t: 23.8, w: 6.0, r: 3 },
+  { n: "diamond", l: 10.4, t: 52.2, w: 5.6, r: 0 },
+  { n: "star-sm", l: 11.4, t: 22.2, w: 5.0, r: 6 },
+  { n: "star-four", l: 68.0, t: 10.7, w: 5.4, r: 2 },
+  { n: "diamond", l: 92.3, t: 87.0, w: 5.0, r: 7 },
+  { n: "raindrop", l: 87.5, t: 24.0, w: 4.0, r: 3 },
+  { n: "raindrop", l: 8.4, t: 67.1, w: 3.6, r: -11 },
+  { n: "dot-a", l: 90.0, t: 37.1, w: 3.0, r: 4 },
+  { n: "dot-b", l: 9.1, t: 76.9, w: 2.8, r: -2 },
+  { n: "dot-c", l: 90.3, t: 44.9, w: 2.8, r: 4 },
+  { n: "dot-a", l: 74.0, t: 23.6, w: 2.6, r: -3 },
+  { n: "dot-b", l: 68.8, t: 3.3, w: 2.6, r: -9 },
 ];
 
 export default function PortfolioIndex() {
@@ -40,16 +52,22 @@ export default function PortfolioIndex() {
           <span className="h-px w-8 bg-accent/40" />
         </div>
 
-        <div className="relative mx-auto mt-10 min-h-[17rem] w-full max-w-[21rem] sm:mt-12 sm:min-h-[20rem] sm:max-w-sm">
-          {/* Scattered sticker layer, behind the mascot. */}
+        <div className="relative mx-auto mt-8 min-h-[17rem] w-full max-w-[21rem] sm:mt-10 sm:min-h-[20rem] sm:max-w-sm">
+          {/* Scattered sticker ring, behind the mascot. */}
           <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
-            {STICKERS.map((s) => (
+            {SCATTER.map((s, i) => (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
-                key={s.n}
+                key={`${s.n}-${i}`}
                 src={`/portfolio-stickers/${s.n}.png`}
                 alt=""
-                className={`absolute drop-shadow-[0_5px_9px_rgba(0,0,0,0.16)] ${s.c}`}
+                className="absolute drop-shadow-[0_4px_7px_rgba(0,0,0,0.15)]"
+                style={{
+                  left: `${s.l}%`,
+                  top: `${s.t}%`,
+                  width: `${s.w}%`,
+                  transform: `translate(-50%, -50%) rotate(${s.r}deg)`,
+                }}
               />
             ))}
           </div>
