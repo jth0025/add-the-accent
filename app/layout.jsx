@@ -223,7 +223,7 @@ export default function RootLayout({ children }) {
         <div className="flex min-h-screen flex-col">
           <header className="relative border-b-2 border-ink/55 bg-[linear-gradient(180deg,#eaf7fd_0%,#d3edf9_40%,#b7e0f3_75%,#9ed3ec_100%)]">
             <div
-              className="pointer-events-none absolute inset-x-0 top-0 z-0 h-8 overflow-hidden"
+              className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
               aria-hidden="true"
             >
               {HEADER_CLOUDS.map((cloud, i) => (
@@ -247,22 +247,24 @@ export default function RootLayout({ children }) {
               ))}
 
               {/* One lone thunderhead mixed into the parade — darker, with
-                  rain and a flickering bolt, on its own slower schedule so
-                  it only drifts through every so often. */}
+                  rain and a flickering bolt trailing well below the cloud
+                  so it clearly reads as a storm, on its own slower schedule
+                  so it only drifts through every so often. */}
               <svg
-                viewBox="0 0 72 50"
+                viewBox="0 0 72 78"
                 className="header-cloud header-cloud--storm absolute"
-                style={{ top: 2, width: 28, opacity: 0.92 }}
+                style={{ top: 1, width: 32, opacity: 0.92 }}
                 aria-hidden="true"
               >
-                <g stroke="#7ea6c6" strokeWidth="2" strokeLinecap="round" opacity="0.75">
-                  <line x1="24" y1="32" x2="21" y2="40" />
-                  <line x1="34" y1="33" x2="31" y2="41" />
-                  <line x1="44" y1="32" x2="41" y2="40" />
+                <g stroke="#7ea6c6" strokeWidth="2.2" strokeLinecap="round" opacity="0.8">
+                  <line x1="18" y1="33" x2="14" y2="49" />
+                  <line x1="25" y1="36" x2="21" y2="56" />
+                  <line x1="47" y1="34" x2="43" y2="51" />
+                  <line x1="54" y1="36" x2="50" y2="54" />
                 </g>
                 <path
                   className="storm-bolt"
-                  d="M36 22 L30 33 L35 33 L27 47 L42 31 L36.5 31 L42 22 Z"
+                  d="M38 22 L30 42 L36 42 L28 64 L45 38 L38 38 L44 22 Z"
                   fill="#f4c752"
                   stroke="#c9962e"
                   strokeWidth="0.75"
