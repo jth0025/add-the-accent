@@ -218,6 +218,108 @@ body {
   border-color: rgba(231, 222, 210, 0.6);
 }
 
+/* Journal "book" cards — stand-in for the plain text card: a colored
+   cloth cover with a spine and page edges, plus a hand-labeled paper
+   patch carrying the title/date/excerpt. Cover color comes from
+   --book-color, set inline per entry via lib/seriesColors.js so each
+   series gets its own cover. Reused as the cover-reveal overlay on the
+   entry page itself (see .book-cover-reveal below). */
+.book-cover {
+  --book-color: #33322d;
+  background-color: var(--book-color);
+  background-image: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0) 38%
+    ),
+    linear-gradient(315deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 46%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.05) 0px,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+}
+
+.book-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset -3px 0 5px rgba(0, 0, 0, 0.45),
+    2px 0 6px rgba(0, 0, 0, 0.25);
+}
+
+.book-spine::before,
+.book-spine::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: rgba(214, 178, 112, 0.6);
+}
+
+.book-spine::before {
+  top: 20%;
+}
+
+.book-spine::after {
+  top: 78%;
+}
+
+.book-pages-edge {
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  right: 5px;
+  width: 6px;
+  border-radius: 0 3px 3px 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #efe6d3 0px,
+    #efe6d3 2px,
+    #cfc4a8 2px,
+    #cfc4a8 3px
+  );
+  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.35);
+}
+
+/* Cover-reveal overlay on an entry page — the same "front cover" as the
+   shelf card, laid on top of the essay and hinged on its left edge so
+   it swings open shortly after the page loads, revealing the paper
+   underneath. Needs `perspective` on an ancestor (see EntryPage). */
+.book-cover-reveal {
+  animation: book-open 1000ms 200ms cubic-bezier(0.55, 0, 0.2, 1) both;
+  transform-origin: left center;
+  backface-visibility: hidden;
+}
+
+@keyframes book-open {
+  0% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(-115deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-cover-reveal {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* Header clouds — a handful of tiny flat puffs (mostly black, a couple
    grey) drifting left to right across the very top of the header, on
    every page. Each instance gets its own width/duration/opacity/color
@@ -345,6 +447,26 @@ body {
    The element keeps its real color, so hover/color changes still work. */
 .grunge-text {
   filter: url("#grunge-text");
+}
+
+/* Gold foil — a standing (non-hover, non-animated) metallic fill for a
+   single word inside a heading: a dark-to-bright-to-dark gold gradient
+   clipped to the text so the letters read as pressed foil rather than
+   flat color. */
+.gold-foil {
+  background-image: linear-gradient(
+    160deg,
+    #3a2a0e 0%,
+    #7a5a1e 22%,
+    #d4af37 42%,
+    #fff3c4 50%,
+    #d4af37 58%,
+    #7a5a1e 78%,
+    #3a2a0e 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Cast-bronze hover — on hover the text fills with a metallic bronze

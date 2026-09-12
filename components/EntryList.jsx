@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/content";
-import EntryBadge from "@/components/EntryBadge";
-import PaperClip from "@/components/PaperClip";
 import JournalNav from "@/components/JournalNav";
+import JournalEntryCard from "@/components/JournalEntryCard";
 
 export default function EntryList({ section, heading, intro, entries }) {
   const isJournal = section === "journal";
@@ -41,43 +40,32 @@ export default function EntryList({ section, heading, intro, entries }) {
         </p>
       ) : (
         <ul className="mt-10 space-y-5">
-          {entries.map((entry) => (
-            <li key={entry.slug}>
-              <Link
-                href={`/${section}/${entry.slug}`}
-                className={`${paperClass} corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9`}
-              >
-                {isJournal && <PaperClip />}
-                {isJournal && <EntryBadge entry={entry} className="block" />}
-                <h2
-                  className={`flex items-center gap-2 font-serif text-2xl text-ink transition-colors ${
-                    isJournal
-                      ? "group-hover:text-[#2e8b3d]"
-                      : "group-hover:text-accent"
-                  }`}
+          {entries.map((entry) =>
+            isJournal ? (
+              <li key={entry.slug}>
+                <JournalEntryCard entry={entry} />
+              </li>
+            ) : (
+              <li key={entry.slug}>
+                <Link
+                  href={`/${section}/${entry.slug}`}
+                  className={`${paperClass} corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9`}
                 >
-                  {isJournal && (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src="/icons/pencil-icon.png"
-                      alt=""
-                      aria-hidden="true"
-                      className="h-[1em] w-auto shrink-0"
-                    />
+                  <h2 className="flex items-center gap-2 font-serif text-2xl text-ink transition-colors group-hover:text-accent">
+                    <span>{entry.title}</span>
+                  </h2>
+                  {entry.date && (
+                    <p className="mt-1 font-mono text-xs uppercase tracking-wide text-stone/60">
+                      {formatDate(entry.date)}
+                    </p>
                   )}
-                  <span>{entry.title}</span>
-                </h2>
-                {entry.date && (
-                  <p className="mt-1 font-mono text-xs uppercase tracking-wide text-stone/60">
-                    {formatDate(entry.date)}
-                  </p>
-                )}
-                {entry.excerpt && (
-                  <p className="mt-3 text-stone">{entry.excerpt}</p>
-                )}
-              </Link>
-            </li>
-          ))}
+                  {entry.excerpt && (
+                    <p className="mt-3 text-stone">{entry.excerpt}</p>
+                  )}
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
       )}
     </div>

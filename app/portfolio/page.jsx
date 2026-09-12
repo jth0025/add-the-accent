@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { getSelectedWork } from "@/lib/content";
+import JournalEntryCard from "@/components/JournalEntryCard";
 
-export const metadata = { title: "Portfolio — Add the Accent" };
+export const metadata = { title: "Selected Work — Add the Accent" };
 
 // Puffy 3D cut-outs ringed around the mascot — never over him, the
 // cloud, the suitcase, or below the ground he stands on. Each entry is
@@ -47,6 +49,8 @@ const SCATTER = [
 ];
 
 export default function PortfolioIndex() {
+  const work = getSelectedWork();
+
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       <section className="paper-notebook corner-box rounded-xl border border-ink/15 bg-card px-7 py-12 text-center sm:px-10 sm:py-16">
@@ -134,17 +138,37 @@ export default function PortfolioIndex() {
         </div>
 
         <p className="mt-10 font-cinema text-4xl uppercase tracking-[0.06em] text-ink sm:text-5xl">
-          Coming Soon
+          Selected Work
         </p>
         <p className="mx-auto mt-4 max-w-md text-stone">
-          The Homebody case studies are being packed and readied. Check back
-          soon &mdash; or spend some time in the{" "}
+          A packed bag, not a finished trip &mdash; a working set of pieces
+          pulled from the{" "}
           <Link href="/journal" className="text-accent hover:underline">
             journal
           </Link>{" "}
-          while you wait.
+          that best show the range: brand voice, memoir, and story. Start
+          here, then keep reading in the journal if one of these pulls you
+          in.
         </p>
       </section>
+
+      {work.length > 0 ? (
+        <ul className="mt-10 space-y-5">
+          {work.map((entry) => (
+            <li key={entry.slug}>
+              <JournalEntryCard entry={entry} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-10 font-mono text-sm text-stone/70">
+          Nothing selected yet &mdash; add slugs to{" "}
+          <code className="rounded bg-ink/10 px-1.5 py-0.5 text-xs">
+            SELECTED_WORK_SLUGS
+          </code>{" "}
+          in <code className="rounded bg-ink/10 px-1.5 py-0.5 text-xs">lib/content.js</code>.
+        </p>
+      )}
     </div>
   );
 }

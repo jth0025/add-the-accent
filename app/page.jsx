@@ -1,23 +1,27 @@
 import Link from "next/link";
-import { getAllEntries, formatDate } from "@/lib/content";
+import { getAllEntries, getSelectedWork, formatDate } from "@/lib/content";
 import HeroCarousel from "@/components/HeroCarousel";
 import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
+import JournalEntryCard from "@/components/JournalEntryCard";
 import VoiceClip from "@/components/VoiceClip";
 import WordOfTheDay from "@/components/WordOfTheDay";
 
 export default function HomePage() {
-  const portfolio = getAllEntries("portfolio").slice(0, 3);
-  const journal = getAllEntries("journal").slice(0, 3);
+  const portfolio = getSelectedWork().slice(0, 3);
+  const featuredSlugs = new Set(portfolio.map((e) => e.slug));
+  const journal = getAllEntries("journal")
+    .filter((e) => !featuredSlugs.has(e.slug))
+    .slice(0, 3);
 
   return (
     <div className="mx-auto max-w-3xl px-6">
       <figure className="mt-12 text-center text-white">
-        <blockquote className="whitespace-nowrap font-serif italic leading-snug text-[clamp(0.5rem,2.05vw,1.125rem)]">
+        <blockquote className="whitespace-nowrap font-serif italic leading-snug text-[min(calc((100vw-3rem)/38),1.2rem)]">
           &ldquo;The goal of an artist is to create the definitive work that
           cannot be surpassed.&rdquo;
         </blockquote>
-        <figcaption className="mt-1 font-serif text-sm not-italic text-white/70">
+        <figcaption className="mt-1 font-serif not-italic text-white/70 text-[min(calc((100vw-3rem)/52),0.8rem)]">
           &mdash; George Bernard Shaw
         </figcaption>
 
@@ -121,7 +125,7 @@ export default function HomePage() {
           </div>
           <h1 className="mt-4 text-center normal-case leading-none tracking-tighter text-white">
             <span className="block font-playfair text-4xl font-bold not-italic sm:text-5xl md:text-6xl lg:text-[64px]">
-              Your perspective is
+              Your <span className="gold-foil">perspective</span> is
             </span>
             <span className="block font-playfair text-4xl font-bold not-italic sm:text-5xl md:text-6xl lg:text-[64px]">
               the masterpiece.
@@ -130,7 +134,7 @@ export default function HomePage() {
               Everything else
             </span>
             <span className="block font-playfair text-4xl font-bold not-italic sm:text-5xl md:text-6xl lg:text-[64px]">
-              is the medium.
+              is the <span className="gold-foil">medium</span>.
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-center italic leading-snug text-white">
@@ -283,7 +287,7 @@ export default function HomePage() {
           </div>
           <div className="mt-3 flex items-baseline justify-between gap-4">
             <h2 className="font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
-              Portfolio
+              Selected Work
             </h2>
             <Link
               href="/portfolio"
@@ -295,9 +299,21 @@ export default function HomePage() {
           <ul className="mt-8 space-y-8 border-t border-ink/10 pt-8">
             {portfolio.map((entry) => (
               <li key={entry.slug}>
-                <Link href={`/portfolio/${entry.slug}`} className="group block">
-                  <h3 className="font-serif text-xl text-ink group-hover:text-accent">
-                    {entry.title}
+                <Link
+                  href={`/journal/${entry.slug}`}
+                  className="paper-notebook corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9"
+                >
+                  <PaperClip />
+                  <EntryBadge entry={entry} className="block" />
+                  <h3 className="flex items-center gap-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/icons/pencil-icon.png"
+                      alt=""
+                      aria-hidden="true"
+                      className="h-[1em] w-auto shrink-0"
+                    />
+                    <span>{entry.title}</span>
                   </h3>
                   {entry.date && (
                     <p className="mt-1 font-mono text-xs uppercase tracking-wide text-stone/60">
@@ -334,31 +350,7 @@ export default function HomePage() {
           <ul className="mt-8 space-y-8 border-t border-ink/10 pt-8">
             {journal.map((entry) => (
               <li key={entry.slug}>
-                <Link
-                  href={`/journal/${entry.slug}`}
-                  className="paper-crinkled corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9"
-                >
-                  <PaperClip />
-                  <EntryBadge entry={entry} className="block" />
-                  <h3 className="flex items-center gap-2 font-serif text-xl text-ink transition-colors group-hover:text-[#2e8b3d]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/icons/pencil-icon.png"
-                      alt=""
-                      aria-hidden="true"
-                      className="h-[1em] w-auto shrink-0"
-                    />
-                    <span>{entry.title}</span>
-                  </h3>
-                  {entry.date && (
-                    <p className="mt-1 font-mono text-xs uppercase tracking-wide text-stone/60">
-                      {formatDate(entry.date)}
-                    </p>
-                  )}
-                  {entry.excerpt && (
-                    <p className="mt-2 text-stone">{entry.excerpt}</p>
-                  )}
-                </Link>
+                <JournalEntryCard entry={entry} />
               </li>
             ))}
           </ul>
