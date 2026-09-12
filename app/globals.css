@@ -456,13 +456,13 @@ body {
 .gold-foil {
   background-image: linear-gradient(
     160deg,
-    #3a2a0e 0%,
-    #7a5a1e 22%,
-    #d4af37 42%,
-    #fff3c4 50%,
-    #d4af37 58%,
-    #7a5a1e 78%,
-    #3a2a0e 100%
+    #241a08 0%,
+    #4a3814 22%,
+    #71581f 42%,
+    #8a6c28 50%,
+    #71581f 58%,
+    #4a3814 78%,
+    #241a08 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
