@@ -162,6 +162,54 @@ body {
   background-repeat: repeat, no-repeat;
 }
 
+/* paper-notebook, merged with a photographed texture layered in behind
+   the ruled lines/margin (which stay on top and fully visible) — the
+   art and copy sitting on top of either of these are untouched, only
+   the box's own background gains the extra depth. */
+.paper-fold-thirds {
+  background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(26, 26, 26, 0.07) 0,
+      rgba(26, 26, 26, 0.07) 1px,
+      transparent 1px,
+      transparent 27px
+    ),
+    linear-gradient(
+      to right,
+      transparent 0,
+      transparent 34px,
+      rgba(175, 105, 30, 0.22) 34px,
+      rgba(175, 105, 30, 0.22) 35px,
+      transparent 35px
+    ),
+    url("/textures/about-fold-thirds.png");
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-size: auto, auto, cover;
+  background-position: 0 0, 0 0, center;
+}
+
+.paper-fold-quarters {
+  background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(26, 26, 26, 0.07) 0,
+      rgba(26, 26, 26, 0.07) 1px,
+      transparent 1px,
+      transparent 27px
+    ),
+    linear-gradient(
+      to right,
+      transparent 0,
+      transparent 34px,
+      rgba(175, 105, 30, 0.22) 34px,
+      rgba(175, 105, 30, 0.22) 35px,
+      transparent 35px
+    ),
+    url("/textures/portfolio-fold-quarters.png");
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-size: auto, auto, cover;
+  background-position: 0 0, 0 0, center;
+}
+
 .paper-newspaper {
   background-image: radial-gradient(rgba(26, 26, 26, 0.12) 1px, transparent 1.3px),
     radial-gradient(rgba(26, 26, 26, 0.07) 1px, transparent 1.3px);
