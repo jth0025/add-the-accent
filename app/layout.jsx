@@ -377,7 +377,7 @@ export default function RootLayout({ children }) {
                 and pinned to the header's own corner rather than sitting in
                 the nav's flex row — so it never has to compete with that
                 row for width and push into the centered grass below. */}
-            <div className="pointer-events-none absolute right-4 top-4 z-10 font-mono text-[10px] uppercase tracking-widest text-stone/80 sm:right-6 sm:top-5 sm:text-xs">
+            <div className="pointer-events-none absolute bottom-3 right-4 z-10 font-mono text-[10px] uppercase tracking-widest text-stone/80 sm:bottom-4 sm:right-6 sm:text-xs">
               <LATemperature />
             </div>
 
