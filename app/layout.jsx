@@ -3,6 +3,8 @@ import Link from "next/link";
 import "./globals.css";
 import VisitCounter from "@/components/VisitCounter";
 import MusicBar from "@/components/MusicBar";
+import HeaderSky from "@/components/HeaderSky";
+import LATemperature from "@/components/LATemperature";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -221,7 +223,8 @@ export default function RootLayout({ children }) {
           </defs>
         </svg>
         <div className="flex min-h-screen flex-col">
-          <header className="relative border-b-2 border-ink/55 bg-[linear-gradient(180deg,#eaf7fd_0%,#d3edf9_40%,#b7e0f3_75%,#9ed3ec_100%)]">
+          <header className="relative border-b-2 border-ink/55">
+            <HeaderSky />
             <div
               className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
               aria-hidden="true"
@@ -367,6 +370,10 @@ export default function RootLayout({ children }) {
                 <Link href="/about" className="hover:text-accent">
                   About
                 </Link>
+
+                <span className="text-stone/80">
+                  <LATemperature />
+                </span>
               </div>
             </nav>
             {/* eslint-disable-next-line @next/next/no-img-element */}
