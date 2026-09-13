@@ -107,7 +107,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       {/* Hero */}
-      <section className="paper-folded corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+      <section className="px-7 py-10 sm:px-10 sm:py-12">
         <SectionLabel>About</SectionLabel>
 
         {/* Title logo for this block: the wooden "AA" fence with the

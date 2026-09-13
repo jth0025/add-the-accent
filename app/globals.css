@@ -162,54 +162,6 @@ body {
   background-repeat: repeat, no-repeat;
 }
 
-/* paper-notebook, merged with a photographed texture layered in behind
-   the ruled lines/margin (which stay on top and fully visible) — the
-   art and copy sitting on top of either of these are untouched, only
-   the box's own background gains the extra depth. */
-.paper-crumpled {
-  background-image: repeating-linear-gradient(
-      to bottom,
-      rgba(26, 26, 26, 0.07) 0,
-      rgba(26, 26, 26, 0.07) 1px,
-      transparent 1px,
-      transparent 27px
-    ),
-    linear-gradient(
-      to right,
-      transparent 0,
-      transparent 34px,
-      rgba(175, 105, 30, 0.22) 34px,
-      rgba(175, 105, 30, 0.22) 35px,
-      transparent 35px
-    ),
-    url("/textures/portfolio-crumple.jpg");
-  background-repeat: repeat, no-repeat, no-repeat;
-  background-size: auto, auto, cover;
-  background-position: 0 0, 0 0, center;
-}
-
-.paper-folded {
-  background-image: repeating-linear-gradient(
-      to bottom,
-      rgba(26, 26, 26, 0.07) 0,
-      rgba(26, 26, 26, 0.07) 1px,
-      transparent 1px,
-      transparent 27px
-    ),
-    linear-gradient(
-      to right,
-      transparent 0,
-      transparent 34px,
-      rgba(175, 105, 30, 0.22) 34px,
-      rgba(175, 105, 30, 0.22) 35px,
-      transparent 35px
-    ),
-    url("/textures/about-fold.png");
-  background-repeat: repeat, no-repeat, no-repeat;
-  background-size: auto, auto, cover;
-  background-position: 0 0, 0 0, center;
-}
-
 .paper-newspaper {
   background-image: radial-gradient(rgba(26, 26, 26, 0.12) 1px, transparent 1.3px),
     radial-gradient(rgba(26, 26, 26, 0.07) 1px, transparent 1.3px);
@@ -414,81 +366,6 @@ body {
   }
 }
 
-/* Feature-box blurb edge — the torn/perforated strip from the paper
-   reference photo, mounted along both sides of the text box under
-   each feature image (never the image or the box itself, which keep
-   their original clean rectangle). Mirrored for the right side. */
-.blurb-edge {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 34px;
-  pointer-events: none;
-  background-image: url("/textures/feature-blurb-edge.png");
-  background-repeat: repeat-y;
-  background-size: 34px 300px;
-  background-position: top;
-}
-
-.blurb-edge-left {
-  left: 0;
-}
-
-.blurb-edge-right {
-  right: 0;
-  transform: scaleX(-1);
-}
-
-/* Selected Work's curled corner — the peeling-corner photo cropped
-   tight to just the curl, pinned at top-right and mirrored vertically
-   for a matching curl at bottom-right. The rest of the box keeps its
-   original paper-notebook look untouched. */
-.curled-corner {
-  position: absolute;
-  right: -2px;
-  width: 52px;
-  height: 55px;
-  pointer-events: none;
-  background-image: url("/textures/selected-work-corner.png");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-}
-
-.curled-corner-top {
-  top: -2px;
-}
-
-.curled-corner-bottom {
-  bottom: -2px;
-  transform: scaleY(-1);
-}
-
-/* Journal box's torn top/bottom — the jagged tear line lifted from the
-   "paper torn in half" reference, mounted along the top and bottom
-   edges so the box reads as ripped free from a larger sheet rather
-   than cleanly cut. The box's own paper-crinkled texture is untouched. */
-.journal-tear {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 26px;
-  pointer-events: none;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-
-.journal-tear-top {
-  top: -1px;
-  background-image: url("/textures/journal-tear-top.png");
-  background-position: bottom;
-}
-
-.journal-tear-bottom {
-  bottom: -1px;
-  background-image: url("/textures/journal-tear-bottom.png");
-  background-position: top;
-}
-
 /* Note card — the Selected Work list treated as a stack of index cards
    rather than plain text boxes: warm card stock, a single red header
    rule, and faint ruled lines underneath for the excerpt to sit on. */
@@ -635,36 +512,6 @@ body {
   }
 }
 
-/* The sketch lightbulb over Word of the Day — a light, irregular
-   bounce-and-tilt so it reads as a hand-drawn idea bobbing in place,
-   not a mechanical loop. */
-.bulb-bounce {
-  animation: bulb-bounce 3.4s ease-in-out infinite;
-  transform-origin: 50% 85%;
-}
-
-@keyframes bulb-bounce {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-4deg);
-  }
-  30% {
-    transform: translateY(-5px) rotate(3deg);
-  }
-  60% {
-    transform: translateY(0) rotate(-2deg);
-  }
-  80% {
-    transform: translateY(-2px) rotate(2deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bulb-bounce {
-    animation: none;
-  }
-}
-
 /* Hand-drawn hover underline — an SVG squiggle under a heading, hidden
    via stroke-dashoffset (pathLength="1" normalizes the path to one
    unit so this works regardless of the path's actual geometry) and
@@ -753,6 +600,56 @@ body {
     -webkit-background-clip: border-box;
     background-clip: border-box;
     color: #4a3814;
+  }
+}
+
+/* Gleam, natural color — the same periodic-highlight idea as
+   .gold-foil, but the resting fill is the element's own original
+   gradient (baked in here as its own layer, unchanged) rather than a
+   gold base. A second, mostly-transparent layer carries a bright band
+   that sweeps across every few seconds; only that layer's position
+   animates, so the base color never shifts. */
+.gleam-natural {
+  background-image: linear-gradient(to bottom, #3f3a30, #282520),
+    linear-gradient(
+      100deg,
+      transparent 42%,
+      rgba(255, 255, 255, 0.85) 50%,
+      transparent 58%
+    );
+  background-size: 100% 100%, 200% 100%;
+  background-position: 0 0, -60% 0;
+  background-repeat: no-repeat, no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gleam-natural-sweep 8s ease-in-out infinite;
+}
+
+@keyframes gleam-natural-sweep {
+  0%,
+  52% {
+    background-position: 0 0, -60% 0;
+  }
+  80% {
+    background-position: 0 0, 60% 0;
+  }
+  84% {
+    background-position: 0 0, 100% 0;
+    filter: brightness(1.25) drop-shadow(0 0 4px rgba(255, 255, 255, 0.45));
+  }
+  89% {
+    background-position: 0 0, 130% 0;
+  }
+  100% {
+    background-position: 0 0, 200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gleam-natural {
+    animation: none;
+    background-image: linear-gradient(to bottom, #3f3a30, #282520);
   }
 }
 

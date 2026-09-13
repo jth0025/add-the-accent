@@ -113,7 +113,7 @@ export default function HomePage() {
           </svg>
         </div>
 
-        <p className="mt-11 bg-gradient-to-b from-[#3f3a30] to-[#282520] bg-clip-text font-oldenglish text-xl leading-tight text-transparent sm:text-2xl">
+        <p className="gleam-natural mt-11 font-oldenglish text-xl leading-tight sm:text-2xl">
           This is all a true story.
         </p>
       </figure>
@@ -139,7 +139,7 @@ export default function HomePage() {
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-center italic leading-snug text-white">
             <span className="block md:whitespace-nowrap">
-              <span className="gold-foil font-playfair text-lg font-bold">Add the Accent</span> is a
+              <span className="font-playfair text-lg font-bold text-[#4a3814]">Add the Accent</span> is a
               multidisciplinary creative studio built on one belief:
             </span>
             <span
@@ -191,9 +191,7 @@ export default function HomePage() {
               Read the series &rarr;
             </span>
           </Link>
-          <div className="paper-notebook relative bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
-            <span className="blurb-edge blurb-edge-left" aria-hidden="true" />
-            <span className="blurb-edge blurb-edge-right" aria-hidden="true" />
+          <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
               <span className="font-bold italic">Homebody</span> is a
               visual storytelling series exploring masculinity, identity,
@@ -231,9 +229,7 @@ export default function HomePage() {
               Read the series &rarr;
             </span>
           </Link>
-          <div className="paper-notebook relative bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
-            <span className="blurb-edge blurb-edge-left" aria-hidden="true" />
-            <span className="blurb-edge blurb-edge-right" aria-hidden="true" />
+          <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
               A <span className="font-bold italic">Homebody</span> Series
               details the accounts of reimagining a new home; inspired by
@@ -271,9 +267,7 @@ export default function HomePage() {
               Read the series &rarr;
             </span>
           </Link>
-          <div className="paper-notebook relative bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
-            <span className="blurb-edge blurb-edge-left" aria-hidden="true" />
-            <span className="blurb-edge blurb-edge-right" aria-hidden="true" />
+          <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
               &ldquo;<span className="font-bold italic">Back to Oui</span>
               &rdquo; traces the distance between love and despair;
@@ -287,13 +281,6 @@ export default function HomePage() {
 
       {portfolio.length > 0 && (
         <section className="paper-notebook corner-box relative mb-10 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
-          {/* Curled corners lifted from the paper reference — top-right
-              as photographed, and the same graphic mirrored vertically
-              for a matching curl at the bottom-right. Everything else
-              about the box keeps its original paper-notebook look. */}
-          <span className="curled-corner curled-corner-top" aria-hidden="true" />
-          <span className="curled-corner curled-corner-bottom" aria-hidden="true" />
-
           {/* A horizontal pen, stretched to the box's own width, laid
               across the seam where the last feature box ends — half
               resting on this box's top edge, like something set down on
@@ -386,11 +373,6 @@ export default function HomePage() {
 
       {journal.length > 0 && (
         <section className="paper-crinkled corner-box relative mb-16 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
-          {/* Torn top/bottom lifted from the "page ripped in half"
-              reference — the box's own paper-crinkled texture is
-              untouched, only the top and bottom edges gain the tear. */}
-          <span className="journal-tear journal-tear-top" aria-hidden="true" />
-          <span className="journal-tear journal-tear-bottom" aria-hidden="true" />
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-[#4a5714]">
             <span>Section 02</span>
             <span className="h-px flex-1 bg-[#4a5714]/40" />

@@ -53,7 +53,7 @@ export default function PortfolioIndex() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <section className="paper-crumpled corner-box rounded-xl border border-ink/15 bg-card px-7 py-12 text-center sm:px-10 sm:py-16">
+      <section className="px-7 py-12 text-center sm:px-10 sm:py-16">
         <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
           <span className="h-px w-8 bg-accent/40" />
           <span>Portfolio</span>
