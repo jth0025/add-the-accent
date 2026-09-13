@@ -10,7 +10,7 @@ export default function PaperClip() {
   return (
     <span
       aria-hidden="true"
-      className="pointer-events-none absolute -top-2 left-3 z-20 h-16 w-auto rotate-[7deg]"
+      className="pointer-events-none absolute -top-4 left-1 z-20 h-16 w-auto rotate-[7deg]"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/icons/paperclip-photo.png" alt="" className="h-full w-auto" />
