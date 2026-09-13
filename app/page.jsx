@@ -176,6 +176,8 @@ export default function HomePage() {
             backgroundRepeat: "repeat, no-repeat, no-repeat",
           }}
         >
+          <span className="paper-ruffle paper-ruffle-left" aria-hidden="true" />
+          <span className="paper-ruffle paper-ruffle-right" aria-hidden="true" />
           <Link
             href="/journal?series=Homebody"
             className="group relative block overflow-hidden"
@@ -214,6 +216,8 @@ export default function HomePage() {
             backgroundRepeat: "repeat, no-repeat, no-repeat",
           }}
         >
+          <span className="paper-ruffle paper-ruffle-left" aria-hidden="true" />
+          <span className="paper-ruffle paper-ruffle-right" aria-hidden="true" />
           <Link
             href="/journal?series=Domain%20Expansion"
             className="group relative block overflow-hidden"
@@ -252,6 +256,8 @@ export default function HomePage() {
             backgroundRepeat: "repeat, no-repeat, no-repeat",
           }}
         >
+          <span className="paper-ruffle paper-ruffle-left" aria-hidden="true" />
+          <span className="paper-ruffle paper-ruffle-right" aria-hidden="true" />
           <Link
             href="/journal?series=Back%20to%20Oui"
             className="group relative block overflow-hidden"
@@ -280,13 +286,36 @@ export default function HomePage() {
       </section>
 
       {portfolio.length > 0 && (
-        <section className="paper-notebook corner-box mb-10 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+        <section className="relative paper-notebook corner-box mb-10 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+          {/* A horizontal pen, stretched to the box's own width, laid
+              across the seam where the last feature box ends — half
+              resting on this box's top edge, like something set down on
+              the desk between two stacks of work. */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-6 -top-3 z-20 sm:inset-x-9"
+          >
+            <svg
+              viewBox="0 0 640 34"
+              preserveAspectRatio="none"
+              className="h-6 w-full drop-shadow-[0_3px_4px_rgba(0,0,0,0.45)]"
+            >
+              <rect x="35" y="12" width="500" height="11" rx="5.5" fill="#1a1a1a" />
+              <rect x="35" y="12" width="500" height="3.5" rx="1.75" fill="#4a4a4a" opacity="0.6" />
+              <rect x="58" y="9" width="15" height="17" rx="2" fill="#af691e" />
+              <rect x="12" y="15" width="28" height="6" rx="3" fill="#af691e" />
+              <polygon points="533,10 615,17.5 533,25" fill="#e6e6e6" stroke="#8b8f93" strokeWidth="1" />
+              <line x1="546" y1="14" x2="598" y2="17.5" stroke="#6b6f73" strokeWidth="1" />
+              <line x1="546" y1="21" x2="598" y2="17.5" stroke="#6b6f73" strokeWidth="1" />
+            </svg>
+          </span>
+
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
             <span>Section 01</span>
             <span className="h-px flex-1 bg-accent/40" />
           </div>
           <div className="mt-3 flex items-baseline justify-between gap-4">
-            <h2 className="font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
+            <h2 className="-rotate-1 font-hand text-4xl font-bold text-ink sm:text-5xl">
               Selected Work
             </h2>
             <Link
@@ -297,11 +326,13 @@ export default function HomePage() {
             </Link>
           </div>
           <ul className="mt-8 space-y-8 border-t border-ink/10 pt-8">
-            {portfolio.map((entry) => (
+            {portfolio.map((entry, i) => (
               <li key={entry.slug}>
                 <Link
                   href={`/journal/${entry.slug}`}
-                  className="paper-notebook corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9"
+                  className={`note-card corner-box group block rounded-md border border-ink/15 px-7 py-6 shadow-md transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:px-9 ${
+                    i % 2 === 0 ? "-rotate-[0.4deg]" : "rotate-[0.4deg]"
+                  }`}
                 >
                   <PaperClip />
                   <EntryBadge entry={entry} className="block" />
@@ -337,7 +368,7 @@ export default function HomePage() {
             <span className="h-px flex-1 bg-[#4a5714]/40" />
           </div>
           <div className="mt-3 flex items-baseline justify-between gap-4">
-            <h2 className="font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
+            <h2 className="-rotate-1 font-hand text-4xl font-bold text-ink sm:text-5xl">
               Journal
             </h2>
             <Link

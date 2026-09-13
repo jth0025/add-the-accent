@@ -289,6 +289,36 @@ body {
   box-shadow: 1px 0 2px rgba(0, 0, 0, 0.35);
 }
 
+/* The same page-block sliver, wrapped along the top and bottom edges
+   too (everything but the spine side) so the book reads as a stack of
+   pages peeking out on every open side, not just the fore-edge. */
+.book-pages-edge-top,
+.book-pages-edge-bottom {
+  position: absolute;
+  left: 24px;
+  right: 5px;
+  height: 6px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #efe6d3 0px,
+    #efe6d3 2px,
+    #cfc4a8 2px,
+    #cfc4a8 3px
+  );
+}
+
+.book-pages-edge-top {
+  top: 5px;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.book-pages-edge-bottom {
+  bottom: 5px;
+  border-radius: 0 0 3px 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
 /* Cover-reveal overlay on an entry page — the same "front cover" as the
    shelf card, laid on top of the essay and hinged on its left edge so
    it swings open shortly after the page loads, revealing the paper
@@ -313,11 +343,82 @@ body {
   }
 }
 
+/* One or two blank ruled pages sit between the cover and the essay —
+   each uses this same swing, staggered later via --flip-delay (inline
+   style, see EntryPage), so they turn one after another before the
+   actual entry comes into view, the way flipping into a physical book
+   passes a few blank leaves first. */
+.book-page-flip {
+  transform-origin: left center;
+  backface-visibility: hidden;
+  animation-name: book-open;
+  animation-duration: 650ms;
+  animation-timing-function: cubic-bezier(0.55, 0, 0.2, 1);
+  animation-fill-mode: both;
+  animation-delay: var(--flip-delay, 0ms);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .book-cover-reveal {
+  .book-cover-reveal,
+  .book-page-flip {
     animation: none;
     opacity: 0;
   }
+}
+
+/* Ruffled paper edges — a deckled/uneven strip mounted along the left
+   and right sides of a box, standing in for the clean-cut border with
+   something that reads as a used, hand-torn sheet of paper. The wave
+   shape is cut via an SVG mask so the underlying photo/box still shows
+   through the notches. */
+.paper-ruffle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  background-color: #efe6d3;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.42 0 0 0 0 0.30 0 0 0 0 0.15 0 0 0 0.10 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32'%3E%3Cpath d='M0 0 L0 32 L16 32 C8 28 8 20 16 16 C8 12 8 4 16 0 Z' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32'%3E%3Cpath d='M0 0 L0 32 L16 32 C8 28 8 20 16 16 C8 12 8 4 16 0 Z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: repeat-y;
+  mask-repeat: repeat-y;
+  -webkit-mask-size: 16px 32px;
+  mask-size: 16px 32px;
+}
+
+.paper-ruffle-left {
+  left: 0;
+}
+
+.paper-ruffle-right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+/* Note card — the Selected Work list treated as a stack of index cards
+   rather than plain text boxes: warm card stock, a single red header
+   rule, and faint ruled lines underneath for the excerpt to sit on. */
+.note-card {
+  background-color: #fdfbf3;
+  background-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 25px,
+      rgba(196, 64, 64, 0.55) 25px,
+      rgba(196, 64, 64, 0.55) 26px,
+      transparent 26px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(90, 120, 170, 0.22) 0,
+      rgba(90, 120, 170, 0.22) 1px,
+      transparent 1px,
+      transparent 27px
+    );
+  background-position: 0 0, 0 52px;
+  background-repeat: no-repeat, repeat;
 }
 
 /* Header clouds — a handful of tiny flat puffs (mostly black, a couple

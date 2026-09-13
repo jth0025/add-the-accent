@@ -122,14 +122,22 @@ export default function HeroCarousel({ children }) {
         </div>
 
         {/* Real tapered TV legs, planted on the bottom edge; their wide
-            tops tuck behind the box so they read as attached. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/tv-legs.png"
-          alt=""
+            tops tuck behind the box so they read as attached. Wrapped so
+            the ground-contact shadow below can anchor to the image's own
+            rendered bottom edge (where the feet actually land) at any
+            viewport width, instead of a guessed pixel offset. */}
+        <div
+          className="pointer-events-none absolute top-full left-1/2 z-0 w-[30%] max-w-[260px] -translate-x-1/2 -translate-y-[16%] sm:w-[26%]"
           aria-hidden="true"
-          className="pointer-events-none absolute top-full left-1/2 z-0 w-[30%] max-w-[260px] -translate-x-1/2 -translate-y-[16%] sm:w-[26%] [filter:drop-shadow(0_4px_4px_rgba(0,0,0,0.4))]"
-        />
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/tv-legs.png"
+            alt=""
+            className="block w-full [filter:drop-shadow(0_4px_4px_rgba(0,0,0,0.4))]"
+          />
+          <span className="absolute bottom-[4%] left-1/2 h-2.5 w-[80%] -translate-x-1/2 translate-y-1/2 rounded-[50%] bg-black/55 blur-[5px]" />
+        </div>
 
         <div
           className="marble-dark corner-box on-dark relative z-10 overflow-hidden rounded-xl border border-white/20"

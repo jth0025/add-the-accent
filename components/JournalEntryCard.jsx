@@ -23,6 +23,8 @@ export default function JournalEntryCard({ entry }) {
       >
         <span className="book-spine" aria-hidden="true" />
         <span className="book-pages-edge" aria-hidden="true" />
+        <span className="book-pages-edge-top" aria-hidden="true" />
+        <span className="book-pages-edge-bottom" aria-hidden="true" />
 
         <div className="paper-journal relative w-full max-w-[92%] -rotate-1 rounded-[3px] border border-ink/25 bg-[#efe6d3] px-5 py-5 shadow-[0_4px_10px_rgba(0,0,0,0.35)] sm:px-6">
           <EntryBadge entry={entry} className="block" />

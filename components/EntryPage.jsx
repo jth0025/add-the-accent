@@ -37,6 +37,8 @@ export default function EntryPage({ section, backLabel, entry }) {
           >
             <span className="book-spine" />
             <span className="book-pages-edge" />
+            <span className="book-pages-edge-top" />
+            <span className="book-pages-edge-bottom" />
             <div className="paper-journal relative w-[80%] -rotate-1 rounded-[3px] border border-ink/25 bg-[#efe6d3] px-5 py-5 text-center shadow-[0_6px_14px_rgba(0,0,0,0.4)]">
               <EntryBadge entry={entry} className="mx-auto w-fit" />
               <p className="mt-1 flex items-center justify-center gap-2 font-serif text-lg text-ink sm:text-xl">
@@ -50,6 +52,25 @@ export default function EntryPage({ section, backLabel, entry }) {
               </p>
             </div>
           </div>
+        )}
+
+        {/* A couple of blank ruled leaves between the cover and the
+            essay — each swings open on the same hinge as the cover, but
+            later, so flipping past the cover passes a page or two
+            before landing on the actual entry (see .book-page-flip). */}
+        {isJournal && (
+          <div
+            aria-hidden="true"
+            className="book-page-flip paper-notebook pointer-events-none absolute inset-x-0 top-0 z-[15] h-[420px] rounded-t-xl border border-ink/10 bg-[#f7f2e6] sm:h-[460px]"
+            style={{ "--flip-delay": "1050ms" }}
+          />
+        )}
+        {isJournal && (
+          <div
+            aria-hidden="true"
+            className="book-page-flip paper-notebook pointer-events-none absolute inset-x-0 top-0 z-[14] h-[420px] rounded-t-xl border border-ink/10 bg-[#f7f2e6] sm:h-[460px]"
+            style={{ "--flip-delay": "1550ms" }}
+          />
         )}
 
         <div
