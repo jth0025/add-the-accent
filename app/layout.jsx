@@ -370,12 +370,17 @@ export default function RootLayout({ children }) {
                 <Link href="/about" className="hover:text-accent">
                   About
                 </Link>
-
-                <span className="text-stone/80">
-                  <LATemperature />
-                </span>
               </div>
             </nav>
+
+            {/* Always visible (not just sm:flex like the nav links above),
+                and pinned to the header's own corner rather than sitting in
+                the nav's flex row — so it never has to compete with that
+                row for width and push into the centered grass below. */}
+            <div className="pointer-events-none absolute right-4 top-4 z-10 font-mono text-[10px] uppercase tracking-widest text-stone/80 sm:right-6 sm:top-5 sm:text-xs">
+              <LATemperature />
+            </div>
+
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/grass-side.png"
