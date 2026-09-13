@@ -3,7 +3,6 @@ import { getAllEntries, getSelectedWork, formatDate } from "@/lib/content";
 import HeroCarousel from "@/components/HeroCarousel";
 import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
-import TornCorner from "@/components/TornCorner";
 import JournalEntryCard from "@/components/JournalEntryCard";
 import VoiceClip from "@/components/VoiceClip";
 import WordOfTheDay from "@/components/WordOfTheDay";
@@ -140,7 +139,7 @@ export default function HomePage() {
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-center italic leading-snug text-white">
             <span className="block md:whitespace-nowrap">
-              <span className="font-playfair font-bold text-lg text-black">Add the Accent</span> is a
+              <span className="gold-foil font-playfair text-lg font-bold">Add the Accent</span> is a
               multidisciplinary creative studio built on one belief:
             </span>
             <span
@@ -170,14 +169,13 @@ export default function HomePage() {
 
       <section className="py-6">
         <div
-          className="torn-frame relative"
+          className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
           style={{
             backgroundImage:
               "repeating-linear-gradient(to bottom, rgba(231,222,210,.08) 0, rgba(231,222,210,.08) 1px, transparent 1px, transparent 27px), linear-gradient(to right, transparent 0, transparent 34px, rgba(224,168,96,.4) 34px, rgba(224,168,96,.4) 35px, transparent 35px), linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
             backgroundRepeat: "repeat, no-repeat, no-repeat",
           }}
         >
-          <TornCorner />
           <Link
             href="/journal?series=Homebody"
             className="group relative block overflow-hidden"
@@ -193,7 +191,9 @@ export default function HomePage() {
               Read the series &rarr;
             </span>
           </Link>
-          <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+          <div className="paper-notebook relative bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+            <span className="blurb-edge blurb-edge-left" aria-hidden="true" />
+            <span className="blurb-edge blurb-edge-right" aria-hidden="true" />
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
               <span className="font-bold italic">Homebody</span> is a
               visual storytelling series exploring masculinity, identity,
@@ -209,14 +209,13 @@ export default function HomePage() {
 
       <section className="py-6">
         <div
-          className="torn-frame relative"
+          className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
           style={{
             backgroundImage:
               "repeating-linear-gradient(to bottom, rgba(231,222,210,.08) 0, rgba(231,222,210,.08) 1px, transparent 1px, transparent 27px), linear-gradient(to right, transparent 0, transparent 34px, rgba(224,168,96,.4) 34px, rgba(224,168,96,.4) 35px, transparent 35px), linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
             backgroundRepeat: "repeat, no-repeat, no-repeat",
           }}
         >
-          <TornCorner />
           <Link
             href="/journal?series=Domain%20Expansion"
             className="group relative block overflow-hidden"
@@ -232,7 +231,9 @@ export default function HomePage() {
               Read the series &rarr;
             </span>
           </Link>
-          <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+          <div className="paper-notebook relative bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+            <span className="blurb-edge blurb-edge-left" aria-hidden="true" />
+            <span className="blurb-edge blurb-edge-right" aria-hidden="true" />
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
               A <span className="font-bold italic">Homebody</span> Series
               details the accounts of reimagining a new home; inspired by
@@ -248,14 +249,13 @@ export default function HomePage() {
 
       <section className="py-6">
         <div
-          className="torn-frame relative"
+          className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
           style={{
             backgroundImage:
               "repeating-linear-gradient(to bottom, rgba(231,222,210,.08) 0, rgba(231,222,210,.08) 1px, transparent 1px, transparent 27px), linear-gradient(to right, transparent 0, transparent 34px, rgba(224,168,96,.4) 34px, rgba(224,168,96,.4) 35px, transparent 35px), linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
             backgroundRepeat: "repeat, no-repeat, no-repeat",
           }}
         >
-          <TornCorner />
           <Link
             href="/journal?series=Back%20to%20Oui"
             className="group relative block overflow-hidden"
@@ -271,7 +271,9 @@ export default function HomePage() {
               Read the series &rarr;
             </span>
           </Link>
-          <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+          <div className="paper-notebook relative bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+            <span className="blurb-edge blurb-edge-left" aria-hidden="true" />
+            <span className="blurb-edge blurb-edge-right" aria-hidden="true" />
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
               &ldquo;<span className="font-bold italic">Back to Oui</span>
               &rdquo; traces the distance between love and despair;
@@ -284,13 +286,18 @@ export default function HomePage() {
       </section>
 
       {portfolio.length > 0 && (
-        <div className="relative">
+        <section className="paper-notebook corner-box relative mb-10 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+          {/* Curled corners lifted from the paper reference — top-right
+              as photographed, and the same graphic mirrored vertically
+              for a matching curl at the bottom-right. Everything else
+              about the box keeps its original paper-notebook look. */}
+          <span className="curled-corner curled-corner-top" aria-hidden="true" />
+          <span className="curled-corner curled-corner-bottom" aria-hidden="true" />
+
           {/* A horizontal pen, stretched to the box's own width, laid
               across the seam where the last feature box ends — half
               resting on this box's top edge, like something set down on
-              the desk between two stacks of work. Lives OUTSIDE the
-              torn-frame section below: that section's clip-path would
-              otherwise cut off anything positioned past its own edge. */}
+              the desk between two stacks of work. */}
           <span
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-6 -top-3 z-20 sm:inset-x-9"
@@ -310,15 +317,29 @@ export default function HomePage() {
             </svg>
           </span>
 
-          <section className="torn-frame relative paper-notebook mb-10 bg-card px-7 py-8 sm:px-9">
-          <TornCorner />
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
             <span>Section 01</span>
             <span className="h-px flex-1 bg-accent/40" />
           </div>
           <div className="mt-3 flex items-baseline justify-between gap-4">
-            <h2 className="-rotate-1 font-hand text-4xl font-bold text-ink sm:text-5xl">
+            <h2 className="sketch-heading relative -rotate-1 inline-block cursor-default font-hand text-4xl font-bold text-ink sm:text-5xl">
               Selected Work
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 100 14"
+                preserveAspectRatio="none"
+                className="pointer-events-none absolute -bottom-1 left-0 h-3.5 w-full overflow-visible"
+              >
+                <path
+                  d="M2 8 Q 20 3 38 7 T 70 6 T 98 5"
+                  fill="none"
+                  stroke="#af691e"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  pathLength="1"
+                  className="sketch-underline"
+                />
+              </svg>
             </h2>
             <Link
               href="/portfolio"
@@ -329,18 +350,14 @@ export default function HomePage() {
           </div>
           <ul className="mt-8 space-y-8 border-t border-ink/10 pt-8">
             {portfolio.map((entry, i) => (
-              <li key={entry.slug} className="relative">
-                {/* PaperClip lives outside the torn-frame Link below —
-                    its clip-path would otherwise cut off the part of
-                    the clip that pokes past the card's own corner. */}
-                <PaperClip />
+              <li key={entry.slug}>
                 <Link
                   href={`/journal/${entry.slug}`}
-                  className={`torn-frame note-card group relative block px-7 py-6 transition-transform duration-200 hover:-translate-y-0.5 sm:px-9 ${
+                  className={`note-card corner-box group relative block rounded-md border border-ink/15 px-7 py-6 shadow-md transition-transform duration-200 hover:-translate-y-0.5 sm:px-9 ${
                     i % 2 === 0 ? "-rotate-[0.4deg]" : "rotate-[0.4deg]"
                   }`}
                 >
-                  <TornCorner />
+                  <PaperClip />
                   <EntryBadge entry={entry} className="block" />
                   <h3 className="flex items-center gap-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -364,20 +381,39 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
-          </section>
-        </div>
+        </section>
       )}
 
       {journal.length > 0 && (
-        <section className="torn-frame paper-crinkled relative mb-16 bg-card px-7 py-8 sm:px-9">
-          <TornCorner />
+        <section className="paper-crinkled corner-box relative mb-16 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+          {/* Torn top/bottom lifted from the "page ripped in half"
+              reference — the box's own paper-crinkled texture is
+              untouched, only the top and bottom edges gain the tear. */}
+          <span className="journal-tear journal-tear-top" aria-hidden="true" />
+          <span className="journal-tear journal-tear-bottom" aria-hidden="true" />
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-[#4a5714]">
             <span>Section 02</span>
             <span className="h-px flex-1 bg-[#4a5714]/40" />
           </div>
           <div className="mt-3 flex items-baseline justify-between gap-4">
-            <h2 className="-rotate-1 font-hand text-4xl font-bold text-ink sm:text-5xl">
+            <h2 className="sketch-heading relative -rotate-1 inline-block cursor-default font-hand text-4xl font-bold text-ink sm:text-5xl">
               Journal
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 100 14"
+                preserveAspectRatio="none"
+                className="pointer-events-none absolute -bottom-1 left-0 h-3.5 w-full overflow-visible"
+              >
+                <path
+                  d="M2 8 Q 20 3 38 7 T 70 6 T 98 5"
+                  fill="none"
+                  stroke="#4a5714"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  pathLength="1"
+                  className="sketch-underline"
+                />
+              </svg>
             </h2>
             <Link
               href="/journal"

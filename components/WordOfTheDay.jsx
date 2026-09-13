@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import TornCorner from "@/components/TornCorner";
 
 // A rotating vocabulary that leans into the site's themes — perspective,
 // selfhood, craft, presence, and becoming. One surfaces each day.
@@ -71,8 +70,20 @@ export default function WordOfTheDay() {
   }, []);
 
   return (
-    <section className="torn-frame paper-notebook relative mt-8 min-h-[184px] bg-card px-7 py-8 sm:px-9">
-      <TornCorner />
+    <section className="paper-notebook corner-box relative mt-8 min-h-[184px] rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+      {/* A slightly bouncy sketch lightbulb perched on the box's top
+          edge — an idea just switched on. */}
+      <span
+        aria-hidden="true"
+        className="bulb-bounce pointer-events-none absolute -top-6 left-7 h-10 w-10 text-accent [filter:url(#urban-sketch)]"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-full w-full drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
+          <path d="M9 18h6" />
+          <path d="M10 21h4" />
+          <path d="M12 3a6 6 0 0 0-3.6 10.8c.6.45 1.1 1.2 1.1 2.2h5A2.8 2.8 0 0 1 15.6 13.8 6 6 0 0 0 12 3Z" />
+          <path d="M12 7.5c-1.6 0-2.7 1-2.7 2.6" />
+        </svg>
+      </span>
       <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-widest text-accent sm:gap-3 sm:text-xs">
         <span className="whitespace-nowrap">Word of the Day</span>
         <span className="h-px min-w-[10px] flex-1 bg-accent/40" />

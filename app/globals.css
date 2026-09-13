@@ -162,6 +162,54 @@ body {
   background-repeat: repeat, no-repeat;
 }
 
+/* paper-notebook, merged with a photographed texture layered in behind
+   the ruled lines/margin (which stay on top and fully visible) — the
+   art and copy sitting on top of either of these are untouched, only
+   the box's own background gains the extra depth. */
+.paper-crumpled {
+  background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(26, 26, 26, 0.07) 0,
+      rgba(26, 26, 26, 0.07) 1px,
+      transparent 1px,
+      transparent 27px
+    ),
+    linear-gradient(
+      to right,
+      transparent 0,
+      transparent 34px,
+      rgba(175, 105, 30, 0.22) 34px,
+      rgba(175, 105, 30, 0.22) 35px,
+      transparent 35px
+    ),
+    url("/textures/portfolio-crumple.jpg");
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-size: auto, auto, cover;
+  background-position: 0 0, 0 0, center;
+}
+
+.paper-folded {
+  background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(26, 26, 26, 0.07) 0,
+      rgba(26, 26, 26, 0.07) 1px,
+      transparent 1px,
+      transparent 27px
+    ),
+    linear-gradient(
+      to right,
+      transparent 0,
+      transparent 34px,
+      rgba(175, 105, 30, 0.22) 34px,
+      rgba(175, 105, 30, 0.22) 35px,
+      transparent 35px
+    ),
+    url("/textures/about-fold.png");
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-size: auto, auto, cover;
+  background-position: 0 0, 0 0, center;
+}
+
 .paper-newspaper {
   background-image: radial-gradient(rgba(26, 26, 26, 0.12) 1px, transparent 1.3px),
     radial-gradient(rgba(26, 26, 26, 0.07) 1px, transparent 1.3px);
@@ -366,76 +414,79 @@ body {
   }
 }
 
-/* Ruffled paper edges — a deckled/uneven strip mounted along the left
-   and right sides of a box, standing in for the clean-cut border with
-   something that reads as a used, hand-torn sheet of paper. The wave
-   shape is cut via an SVG mask so the underlying photo/box still shows
-   through the notches. */
-.paper-ruffle {
+/* Feature-box blurb edge — the torn/perforated strip from the paper
+   reference photo, mounted along both sides of the text box under
+   each feature image (never the image or the box itself, which keep
+   their original clean rectangle). Mirrored for the right side. */
+.blurb-edge {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 16px;
-  background-color: #efe6d3;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.42 0 0 0 0 0.30 0 0 0 0 0.15 0 0 0 0.10 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 120px 120px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32'%3E%3Cpath d='M0 0 L0 32 L16 32 C8 28 8 20 16 16 C8 12 8 4 16 0 Z' fill='black'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32'%3E%3Cpath d='M0 0 L0 32 L16 32 C8 28 8 20 16 16 C8 12 8 4 16 0 Z' fill='black'/%3E%3C/svg%3E");
-  -webkit-mask-repeat: repeat-y;
-  mask-repeat: repeat-y;
-  -webkit-mask-size: 16px 32px;
-  mask-size: 16px 32px;
+  width: 34px;
+  pointer-events: none;
+  background-image: url("/textures/feature-blurb-edge.png");
+  background-repeat: repeat-y;
+  background-size: 34px 300px;
+  background-position: top;
 }
 
-.paper-ruffle-left {
+.blurb-edge-left {
   left: 0;
 }
 
-.paper-ruffle-right {
+.blurb-edge-right {
   right: 0;
   transform: scaleX(-1);
 }
 
-/* Torn-paper frame — replaces a clean rounded-rectangle box with the
-   silhouette of a hand-torn sheet: an irregular clip-path wobbling a
-   percent or two in from each edge (true corners kept intact on
-   purpose, both so the tear reads as concentrated along the edges the
-   way real torn paper does, and so .paper-fold-corner below has a
-   clean corner to sit on without being clipped away itself). Scales
-   with the box since every point is a percentage. Pair with a
-   drop-shadow instead of box-shadow/border, since both of those paint
-   against the untorn rectangle and would look wrong against the
-   clipped silhouette. */
-.torn-frame {
-  clip-path: polygon(
-    0% 0%, 8% 1.2%, 16% 0.3%, 24% 1.8%, 33% 0.4%, 42% 1.5%, 50% 0.2%,
-    58% 1.6%, 67% 0.5%, 76% 1.9%, 84% 0.3%, 92% 1.4%, 100% 0%,
-    98.8% 8%, 100% 16%, 98.5% 25%, 100% 34%, 98.7% 43%, 100% 52%,
-    98.4% 61%, 100% 70%, 98.8% 79%, 100% 88%, 100% 100%,
-    92% 98.6%, 84% 100%, 76% 98.3%, 67% 100%, 58% 98.5%, 50% 100%,
-    42% 98.7%, 33% 100%, 24% 98.4%, 16% 100%, 8% 98.6%, 0% 100%,
-    1.3% 91%, 0% 82%, 1.6% 73%, 0% 64%, 1.4% 55%, 0% 46%,
-    1.7% 37%, 0% 28%, 1.3% 19%, 0% 10%, 0% 0%
-  );
-  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35));
+/* Selected Work's curled corner — the peeling-corner photo cropped
+   tight to just the curl, pinned at top-right and mirrored vertically
+   for a matching curl at bottom-right. The rest of the box keeps its
+   original paper-notebook look untouched. */
+.curled-corner {
+  position: absolute;
+  right: -2px;
+  width: 52px;
+  height: 55px;
+  pointer-events: none;
+  background-image: url("/textures/selected-work-corner.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
-/* The dog-eared corner accent — a small triangular fold at the box's
-   top-right corner, shaded like the underside of curled paper, with
-   its own drop-shadow (not box-shadow, for the same clip-path reason
-   above) cast onto the page beneath it. */
-.paper-fold-corner {
+.curled-corner-top {
+  top: -2px;
+}
+
+.curled-corner-bottom {
+  bottom: -2px;
+  transform: scaleY(-1);
+}
+
+/* Journal box's torn top/bottom — the jagged tear line lifted from the
+   "paper torn in half" reference, mounted along the top and bottom
+   edges so the box reads as ripped free from a larger sheet rather
+   than cleanly cut. The box's own paper-crinkled texture is untouched. */
+.journal-tear {
   position: absolute;
-  top: 0;
+  left: 0;
   right: 0;
-  z-index: 6;
-  width: 30px;
-  height: 30px;
+  height: 26px;
   pointer-events: none;
-  clip-path: polygon(100% 0%, 0% 0%, 100% 100%);
-  background: linear-gradient(135deg, #f4ecd9 0%, #d9caa8 55%, #b6a377 100%);
-  filter: drop-shadow(-2px 2px 3px rgba(0, 0, 0, 0.35));
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.journal-tear-top {
+  top: -1px;
+  background-image: url("/textures/journal-tear-top.png");
+  background-position: bottom;
+}
+
+.journal-tear-bottom {
+  bottom: -1px;
+  background-image: url("/textures/journal-tear-bottom.png");
+  background-position: top;
 }
 
 /* Note card — the Selected Work list treated as a stack of index cards
@@ -584,6 +635,56 @@ body {
   }
 }
 
+/* The sketch lightbulb over Word of the Day — a light, irregular
+   bounce-and-tilt so it reads as a hand-drawn idea bobbing in place,
+   not a mechanical loop. */
+.bulb-bounce {
+  animation: bulb-bounce 3.4s ease-in-out infinite;
+  transform-origin: 50% 85%;
+}
+
+@keyframes bulb-bounce {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  30% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  60% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  80% {
+    transform: translateY(-2px) rotate(2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bulb-bounce {
+    animation: none;
+  }
+}
+
+/* Hand-drawn hover underline — an SVG squiggle under a heading, hidden
+   via stroke-dashoffset (pathLength="1" normalizes the path to one
+   unit so this works regardless of the path's actual geometry) and
+   "drawn" in on hover by animating the offset to 0. */
+.sketch-heading .sketch-underline {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.55s ease;
+}
+
+.sketch-heading:hover .sketch-underline {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sketch-heading .sketch-underline {
+    transition: none;
+  }
+}
+
 /* Distressed / grunge type — roughens letter edges and chips small holes
    out of the fill via the SVG filter defined once in app/layout.jsx.
    The element keeps its real color, so hover/color changes still work. */
@@ -591,24 +692,68 @@ body {
   filter: url("#grunge-text");
 }
 
-/* Gold foil — a standing (non-hover, non-animated) metallic fill for a
-   single word inside a heading: a dark-to-bright-to-dark gold gradient
-   clipped to the text so the letters read as pressed foil rather than
-   flat color. */
+/* Gold foil — a standing metallic fill for a word/phrase: a dark gold
+   base gradient (layer 1, fixed) plus a bright streak (layer 2) that
+   sweeps across it every several seconds, so the foil catches light
+   periodically rather than sitting flat. The base layer never moves,
+   so the resting color always reads gold — only the highlight travels. */
 .gold-foil {
   background-image: linear-gradient(
-    160deg,
-    #241a08 0%,
-    #4a3814 22%,
-    #71581f 42%,
-    #8a6c28 50%,
-    #71581f 58%,
-    #4a3814 78%,
-    #241a08 100%
+    100deg,
+    #4a3814 0%,
+    #4a3814 42%,
+    #8a6c28 46%,
+    #e0c98a 48.5%,
+    #fff3c4 50%,
+    #e0c98a 51.5%,
+    #8a6c28 54%,
+    #4a3814 58%,
+    #4a3814 100%
   );
+  background-size: 240% 100%;
+  background-position: 135% 0;
+  /* repeat (both end stops are the same bronze) so every glyph always
+     has a fill — with no-repeat the text drops out once the gradient
+     slides off it. */
+  background-repeat: repeat;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: gold-gleam 8s ease-in-out infinite;
+}
+
+@keyframes gold-gleam {
+  0%,
+  52% {
+    background-position: 135% 0;
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 243, 196, 0));
+  }
+  80% {
+    background-position: 22% 0;
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 243, 196, 0));
+  }
+  84% {
+    background-position: 12% 0;
+    filter: brightness(1.35) drop-shadow(0 0 7px rgba(255, 243, 196, 0.85));
+  }
+  89% {
+    background-position: 2% 0;
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 243, 196, 0));
+  }
+  100% {
+    background-position: -35% 0;
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 243, 196, 0));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gold-foil {
+    animation: none;
+    background: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    color: #4a3814;
+  }
 }
 
 /* Cast-bronze hover — on hover the text fills with a metallic bronze

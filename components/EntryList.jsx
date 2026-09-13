@@ -2,7 +2,6 @@ import Link from "next/link";
 import { formatDate } from "@/lib/content";
 import JournalNav from "@/components/JournalNav";
 import JournalEntryCard from "@/components/JournalEntryCard";
-import TornCorner from "@/components/TornCorner";
 
 export default function EntryList({ section, heading, intro, entries }) {
   const isJournal = section === "journal";
@@ -16,9 +15,8 @@ export default function EntryList({ section, heading, intro, entries }) {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       <div
-        className={`torn-frame relative ${paperClass} bg-card px-7 py-8 sm:px-9`}
+        className={`${paperClass} corner-box rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9`}
       >
-        <TornCorner />
         <div
           className={`flex items-center gap-3 font-mono text-xs uppercase tracking-widest ${tagTextClass}`}
         >
@@ -51,9 +49,8 @@ export default function EntryList({ section, heading, intro, entries }) {
               <li key={entry.slug}>
                 <Link
                   href={`/${section}/${entry.slug}`}
-                  className={`torn-frame ${paperClass} group relative block bg-card px-7 py-6 transition-colors sm:px-9`}
+                  className={`${paperClass} corner-box group block rounded-xl border border-ink/15 bg-card px-7 py-6 transition-colors hover:border-ink/30 sm:px-9`}
                 >
-                  <TornCorner />
                   <h2 className="flex items-center gap-2 font-serif text-2xl text-ink transition-colors group-hover:text-accent">
                     <span>{entry.title}</span>
                   </h2>
