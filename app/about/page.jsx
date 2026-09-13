@@ -107,7 +107,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       {/* Hero */}
-      <section className="paper-fold-thirds corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+      <section className="wood-desktop corner-box on-dark rounded-xl border border-black/40 px-7 py-10 sm:px-10 sm:py-12">
         <SectionLabel>About</SectionLabel>
 
         {/* Title logo for this block: the wooden "AA" fence with the
@@ -119,11 +119,11 @@ export default function AboutPage() {
           className="mx-auto mt-6 w-[21rem] max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.22)] sm:mt-8 sm:w-[26rem]"
         />
 
-        <p className="mt-6 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
+        <p className="mt-6 text-center font-serif text-2xl italic leading-snug text-[#f2e6d3] sm:text-3xl">
           &ldquo;Your perspective is the masterpiece. Everything else is the
           medium.&rdquo;
         </p>
-        <p className="mx-auto mt-6 max-w-xl text-center text-stone">
+        <p className="mx-auto mt-6 max-w-xl text-center text-[#d9c7ae]">
           A multidisciplinary creative studio, umbrella brand, and philosophy
           built around the power of individual perspective. Through design,
           writing, photography, film, and apparel, the goal is the same
