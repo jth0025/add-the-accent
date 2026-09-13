@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import TornCorner from "@/components/TornCorner";
 
 // A rotating vocabulary that leans into the site's themes — perspective,
 // selfhood, craft, presence, and becoming. One surfaces each day.
@@ -70,7 +71,8 @@ export default function WordOfTheDay() {
   }, []);
 
   return (
-    <section className="paper-notebook corner-box mt-8 min-h-[184px] rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+    <section className="torn-frame paper-notebook relative mt-8 min-h-[184px] bg-card px-7 py-8 sm:px-9">
+      <TornCorner />
       <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-widest text-accent sm:gap-3 sm:text-xs">
         <span className="whitespace-nowrap">Word of the Day</span>
         <span className="h-px min-w-[10px] flex-1 bg-accent/40" />

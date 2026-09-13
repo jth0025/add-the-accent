@@ -3,6 +3,7 @@ import { getAllEntries, getSelectedWork, formatDate } from "@/lib/content";
 import HeroCarousel from "@/components/HeroCarousel";
 import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
+import TornCorner from "@/components/TornCorner";
 import JournalEntryCard from "@/components/JournalEntryCard";
 import VoiceClip from "@/components/VoiceClip";
 import WordOfTheDay from "@/components/WordOfTheDay";
@@ -169,15 +170,14 @@ export default function HomePage() {
 
       <section className="py-6">
         <div
-          className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
+          className="torn-frame relative"
           style={{
             backgroundImage:
               "repeating-linear-gradient(to bottom, rgba(231,222,210,.08) 0, rgba(231,222,210,.08) 1px, transparent 1px, transparent 27px), linear-gradient(to right, transparent 0, transparent 34px, rgba(224,168,96,.4) 34px, rgba(224,168,96,.4) 35px, transparent 35px), linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
             backgroundRepeat: "repeat, no-repeat, no-repeat",
           }}
         >
-          <span className="paper-ruffle paper-ruffle-left" aria-hidden="true" />
-          <span className="paper-ruffle paper-ruffle-right" aria-hidden="true" />
+          <TornCorner />
           <Link
             href="/journal?series=Homebody"
             className="group relative block overflow-hidden"
@@ -209,15 +209,14 @@ export default function HomePage() {
 
       <section className="py-6">
         <div
-          className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
+          className="torn-frame relative"
           style={{
             backgroundImage:
               "repeating-linear-gradient(to bottom, rgba(231,222,210,.08) 0, rgba(231,222,210,.08) 1px, transparent 1px, transparent 27px), linear-gradient(to right, transparent 0, transparent 34px, rgba(224,168,96,.4) 34px, rgba(224,168,96,.4) 35px, transparent 35px), linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
             backgroundRepeat: "repeat, no-repeat, no-repeat",
           }}
         >
-          <span className="paper-ruffle paper-ruffle-left" aria-hidden="true" />
-          <span className="paper-ruffle paper-ruffle-right" aria-hidden="true" />
+          <TornCorner />
           <Link
             href="/journal?series=Domain%20Expansion"
             className="group relative block overflow-hidden"
@@ -249,15 +248,14 @@ export default function HomePage() {
 
       <section className="py-6">
         <div
-          className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
+          className="torn-frame relative"
           style={{
             backgroundImage:
               "repeating-linear-gradient(to bottom, rgba(231,222,210,.08) 0, rgba(231,222,210,.08) 1px, transparent 1px, transparent 27px), linear-gradient(to right, transparent 0, transparent 34px, rgba(224,168,96,.4) 34px, rgba(224,168,96,.4) 35px, transparent 35px), linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
             backgroundRepeat: "repeat, no-repeat, no-repeat",
           }}
         >
-          <span className="paper-ruffle paper-ruffle-left" aria-hidden="true" />
-          <span className="paper-ruffle paper-ruffle-right" aria-hidden="true" />
+          <TornCorner />
           <Link
             href="/journal?series=Back%20to%20Oui"
             className="group relative block overflow-hidden"
@@ -286,11 +284,13 @@ export default function HomePage() {
       </section>
 
       {portfolio.length > 0 && (
-        <section className="relative paper-notebook corner-box mb-10 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+        <div className="relative">
           {/* A horizontal pen, stretched to the box's own width, laid
               across the seam where the last feature box ends — half
               resting on this box's top edge, like something set down on
-              the desk between two stacks of work. */}
+              the desk between two stacks of work. Lives OUTSIDE the
+              torn-frame section below: that section's clip-path would
+              otherwise cut off anything positioned past its own edge. */}
           <span
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-6 -top-3 z-20 sm:inset-x-9"
@@ -310,6 +310,8 @@ export default function HomePage() {
             </svg>
           </span>
 
+          <section className="torn-frame relative paper-notebook mb-10 bg-card px-7 py-8 sm:px-9">
+          <TornCorner />
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
             <span>Section 01</span>
             <span className="h-px flex-1 bg-accent/40" />
@@ -327,14 +329,18 @@ export default function HomePage() {
           </div>
           <ul className="mt-8 space-y-8 border-t border-ink/10 pt-8">
             {portfolio.map((entry, i) => (
-              <li key={entry.slug}>
+              <li key={entry.slug} className="relative">
+                {/* PaperClip lives outside the torn-frame Link below —
+                    its clip-path would otherwise cut off the part of
+                    the clip that pokes past the card's own corner. */}
+                <PaperClip />
                 <Link
                   href={`/journal/${entry.slug}`}
-                  className={`note-card corner-box group block rounded-md border border-ink/15 px-7 py-6 shadow-md transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:px-9 ${
+                  className={`torn-frame note-card group relative block px-7 py-6 transition-transform duration-200 hover:-translate-y-0.5 sm:px-9 ${
                     i % 2 === 0 ? "-rotate-[0.4deg]" : "rotate-[0.4deg]"
                   }`}
                 >
-                  <PaperClip />
+                  <TornCorner />
                   <EntryBadge entry={entry} className="block" />
                   <h3 className="flex items-center gap-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -358,11 +364,13 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
-        </section>
+          </section>
+        </div>
       )}
 
       {journal.length > 0 && (
-        <section className="paper-crinkled corner-box mb-16 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+        <section className="torn-frame paper-crinkled relative mb-16 bg-card px-7 py-8 sm:px-9">
+          <TornCorner />
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-[#4a5714]">
             <span>Section 02</span>
             <span className="h-px flex-1 bg-[#4a5714]/40" />

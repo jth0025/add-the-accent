@@ -2,6 +2,7 @@ import Link from "next/link";
 import { formatDate } from "@/lib/content";
 import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
+import TornCorner from "@/components/TornCorner";
 import { getCoverColor } from "@/lib/seriesColors";
 
 export default function EntryPage({ section, backLabel, entry }) {
@@ -21,8 +22,13 @@ export default function EntryPage({ section, backLabel, entry }) {
       </Link>
 
       <article
-        className={`${paperClass} corner-box relative mt-6 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-10 ${isJournal ? "[perspective:1600px]" : ""}`}
+        className={`${paperClass} relative mt-6 bg-card px-7 py-9 sm:px-10 ${
+          isJournal
+            ? "corner-box rounded-xl border border-ink/15 [perspective:1600px]"
+            : "torn-frame"
+        }`}
       >
+        {!isJournal && <TornCorner />}
         {isJournal && <PaperClip />}
 
         {isJournal && (

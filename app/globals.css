@@ -397,6 +397,47 @@ body {
   transform: scaleX(-1);
 }
 
+/* Torn-paper frame — replaces a clean rounded-rectangle box with the
+   silhouette of a hand-torn sheet: an irregular clip-path wobbling a
+   percent or two in from each edge (true corners kept intact on
+   purpose, both so the tear reads as concentrated along the edges the
+   way real torn paper does, and so .paper-fold-corner below has a
+   clean corner to sit on without being clipped away itself). Scales
+   with the box since every point is a percentage. Pair with a
+   drop-shadow instead of box-shadow/border, since both of those paint
+   against the untorn rectangle and would look wrong against the
+   clipped silhouette. */
+.torn-frame {
+  clip-path: polygon(
+    0% 0%, 8% 1.2%, 16% 0.3%, 24% 1.8%, 33% 0.4%, 42% 1.5%, 50% 0.2%,
+    58% 1.6%, 67% 0.5%, 76% 1.9%, 84% 0.3%, 92% 1.4%, 100% 0%,
+    98.8% 8%, 100% 16%, 98.5% 25%, 100% 34%, 98.7% 43%, 100% 52%,
+    98.4% 61%, 100% 70%, 98.8% 79%, 100% 88%, 100% 100%,
+    92% 98.6%, 84% 100%, 76% 98.3%, 67% 100%, 58% 98.5%, 50% 100%,
+    42% 98.7%, 33% 100%, 24% 98.4%, 16% 100%, 8% 98.6%, 0% 100%,
+    1.3% 91%, 0% 82%, 1.6% 73%, 0% 64%, 1.4% 55%, 0% 46%,
+    1.7% 37%, 0% 28%, 1.3% 19%, 0% 10%, 0% 0%
+  );
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35));
+}
+
+/* The dog-eared corner accent — a small triangular fold at the box's
+   top-right corner, shaded like the underside of curled paper, with
+   its own drop-shadow (not box-shadow, for the same clip-path reason
+   above) cast onto the page beneath it. */
+.paper-fold-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 6;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  clip-path: polygon(100% 0%, 0% 0%, 100% 100%);
+  background: linear-gradient(135deg, #f4ecd9 0%, #d9caa8 55%, #b6a377 100%);
+  filter: drop-shadow(-2px 2px 3px rgba(0, 0, 0, 0.35));
+}
+
 /* Note card — the Selected Work list treated as a stack of index cards
    rather than plain text boxes: warm card stock, a single red header
    rule, and faint ruled lines underneath for the excerpt to sit on. */
