@@ -282,6 +282,23 @@ body {
   border-color: rgba(231, 222, 210, 0.6);
 }
 
+/* A filmstrip perforation edge — the row of round sprocket holes along
+   real film stock — used top and bottom of each Design gallery panel
+   so the pieces read as storyboard/movie frames rather than plain
+   thumbnails. */
+.film-sprocket-strip {
+  height: 8px;
+  background-color: #cfc9b8;
+  background-image: radial-gradient(
+    circle,
+    rgba(20, 18, 14, 0.65) 2px,
+    transparent 2.3px
+  );
+  background-size: 15px 8px;
+  background-position: 7px center;
+  background-repeat: repeat-x;
+}
+
 /* Journal "book" cards — stand-in for the plain text card: a colored
    cloth cover with a spine and page edges, plus a hand-labeled paper
    patch carrying the title/date/excerpt. Cover color comes from
