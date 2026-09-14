@@ -298,7 +298,7 @@ export default function RootLayout({ children }) {
                   the logo or the grass. Color tracks --header-fg (set by
                   HeaderSky) so it stays legible against whatever time-of-day
                   sky is currently showing. */}
-              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 sm:-mr-10 sm:flex sm:gap-5">
+              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 sm:-mr-28 sm:flex sm:gap-5">
                 <Link href="/" className="hover:text-accent">
                   Home
                 </Link>
