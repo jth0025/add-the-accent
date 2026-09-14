@@ -354,7 +354,11 @@ export default function HomePage() {
                       aria-hidden="true"
                       className="h-[1em] w-auto shrink-0"
                     />
-                    <span>{entry.title}</span>
+                    {entry.titleHtml ? (
+                      <span dangerouslySetInnerHTML={{ __html: entry.titleHtml }} />
+                    ) : (
+                      <span>{entry.title}</span>
+                    )}
                   </h3>
                   {entry.date && (
                     <p className="mt-1 font-mono text-xs uppercase tracking-wide text-stone/60">

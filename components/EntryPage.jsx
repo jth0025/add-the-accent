@@ -48,7 +48,11 @@ export default function EntryPage({ section, backLabel, entry }) {
                   alt=""
                   className="h-[1em] w-auto shrink-0"
                 />
-                <span>{entry.title}</span>
+                {entry.titleHtml ? (
+                  <span dangerouslySetInnerHTML={{ __html: entry.titleHtml }} />
+                ) : (
+                  <span>{entry.title}</span>
+                )}
               </p>
             </div>
           </div>
@@ -83,7 +87,11 @@ export default function EntryPage({ section, backLabel, entry }) {
         {isJournal && <EntryBadge entry={entry} className="mt-4 block w-fit" />}
 
         <h1 className="mt-4 font-serif text-4xl leading-tight text-ink">
-          {entry.title}
+          {entry.titleHtml ? (
+            <span dangerouslySetInnerHTML={{ __html: entry.titleHtml }} />
+          ) : (
+            entry.title
+          )}
         </h1>
         {entry.date && (
           <p className="mt-3 font-mono text-xs uppercase tracking-wide text-stone/60">

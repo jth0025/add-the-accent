@@ -53,7 +53,7 @@ export default function PortfolioIndex() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <section className="wood-desktop corner-box on-dark rounded-xl border border-black/40 px-7 py-12 text-center sm:px-10 sm:py-16">
+      <section className="paper-fold-quarters corner-box rounded-xl border border-ink/15 bg-card px-7 py-12 text-center sm:px-10 sm:py-16">
         <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
           <span className="h-px w-8 bg-accent/40" />
           <span>Portfolio</span>
@@ -137,10 +137,10 @@ export default function PortfolioIndex() {
           </div>
         </div>
 
-        <p className="mt-10 font-cinema text-4xl uppercase tracking-[0.06em] text-[#f2e6d3] sm:text-5xl">
+        <p className="mt-10 font-cinema text-4xl uppercase tracking-[0.06em] text-ink sm:text-5xl">
           Selected Work
         </p>
-        <p className="mx-auto mt-4 max-w-md text-[#d9c7ae]">
+        <p className="mx-auto mt-4 max-w-md text-stone">
           A packed bag, not a finished trip &mdash; a working set of pieces
           pulled from the{" "}
           <Link href="/journal" className="text-accent hover:underline">

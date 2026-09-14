@@ -43,13 +43,15 @@ export default function DesignGallery() {
 
   return (
     <>
-      <div className="columns-2 gap-4 sm:columns-3">
-        {PIECES.map((piece) => (
+      <div className="columns-2 gap-5 sm:columns-3">
+        {PIECES.map((piece, i) => (
           <button
             key={piece.src}
             type="button"
             onClick={() => setLightbox(piece)}
-            className="corner-box mb-4 block w-full cursor-zoom-in overflow-hidden rounded-lg border border-ink/15 shadow-md transition-transform hover:scale-[1.02]"
+            className={`mb-5 block w-full cursor-zoom-in rounded-sm border border-black/10 bg-white p-3 pb-8 shadow-xl transition-transform hover:scale-[1.02] hover:shadow-2xl ${
+              i % 2 === 0 ? "-rotate-1" : "rotate-1"
+            }`}
             aria-label={`Enlarge: ${piece.alt}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
