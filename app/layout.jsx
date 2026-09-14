@@ -307,6 +307,10 @@ export default function RootLayout({ children }) {
                   Portfolio
                 </Link>
 
+                <Link href="/design" className="hover:text-accent">
+                  Design
+                </Link>
+
                 <div className="group relative">
                   <Link href="/journal" className="hover:text-accent">
                     Journal <span aria-hidden="true">▾</span>
@@ -406,6 +410,9 @@ export default function RootLayout({ children }) {
             </Link>
             <Link href="/portfolio" className="hover:text-accent">
               Portfolio
+            </Link>
+            <Link href="/design" className="hover:text-accent">
+              Design
             </Link>
             <Link href="/journal" className="hover:text-accent">
               Journal
