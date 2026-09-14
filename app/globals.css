@@ -282,21 +282,45 @@ body {
   border-color: rgba(231, 222, 210, 0.6);
 }
 
-/* A filmstrip perforation edge — the row of round sprocket holes along
-   real film stock — used top and bottom of each Design gallery panel
-   so the pieces read as storyboard/movie frames rather than plain
-   thumbnails. */
-.film-sprocket-strip {
-  height: 8px;
-  background-color: #cfc9b8;
-  background-image: radial-gradient(
-    circle,
-    rgba(20, 18, 14, 0.65) 2px,
-    transparent 2.3px
+/* Design gallery hover glare — a diagonal bronze-gold streak that
+   sweeps once across the image on hover, blended with the photo's own
+   tones (overlay) rather than sitting flat on top of it. Parked
+   off-frame at rest so it costs nothing until :hover. */
+.bronze-glare {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bronze-glare::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -55%;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(122, 74, 30, 0.3) 35%,
+    rgba(255, 214, 140, 0.92) 50%,
+    rgba(122, 74, 30, 0.3) 65%,
+    transparent 100%
   );
-  background-size: 15px 8px;
-  background-position: 7px center;
-  background-repeat: repeat-x;
+  transform: translateX(0) rotate(10deg);
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: overlay;
+}
+
+.group:hover .bronze-glare::before {
+  transform: translateX(300%) rotate(10deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bronze-glare::before {
+    transition: none;
+  }
 }
 
 /* Journal "book" cards — stand-in for the plain text card: a colored

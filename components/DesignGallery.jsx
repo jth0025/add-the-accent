@@ -44,31 +44,22 @@ export default function DesignGallery() {
   return (
     <>
       <div className="columns-2 gap-5 sm:columns-3">
-        {PIECES.map((piece, i) => (
+        {PIECES.map((piece) => (
           <button
             key={piece.src}
             type="button"
             onClick={() => setLightbox(piece)}
-            className="corner-box on-dark group relative mb-5 block w-full cursor-zoom-in overflow-hidden rounded-sm border border-black/60 bg-ink shadow-xl transition-transform hover:scale-[1.02] hover:shadow-2xl"
+            className="group relative mb-5 block w-full cursor-zoom-in overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-xl"
             aria-label={`Enlarge: ${piece.alt}`}
           >
-            <span className="film-sprocket-strip block w-full" aria-hidden="true" />
-            <div className="relative">
-              <span className="pointer-events-none absolute left-2 top-2 z-10 rounded-sm bg-black/70 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-white/85">
-                Scene {String(i + 1).padStart(2, "0")}
-              </span>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={piece.src}
-                alt={piece.alt}
-                className="block w-full"
-                loading="lazy"
-              />
-            </div>
-            <span className="film-sprocket-strip block w-full" aria-hidden="true" />
-            <p className="px-3 py-2 text-left font-serif text-[11px] italic leading-snug text-white/65">
-              {piece.alt}
-            </p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={piece.src}
+              alt={piece.alt}
+              className="block w-full"
+              loading="lazy"
+            />
+            <span className="bronze-glare" aria-hidden="true" />
           </button>
         ))}
       </div>
