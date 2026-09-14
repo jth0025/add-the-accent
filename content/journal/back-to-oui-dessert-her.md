@@ -1,6 +1,6 @@
 ---
-title: "Back to Oui: Dessert Her"
-titleHtml: "Back to Oui: Dessert <em>Her</em>"
+title: "Back to Oui: Desserther"
+titleHtml: "Back to Oui: Dessert<em>her</em>"
 date: "2026-09-14"
 excerpt: "A reunion over dessert with an old friend, a cracked tooth, and the difference between repairing what broke and just naming it."
 draft: false
