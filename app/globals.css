@@ -478,8 +478,8 @@ body {
    for most of its own single run — it only actually flies during a
    brief window near the end — so it reads as an occasional event. */
 .shooting-star {
-  width: 90px;
-  height: 2px;
+  width: 66px;
+  height: 1.5px;
   border-radius: 999px;
   /* Bright head at the right — the leading edge once rotated to point
      down-left in the keyframe below — fading out toward the left
