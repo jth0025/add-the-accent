@@ -472,44 +472,45 @@ body {
 
 /* A shooting star that streaks across the header sky every so often,
    only shown alongside the twinkling stars (dark stretches of the
-   day). Invisible for most of its own cycle — it only actually flies
-   for a brief window near the end — so it reads as an occasional
-   event rather than something looping constantly. */
+   day). top/left are set inline per-flight (see HeaderSky.jsx, which
+   also re-keys the element every cycle so it launches from a new
+   random spot each time instead of the same fixed point). Invisible
+   for most of its own single run — it only actually flies during a
+   brief window near the end — so it reads as an occasional event. */
 .shooting-star {
-  top: 45%;
-  right: 6%;
   width: 90px;
   height: 2px;
   border-radius: 999px;
-  /* Bright head on the left (the leading edge for leftward travel),
-     fading out toward the right (the trailing tail). */
+  /* Bright head at the right — the leading edge once rotated to point
+     down-left in the keyframe below — fading out toward the left
+     (the trailing tail). */
   background: linear-gradient(
     90deg,
-    #fffdf6 0%,
-    rgba(253, 246, 227, 0.85) 25%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(255, 255, 255, 0) 0%,
+    rgba(253, 246, 227, 0.85) 75%,
+    #fffdf6 100%
   );
   opacity: 0;
-  animation: shooting-star-fly 10s linear infinite;
+  animation: shooting-star-fly 10s linear 1;
 }
 
 @keyframes shooting-star-fly {
   0%,
   78% {
     opacity: 0;
-    transform: translateX(0);
+    transform: translate(0, 0) rotate(164deg);
   }
   80% {
     opacity: 1;
   }
   91% {
     opacity: 1;
-    transform: translateX(-560px);
+    transform: translate(-320px, 90px) rotate(164deg);
   }
   93%,
   100% {
     opacity: 0;
-    transform: translateX(-560px);
+    transform: translate(-320px, 90px) rotate(164deg);
   }
 }
 

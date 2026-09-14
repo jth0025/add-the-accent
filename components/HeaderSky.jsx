@@ -68,6 +68,17 @@ const STARS = [
   { left: 70, top: 42, size: 1.6, delay: -0.6 },
 ];
 
+// A fresh random spot to launch the shooting star from — high and
+// toward the right, so its top-to-bottom-left flight has room to
+// travel before the header's own overflow-hidden clips it.
+function randomShootingStarStart() {
+  return {
+    id: Math.random(),
+    top: 6 + Math.random() * 40,
+    left: 45 + Math.random() * 45,
+  };
+}
+
 function periodForHour(hour) {
   if (hour < 5) return "night";
   if (hour < 6) return "dawn";
@@ -102,6 +113,7 @@ function currentHourInLA() {
  */
 export default function HeaderSky() {
   const [period, setPeriod] = useState("morning");
+  const [shootingStar, setShootingStar] = useState(randomShootingStarStart);
 
   useEffect(() => {
     const update = () => {
@@ -122,7 +134,20 @@ export default function HeaderSky() {
     };
     update();
     const id = setInterval(update, 5 * 60 * 1000);
-    return () => clearInterval(id);
+
+    // A fresh random launch point each cycle — matches the CSS
+    // animation's own 10s duration (see .shooting-star), and the `key`
+    // below forces a full remount so every flight starts its animation
+    // clean from a brand-new spot instead of resuming mid-flight.
+    const starId = setInterval(
+      () => setShootingStar(randomShootingStarStart()),
+      10000,
+    );
+
+    return () => {
+      clearInterval(id);
+      clearInterval(starId);
+    };
   }, []);
 
   const { gradient, dark } = PERIODS[period];
@@ -148,7 +173,13 @@ export default function HeaderSky() {
             }}
           />
         ))}
-      {dark && <span className="shooting-star absolute" />}
+      {dark && (
+        <span
+          key={shootingStar.id}
+          className="shooting-star absolute"
+          style={{ top: `${shootingStar.top}%`, left: `${shootingStar.left}%` }}
+        />
+      )}
     </div>
   );
 }
