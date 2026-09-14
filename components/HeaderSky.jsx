@@ -148,6 +148,7 @@ export default function HeaderSky() {
             }}
           />
         ))}
+      {dark && <span className="shooting-star absolute" />}
     </div>
   );
 }

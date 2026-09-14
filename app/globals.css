@@ -470,6 +470,53 @@ body {
   }
 }
 
+/* A shooting star that streaks across the header sky every so often,
+   only shown alongside the twinkling stars (dark stretches of the
+   day). Invisible for most of its own cycle — it only actually flies
+   for a brief window near the end — so it reads as an occasional
+   event rather than something looping constantly. */
+.shooting-star {
+  top: 10%;
+  left: 4%;
+  width: 90px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(253, 246, 227, 0.85) 75%,
+    #fffdf6 100%
+  );
+  opacity: 0;
+  animation: shooting-star-fly 10s linear infinite;
+}
+
+@keyframes shooting-star-fly {
+  0%,
+  78% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(14deg);
+  }
+  80% {
+    opacity: 1;
+  }
+  91% {
+    opacity: 1;
+    transform: translate(560px, 140px) rotate(14deg);
+  }
+  93%,
+  100% {
+    opacity: 0;
+    transform: translate(560px, 140px) rotate(14deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shooting-star {
+    display: none;
+  }
+}
+
 .header-cloud {
   position: absolute;
   left: 0;
