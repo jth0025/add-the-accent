@@ -2,6 +2,15 @@
 
 import { useEffect, useState } from "react";
 
+function shuffle(arr) {
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
 // Graphic design / composite work — click any piece to enlarge. Add new
 // pieces by dropping an optimized image in public/design/ and adding an
 // entry here (src + a real alt description, used as the lightbox caption).
@@ -27,10 +36,31 @@ const PIECES = [
   { src: "/design/desert-ocean-falling-man.jpg", alt: "A man reclined between a desert dune and calm ocean water at sunset, reaching toward a small raining cloud" },
   { src: "/design/paradise-album-cover.jpg", alt: '"Paradise" — album cover for Jamal Moore featuring Kenyon Dixon, two men seated in a flooded, chandelier-lit room' },
   { src: "/design/piano-stairway-car.jpg", alt: "A man leaning on a vintage car beneath a staircase of piano keys rising into a glowing cloud" },
+  { src: "/design/clouded-suit-portrait.jpg", alt: "A man in a double-breasted plaid suit and sunglasses standing chest-deep in a field of green clouds" },
+  { src: "/design/leaf-seventeen.jpg", alt: 'The number "17" cut from a pattern of glowing blue and green tropical leaves' },
+  { src: "/design/neon-outline-couple.jpg", alt: "A couple seated at a table, their faces traced in glowing blue and pink neon outlines" },
+  { src: "/design/tree-head-chair-bw.jpg", alt: "Black-and-white portrait of a suited man seated in a chair, his head replaced by a wind-bent tree, a bird on his foot" },
+  { src: "/design/mosaic-village-family.jpg", alt: "A mosaic-style illustration of a towering man and woman in patterned coats overlooking a village of children and small houses" },
+  { src: "/design/armchair-tentacles-portrait.jpg", alt: "A woman lounging on a leaf-covered green armchair over a yellow sky, her legs dissolving into vines, camera gear, and octopus tentacles below" },
+  { src: "/design/earth-cube-underwater-man.jpg", alt: "A man crouched atop a floating cube of earth, its underside opening into an underwater scene, ringed by a purple neon halo" },
+  { src: "/design/bird-head-balloon-girl.jpg", alt: "A man with a bird's head in a black suit beside a girl in a red dress holding balloons, set against a purple sky" },
+  { src: "/design/floral-halo-wave-portrait.jpg", alt: "A woman's face wrapped in flowers and a headscarf, ringed by a gold neon halo, emerging from a teal wave at sunset" },
+  { src: "/design/island-rainbow-rocket-woman.jpg", alt: "A woman with a large afro seated on a tropical island, a rainbow arcing toward a distant rocket over the ocean" },
+  { src: "/design/gilded-statues-storm-scene.jpg", alt: "An elaborate scene of gilded statues holding up storm clouds and a glowing globe, with a woman in a red dress and a waterfall below" },
+  { src: "/design/loomieverse-clocks-jeep.jpg", alt: '"LOOMIEVERSE" cover art — a curly-haired woman surrounded by clocks, teddy bears, and a pink toy jeep' },
+  { src: "/design/aso-asa-desert-astronaut.jpg", alt: '"ASO+ASA" — a woman walking a desert dune beside a falling astronaut trailing fire and a crashed, smoking UFO' },
+  { src: "/design/cosmic-wave-earring-woman.jpg", alt: "A woman with a shaved head emerging from ocean waves among planets and neon halos, a UFO crossing the sun behind her" },
+  { src: "/design/three-heads-leaves.jpg", alt: "Three women's heads in patterned headwraps nested together against a green background, framed by leaves and glass orbs" },
+  { src: "/design/garden-walk-cover.jpg", alt: '"A Garden Walk" magazine cover — a man in a patchwork coat strolling with a basket of sunflowers under a sunset sky' },
 ];
 
 export default function DesignGallery() {
   const [lightbox, setLightbox] = useState(null);
+  const [pieces, setPieces] = useState(PIECES);
+
+  useEffect(() => {
+    setPieces(shuffle(PIECES));
+  }, []);
 
   useEffect(() => {
     if (!lightbox) return undefined;
@@ -44,7 +74,7 @@ export default function DesignGallery() {
   return (
     <>
       <div className="columns-2 gap-5 sm:columns-3">
-        {PIECES.map((piece) => (
+        {pieces.map((piece) => (
           <button
             key={piece.src}
             type="button"
