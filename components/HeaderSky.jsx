@@ -111,6 +111,14 @@ export default function HeaderSky() {
         "--header-fg",
         PERIODS[next].fg,
       );
+      // Toggled instead of read via React state so the thunderhead
+      // (rendered from static markup in layout.jsx, not by this
+      // component) can react to it purely in CSS — see
+      // html.header-dark .header-cloud--storm in globals.css.
+      document.documentElement.classList.toggle(
+        "header-dark",
+        PERIODS[next].dark,
+      );
     };
     update();
     const id = setInterval(update, 5 * 60 * 1000);
