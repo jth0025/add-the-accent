@@ -4,6 +4,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Header nav/tagline/temperature color — set here so it matches the
+     default "morning" sky before HeaderSky's JS resolves the real LA
+     time, then kept in sync with it from there on (see HeaderSky.jsx). */
+  --header-fg: #2a2a2a;
 }
 
 body {
@@ -438,6 +442,31 @@ body {
   }
   to {
     transform: translateX(-15vw);
+  }
+}
+
+/* Small stars shown across the header sky once HeaderSky decides it's
+   actually dark out — each gets a negative animation-delay (set
+   inline, like the clouds above) so the field twinkles independently
+   rather than pulsing in lockstep. */
+.header-star {
+  animation: header-star-twinkle 2.6s ease-in-out infinite;
+}
+
+@keyframes header-star-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-star {
+    animation: none;
+    opacity: 0.75;
   }
 }
 

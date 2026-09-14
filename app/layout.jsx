@@ -289,14 +289,16 @@ export default function RootLayout({ children }) {
                     className="block h-16 w-auto"
                   />
                 </Link>
-                <span className="mb-2 hidden font-logo text-[11px] font-semibold lowercase leading-none tracking-wide text-ink sm:ml-4 sm:inline-flex">
+                <span className="mb-2 hidden font-logo text-[11px] font-semibold lowercase leading-none tracking-wide text-[var(--header-fg)] transition-colors duration-500 sm:ml-4 sm:inline-flex">
                   the difference is you.
                 </span>
               </div>
               {/* Desktop menu — on phones this is replaced by the full-width
                   bar below the header (see MobileMenu) so nothing overlaps
-                  the logo or the grass. */}
-              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-stone sm:-mr-5 sm:flex sm:gap-6">
+                  the logo or the grass. Color tracks --header-fg (set by
+                  HeaderSky) so it stays legible against whatever time-of-day
+                  sky is currently showing. */}
+              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 sm:-mr-5 sm:flex sm:gap-6">
                 <Link href="/" className="hover:text-accent">
                   Home
                 </Link>
@@ -377,7 +379,7 @@ export default function RootLayout({ children }) {
                 and pinned to the header's own corner rather than sitting in
                 the nav's flex row — so it never has to compete with that
                 row for width and push into the centered grass below. */}
-            <div className="pointer-events-none absolute bottom-3 right-4 z-10 font-mono text-[10px] uppercase tracking-widest text-stone/80 sm:bottom-4 sm:right-6 sm:text-xs">
+            <div className="pointer-events-none absolute bottom-3 right-4 z-10 font-mono text-[10px] uppercase tracking-widest text-[var(--header-fg)] opacity-80 transition-colors duration-500 sm:bottom-4 sm:right-6 sm:text-xs">
               <LATemperature />
             </div>
 
