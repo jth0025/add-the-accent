@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-// Downtown LA — close enough for a header ornament, no API key needed.
+// Precise Downtown LA coordinates (Pershing Square / City Hall area) —
+// the header just labels it "LA", but the reading itself is DTLA's,
+// not a citywide average. No API key needed.
 const FORECAST_URL =
-  "https://api.open-meteo.com/v1/forecast?latitude=34.05&longitude=-118.24&current=temperature_2m&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles";
+  "https://api.open-meteo.com/v1/forecast?latitude=34.0407&longitude=-118.2468&current=temperature_2m&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles";
 
 /**
- * The current temperature in Los Angeles, fetched once on mount.
+ * The current temperature in Downtown LA, fetched once on mount.
  * Renders nothing until it resolves, so it never leaves a placeholder
  * behind if the request fails.
  */
