@@ -476,16 +476,18 @@ body {
    for a brief window near the end — so it reads as an occasional
    event rather than something looping constantly. */
 .shooting-star {
-  top: 10%;
-  left: 4%;
+  top: 45%;
+  right: 6%;
   width: 90px;
   height: 2px;
   border-radius: 999px;
+  /* Bright head on the left (the leading edge for leftward travel),
+     fading out toward the right (the trailing tail). */
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(253, 246, 227, 0.85) 75%,
-    #fffdf6 100%
+    #fffdf6 0%,
+    rgba(253, 246, 227, 0.85) 25%,
+    rgba(255, 255, 255, 0) 100%
   );
   opacity: 0;
   animation: shooting-star-fly 10s linear infinite;
@@ -495,19 +497,19 @@ body {
   0%,
   78% {
     opacity: 0;
-    transform: translate(0, 0) rotate(14deg);
+    transform: translateX(0);
   }
   80% {
     opacity: 1;
   }
   91% {
     opacity: 1;
-    transform: translate(560px, 140px) rotate(14deg);
+    transform: translateX(-560px);
   }
   93%,
   100% {
     opacity: 0;
-    transform: translate(560px, 140px) rotate(14deg);
+    transform: translateX(-560px);
   }
 }
 
