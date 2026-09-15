@@ -2,10 +2,7 @@
  * Promo for the Apple Music radio station — a single pre-composed
  * banner (art + "Green Maize" title + wave mark), boxed to match the
  * voice clip beside it (same corner-box glass treatment), with "Listen
- * now!" set beneath it. From md up the box butts directly against the
- * voice clip's box with no gap and no border between them — VoiceClip's
- * own right border is the only line separating the two, so the pair
- * reads as one continuous bar rather than two separate cards.
+ * now!" set beneath it.
  */
 export default function RadioBanner() {
   return (
@@ -15,7 +12,7 @@ export default function RadioBanner() {
       rel="noopener noreferrer"
       className="group flex w-full flex-col items-center gap-2 md:min-w-0 md:flex-1"
     >
-      <div className="corner-box on-dark flex w-full max-w-md items-center justify-center rounded-lg border border-white/25 bg-white/10 p-3 backdrop-blur-sm sm:max-w-lg md:max-w-none md:rounded-l-none md:border-l-0">
+      <div className="corner-box on-dark flex w-full max-w-md items-center justify-center rounded-lg border border-white/25 bg-white/10 p-3 backdrop-blur-sm sm:max-w-lg md:max-w-none">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/promo-banner.png"
