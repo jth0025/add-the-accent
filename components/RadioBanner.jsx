@@ -28,7 +28,7 @@ export default function RadioBanner() {
           src="/playlist-art.png"
           alt=""
           aria-hidden="true"
-          className="relative h-full w-full object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.55)] transition-transform duration-500 group-hover:scale-[1.04]"
+          className="relative h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
         />
       </div>
 
@@ -55,29 +55,13 @@ export default function RadioBanner() {
           Continue the{" "}
           <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
             wave
-            {/* White stencil wave icon, facing right — two even swells
-                running into a small curling crest at the tail. */}
-            <svg
-              viewBox="0 0 28 16"
-              fill="none"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/wave-icon.png"
+              alt=""
               aria-hidden="true"
-              className="h-3.5 w-6 shrink-0 not-italic sm:h-4 sm:w-7"
-            >
-              <path
-                d="M1 11c2.2 0 2.2-5 4.5-5s2.3 5 4.5 5 2.3-5 4.5-5c1.7 0 2.8 1.2 3.2 2.6"
-                stroke="white"
-                strokeWidth="2.3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M17.7 8.6c1.7-.9 3.6-.1 3.9 1.7.3 1.8-1.1 3.4-3 3.6"
-                stroke="white"
-                strokeWidth="2.3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+              className="h-4 w-auto shrink-0 not-italic sm:h-5"
+            />
           </span>
         </p>
         <p className="mt-1 text-[11px] leading-snug text-white/70">
