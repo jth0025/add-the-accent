@@ -12,11 +12,12 @@ export default function RadioBanner() {
       rel="noopener noreferrer"
       className="group flex w-full items-start gap-4 text-center md:w-auto"
     >
-      {/* Deliberately much bigger than the text column now — percentage
+      {/* Sized just a touch bigger than the text column beside it
+          (measured natural text height: ~107px / ~91px) — percentage
           heights don't resolve against a stretched, otherwise-auto flex
           container, so this stays an explicit pixel value rather than
           h-full. */}
-      <div className="relative h-[190px] w-auto shrink-0 sm:h-[210px]">
+      <div className="relative h-[122px] w-auto shrink-0 sm:h-[104px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/playlist-art.png"
