@@ -27,7 +27,7 @@ export default function HomePage() {
         </figcaption>
 
         <div className="relative mx-auto mt-10 w-full max-w-sm md:max-w-2xl">
-          <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:gap-4">
+          <div className="flex flex-col items-center gap-10 md:flex-row md:items-stretch md:gap-4">
             <div className="relative w-full max-w-sm md:w-[360px] md:max-w-[360px] md:shrink-0">
               {/* Hand-drawn note pointing at the intro clip — desktop
                   only, where there's room in the gutter beside the
@@ -59,19 +59,6 @@ export default function HomePage() {
                 src="/audio/the-difference-is-you.mp3"
                 label="The difference is you"
               />
-
-              {/* Invisible spacer, md+ only, matching RadioBanner's
-                  "Listen now!" line beneath its own box — without it the
-                  two flex items have different total heights, so
-                  centering the row centers the *items*, not the boxes,
-                  and the boxes themselves end up visibly off-center
-                  against each other. */}
-              <span
-                aria-hidden="true"
-                className="mt-2 hidden font-mono text-xs uppercase tracking-widest opacity-0 md:block md:text-sm"
-              >
-                Listen now!
-              </span>
 
               {/* Mobile: a stuck-on note under the clip, with an arrow
                   nudging up toward the play button. Replaces the gutter
