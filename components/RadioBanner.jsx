@@ -20,7 +20,7 @@ export default function RadioBanner() {
         alt="Green Maize’s Station — Apple Music radio"
         className="w-full max-w-sm transition-transform duration-500 group-hover:scale-[1.03] sm:max-w-md md:max-w-none"
       />
-      <span className="font-mono text-sm font-semibold uppercase tracking-widest text-accent underline-offset-4 group-hover:underline sm:text-base">
+      <span className="font-mono text-sm font-semibold uppercase tracking-widest text-white underline-offset-4 transition-colors duration-300 group-hover:text-accent group-hover:underline sm:text-base">
         Listen now!
       </span>
     </a>
