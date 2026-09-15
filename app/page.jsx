@@ -26,7 +26,7 @@ export default function HomePage() {
           &mdash; George Bernard Shaw
         </figcaption>
 
-        <div className="relative mx-auto mt-10 w-full max-w-sm md:max-w-2xl">
+        <div className="relative mx-auto mt-10 w-full max-w-sm md:max-w-none">
           <div className="flex flex-col items-center gap-10 md:flex-row md:items-stretch md:gap-4">
             <div className="relative w-full max-w-sm md:w-[360px] md:max-w-[360px] md:shrink-0">
               {/* Hand-drawn note pointing at the intro clip — desktop
