@@ -87,7 +87,7 @@ export default function DesignGallery() {
   return (
     <>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 pb-5">
-        <label className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-stone">
+        <label className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-accent">
           Filter
           <select
             value={activeTag}
