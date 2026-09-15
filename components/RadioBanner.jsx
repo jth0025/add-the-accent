@@ -10,16 +10,14 @@ export default function RadioBanner() {
       href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex w-full items-start gap-4 text-left md:w-auto"
+      className="group flex w-full items-start gap-4 text-center md:w-auto"
     >
       {/* Sized to match the text column's own natural height (measured
-          in-layout: ~122px on a narrow phone width, ~91px once the
-          "Apple Music · Radio" eyebrow has room to sit on one line)
-          rather than a flex-stretch percentage — percentage heights on
-          an img don't resolve against a stretched, otherwise-auto flex
-          container, so that route just renders the image at its full
-          intrinsic size instead of matching. */}
-      <div className="relative h-[107px] w-auto shrink-0 sm:h-[91px]">
+          in-layout at ~107px / ~91px), then bumped up ~14% since it was
+          reading too small — percentage heights don't resolve against a
+          stretched, otherwise-auto flex container, so this stays a
+          measured pixel value rather than h-full. */}
+      <div className="relative h-[122px] w-auto shrink-0 sm:h-[104px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/playlist-art.png"
@@ -27,12 +25,10 @@ export default function RadioBanner() {
           aria-hidden="true"
           className="relative h-full w-auto object-contain transition-transform duration-500 group-hover:scale-[1.04]"
         />
-        {/* Bronze gleam, sweeping bottom to top on hover. */}
-        <span className="bronze-glare-vertical" aria-hidden="true" />
       </div>
 
       <div className="min-w-0">
-        <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-accent">
+        <div className="flex items-center justify-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-accent">
           <svg
             viewBox="0 0 24 24"
             fill="none"
