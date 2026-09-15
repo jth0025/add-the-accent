@@ -323,6 +323,65 @@ body {
   }
 }
 
+/* Commission-badge legend — a light streak across the little gold medal
+   on its own hover, same sweep mechanic as .bronze-glare but scaled down
+   and triggered directly rather than via a parent .group. */
+.commission-legend {
+  overflow: hidden;
+}
+
+.commission-legend::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 35%,
+    rgba(255, 250, 222, 0.95) 50%,
+    rgba(255, 255, 255, 0.1) 65%,
+    transparent 100%
+  );
+  transform: translateX(-160%) rotate(12deg);
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.commission-legend:hover::before {
+  transform: translateX(160%) rotate(12deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .commission-legend::before {
+    transition: none;
+  }
+}
+
+/* Design gallery entrance — pieces deal into place like a shuffled hand
+   of cards each time the /design page is opened, staggered per tile via
+   an inline animation-delay and alternating tilt via --deal-rot. */
+@keyframes deal-in {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) rotate(var(--deal-rot, -4deg)) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+.deal-in {
+  animation: deal-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deal-in {
+    animation: none;
+  }
+}
+
 /* Journal "book" cards — stand-in for the plain text card: a colored
    cloth cover with a spine and page edges, plus a hand-labeled paper
    patch carrying the title/date/excerpt. Cover color comes from
