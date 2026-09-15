@@ -14,6 +14,18 @@ export default function DesignPage() {
         <h1 className="mt-3 font-display text-3xl uppercase tracking-tight text-ink sm:text-4xl">
           Graphic Design
         </h1>
+        <div className="mt-3 flex items-center justify-center gap-4">
+          <img
+            src="/icons/icon-spaceship.png"
+            alt=""
+            className="h-9 w-auto sm:h-11"
+          />
+          <img
+            src="/icons/icon-thunderstorm-cloud.png"
+            alt=""
+            className="h-9 w-auto sm:h-11"
+          />
+        </div>
         <p className="mx-auto mt-4 max-w-xl text-stone">
           Composite work, album art, and one-off visual ideas — click any
           piece to see it full size.
