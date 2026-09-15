@@ -103,7 +103,7 @@ export default function DesignGallery() {
           </select>
         </label>
 
-        <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-stone">
+        <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-accent">
           <span className="commission-legend relative block h-8 w-8 shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
