@@ -1,7 +1,8 @@
 /**
- * Small promo banner for the Apple Music radio station, sized to sit
- * beside (or, on narrow screens, beneath) the intro voice clip. Matches
- * VoiceClip's dark glass-card treatment so the two read as a pair.
+ * Small promo for the Apple Music radio station, sized to sit beside
+ * (or, on narrow screens, beneath) the intro voice clip. No card frame —
+ * the station art floats on a soft glow, with the copy set like a
+ * cinematic title card rather than a boxed link.
  */
 export default function RadioBanner() {
   return (
@@ -9,17 +10,24 @@ export default function RadioBanner() {
       href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
       target="_blank"
       rel="noopener noreferrer"
-      className="corner-box on-dark group flex w-full items-center gap-3 rounded-lg border border-white/25 bg-white/10 px-3 py-3 text-left backdrop-blur-sm transition-colors hover:bg-white/15 md:max-w-[15rem]"
+      className="group flex w-full items-center gap-4 text-left md:max-w-[17rem]"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/jt-portrait-1.jpg"
-        alt=""
-        aria-hidden="true"
-        className="h-14 w-14 shrink-0 rounded-md object-cover ring-1 ring-white/25"
-      />
+      <div className="relative shrink-0">
+        <span
+          aria-hidden="true"
+          className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/45 blur-2xl transition-opacity duration-500 group-hover:bg-accent/60"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/playlist-art.png"
+          alt=""
+          aria-hidden="true"
+          className="relative h-20 w-20 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.55)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-24 sm:w-24"
+        />
+      </div>
+
       <div className="min-w-0">
-        <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-accent">
+        <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-accent">
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -37,17 +45,15 @@ export default function RadioBanner() {
           </svg>
           <span className="truncate">Apple Music &middot; Radio</span>
         </div>
-        <p className="mt-1 font-hand text-[16px] font-semibold leading-[1.15] text-white/95">
+        <p className="mt-1 font-serif text-xl italic leading-[1.1] text-white [text-shadow:0_3px_14px_rgba(0,0,0,0.65)] sm:text-2xl">
           Continue the wave
         </p>
-        <p className="mt-0.5 text-[11px] leading-snug text-white/70">
-          through{" "}
-          <span className="text-white/90">Green Maize&rsquo;s Station</span>
-          &nbsp;&mdash;{" "}
-          <span className="text-accent underline-offset-2 group-hover:underline">
-            follow along
-          </span>
+        <p className="mt-1 text-[11px] leading-snug text-white/70">
+          through <span className="text-white/90">Green Maize&rsquo;s Station</span>
         </p>
+        <span className="mt-1.5 inline-block font-mono text-xs font-semibold uppercase tracking-widest text-accent underline-offset-4 group-hover:underline">
+          Listen now!
+        </span>
       </div>
     </a>
   );
