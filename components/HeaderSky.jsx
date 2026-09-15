@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 const PERIODS = {
   night: {
     gradient: "linear-gradient(180deg,#0b1026 0%,#141b3d 40%,#1f2a52 75%,#2a3a68 100%)",
-    fg: "#f3ead9",
+    fg: "#d4af37",
     dark: true,
   },
   dawn: {
