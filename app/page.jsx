@@ -27,7 +27,7 @@ export default function HomePage() {
         </figcaption>
 
         <div className="relative mx-auto mt-5 w-full max-w-sm sm:max-w-md">
-          <div className="flex flex-col items-center gap-5">
+          <div className="flex flex-col items-center gap-10">
             <div className="relative w-full max-w-sm">
               {/* Hand-drawn note pointing at the intro clip — desktop
                   only, where there's room in the gutter beside the
