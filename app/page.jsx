@@ -89,13 +89,15 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/portfolio-stickers/cross.png"
-              alt=""
-              aria-hidden="true"
-              className="h-7 w-7 shrink-0 self-center [filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.4))] sm:h-8 sm:w-8"
-            />
+            <span className="glare-periodic relative h-7 w-7 shrink-0 self-center sm:h-8 sm:w-8">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/plus-sign.png"
+                alt=""
+                aria-hidden="true"
+                className="h-full w-full [filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.4))]"
+              />
+            </span>
 
             <RadioBanner />
           </div>

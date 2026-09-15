@@ -15,7 +15,7 @@ export default function RadioBanner() {
       href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex w-full h-[5.5rem] pr-8 md:h-auto md:min-w-0 md:flex-1"
+      className="group relative flex w-full h-[5.5rem] pr-12 md:h-auto md:min-w-0 md:flex-1"
     >
       <div className="corner-box on-dark relative h-full w-full overflow-hidden rounded-lg border border-white/25 bg-white/10">
         {/* eslint-disable-next-line @next/next/no-img-element */}

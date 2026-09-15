@@ -1044,3 +1044,49 @@ html.header-dark .header-cloud.header-cloud--storm {
     transition: none;
   }
 }
+
+/* Plus-sign divider between the audio clip and the promo — a subtle
+   light streak that sweeps across it periodically on its own, the same
+   "mostly at rest, brief sweep" timing as .gold-foil's text gleam, but
+   as an image overlay (mix-blend-mode) since an <img> can't take a
+   background-clip:text fill. */
+.glare-periodic {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.glare-periodic::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    100deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 58%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  transform: translateX(-140%);
+  animation: glare-sweep 7s ease-in-out infinite;
+}
+
+@keyframes glare-sweep {
+  0%,
+  70% {
+    transform: translateX(-140%);
+  }
+  85% {
+    transform: translateX(140%);
+  }
+  100% {
+    transform: translateX(140%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glare-periodic::after {
+    animation: none;
+    display: none;
+  }
+}
