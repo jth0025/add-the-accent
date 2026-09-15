@@ -90,6 +90,24 @@ export default function HeroCarousel({ children }) {
   return (
     <>
       <div className="relative mt-14">
+        {/* The mascot, seated reading on the box's top-left edge — his
+            own drawn seat-line (roughly 60% down the artwork) is what
+            lands on the box's top border; translateY shifts him down by
+            that same fraction of his own rendered height so his legs and
+            sneaker hang over the front of the box regardless of size. */}
+        <div
+          className="pointer-events-none absolute bottom-full left-3 z-20 w-24 sm:left-6 sm:w-32"
+          style={{ transform: "translateY(40%)" }}
+          aria-hidden="true"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/mascot-reading.png"
+            alt=""
+            className="w-full [filter:drop-shadow(0_5px_6px_rgba(0,0,0,0.4))]"
+          />
+        </div>
+
         {/* Real rabbit-ear antenna, standing on top of the box's top-right
             edge. An electric signal crackles between the ears now and
             then, as if it's pulling in a picture. */}
