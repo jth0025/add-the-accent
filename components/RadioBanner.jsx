@@ -10,26 +10,25 @@ export default function RadioBanner() {
       href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex w-full items-center gap-4 text-left md:max-w-[17rem]"
+      className="group flex w-full items-start gap-4 text-left md:w-auto"
     >
-      <div className="relative h-20 w-20 shrink-0 sm:h-24 sm:w-24">
-        {/* White sunburst behind the art. Bottom-anchored (not centered)
-            so it can flare out past the top and sides but its own lower
-            edge never crosses the artwork's bottom edge. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/sunburst.png"
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-1/2 bottom-0 w-[190%] max-w-none -translate-x-1/2 opacity-90 transition-transform duration-500 group-hover:scale-105"
-        />
+      {/* Sized to match the text column's own natural height (measured
+          in-layout: ~122px on a narrow phone width, ~91px once the
+          "Apple Music · Radio" eyebrow has room to sit on one line)
+          rather than a flex-stretch percentage — percentage heights on
+          an img don't resolve against a stretched, otherwise-auto flex
+          container, so that route just renders the image at its full
+          intrinsic size instead of matching. */}
+      <div className="relative h-[107px] w-auto shrink-0 sm:h-[91px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/playlist-art.png"
           alt=""
           aria-hidden="true"
-          className="relative h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+          className="relative h-full w-auto object-contain transition-transform duration-500 group-hover:scale-[1.04]"
         />
+        {/* Bronze gleam, sweeping bottom to top on hover. */}
+        <span className="bronze-glare-vertical" aria-hidden="true" />
       </div>
 
       <div className="min-w-0">

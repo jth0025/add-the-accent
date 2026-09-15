@@ -358,6 +358,45 @@ body {
   }
 }
 
+/* Radio promo art — a bronze gleam that sweeps bottom-to-top on hover,
+   same overlay-blend mechanic as .bronze-glare but running vertically. */
+.bronze-glare-vertical {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bronze-glare-vertical::before {
+  content: "";
+  position: absolute;
+  left: -20%;
+  bottom: -55%;
+  width: 140%;
+  height: 45%;
+  background: linear-gradient(
+    0deg,
+    transparent 0%,
+    rgba(122, 74, 30, 0.3) 35%,
+    rgba(255, 214, 140, 0.92) 50%,
+    rgba(122, 74, 30, 0.3) 65%,
+    transparent 100%
+  );
+  transform: translateY(0);
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: overlay;
+}
+
+.group:hover .bronze-glare-vertical::before {
+  transform: translateY(-320%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bronze-glare-vertical::before {
+    transition: none;
+  }
+}
+
 /* Design gallery entrance — pieces deal into place like a shuffled hand
    of cards each time the /design page is opened, staggered per tile via
    an inline animation-delay and alternating tilt via --deal-rot. */
