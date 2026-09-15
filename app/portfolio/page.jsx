@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getSelectedWork } from "@/lib/content";
 import JournalEntryCard from "@/components/JournalEntryCard";
+import CommissionGraphicsGrid from "@/components/CommissionGraphicsGrid";
 
 export const metadata = { title: "Selected Work — Add the Accent" };
 
@@ -152,23 +153,49 @@ export default function PortfolioIndex() {
         </p>
       </section>
 
-      {work.length > 0 ? (
-        <ul className="mt-10 space-y-5">
-          {work.map((entry) => (
-            <li key={entry.slug}>
-              <JournalEntryCard entry={entry} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="mt-10 font-mono text-sm text-stone/70">
-          Nothing selected yet &mdash; add slugs to{" "}
-          <code className="rounded bg-ink/10 px-1.5 py-0.5 text-xs">
-            SELECTED_WORK_SLUGS
-          </code>{" "}
-          in <code className="rounded bg-ink/10 px-1.5 py-0.5 text-xs">lib/content.js</code>.
-        </p>
-      )}
+      <div className="mt-10 grid gap-10 md:grid-cols-2">
+        <div>
+          <div className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
+            <span className="h-px w-8 bg-accent/40" />
+            <span>Graphic Design</span>
+          </div>
+          <CommissionGraphicsGrid />
+          <Link
+            href="/design"
+            className="mt-4 inline-block font-mono text-xs uppercase tracking-widest text-accent hover:underline"
+          >
+            See the full gallery &rarr;
+          </Link>
+        </div>
+
+        <div>
+          <div className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
+            <span className="h-px w-8 bg-accent/40" />
+            <span>From the Journal</span>
+          </div>
+          {work.length > 0 ? (
+            <ul className="space-y-5">
+              {work.map((entry) => (
+                <li key={entry.slug}>
+                  <JournalEntryCard entry={entry} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="font-mono text-sm text-stone/70">
+              Nothing selected yet &mdash; add slugs to{" "}
+              <code className="rounded bg-ink/10 px-1.5 py-0.5 text-xs">
+                SELECTED_WORK_SLUGS
+              </code>{" "}
+              in{" "}
+              <code className="rounded bg-ink/10 px-1.5 py-0.5 text-xs">
+                lib/content.js
+              </code>
+              .
+            </p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
