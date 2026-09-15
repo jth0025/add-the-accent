@@ -89,6 +89,14 @@ export default function HomePage() {
               </div>
             </div>
 
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/portfolio-stickers/cross.png"
+              alt=""
+              aria-hidden="true"
+              className="h-7 w-7 shrink-0 self-center [filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.4))] sm:h-8 sm:w-8"
+            />
+
             <RadioBanner />
           </div>
         </div>
