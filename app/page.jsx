@@ -26,13 +26,13 @@ export default function HomePage() {
           &mdash; George Bernard Shaw
         </figcaption>
 
-        <div className="relative mx-auto mt-5 w-full max-w-sm sm:max-w-md">
-          <div className="flex flex-col items-center gap-10">
-            <div className="relative w-full max-w-sm">
+        <div className="relative mx-auto mt-10 w-full max-w-sm md:max-w-2xl">
+          <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:gap-8">
+            <div className="relative w-full max-w-sm md:w-[360px] md:max-w-[360px] md:shrink-0">
               {/* Hand-drawn note pointing at the intro clip — desktop
                   only, where there's room in the gutter beside the
                   track. Positioned against this column specifically so
-                  the banner below it doesn't throw off the vertical
+                  the banner beside it doesn't throw off the vertical
                   centering. */}
               <div className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 select-none items-center gap-1.5 md:flex">
                 <span className="whitespace-nowrap text-right font-hand text-[17px] font-semibold leading-[1.15] -rotate-[4deg] text-white/90 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.35))]">
