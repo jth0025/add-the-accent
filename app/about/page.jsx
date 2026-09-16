@@ -298,7 +298,7 @@ export default function AboutPage() {
                 Kept to one line (flex-nowrap, no built-in wrap) since the
                 column here is narrower than the Hero section it used to
                 sit in. */}
-            <div className="mt-3 flex flex-nowrap items-center justify-end gap-3 text-ink/80 sm:gap-4">
+            <div className="mt-6 flex flex-nowrap items-center justify-end gap-3 text-ink/80 sm:gap-4">
               {IDENTITY_ICONS.map((item) => (
                 <span
                   key={item.name}
