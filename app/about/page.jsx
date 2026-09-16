@@ -211,39 +211,12 @@ export default function AboutPage() {
           &ldquo;Your perspective is the masterpiece. Everything else is the
           medium.&rdquo;
         </p>
-        <p className="mx-auto mt-6 max-w-xl text-center text-stone">
+        <p className="mx-auto mt-6 max-w-xl text-center text-sm text-stone">
           A multidisciplinary creative studio, umbrella brand, and philosophy
           built around the power of individual perspective. Through design,
           writing, photography, film, and apparel, the goal is the same
           every time: bring the difference to the surface and give it form.
         </p>
-
-        {/* A small icon row, "who I am" at a glance — pulled from the
-            Profile bio and quick facts rather than generic stand-ins. */}
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-5 text-ink/80">
-          {IDENTITY_ICONS.map((item) => (
-            <span
-              key={item.name}
-              title={item.label}
-              className="icon-hover-pop inline-block"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.9"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-5 w-5 [filter:url(#urban-sketch)]"
-                style={{ transform: `rotate(${item.rotate}deg)` }}
-                aria-hidden="true"
-              >
-                {ICON_PATHS[item.name]}
-              </svg>
-              <span className="sr-only">{item.label}</span>
-            </span>
-          ))}
-        </div>
       </section>
 
       {/* Profile — an editorial bio card: portrait, headline, quick facts,
@@ -319,6 +292,36 @@ export default function AboutPage() {
             <p className="gold-foil mt-1 text-right font-display uppercase leading-none tracking-tight text-xl sm:text-2xl">
               By Design
             </p>
+
+            {/* A small icon row, "who I am" at a glance — pulled from the
+                Profile bio and quick facts rather than generic stand-ins.
+                Kept to one line (flex-nowrap, no built-in wrap) since the
+                column here is narrower than the Hero section it used to
+                sit in. */}
+            <div className="mt-3 flex flex-nowrap items-center justify-end gap-3 text-ink/80 sm:gap-4">
+              {IDENTITY_ICONS.map((item) => (
+                <span
+                  key={item.name}
+                  title={item.label}
+                  className="icon-hover-pop inline-block shrink-0"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.9"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-4 w-4 [filter:url(#urban-sketch)] sm:h-5 sm:w-5"
+                    style={{ transform: `rotate(${item.rotate}deg)` }}
+                    aria-hidden="true"
+                  >
+                    {ICON_PATHS[item.name]}
+                  </svg>
+                  <span className="sr-only">{item.label}</span>
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -351,7 +354,7 @@ export default function AboutPage() {
         <div className="mx-auto mt-7 max-w-2xl space-y-5 text-stone rounded-lg border border-ink/10 bg-white px-5 py-6 shadow-sm paper-notebook sm:mx-0 sm:max-w-none sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none">
           <p>
             <span
-              className="float-left -ml-1 mr-3 -mt-1 font-serif italic text-7xl leading-[0.7] text-ink sm:text-8xl"
+              className="float-left -ml-3 mr-4 -mt-1 font-serif italic text-7xl leading-[0.7] text-ink sm:text-8xl"
             >
               I
             </span>
