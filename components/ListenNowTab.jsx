@@ -1,27 +1,29 @@
 /**
- * A small "tab" hanging off the bottom of the header, linking to the
- * Apple Music radio station. Sits at the far left, overlapping the Now
- * Playing bar above it slightly, and plays a one-shot drop-and-fade
- * entrance (.listen-now-drop, in globals.css) every time this page
- * mounts — i.e. every time you navigate to the home page.
+ * A small "tab" hanging directly off the bottom of the Now Playing bar,
+ * linking to the Apple Music radio station. Sits at the far left, flush
+ * against the bar's own bottom border (no overlap, no gap) so it reads
+ * as one continuous piece, and plays a one-shot drop-and-fade entrance
+ * (.listen-now-drop, in globals.css) every time this page mounts — i.e.
+ * every time you navigate to the home page.
  *
  * Copy borrows the small/BIG/small hierarchy and bold condensed-caps
  * treatment of Apple Music's own promo graphics (e.g. its Super Bowl
- * halftime-show art): a tiny "Apple Music" lockup up top, then the
- * station name as the one large, unmissable word, framed by two small
- * connecting words. The periodic glare (.glare-periodic) is scoped to
- * just the frame image — and since it's a mix-blend-mode overlay, the
- * math itself keeps it visible on the frame's bright gold sections and
- * all but invisible on the dark ones, without needing separate masking.
+ * halftime-show art): a tiny "Apple Music" lockup up top, a short "Continue
+ * the vibe" line, then the station name as the one large, unmissable word,
+ * framed by two small connecting words. The periodic glare (.glare-periodic)
+ * is scoped to just the frame image — and since it's a mix-blend-mode
+ * overlay, the math itself keeps it visible on the frame's bright gold
+ * sections and all but invisible on the dark ones, without needing
+ * separate masking.
  */
 export default function ListenNowTab() {
   return (
-    <div className="listen-now-drop relative z-10 -mt-1 pl-4 sm:-mt-1.5 sm:pl-6">
+    <div className="listen-now-drop relative z-10 pl-4 sm:pl-6">
       <a
         href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block w-[19rem] sm:w-[22rem]"
+        className="group relative block w-[17rem] sm:w-[19rem]"
       >
         <span className="glare-periodic relative block w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -32,9 +34,10 @@ export default function ListenNowTab() {
             className="block w-full transition-transform duration-500 [filter:drop-shadow(0_6px_14px_rgba(0,0,0,0.55))] group-hover:scale-[1.02]"
           />
         </span>
-        <div className="absolute inset-0 flex flex-col items-start justify-center gap-1 pb-[16%] pl-[7%] pr-[16%] pt-[10%]">
-          {/* Small "Apple Music" lockup, echoing the reference art. */}
-          <span className="flex items-center gap-1 font-sans text-[9px] font-bold uppercase tracking-wide text-white/90 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[10px]">
+        <div className="absolute inset-0 flex flex-col items-start justify-center gap-0.5 pb-[16%] pl-[7%] pr-[17%] pt-[15%]">
+          {/* Small "Apple Music" lockup, echoing the reference art — nudged
+              down from the frame's top edge to leave room to breathe. */}
+          <span className="mt-1 flex items-center gap-1 font-sans text-[7px] font-bold uppercase tracking-wide text-white/90 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
             <svg
               viewBox="0 0 24 24"
               className="h-[1em] w-[1em] shrink-0"
@@ -46,15 +49,21 @@ export default function ListenNowTab() {
             Music
           </span>
 
+          {/* Short tagline, same small-caps aesthetic, sitting on top of
+              the main "through GREEN MAIZE radio" line. */}
+          <span className="whitespace-nowrap font-sans text-[7px] font-medium uppercase tracking-wide text-white/80 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
+            Continue the vibe
+          </span>
+
           {/* "through GREEN MAIZE radio" — one line, sized small / BIG / small. */}
-          <span className="flex items-baseline gap-1.5 whitespace-nowrap">
-            <span className="font-sans text-[9px] font-medium uppercase tracking-wide text-white/80 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[10px]">
+          <span className="flex items-baseline gap-1 whitespace-nowrap">
+            <span className="font-sans text-[7px] font-medium uppercase tracking-wide text-white/80 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
               through
             </span>
-            <span className="font-display text-[17px] uppercase leading-none text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.9)] sm:text-[20px]">
+            <span className="font-display text-[14px] uppercase leading-none text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.9)] sm:text-[16px]">
               Green Maize
             </span>
-            <span className="font-sans text-[9px] font-medium uppercase tracking-wide text-white/80 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[10px]">
+            <span className="font-sans text-[7px] font-medium uppercase tracking-wide text-white/80 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
               radio
             </span>
           </span>
