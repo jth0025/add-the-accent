@@ -236,13 +236,13 @@ export default function AboutPage() {
               treatment as "perspective" on the home page hero. */}
           <div>
             <div className="h-px w-full bg-ink/15" />
-            <p className="mt-3 text-center font-playfair text-[11px] italic text-stone/70 sm:text-left sm:text-sm">
+            <p className="mt-3 text-right font-playfair text-[11px] italic text-stone/70 sm:text-sm">
               Toasted by a Texas sun, flavored by a NOLA roux.
             </p>
-            <h2 className="mt-2 text-center font-display uppercase leading-[1.05] tracking-tight text-ink text-3xl sm:text-left sm:text-4xl">
+            <h2 className="mt-2 text-right font-display uppercase leading-[1.05] tracking-tight text-ink text-3xl sm:text-4xl">
               Multi-Hyphenate
             </h2>
-            <p className="gold-foil mt-1 text-center font-display uppercase leading-none tracking-tight text-xl sm:text-left sm:text-2xl">
+            <p className="gold-foil mt-1 text-right font-display uppercase leading-none tracking-tight text-xl sm:text-2xl">
               By Design
             </p>
           </div>
