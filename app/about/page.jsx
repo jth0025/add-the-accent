@@ -260,13 +260,14 @@ export default function AboutPage() {
               grid, frame, and "Portrait Mode — me" caption are already
               part of the piece, so it needs no extra framing here. A leaf
               sits behind its right edge, like it's growing out from
-              behind the piece. The camera photo, in its own polaroid
-              frame, peeks out from the left side (lowered from its old
-              corner-peek position). Paint order (not z-index — a
-              negative z-index here has no closer stacking-context
-              ancestor to anchor to, so it renders behind the section's
-              own background instead) does the layering: leaf, then the
-              polaroid, then the main portrait on top. */}
+              behind the piece. Two polaroids are stacked behind it — the
+              camera photo peeking from the left, the room photo peeking
+              from the upper right, tilted the opposite way — and both
+              animate out from behind the main portrait on load. Paint
+              order (not z-index — a negative z-index here has no closer
+              stacking-context ancestor to anchor to, so it renders behind
+              the section's own background instead) does the layering:
+              leaf, then the polaroids, then the main portrait on top. */}
           <div className="relative mx-auto w-56 sm:mx-0 sm:w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -275,7 +276,16 @@ export default function AboutPage() {
               aria-hidden="true"
               className="pointer-events-none absolute right-[-3rem] top-[26%] w-32 -rotate-6 drop-shadow-[0_8px_14px_rgba(0,0,0,0.25)] sm:right-[-3.5rem] sm:w-36"
             />
-            <div className="absolute -left-14 top-[38%] w-28 -rotate-[26deg] rounded-sm border border-black/10 bg-white p-2 shadow-lg sm:-left-16 sm:w-32">
+            <div className="polaroid-emerge-right absolute -right-10 top-[-6%] w-24 rounded-sm border border-black/10 bg-white p-2 shadow-lg sm:-right-12 sm:w-28">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/jt-portrait-room.jpg"
+                alt=""
+                aria-hidden="true"
+                className="h-32 w-full object-cover object-[78%_60%] sepia-[0.12] sm:h-36"
+              />
+            </div>
+            <div className="polaroid-emerge-left absolute -left-20 top-[28%] w-28 rounded-sm border border-black/10 bg-white p-2 shadow-lg sm:-left-24 sm:w-32">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/jt-portrait-2.jpg"
