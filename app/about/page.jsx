@@ -185,17 +185,17 @@ export default function AboutPage() {
         <div className="mt-8 grid gap-6 sm:grid-cols-[13rem,1fr] sm:items-center sm:gap-10">
           {/* Portrait — the sketch-mode self-portrait, used whole: its own
               grid, frame, and "Portrait Mode — me" caption are already
-              part of the piece, so it needs no extra framing here. A
-              second, older portrait sits stacked behind it, offset and
-              dimmed, just enough to read as a pair without competing with
-              the piece in front. */}
+              part of the piece, so it needs no extra framing here. The
+              camera portrait sits stacked behind it, raised up and offset
+              so its top — camera included — peeks out above the main
+              piece, dimmed just enough to read as a pair. */}
           <div className="relative mx-auto w-56 sm:mx-0 sm:w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/jt-portrait-1.jpg"
+              src="/jt-portrait-2.jpg"
               alt=""
               aria-hidden="true"
-              className="absolute left-2 top-2 h-full w-full rotate-3 rounded-sm object-cover shadow-lg brightness-90 sm:left-3 sm:top-3"
+              className="absolute -top-24 left-2 h-full w-full rotate-3 rounded-sm object-cover object-top shadow-lg brightness-90 sm:-top-28 sm:left-3"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -211,8 +211,8 @@ export default function AboutPage() {
               the same gold-foil treatment as "perspective" on the home
               page hero. */}
           <div>
-            <p className="text-center font-playfair text-lg italic text-stone/70 sm:text-left">
-              Houston, born and raised.
+            <p className="text-center font-playfair text-xl italic text-stone/70 sm:text-left sm:text-2xl">
+              Toasted by a Texas sun, flavored by a NOLA roux.
             </p>
             <h2 className="mt-2 text-center font-display uppercase leading-[1.05] tracking-tight text-ink text-3xl sm:text-left sm:text-4xl">
               Multi-Hyphenate
