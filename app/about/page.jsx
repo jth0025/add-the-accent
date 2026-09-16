@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PaperClip from "@/components/PaperClip";
 
 export const metadata = { title: "About — Add the Accent" };
 
@@ -82,12 +83,15 @@ function ExprIcon({ name, rotate, className = "" }) {
 // Editorial bio block — quick facts, mirroring the short tag lines in the
 // "Portrait Mode" layout sketch used as the reference for this section.
 const QUICK_FACTS = [
-  "Houston-born & raised",
-  "Band kid at heart",
-  "Phantom Regiment Alumni",
-  "University of North Texas — RTVF",
-  "Property & operations manager",
+  "Houston Native",
   "Founder, Add the Accent",
+  "Certified Band Nerd",
+  "R&B Head",
+  "Everything Tennis",
+  "Property Manager & Operations",
+  "University of North Texas",
+  "RTVF",
+  "Phantom Regiment Alum",
 ];
 
 // Areas of expertise — the creative practice and the day job, presented
@@ -156,13 +160,18 @@ export default function AboutPage() {
         <SectionLabel>About</SectionLabel>
 
         {/* Title logo for this block: the wooden "AA" fence with the
-            character standing on the second A. Replaces the wordmark. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/fence-logo.png"
-          alt="Add the Accent — the character standing on a weathered wooden fence built into a double-A, rooted in soil with sprouting leaves"
-          className="mx-auto mt-6 w-[21rem] max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.22)] sm:mt-8 sm:w-[26rem]"
-        />
+            character standing on the second A. Replaces the wordmark. A
+            paper clip pins it down, same as the note-cards elsewhere on
+            the site. */}
+        <div className="relative mx-auto mt-6 w-[21rem] max-w-full sm:mt-8 sm:w-[26rem]">
+          <PaperClip />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/fence-logo.png"
+            alt="Add the Accent — the character standing on a weathered wooden fence built into a double-A, rooted in soil with sprouting leaves"
+            className="w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.22)]"
+          />
+        </div>
 
         <p className="mt-6 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
           &ldquo;Your perspective is the masterpiece. Everything else is the
@@ -189,18 +198,18 @@ export default function AboutPage() {
           {/* Portrait — the sketch-mode self-portrait, used whole: its own
               grid, frame, and "Portrait Mode — me" caption are already
               part of the piece, so it needs no extra framing here. The
-              camera portrait sits stacked behind it, tucked hard into the
-              top-left corner and tilted steeply, raised so the main
-              photo's edge crosses roughly its middle, dimmed just enough
-              to read as a pair. A harder drop shadow gives the main piece
-              more lift off the page. */}
+              camera portrait sits stacked behind it, pushed further left
+              and tilted harder, positioned so the main photo's own
+              top-left corner lands roughly at the tilted photo's center,
+              dimmed just enough to read as a pair. A harder drop shadow
+              gives the main piece more lift off the page. */}
           <div className="relative mx-auto w-56 sm:mx-0 sm:w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/jt-portrait-2.jpg"
               alt=""
               aria-hidden="true"
-              className="absolute -top-24 -left-8 h-full w-full -rotate-[22deg] rounded-sm object-cover object-top shadow-lg brightness-90 sm:-top-28 sm:-left-10"
+              className="absolute -top-24 -left-14 h-full w-full -rotate-[30deg] rounded-sm object-cover object-top shadow-lg brightness-90 sm:-top-28 sm:-left-16"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -246,27 +255,41 @@ export default function AboutPage() {
           ))}
         </ul>
 
-        <div className="mx-auto mt-7 max-w-2xl space-y-5 text-stone sm:mx-0 sm:max-w-none">
+        {/* The bio copy. On mobile it sits in its own paper-notebook card
+            directly under the portrait, echoing the image-then-paper-text
+            "Features" layout on the home page; from sm: up it reverts to
+            plain text in the section's normal column. The opening "I" is
+            set as a large editorial drop cap, with the first few lines of
+            the paragraph wrapping around it. */}
+        <div className="mx-auto mt-7 max-w-2xl space-y-5 rounded-lg border border-ink/10 bg-white px-5 py-6 text-stone shadow-sm paper-notebook sm:mx-0 sm:max-w-none sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none">
           <p>
-            I was born and raised in Houston, but the house I grew up in ran
-            on New Orleans time. My father carried that city with him
-            wherever we went &mdash; its flavor, its rhythm, its refusal to
-            do anything quietly &mdash; and he passed it down without ever
-            making it a lesson. I didn&rsquo;t inherit two hometowns so much
-            as I married them: Houston gave me the ground, New Orleans gave
-            me the ear, and together they built the eye I still see
-            everything through.
+            <span
+              className="float-left mr-2 mt-0.5 font-display text-6xl leading-[0.75] text-ink sm:text-7xl"
+            >
+              I
+            </span>
+            was born and raised in Houston, Texas &mdash; but there was
+            always gumbo on the stove. My father carried the city of New
+            Orleans with him everywhere he went: its flavor, its rhythm, its
+            refusal to do anything quietly. He never sat me down and taught
+            any of it to me like a lesson &mdash; he just lived it, loud, in
+            our kitchen, in our music, in the way he moved through a room.
+            Two cultures were always brewing under one roof, and somewhere
+            in that mix is exactly where my eye, and my whole perspective,
+            got its flavor.
           </p>
           <p>
-            Music was my first language, long before it was ever a craft
-            &mdash; a band kid before I was anything else. But the real
-            ignition came later, in a college black-and-white photography
-            class that showed me what was possible, and what was already
-            inside me waiting to be developed. Everything I&rsquo;ve made
-            since was born in that darkroom. I married that spark to
-            everything life handed me after &mdash; the walk, the pain, the
-            joy, the love &mdash; until it became a voice, and the voice
-            became a style.
+            Music was always in the house &mdash; the soundtrack of my life
+            started long before I ever became a competitive band kid. But it
+            was one black-and-white photography class that changed
+            everything, cracking open a door to possibilities I didn&rsquo;t
+            know were there. I fell in love with the darkroom: the waiting,
+            the development, the process of watching something invisible
+            slowly become real. That&rsquo;s where I learned how to develop
+            my own vision and actually see it through &mdash; the patience
+            it takes, the reward waiting on the other side of it, and the
+            discipline to keep cultivating it. Everything I&rsquo;ve made
+            since traces back to that room.
           </p>
 
           {/* Secondary photo, paired with the paragraph that bridges the
@@ -284,8 +307,12 @@ export default function AboutPage() {
               </div>
             </div>
             <p>
-              That same eye ended up running property and operations
-              portfolios for over a decade, across Texas and Los Angeles. It
+              I started in property management back in college, and it
+              taught me how to actually take care of people and a community
+              &mdash; lessons I didn&rsquo;t know I was collecting until
+              they started showing up in Homebody, and in the discipline it
+              takes to keep any of this honest. That eye followed me all
+              the way to California, where I live and work today. It
               doesn&rsquo;t read like the rest of my story until you meet{" "}
               <Link
                 href="/journal/land-man"
@@ -305,7 +332,10 @@ export default function AboutPage() {
           </div>
 
           <p>
-            Add the Accent is what I built to say that out loud. Your walk
+            Add the Accent itself matriculated in California &mdash; a
+            state that&rsquo;s always symbolized leaving the nest to me.
+            Leaving comfort was the only way I could actually build a
+            platform of truth instead of a performance of one. Your walk
             &mdash; every job, every room, every version of you &mdash;
             belongs in the work. You&rsquo;re not just the artist.
             You&rsquo;re the professional, the human, and the soul, too. We
