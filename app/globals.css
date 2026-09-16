@@ -1045,13 +1045,17 @@ html.header-dark .header-cloud.header-cloud--storm {
   }
 }
 
-/* Plus-sign divider between the audio clip and the promo — a subtle
-   light streak that sweeps across it periodically on its own, the same
-   "mostly at rest, brief sweep" timing as .gold-foil's text gleam, but
-   as an image overlay (mix-blend-mode) since an <img> can't take a
-   background-clip:text fill. */
+/* Periodic image glare — a subtle light streak that sweeps across an
+   element on its own, the same "mostly at rest, brief sweep" timing as
+   .gold-foil's text gleam, but as an image overlay (mix-blend-mode)
+   since an <img> can't take a background-clip:text fill. Doesn't set
+   its own display: the caller's own block/inline-block utility class
+   decides that (this used to hardcode inline-block, which — being a
+   same-specificity sibling of Tailwind's own display utilities —
+   could silently win the tie-break and override a `block` class placed
+   on the same element, adding an inline-formatting-context baseline
+   gap under the wrapped image). */
 .glare-periodic {
-  display: inline-block;
   overflow: hidden;
 }
 
