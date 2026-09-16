@@ -77,6 +77,46 @@ function ExprIcon({ name, rotate, className = "" }) {
   );
 }
 
+// Editorial bio block — quick facts, mirroring the short tag lines in the
+// "Portrait Mode" layout sketch used as the reference for this section.
+const QUICK_FACTS = [
+  "Houston-born, New Orleans-rooted",
+  "Band kid at heart",
+  "University of North Texas — RTVF",
+  "Seasoned property & operations manager",
+  "Multidisciplinary creative",
+  "Founder, Add the Accent",
+];
+
+// Areas of expertise — the creative practice and the day job, presented
+// as one skill set rather than two, echoing "My Skills." reference blocks.
+const SKILL_GROUPS = [
+  {
+    label: "Creative & Brand",
+    skills: [
+      "Design",
+      "Photography",
+      "Film & Video Direction",
+      "Copywriting & Journals",
+      "Brand & Content Strategy",
+      "Multidisciplinary Art Direction",
+    ],
+  },
+  {
+    label: "Property & Operations",
+    skills: [
+      "Multi-Site Portfolio Management",
+      "Budget Preparation & P&L Oversight",
+      "Lease Administration & CAM Reconciliation",
+      "Vendor & Contract Management",
+      "Financial Reporting & Variance Analysis",
+      "Team Leadership & Training",
+      "Resident & Tenant Relations",
+      "Regulatory & Fair Housing Compliance",
+    ],
+  },
+];
+
 // Sticky-note taglines, each with its own color and a hand-placed tilt.
 const NOTES = [
   { text: "Add what only you can.", color: "#fde68a", rotate: -6 },
@@ -131,24 +171,141 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* Portrait — two overlapping polaroids, no captions */}
-      <section className="mt-12 flex justify-center py-4">
-        <div className="relative flex items-center">
-          <div className="relative z-10 -rotate-6 rounded-sm border border-black/10 bg-white p-3 shadow-xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/jt-portrait-1.jpg"
-              alt="Portrait of JT, the founder of Add the Accent"
-              className="h-56 w-44 object-cover sm:h-64 sm:w-52"
-            />
+      {/* Profile — an editorial bio card: portrait, quick facts, headline,
+          the full story, and a skills grid. Structure borrows the
+          photo-plus-fact-lines layout from the "Portrait Mode" sketch
+          reference; the bold stacked headline and italic serif eyebrow
+          mirror the type treatment on yvettehaughton.com. */}
+      <section className="corner-box relative mt-12 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+        <SectionLabel>Profile</SectionLabel>
+
+        <div className="mt-8 grid gap-8 sm:grid-cols-[13rem,1fr] sm:items-start sm:gap-10">
+          {/* Portrait, polaroid-framed, with a hand-inked corner bracket
+              echoing the scribbled frame in the sketch reference. */}
+          <div className="relative mx-auto w-fit -rotate-2 sm:mx-0">
+            <svg
+              viewBox="0 0 100 100"
+              className="pointer-events-none absolute -left-3 -top-3 h-10 w-10 text-accent [filter:url(#urban-sketch)]"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <path d="M6 40 6 6 40 6" />
+            </svg>
+            <svg
+              viewBox="0 0 100 100"
+              className="pointer-events-none absolute -bottom-3 -right-3 h-10 w-10 text-accent [filter:url(#urban-sketch)]"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <path d="M94 60 94 94 60 94" />
+            </svg>
+            <div className="relative rounded-sm border border-black/10 bg-white p-3 shadow-xl">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/jt-portrait-2.jpg"
+                alt="JT holding a vintage Pentax film camera up to his face"
+                className="h-64 w-48 object-cover sepia-[0.12] sm:h-72 sm:w-52"
+              />
+            </div>
           </div>
-          <div className="relative z-20 -ml-14 rotate-6 rounded-sm border border-black/10 bg-white p-3 shadow-xl sm:-ml-16">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/jt-portrait-2.jpg"
-              alt="JT holding a vintage Pentax film camera up to his face"
-              className="h-56 w-44 object-cover sm:h-64 sm:w-52"
-            />
+
+          {/* Quick facts */}
+          <ul className="list-none space-y-2.5">
+            {QUICK_FACTS.map((fact) => (
+              <li
+                key={fact}
+                className="flex items-start gap-2.5 font-mono text-xs uppercase tracking-widest text-stone"
+              >
+                <span
+                  aria-hidden="true"
+                  className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent"
+                />
+                {fact}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Eyebrow + stacked headline, mirroring the reference site's type. */}
+        <p className="mt-10 text-center font-playfair text-lg italic text-stone/70 sm:text-left">
+          Houston born. New Orleans rooted. Denton made.
+        </p>
+        <h2 className="mt-2 text-center font-display uppercase leading-[1.05] tracking-tight text-ink text-3xl sm:text-left sm:text-4xl">
+          Multi-Hyphenate by Design
+          <br />
+          Property &amp; Operations by Trade
+        </h2>
+
+        <div className="mx-auto mt-7 max-w-2xl space-y-5 text-stone sm:mx-0 sm:max-w-none">
+          <p>
+            I was raised in Houston and shaped in New Orleans — my
+            father&rsquo;s city, the one that taught me rhythm before it
+            taught me anything else. I grew up a band kid at heart, the
+            youngest in the house, which meant I was handed more talent and
+            more freedom than I ever got real instruction on how to carry.
+            Nobody sat me down and taught me how to navigate what I&rsquo;d
+            been given; I had to build that discipline myself, one
+            instrument, one room, one job at a time.
+          </p>
+          <p>
+            That search took me to the University of North Texas, then into
+            more than a decade managing property and operations portfolios
+            across Texas and Los Angeles — from 272-unit communities to
+            1,656-unit campuses. I&rsquo;ve owned the budgets, the
+            compliance, the vendor contracts, the teams, and the tenant
+            relationships that keep a building standing and a business
+            solvent. It turns out the same discipline that gets a P&amp;L to
+            close on time is the discipline that gets a verse, a frame, or a
+            brand to actually finish.
+          </p>
+          <p>
+            Add the Accent grew out of those two lives running at once.
+            It&rsquo;s the platform I built to push one mantra: your walk —
+            every job, every room, every version of you — belongs in the
+            work. It shapes how I write, how I make music, how I manage, and
+            how I show up to work every day. I built it to push every
+            multi-hyphenate and multidisciplinary person reading this to
+            stop editing themselves down to one lane. You&rsquo;re not just
+            the artist. You&rsquo;re the professional, the human, and the
+            soul, too. We already move through all of those roles every
+            single day — owning that, out loud, is the only accountability
+            I&rsquo;m asking of you, or of me.
+          </p>
+        </div>
+
+        {/* Skills grid, mirroring the reference site's "My Skills." block. */}
+        <div className="mt-10 border-t border-ink/10 pt-8">
+          <p className="text-center font-mono text-xs uppercase tracking-widest text-accent sm:text-left">
+            Areas of Expertise
+          </p>
+          <div className="mt-5 grid gap-x-8 gap-y-8 sm:grid-cols-2">
+            {SKILL_GROUPS.map((group) => (
+              <div key={group.label}>
+                <p className="font-serif text-sm italic text-stone/70">
+                  {group.label}
+                </p>
+                <ul className="mt-3 list-none space-y-2">
+                  {group.skills.map((skill) => (
+                    <li
+                      key={skill}
+                      className="flex items-start gap-2.5 text-sm text-ink"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent"
+                      />
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </section>
