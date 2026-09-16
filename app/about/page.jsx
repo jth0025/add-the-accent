@@ -88,9 +88,10 @@ const QUICK_FACTS = [
   "Certified Band Nerd",
   "R&B Head",
   "Everything Tennis",
+  "Movie Buff",
+  "Consummate Conversationalist",
   "Property Manager & Operations",
-  "University of North Texas",
-  "RTVF",
+  "University of North Texas — RTVF",
   "Phantom Regiment Alum",
 ];
 
@@ -156,22 +157,20 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       {/* Hero */}
-      <section className="paper-fold-thirds corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+      <section className="paper-fold-thirds corner-box relative rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+        {/* Pinned to the card's own top-left corner, like it's holding
+            the whole box shut, rather than just resting on the art. */}
+        <PaperClip />
         <SectionLabel>About</SectionLabel>
 
         {/* Title logo for this block: the wooden "AA" fence with the
-            character standing on the second A. Replaces the wordmark. A
-            paper clip pins it down, same as the note-cards elsewhere on
-            the site. */}
-        <div className="relative mx-auto mt-6 w-[21rem] max-w-full sm:mt-8 sm:w-[26rem]">
-          <PaperClip />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/fence-logo.png"
-            alt="Add the Accent — the character standing on a weathered wooden fence built into a double-A, rooted in soil with sprouting leaves"
-            className="w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.22)]"
-          />
-        </div>
+            character standing on the second A. Replaces the wordmark. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/fence-logo.png"
+          alt="Add the Accent — the character standing on a weathered wooden fence built into a double-A, rooted in soil with sprouting leaves"
+          className="mx-auto mt-6 w-[21rem] max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.22)] sm:mt-8 sm:w-[26rem]"
+        />
 
         <p className="mt-6 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
           &ldquo;Your perspective is the masterpiece. Everything else is the
@@ -197,19 +196,29 @@ export default function AboutPage() {
         <div className="mt-8 grid gap-6 sm:grid-cols-[13rem,1fr] sm:items-center sm:gap-10">
           {/* Portrait — the sketch-mode self-portrait, used whole: its own
               grid, frame, and "Portrait Mode — me" caption are already
-              part of the piece, so it needs no extra framing here. The
-              camera portrait sits stacked behind it, pushed further left
-              and tilted harder, positioned so the main photo's own
-              top-left corner lands roughly at the tilted photo's center,
-              dimmed just enough to read as a pair. A harder drop shadow
-              gives the main piece more lift off the page. */}
+              part of the piece, so it needs no extra framing here. A leaf
+              sits behind its right edge, like it's growing out from
+              behind the piece; the camera portrait sits stacked behind
+              it too, pushed left and tilted, raised slightly so the main
+              photo's own corner lands roughly at its center. Paint order
+              (not z-index — a negative z-index here has no closer
+              stacking-context ancestor to anchor to, so it renders behind
+              the section's own background instead) does the layering:
+              leaf, then camera photo, then the main portrait on top. */}
           <div className="relative mx-auto w-56 sm:mx-0 sm:w-full">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/profile-leaf.png"
+              alt=""
+              aria-hidden="true"
+              className="pointer-events-none absolute right-[-3rem] top-[26%] w-32 -rotate-6 drop-shadow-[0_8px_14px_rgba(0,0,0,0.25)] sm:right-[-3.5rem] sm:w-36"
+            />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/jt-portrait-2.jpg"
               alt=""
               aria-hidden="true"
-              className="absolute -top-24 -left-14 h-full w-full -rotate-[30deg] rounded-sm object-cover object-top shadow-lg brightness-90 sm:-top-28 sm:-left-16"
+              className="absolute -top-28 -left-14 h-full w-full -rotate-[30deg] rounded-sm object-cover object-top shadow-lg brightness-90 sm:-top-32 sm:-left-16"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -221,11 +230,13 @@ export default function AboutPage() {
 
           {/* Eyebrow + headline, beside the photo like an editorial spread
               page — swapped in from where the quick facts used to sit.
-              "By Design" reads as a subtitle under "Multi-Hyphenate," in
-              the same gold-foil treatment as "perspective" on the home
-              page hero. */}
+              A rule sits above it, spanning the full column so it reads
+              as extending to the end of the title. "By Design" reads as
+              a subtitle under "Multi-Hyphenate," in the same gold-foil
+              treatment as "perspective" on the home page hero. */}
           <div>
-            <p className="text-center font-playfair text-[11px] italic text-stone/70 sm:text-left sm:text-sm">
+            <div className="h-px w-full bg-ink/15" />
+            <p className="mt-3 text-center font-playfair text-[11px] italic text-stone/70 sm:text-left sm:text-sm">
               Toasted by a Texas sun, flavored by a NOLA roux.
             </p>
             <h2 className="mt-2 text-center font-display uppercase leading-[1.05] tracking-tight text-ink text-3xl sm:text-left sm:text-4xl">
@@ -259,12 +270,14 @@ export default function AboutPage() {
             directly under the portrait, echoing the image-then-paper-text
             "Features" layout on the home page; from sm: up it reverts to
             plain text in the section's normal column. The opening "I" is
-            set as a large editorial drop cap, with the first few lines of
-            the paragraph wrapping around it. */}
-        <div className="mx-auto mt-7 max-w-2xl space-y-5 rounded-lg border border-ink/10 bg-white px-5 py-6 text-stone shadow-sm paper-notebook sm:mx-0 sm:max-w-none sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none">
+            a large italic-serif editorial drop cap, and the camera photo
+            further down is floated the same way, so the paragraph text
+            wraps around both of them rather than sitting in a separate
+            row next to just the photo. */}
+        <div className="mx-auto mt-7 max-w-2xl space-y-5 text-stone rounded-lg border border-ink/10 bg-white px-5 py-6 shadow-sm paper-notebook sm:mx-0 sm:max-w-none sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none">
           <p>
             <span
-              className="float-left mr-2 mt-0.5 font-display text-6xl leading-[0.75] text-ink sm:text-7xl"
+              className="float-left mr-3 mt-1 font-serif italic text-7xl leading-[0.7] text-ink sm:text-8xl"
             >
               I
             </span>
@@ -292,22 +305,19 @@ export default function AboutPage() {
             since traces back to that room.
           </p>
 
-          {/* Secondary photo, paired with the paragraph that bridges the
-              two lives — the discipline behind the day job and the voice
-              behind the writing are the same instinct. */}
-          <div className="flex flex-col gap-5 pt-1 sm:flex-row sm:items-start sm:gap-7">
-            <div className="relative mx-auto w-fit shrink-0 rotate-3 sm:mx-0">
-              <div className="rounded-sm border border-black/10 bg-white p-2.5 shadow-lg">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/jt-portrait-2.jpg"
-                  alt="JT holding a vintage Pentax film camera up to his face"
-                  className="h-40 w-32 object-cover sepia-[0.12]"
-                />
-              </div>
-            </div>
-            <p>
-              I started in property management back in college, and it
+          <p>
+            {/* Secondary photo, now a true float — like the drop cap "I"
+                above, the paragraph text wraps around it instead of
+                sitting beside it in a separate row. */}
+            <span className="float-left mb-2 mr-4 mt-1 rotate-3 rounded-sm border border-black/10 bg-white p-2.5 shadow-lg">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/jt-portrait-2.jpg"
+                alt="JT holding a vintage Pentax film camera up to his face"
+                className="h-40 w-32 object-cover sepia-[0.12]"
+              />
+            </span>
+            I started in property management back in college, and it
               taught me how to actually take care of people and a community
               &mdash; lessons I didn&rsquo;t know I was collecting until
               they started showing up in Homebody, and in the discipline it
@@ -329,9 +339,8 @@ export default function AboutPage() {
               never two lives. It&rsquo;s one instinct, wearing different
               uniforms.
             </p>
-          </div>
 
-          <p>
+          <p className="clear-left">
             Add the Accent itself matriculated in California &mdash; a
             state that&rsquo;s always symbolized leaving the nest to me.
             Leaving comfort was the only way I could actually build a
