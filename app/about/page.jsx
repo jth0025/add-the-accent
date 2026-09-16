@@ -211,7 +211,7 @@ export default function AboutPage() {
           &ldquo;Your perspective is the masterpiece. Everything else is the
           medium.&rdquo;
         </p>
-        <p className="mx-auto mt-6 max-w-xl text-center text-sm text-stone">
+        <p className="mx-auto mt-6 max-w-xl pl-2 pr-6 text-center text-sm text-stone sm:pl-0 sm:pr-8">
           A multidisciplinary creative studio, umbrella brand, and philosophy
           built around the power of individual perspective. Through design,
           writing, photography, film, and apparel, the goal is the same
@@ -258,7 +258,7 @@ export default function AboutPage() {
                 className="h-32 w-full object-cover object-[78%_60%] sepia-[0.12] sm:h-36"
               />
             </div>
-            <div className="polaroid-emerge-left absolute -left-20 top-[28%] w-28 rounded-sm border border-black/10 bg-white p-2 shadow-lg sm:-left-24 sm:w-32">
+            <div className="polaroid-emerge-left absolute -left-16 top-[28%] w-28 rounded-sm border border-black/10 bg-white p-2 shadow-lg sm:-left-20 sm:w-32">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/jt-portrait-2.jpg"
@@ -393,7 +393,7 @@ export default function AboutPage() {
             <img
               src="/jt-cornfield-photographer.png"
               alt="Illustration of JT photographing through a cornfield with a Pentax K1000"
-              className="float-left mb-2 mr-4 mt-1 w-32 rotate-2 drop-shadow-[0_8px_14px_rgba(0,0,0,0.35)]"
+              className="float-left mb-2 mr-4 mt-1 w-44 rotate-2 drop-shadow-[0_8px_14px_rgba(0,0,0,0.35)] sm:w-52"
             />
             I started in property management back in college, and it
               taught me how to actually take care of people and a community
