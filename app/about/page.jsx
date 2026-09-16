@@ -386,15 +386,15 @@ export default function AboutPage() {
           <p>
             {/* Secondary photo, now a true float — like the drop cap "I"
                 above, the paragraph text wraps around it instead of
-                sitting beside it in a separate row. */}
-            <span className="float-left mb-2 mr-4 mt-1 rotate-3 rounded-sm border border-black/10 bg-white p-2.5 shadow-lg">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/jt-portrait-night.jpg"
-                alt="JT looking out into a city street at night"
-                className="h-40 w-32 object-cover sepia-[0.12]"
-              />
-            </span>
+                sitting beside it in a separate row. No polaroid frame
+                this time — the illustration's own transparent cutout is
+                the edge, so it just floats bare with a soft shadow. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/jt-cornfield-photographer.png"
+              alt="Illustration of JT photographing through a cornfield with a Pentax K1000"
+              className="float-left mb-2 mr-4 mt-1 w-32 rotate-2 drop-shadow-[0_8px_14px_rgba(0,0,0,0.35)]"
+            />
             I started in property management back in college, and it
               taught me how to actually take care of people and a community
               &mdash; lessons I didn&rsquo;t know I was collecting until
