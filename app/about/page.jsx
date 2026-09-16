@@ -207,7 +207,7 @@ export default function AboutPage() {
           className="mx-auto mt-6 w-[21rem] max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.22)] sm:mt-8 sm:w-[26rem]"
         />
 
-        <p className="mt-6 text-center font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
+        <p className="mx-auto mt-6 max-w-xl pl-2 pr-6 text-center font-serif text-2xl italic leading-snug text-ink sm:pl-0 sm:pr-8 sm:text-3xl">
           &ldquo;Your perspective is the masterpiece. Everything else is the
           medium.&rdquo;
         </p>
@@ -275,13 +275,13 @@ export default function AboutPage() {
               aria-hidden="true"
               className="pointer-events-none absolute right-[-3rem] top-[26%] w-32 -rotate-6 drop-shadow-[0_8px_14px_rgba(0,0,0,0.25)] sm:right-[-3.5rem] sm:w-36"
             />
-            <div className="absolute -left-14 top-[38%] w-28 rotate-[9deg] rounded-sm border border-black/10 bg-white p-2 shadow-lg sm:-left-16 sm:w-32">
+            <div className="absolute -left-14 top-[38%] w-28 -rotate-[26deg] rounded-sm border border-black/10 bg-white p-2 shadow-lg sm:-left-16 sm:w-32">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/jt-portrait-2.jpg"
                 alt=""
                 aria-hidden="true"
-                className="h-36 w-full object-cover sepia-[0.12] sm:h-40"
+                className="h-36 w-full object-cover object-top sepia-[0.12] sm:h-40"
               />
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -341,7 +341,7 @@ export default function AboutPage() {
         <div className="mx-auto mt-7 max-w-2xl space-y-5 text-stone rounded-lg border border-ink/10 bg-white px-5 py-6 shadow-sm paper-notebook sm:mx-0 sm:max-w-none sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none">
           <p>
             <span
-              className="float-left mr-3 -mt-1 font-serif italic text-7xl leading-[0.7] text-ink sm:text-8xl"
+              className="float-left -ml-1 mr-3 -mt-1 font-serif italic text-7xl leading-[0.7] text-ink sm:text-8xl"
             >
               I
             </span>
