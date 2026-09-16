@@ -83,8 +83,8 @@ function ExprIcon({ name, rotate, className = "" }) {
 // "Portrait Mode" layout sketch used as the reference for this section.
 const QUICK_FACTS = [
   "Houston-born & raised",
-  "New Orleans heritage, through my father",
   "Band kid at heart",
+  "Phantom Regiment Alumni",
   "University of North Texas — RTVF",
   "Property & operations manager",
   "Founder, Add the Accent",
@@ -185,35 +185,52 @@ export default function AboutPage() {
         <div className="mt-8 grid gap-6 sm:grid-cols-[13rem,1fr] sm:items-center sm:gap-10">
           {/* Portrait — the sketch-mode self-portrait, used whole: its own
               grid, frame, and "Portrait Mode — me" caption are already
-              part of the piece, so it needs no extra framing here. */}
-          <div className="relative mx-auto w-56 -rotate-1 sm:mx-0 sm:w-full">
+              part of the piece, so it needs no extra framing here. A
+              second, older portrait sits stacked behind it, offset and
+              dimmed, just enough to read as a pair without competing with
+              the piece in front. */}
+          <div className="relative mx-auto w-56 sm:mx-0 sm:w-full">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/jt-portrait-1.jpg"
+              alt=""
+              aria-hidden="true"
+              className="absolute left-2 top-2 h-full w-full rotate-3 rounded-sm object-cover shadow-lg brightness-90 sm:left-3 sm:top-3"
+            />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/jt-portrait-sketch.jpg"
               alt="A sketch-effect self-portrait of JT on graph paper, captioned 'Portrait Mode — me'"
-              className="w-full rounded-sm object-cover shadow-xl"
+              className="relative w-full -rotate-1 rounded-sm object-cover shadow-xl"
             />
           </div>
 
           {/* Eyebrow + headline, beside the photo like an editorial spread
-              page — swapped in from where the quick facts used to sit. */}
+              page — swapped in from where the quick facts used to sit.
+              "By Design" reads as a subtitle under "Multi-Hyphenate," in
+              the same gold-foil treatment as "perspective" on the home
+              page hero. */}
           <div>
             <p className="text-center font-playfair text-lg italic text-stone/70 sm:text-left">
-              Houston, born and raised — New Orleans in the blood.
+              Houston, born and raised.
             </p>
             <h2 className="mt-2 text-center font-display uppercase leading-[1.05] tracking-tight text-ink text-3xl sm:text-left sm:text-4xl">
-              Multi-Hyphenate by Design
+              Multi-Hyphenate
             </h2>
+            <p className="gold-foil mt-1 text-center font-display uppercase leading-none tracking-tight text-xl sm:text-left sm:text-2xl">
+              By Design
+            </p>
           </div>
         </div>
 
-        {/* Quick facts — drops back into the section's original full-width
-            column, where the headline used to sit. */}
-        <ul className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2.5 border-y border-ink/10 py-5 sm:justify-start">
+        {/* Quick facts — an even two-column grid, dropping back into the
+            section's original full-width column where the headline used
+            to sit. */}
+        <ul className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 border-y border-ink/10 py-5 sm:grid-cols-2">
           {QUICK_FACTS.map((fact) => (
             <li
               key={fact}
-              className="flex max-w-[16rem] items-start gap-2 font-mono text-xs uppercase tracking-widest text-stone"
+              className="flex items-start gap-2 font-mono text-xs uppercase tracking-widest text-stone"
             >
               <span
                 aria-hidden="true"
