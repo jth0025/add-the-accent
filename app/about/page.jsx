@@ -195,7 +195,7 @@ export default function AboutPage() {
       <section className="paper-fold-thirds corner-box relative rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
         {/* Pinned to the card's own top-left corner, like it's holding
             the whole box shut, rather than just resting on the art. */}
-        <PaperClip position="-top-4 left-8 rotate-[7deg]" />
+        <PaperClip position="-top-4 left-11 rotate-[7deg]" />
         <SectionLabel>About</SectionLabel>
 
         {/* Title logo for this block: the wooden "AA" fence with the
