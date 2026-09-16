@@ -34,10 +34,10 @@ export default function ListenNowTab() {
             className="block w-full transition-transform duration-500 [filter:drop-shadow(0_6px_14px_rgba(0,0,0,0.55))] group-hover:scale-[1.02]"
           />
         </span>
-        <div className="absolute inset-0 flex flex-col items-start justify-center gap-0.5 pb-[16%] pl-[7%] pr-[17%] pt-[15%]">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center pb-[30%] pl-[16%] pr-[16%] pt-[9%]">
           {/* Small "Apple Music" lockup, echoing the reference art — nudged
               down from the frame's top edge to leave room to breathe. */}
-          <span className="mt-1 flex items-center gap-1 font-sans text-[7px] font-bold uppercase tracking-wide text-white/90 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
+          <span className="flex items-center gap-1 font-sans text-[7px] font-bold uppercase tracking-wide text-white/90 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
             <svg
               viewBox="0 0 24 24"
               className="h-[1em] w-[1em] shrink-0"
