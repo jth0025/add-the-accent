@@ -60,7 +60,42 @@ const ICON_PATHS = {
       <path d="M9.5 13h5" />
     </>
   ),
+  mic: (
+    <>
+      <rect x="9" y="2.5" width="6" height="11" rx="3" />
+      <path d="M5.5 11a6.5 6.5 0 0 0 13 0" />
+      <path d="M12 17.5V21" />
+      <path d="M8.5 21h7" />
+    </>
+  ),
+  music: (
+    <>
+      <path d="M9 17.5V5l11-2v12.5" />
+      <circle cx="6" cy="17.5" r="3" />
+      <circle cx="17" cy="15.5" r="3" />
+    </>
+  ),
+  tennis: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M5 6.5c2.5 2 2.5 9 0 11" />
+      <path d="M19 6.5c-2.5 2-2.5 9 0 11" />
+    </>
+  ),
 };
+
+// Small icon row for the Hero section, standing in for a "who I am" at a
+// glance: pulled straight from the Profile bio and quick facts rather
+// than a generic set — photography, writing, podcasting, music, tennis,
+// and film all show up there by name.
+const IDENTITY_ICONS = [
+  { name: "camera", label: "Photography", rotate: -6 },
+  { name: "pencil", label: "Writing", rotate: 4 },
+  { name: "mic", label: "Podcasting", rotate: -3 },
+  { name: "music", label: "Music", rotate: 6 },
+  { name: "tennis", label: "Tennis", rotate: -5 },
+  { name: "clapper", label: "Film", rotate: 4 },
+];
 
 function ExprIcon({ name, rotate, className = "" }) {
   return (
@@ -160,7 +195,7 @@ export default function AboutPage() {
       <section className="paper-fold-thirds corner-box relative rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
         {/* Pinned to the card's own top-left corner, like it's holding
             the whole box shut, rather than just resting on the art. */}
-        <PaperClip />
+        <PaperClip position="-top-4 left-8 rotate-[7deg]" />
         <SectionLabel>About</SectionLabel>
 
         {/* Title logo for this block: the wooden "AA" fence with the
@@ -182,6 +217,33 @@ export default function AboutPage() {
           writing, photography, film, and apparel, the goal is the same
           every time: bring the difference to the surface and give it form.
         </p>
+
+        {/* A small icon row, "who I am" at a glance — pulled from the
+            Profile bio and quick facts rather than generic stand-ins. */}
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-5 text-ink/80">
+          {IDENTITY_ICONS.map((item) => (
+            <span
+              key={item.name}
+              title={item.label}
+              className="icon-hover-pop inline-block"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.9"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-5 w-5 [filter:url(#urban-sketch)]"
+                style={{ transform: `rotate(${item.rotate}deg)` }}
+                aria-hidden="true"
+              >
+                {ICON_PATHS[item.name]}
+              </svg>
+              <span className="sr-only">{item.label}</span>
+            </span>
+          ))}
+        </div>
       </section>
 
       {/* Profile — an editorial bio card: portrait, headline, quick facts,
