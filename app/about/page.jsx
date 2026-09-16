@@ -100,6 +100,9 @@ const SKILL_GROUPS = [
       "Photography",
       "Film & Video Direction",
       "Copywriting & Journals",
+      "Writer",
+      "Copywriter",
+      "Podcaster",
       "Brand & Content Strategy",
       "Multidisciplinary Art Direction",
     ],
@@ -186,22 +189,23 @@ export default function AboutPage() {
           {/* Portrait — the sketch-mode self-portrait, used whole: its own
               grid, frame, and "Portrait Mode — me" caption are already
               part of the piece, so it needs no extra framing here. The
-              camera portrait sits stacked behind it, raised up and offset
-              so its top — camera included — peeks out above the main
-              piece, dimmed just enough to read as a pair. */}
+              camera portrait sits stacked behind it, tilted hard left and
+              raised up into the middle of the camera lens, dimmed just
+              enough to read as a pair. A harder drop shadow gives the main
+              piece more lift off the page. */}
           <div className="relative mx-auto w-56 sm:mx-0 sm:w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/jt-portrait-2.jpg"
               alt=""
               aria-hidden="true"
-              className="absolute -top-24 left-2 h-full w-full rotate-3 rounded-sm object-cover object-top shadow-lg brightness-90 sm:-top-28 sm:left-3"
+              className="absolute -top-36 left-2 h-full w-full -rotate-12 rounded-sm object-cover object-top shadow-lg brightness-90 sm:-top-44 sm:left-3"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/jt-portrait-sketch.jpg"
               alt="A sketch-effect self-portrait of JT on graph paper, captioned 'Portrait Mode — me'"
-              className="relative w-full -rotate-1 rounded-sm object-cover shadow-xl"
+              className="relative w-full -rotate-1 rounded-sm object-cover shadow-[0_10px_18px_-4px_rgba(0,0,0,0.55),0_25px_45px_-10px_rgba(0,0,0,0.65)]"
             />
           </div>
 
@@ -212,7 +216,9 @@ export default function AboutPage() {
               page hero. */}
           <div>
             <p className="text-center font-playfair text-xl italic text-stone/70 sm:text-left sm:text-2xl">
-              Toasted by a Texas sun, flavored by a NOLA roux.
+              Toasted by a Texas sun,
+              <br />
+              flavored by a NOLA roux.
             </p>
             <h2 className="mt-2 text-center font-display uppercase leading-[1.05] tracking-tight text-ink text-3xl sm:text-left sm:text-4xl">
               Multi-Hyphenate
