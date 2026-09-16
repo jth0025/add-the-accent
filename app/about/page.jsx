@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = { title: "About — Add the Accent" };
 
 // Rewritten as profound, centered lines for Section 02.
@@ -80,11 +82,11 @@ function ExprIcon({ name, rotate, className = "" }) {
 // Editorial bio block — quick facts, mirroring the short tag lines in the
 // "Portrait Mode" layout sketch used as the reference for this section.
 const QUICK_FACTS = [
-  "Houston-born, New Orleans-rooted",
+  "Houston-born & raised",
+  "New Orleans heritage, through my father",
   "Band kid at heart",
   "University of North Texas — RTVF",
-  "Seasoned property & operations manager",
-  "Multidisciplinary creative",
+  "Property & operations manager",
   "Founder, Add the Accent",
 ];
 
@@ -171,111 +173,123 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* Profile — an editorial bio card: portrait, quick facts, headline,
-          the full story, and a skills grid. Structure borrows the
-          photo-plus-fact-lines layout from the "Portrait Mode" sketch
-          reference; the bold stacked headline and italic serif eyebrow
-          mirror the type treatment on yvettehaughton.com. */}
+      {/* Profile — an editorial bio card: portrait, headline, quick facts,
+          the full story, and a skills grid. The photo-and-headline row
+          reads like a magazine spread page, then drops back into the
+          section's normal single column, per the "Portrait Mode" sketch
+          reference; the bold headline and italic serif eyebrow mirror the
+          type treatment on yvettehaughton.com. */}
       <section className="corner-box relative mt-12 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
         <SectionLabel>Profile</SectionLabel>
 
-        <div className="mt-8 grid gap-8 sm:grid-cols-[13rem,1fr] sm:items-start sm:gap-10">
-          {/* Portrait, polaroid-framed, with a hand-inked corner bracket
-              echoing the scribbled frame in the sketch reference. */}
-          <div className="relative mx-auto w-fit -rotate-2 sm:mx-0">
-            <svg
-              viewBox="0 0 100 100"
-              className="pointer-events-none absolute -left-3 -top-3 h-10 w-10 text-accent [filter:url(#urban-sketch)]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="4"
-              strokeLinecap="round"
-              aria-hidden="true"
-            >
-              <path d="M6 40 6 6 40 6" />
-            </svg>
-            <svg
-              viewBox="0 0 100 100"
-              className="pointer-events-none absolute -bottom-3 -right-3 h-10 w-10 text-accent [filter:url(#urban-sketch)]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="4"
-              strokeLinecap="round"
-              aria-hidden="true"
-            >
-              <path d="M94 60 94 94 60 94" />
-            </svg>
-            <div className="relative rounded-sm border border-black/10 bg-white p-3 shadow-xl">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/jt-portrait-2.jpg"
-                alt="JT holding a vintage Pentax film camera up to his face"
-                className="h-64 w-48 object-cover sepia-[0.12] sm:h-72 sm:w-52"
-              />
-            </div>
+        <div className="mt-8 grid gap-6 sm:grid-cols-[13rem,1fr] sm:items-center sm:gap-10">
+          {/* Portrait — the sketch-mode self-portrait, used whole: its own
+              grid, frame, and "Portrait Mode — me" caption are already
+              part of the piece, so it needs no extra framing here. */}
+          <div className="relative mx-auto w-56 -rotate-1 sm:mx-0 sm:w-full">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/jt-portrait-sketch.jpg"
+              alt="A sketch-effect self-portrait of JT on graph paper, captioned 'Portrait Mode — me'"
+              className="w-full rounded-sm object-cover shadow-xl"
+            />
           </div>
 
-          {/* Quick facts */}
-          <ul className="list-none space-y-2.5">
-            {QUICK_FACTS.map((fact) => (
-              <li
-                key={fact}
-                className="flex items-start gap-2.5 font-mono text-xs uppercase tracking-widest text-stone"
-              >
-                <span
-                  aria-hidden="true"
-                  className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent"
-                />
-                {fact}
-              </li>
-            ))}
-          </ul>
+          {/* Eyebrow + headline, beside the photo like an editorial spread
+              page — swapped in from where the quick facts used to sit. */}
+          <div>
+            <p className="text-center font-playfair text-lg italic text-stone/70 sm:text-left">
+              Houston, born and raised — New Orleans in the blood.
+            </p>
+            <h2 className="mt-2 text-center font-display uppercase leading-[1.05] tracking-tight text-ink text-3xl sm:text-left sm:text-4xl">
+              Multi-Hyphenate by Design
+            </h2>
+          </div>
         </div>
 
-        {/* Eyebrow + stacked headline, mirroring the reference site's type. */}
-        <p className="mt-10 text-center font-playfair text-lg italic text-stone/70 sm:text-left">
-          Houston born. New Orleans rooted. Denton made.
-        </p>
-        <h2 className="mt-2 text-center font-display uppercase leading-[1.05] tracking-tight text-ink text-3xl sm:text-left sm:text-4xl">
-          Multi-Hyphenate by Design
-          <br />
-          Property &amp; Operations by Trade
-        </h2>
+        {/* Quick facts — drops back into the section's original full-width
+            column, where the headline used to sit. */}
+        <ul className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2.5 border-y border-ink/10 py-5 sm:justify-start">
+          {QUICK_FACTS.map((fact) => (
+            <li
+              key={fact}
+              className="flex max-w-[16rem] items-start gap-2 font-mono text-xs uppercase tracking-widest text-stone"
+            >
+              <span
+                aria-hidden="true"
+                className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent"
+              />
+              {fact}
+            </li>
+          ))}
+        </ul>
 
         <div className="mx-auto mt-7 max-w-2xl space-y-5 text-stone sm:mx-0 sm:max-w-none">
           <p>
-            I was raised in Houston and shaped in New Orleans — my
-            father&rsquo;s city, the one that taught me rhythm before it
-            taught me anything else. I grew up a band kid at heart, the
-            youngest in the house, which meant I was handed more talent and
-            more freedom than I ever got real instruction on how to carry.
-            Nobody sat me down and taught me how to navigate what I&rsquo;d
-            been given; I had to build that discipline myself, one
-            instrument, one room, one job at a time.
+            I was born and raised in Houston, but the house I grew up in ran
+            on New Orleans time. My father carried that city with him
+            wherever we went &mdash; its flavor, its rhythm, its refusal to
+            do anything quietly &mdash; and he passed it down without ever
+            making it a lesson. I didn&rsquo;t inherit two hometowns so much
+            as I married them: Houston gave me the ground, New Orleans gave
+            me the ear, and together they built the eye I still see
+            everything through.
           </p>
           <p>
-            That search took me to the University of North Texas, then into
-            more than a decade managing property and operations portfolios
-            across Texas and Los Angeles — from 272-unit communities to
-            1,656-unit campuses. I&rsquo;ve owned the budgets, the
-            compliance, the vendor contracts, the teams, and the tenant
-            relationships that keep a building standing and a business
-            solvent. It turns out the same discipline that gets a P&amp;L to
-            close on time is the discipline that gets a verse, a frame, or a
-            brand to actually finish.
+            Music was my first language, long before it was ever a craft
+            &mdash; a band kid before I was anything else. But the real
+            ignition came later, in a college black-and-white photography
+            class that showed me what was possible, and what was already
+            inside me waiting to be developed. Everything I&rsquo;ve made
+            since was born in that darkroom. I married that spark to
+            everything life handed me after &mdash; the walk, the pain, the
+            joy, the love &mdash; until it became a voice, and the voice
+            became a style.
           </p>
+
+          {/* Secondary photo, paired with the paragraph that bridges the
+              two lives — the discipline behind the day job and the voice
+              behind the writing are the same instinct. */}
+          <div className="flex flex-col gap-5 pt-1 sm:flex-row sm:items-start sm:gap-7">
+            <div className="relative mx-auto w-fit shrink-0 rotate-3 sm:mx-0">
+              <div className="rounded-sm border border-black/10 bg-white p-2.5 shadow-lg">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/jt-portrait-2.jpg"
+                  alt="JT holding a vintage Pentax film camera up to his face"
+                  className="h-40 w-32 object-cover sepia-[0.12]"
+                />
+              </div>
+            </div>
+            <p>
+              That same eye ended up running property and operations
+              portfolios for over a decade, across Texas and Los Angeles. It
+              doesn&rsquo;t read like the rest of my story until you meet{" "}
+              <Link
+                href="/journal/land-man"
+                className="italic text-accent hover:underline"
+              >
+                Land Man
+              </Link>
+              , a piece I wrote about the job itself &mdash; told like a
+              superhero standing in a hallway at six in the morning,
+              presence as the power and discipline as the whole plot.
+              That&rsquo;s the bridge: the same man who checks stairwells
+              and answers the phone at eleven at night is the one writing
+              the verse, framing the photo, building the brand. It was
+              never two lives. It&rsquo;s one instinct, wearing different
+              uniforms.
+            </p>
+          </div>
+
           <p>
-            Add the Accent grew out of those two lives running at once.
-            It&rsquo;s the platform I built to push one mantra: your walk —
-            every job, every room, every version of you — belongs in the
-            work. It shapes how I write, how I make music, how I manage, and
-            how I show up to work every day. I built it to push every
-            multi-hyphenate and multidisciplinary person reading this to
-            stop editing themselves down to one lane. You&rsquo;re not just
-            the artist. You&rsquo;re the professional, the human, and the
-            soul, too. We already move through all of those roles every
-            single day — owning that, out loud, is the only accountability
-            I&rsquo;m asking of you, or of me.
+            Add the Accent is what I built to say that out loud. Your walk
+            &mdash; every job, every room, every version of you &mdash;
+            belongs in the work. You&rsquo;re not just the artist.
+            You&rsquo;re the professional, the human, and the soul, too. We
+            already move through all of those roles every day. Owning that,
+            on purpose, is the only accountability I&rsquo;m asking of you,
+            or of me.
           </p>
         </div>
 
