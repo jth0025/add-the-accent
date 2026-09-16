@@ -260,13 +260,13 @@ export default function AboutPage() {
               grid, frame, and "Portrait Mode — me" caption are already
               part of the piece, so it needs no extra framing here. A leaf
               sits behind its right edge, like it's growing out from
-              behind the piece; the camera portrait sits stacked behind
-              it too, pushed left and tilted, raised slightly so the main
-              photo's own corner lands roughly at its center. Paint order
-              (not z-index — a negative z-index here has no closer
-              stacking-context ancestor to anchor to, so it renders behind
-              the section's own background instead) does the layering:
-              leaf, then camera photo, then the main portrait on top. */}
+              behind the piece. The camera photo, in its own polaroid
+              frame, peeks out from the left side (lowered from its old
+              corner-peek position). Paint order (not z-index — a
+              negative z-index here has no closer stacking-context
+              ancestor to anchor to, so it renders behind the section's
+              own background instead) does the layering: leaf, then the
+              polaroid, then the main portrait on top. */}
           <div className="relative mx-auto w-56 sm:mx-0 sm:w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -275,13 +275,15 @@ export default function AboutPage() {
               aria-hidden="true"
               className="pointer-events-none absolute right-[-3rem] top-[26%] w-32 -rotate-6 drop-shadow-[0_8px_14px_rgba(0,0,0,0.25)] sm:right-[-3.5rem] sm:w-36"
             />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/jt-portrait-2.jpg"
-              alt=""
-              aria-hidden="true"
-              className="absolute -top-28 -left-14 h-full w-full -rotate-[30deg] rounded-sm object-cover object-top shadow-lg brightness-90 sm:-top-32 sm:-left-16"
-            />
+            <div className="absolute -left-14 top-[38%] w-28 rotate-[9deg] rounded-sm border border-black/10 bg-white p-2 shadow-lg sm:-left-16 sm:w-32">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/jt-portrait-2.jpg"
+                alt=""
+                aria-hidden="true"
+                className="h-36 w-full object-cover sepia-[0.12] sm:h-40"
+              />
+            </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/jt-portrait-sketch.jpg"
@@ -339,14 +341,15 @@ export default function AboutPage() {
         <div className="mx-auto mt-7 max-w-2xl space-y-5 text-stone rounded-lg border border-ink/10 bg-white px-5 py-6 shadow-sm paper-notebook sm:mx-0 sm:max-w-none sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none">
           <p>
             <span
-              className="float-left mr-3 mt-1 font-serif italic text-7xl leading-[0.7] text-ink sm:text-8xl"
+              className="float-left mr-3 -mt-1 font-serif italic text-7xl leading-[0.7] text-ink sm:text-8xl"
             >
               I
             </span>
-            was born and raised in Houston, Texas &mdash; but there was
-            always gumbo on the stove. My father carried the city of New
-            Orleans with him everywhere he went: its flavor, its rhythm, its
-            refusal to do anything quietly. He never sat me down and taught
+            am a proud Houston, TX native &mdash; but there was
+            always gumbo on the stove. My father may have left the city
+            years prior, but he carried New Orleans with him everywhere he
+            went &mdash; its flavor, its rhythm, its refusal to do anything
+            quietly. He never sat me down and taught
             any of it to me like a lesson &mdash; he just lived it, loud, in
             our kitchen, in our music, in the way he moved through a room.
             Two cultures were always brewing under one roof, and somewhere
@@ -374,15 +377,22 @@ export default function AboutPage() {
             <span className="float-left mb-2 mr-4 mt-1 rotate-3 rounded-sm border border-black/10 bg-white p-2.5 shadow-lg">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/jt-portrait-2.jpg"
-                alt="JT holding a vintage Pentax film camera up to his face"
+                src="/jt-portrait-night.jpg"
+                alt="JT looking out into a city street at night"
                 className="h-40 w-32 object-cover sepia-[0.12]"
               />
             </span>
             I started in property management back in college, and it
               taught me how to actually take care of people and a community
               &mdash; lessons I didn&rsquo;t know I was collecting until
-              they started showing up in Homebody, and in the discipline it
+              they started showing up in{" "}
+              <Link
+                href="/journal?series=Homebody"
+                className="italic text-accent hover:underline"
+              >
+                Homebody
+              </Link>
+              , and in the discipline it
               takes to keep any of this honest. That eye followed me all
               the way to California, where I live and work today. It
               doesn&rsquo;t read like the rest of my story until you meet{" "}
@@ -403,7 +413,8 @@ export default function AboutPage() {
             </p>
 
           <p className="clear-left">
-            Add the Accent itself matriculated in California &mdash; a
+            <strong className="italic">Add the Accent</strong> itself
+            materialized after my commute to California &mdash; a
             state that&rsquo;s always symbolized leaving the nest to me.
             Leaving comfort was the only way I could actually build a
             platform of truth instead of a performance of one. Your walk
