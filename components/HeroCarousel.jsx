@@ -154,7 +154,7 @@ export default function HeroCarousel({ children }) {
             alt=""
             className="block w-full [filter:drop-shadow(0_4px_4px_rgba(0,0,0,0.4))]"
           />
-          <span className="absolute bottom-[9%] left-1/2 h-5 w-[130%] -translate-x-1/2 translate-y-1/2 rounded-[50%] bg-black/55 blur-[6px]" />
+          <span className="absolute bottom-[15%] left-1/2 h-5 w-[130%] -translate-x-1/2 translate-y-1/2 rounded-[50%] bg-black/35 blur-[6px]" />
         </div>
 
         <div
