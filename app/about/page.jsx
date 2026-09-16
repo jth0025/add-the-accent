@@ -200,7 +200,7 @@ export default function AboutPage() {
               src="/jt-portrait-2.jpg"
               alt=""
               aria-hidden="true"
-              className="absolute -top-24 -left-8 h-full w-full -rotate-24 rounded-sm object-cover object-top shadow-lg brightness-90 sm:-top-28 sm:-left-10"
+              className="absolute -top-24 -left-8 h-full w-full -rotate-[22deg] rounded-sm object-cover object-top shadow-lg brightness-90 sm:-top-28 sm:-left-10"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
