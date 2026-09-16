@@ -10,11 +10,9 @@
  * treatment of Apple Music's own promo graphics (e.g. its Super Bowl
  * halftime-show art): a tiny "Apple Music" lockup up top, a short "Continue
  * the vibe" line, then the station name as the one large, unmissable word,
- * framed by two small connecting words. The periodic glare (.glare-periodic)
- * is scoped to just the frame image — and since it's a mix-blend-mode
- * overlay, the math itself keeps it visible on the frame's bright gold
- * sections and all but invisible on the dark ones, without needing
- * separate masking.
+ * framed by two small connecting words. The frame image itself sits solid
+ * black (brightness-0); the periodic gleam (.tab-copy-gleam) lives on the
+ * copy block instead, and glows on hover.
  */
 export default function ListenNowTab() {
   return (
@@ -23,18 +21,18 @@ export default function ListenNowTab() {
         href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block w-[15.5rem] sm:w-[17.5rem]"
+        className="group relative block w-[15.5rem] transition-[filter] duration-300 [filter:drop-shadow(0_0_0_rgba(255,255,255,0))] hover:[filter:drop-shadow(0_0_10px_rgba(255,255,255,0.55))_drop-shadow(0_0_22px_rgba(255,255,255,0.3))] sm:w-[17.5rem]"
       >
-        <span className="glare-periodic relative block w-full">
+        <span className="relative block w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/listen-now-frame.png"
             alt=""
             aria-hidden="true"
-            className="block w-full transition-transform duration-500 [filter:drop-shadow(0_6px_14px_rgba(0,0,0,0.55))] group-hover:scale-[1.02]"
+            className="block w-full transition-transform duration-500 [filter:brightness(0)_drop-shadow(0_6px_14px_rgba(0,0,0,0.55))] group-hover:scale-[1.02]"
           />
         </span>
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center pb-[30%] pl-[16%] pr-[16%] pt-[9%]">
+        <div className="tab-copy-gleam absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center pb-[30%] pl-[16%] pr-[16%] pt-[9%]">
           {/* Small "Apple Music" lockup, echoing the reference art — nudged
               down from the frame's top edge to leave room to breathe. */}
           <span className="flex items-center gap-1 font-sans text-[7px] font-bold uppercase tracking-wide text-white/90 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">

@@ -1045,53 +1045,32 @@ html.header-dark .header-cloud.header-cloud--storm {
   }
 }
 
-/* Periodic image glare — a subtle light streak that sweeps across an
-   element on its own, the same "mostly at rest, brief sweep" timing as
-   .gold-foil's text gleam, but as an image overlay (mix-blend-mode)
-   since an <img> can't take a background-clip:text fill. Doesn't set
-   its own display: the caller's own block/inline-block utility class
-   decides that (this used to hardcode inline-block, which — being a
-   same-specificity sibling of Tailwind's own display utilities —
-   could silently win the tie-break and override a `block` class placed
-   on the same element, adding an inline-formatting-context baseline
-   gap under the wrapped image). */
-.glare-periodic {
-  overflow: hidden;
-}
-
-.glare-periodic::after {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background: linear-gradient(
-    100deg,
-    transparent 42%,
-    rgba(255, 255, 255, 0.85) 50%,
-    transparent 58%
-  );
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  transform: translateX(-140%);
-  animation: glare-sweep 7s ease-in-out infinite;
-}
-
-@keyframes glare-sweep {
+/* Listen-now tab copy gleam — a periodic brightness+glow pulse (same
+   "mostly at rest, brief flash" timing as .gold-foil's text gleam) on
+   the tab's copy block (the Apple Music lockup, tagline, and station
+   name). Uses `filter`, not a background-clip/blend-mode trick, since
+   the block mixes real text with an SVG icon and needs to read on both
+   regardless of the tab image now sitting solid black behind them. */
+@keyframes tab-copy-gleam {
   0%,
   70% {
-    transform: translateX(-140%);
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 255, 255, 0));
   }
   85% {
-    transform: translateX(140%);
+    filter: brightness(1.6) drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
   }
   100% {
-    transform: translateX(140%);
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 255, 255, 0));
   }
+}
+
+.tab-copy-gleam {
+  animation: tab-copy-gleam 7s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glare-periodic::after {
+  .tab-copy-gleam {
     animation: none;
-    display: none;
   }
 }
 
