@@ -1,10 +1,10 @@
 /**
  * A small "tab" hanging directly off the bottom of the Now Playing bar,
- * linking to the Apple Music radio station. Sits at the far left, flush
- * against the bar's own bottom border (no overlap, no gap) so it reads
- * as one continuous piece, and plays a one-shot drop-and-fade entrance
- * (.listen-now-drop, in globals.css) every time this page mounts — i.e.
- * every time you navigate to the home page.
+ * linking to the Apple Music radio station. Centered under the middle of
+ * the bar, flush against its own bottom border (no overlap, no gap) so it
+ * reads as one continuous piece, and plays a one-shot drop-and-fade
+ * entrance (.listen-now-drop, in globals.css) every time this page mounts
+ * — i.e. every time you navigate to the home page.
  *
  * Copy borrows the small/BIG/small hierarchy and bold condensed-caps
  * treatment of Apple Music's own promo graphics (e.g. its Super Bowl
@@ -18,12 +18,12 @@
  */
 export default function ListenNowTab() {
   return (
-    <div className="listen-now-drop relative z-10 pl-4 sm:pl-6">
+    <div className="listen-now-drop relative z-10 flex justify-center">
       <a
         href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block w-[17rem] sm:w-[19rem]"
+        className="group relative block w-[15.5rem] sm:w-[17.5rem]"
       >
         <span className="glare-periodic relative block w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -60,7 +60,7 @@ export default function ListenNowTab() {
             <span className="font-sans text-[7px] font-medium uppercase tracking-wide text-white/80 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
               through
             </span>
-            <span className="font-display text-[14px] uppercase leading-none text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.9)] sm:text-[16px]">
+            <span className="font-display text-[13px] uppercase leading-none text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.9)] sm:text-[15px]">
               Green Maize
             </span>
             <span className="font-sans text-[7px] font-medium uppercase tracking-wide text-white/80 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
