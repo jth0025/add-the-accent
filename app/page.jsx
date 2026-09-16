@@ -5,7 +5,7 @@ import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
 import JournalEntryCard from "@/components/JournalEntryCard";
 import VoiceClip from "@/components/VoiceClip";
-import RadioBanner from "@/components/RadioBanner";
+import ListenNowTab from "@/components/ListenNowTab";
 import WordOfTheDay from "@/components/WordOfTheDay";
 
 export default function HomePage() {
@@ -16,8 +16,11 @@ export default function HomePage() {
     .slice(0, 3);
 
   return (
-    <div className="mx-auto max-w-3xl px-6">
-      <figure className="mt-12 text-center text-white">
+    <>
+      <ListenNowTab />
+
+      <div className="mx-auto max-w-3xl px-6">
+        <figure className="mt-12 text-center text-white">
         <blockquote className="whitespace-nowrap font-serif italic leading-snug text-[min(calc((100vw-3rem)/38),1.2rem)]">
           &ldquo;The goal of an artist is to create the definitive work that
           cannot be surpassed.&rdquo;
@@ -26,80 +29,61 @@ export default function HomePage() {
           &mdash; George Bernard Shaw
         </figcaption>
 
-        <div className="relative mx-auto mt-10 w-full max-w-sm md:max-w-none">
-          <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:gap-4">
-            <div className="relative w-full max-w-sm md:w-[360px] md:max-w-[360px] md:shrink-0">
-              {/* Hand-drawn note pointing at the intro clip — desktop
-                  only, where there's room in the gutter beside the
-                  track. Positioned against this column specifically so
-                  the banner beside it doesn't throw off the vertical
-                  centering. */}
-              <div className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 select-none items-center gap-1.5 md:flex">
-                <span className="whitespace-nowrap text-right font-hand text-[17px] font-semibold leading-[1.15] -rotate-[4deg] text-white/90 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.35))]">
-                  a brief intro
-                  <br />
-                  from yours truly!
-                </span>
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.9"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="point-bounce h-5 w-5 shrink-0 text-white/95 [filter:url(#urban-sketch)]"
-                  aria-hidden="true"
-                >
-                  <path d="M3 12h16" />
-                  <path d="M13 6l7 6-7 6" />
-                </svg>
-              </div>
-
-              <VoiceClip
-                src="/audio/the-difference-is-you.mp3"
-                label="The difference is you"
-              />
-
-              {/* Mobile: a stuck-on note under the clip, with an arrow
-                  nudging up toward the play button. Replaces the gutter
-                  note where there's no room beside the track. */}
-              <div className="mt-3.5 flex justify-start md:hidden">
-                <div className="relative ml-1 inline-block max-w-[15rem] -rotate-2 rounded-[3px] bg-[#f2e6a6] px-3 pb-2 pt-2.5 text-left shadow-[0_8px_18px_rgba(0,0,0,0.45)]">
-                  <span
-                    aria-hidden="true"
-                    className="absolute -top-2 left-6 h-4 w-12 -rotate-6 bg-white/40 shadow-sm"
-                  />
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.9"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="point-bounce-up absolute -top-6 left-[22px] h-6 w-6 text-white/95 [filter:url(#urban-sketch)]"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 21V4" />
-                    <path d="M6 11l6-7 6 7" />
-                  </svg>
-                  <span className="font-hand text-[16px] font-semibold leading-[1.15] text-[#4b3f24]">
-                    a brief intro from yours truly!
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <span className="glare-periodic relative h-7 w-7 shrink-0 self-center sm:h-8 sm:w-8">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/plus-sign.png"
-                alt=""
-                aria-hidden="true"
-                className="h-full w-full [filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.4))]"
-              />
+        <div className="relative mx-auto mt-5 w-full max-w-sm">
+          {/* Hand-drawn note pointing at the intro clip — desktop only,
+              where there's room in the gutter beside the centered track. */}
+          <div className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 select-none items-center gap-1.5 md:flex">
+            <span className="whitespace-nowrap text-right font-hand text-[17px] font-semibold leading-[1.15] -rotate-[4deg] text-white/90 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.35))]">
+              a brief intro
+              <br />
+              from yours truly!
             </span>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.9"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="point-bounce h-5 w-5 shrink-0 text-white/95 [filter:url(#urban-sketch)]"
+              aria-hidden="true"
+            >
+              <path d="M3 12h16" />
+              <path d="M13 6l7 6-7 6" />
+            </svg>
+          </div>
 
-            <RadioBanner />
+          <VoiceClip
+            src="/audio/the-difference-is-you.mp3"
+            label="The difference is you"
+          />
+
+          {/* Mobile: a stuck-on note under the clip, with an arrow nudging
+              up toward the play button. Replaces the gutter note where
+              there's no room beside the track. */}
+          <div className="mt-3.5 flex justify-start md:hidden">
+            <div className="relative ml-1 inline-block max-w-[15rem] -rotate-2 rounded-[3px] bg-[#f2e6a6] px-3 pb-2 pt-2.5 text-left shadow-[0_8px_18px_rgba(0,0,0,0.45)]">
+              <span
+                aria-hidden="true"
+                className="absolute -top-2 left-6 h-4 w-12 -rotate-6 bg-white/40 shadow-sm"
+              />
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.9"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="point-bounce-up absolute -top-6 left-[22px] h-6 w-6 text-white/95 [filter:url(#urban-sketch)]"
+                aria-hidden="true"
+              >
+                <path d="M12 21V4" />
+                <path d="M6 11l6-7 6 7" />
+              </svg>
+              <span className="font-hand text-[16px] font-semibold leading-[1.15] text-[#4b3f24]">
+                a brief intro from yours truly!
+              </span>
+            </div>
           </div>
         </div>
 
@@ -450,6 +434,7 @@ export default function HomePage() {
           </ul>
         </section>
       )}
-    </div>
+      </div>
+    </>
   );
 }

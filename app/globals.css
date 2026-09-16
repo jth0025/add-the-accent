@@ -1090,3 +1090,31 @@ html.header-dark .header-cloud.header-cloud--storm {
     display: none;
   }
 }
+
+/* Home-page "Listen now" tab — a one-shot drop-and-fade every time the
+   element mounts (i.e. every time you navigate to the home page),
+   easing in slowly rather than looping like the other ambient effects
+   on this page. */
+@keyframes listen-now-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-26px);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.listen-now-drop {
+  animation: listen-now-drop 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .listen-now-drop {
+    animation: none;
+  }
+}
