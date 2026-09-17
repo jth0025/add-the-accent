@@ -20,7 +20,7 @@ export default function HomePage() {
       <ListenNowTab />
 
       <div className="mx-auto max-w-3xl px-6">
-        <figure className="mt-9 text-center text-white">
+        <figure className="mt-8 text-center text-white sm:mt-4">
         <blockquote className="whitespace-nowrap font-serif italic leading-snug text-[min(calc((100vw-3rem)/38),1.2rem)]">
           &ldquo;The goal of an artist is to create the definitive work that
           cannot be surpassed.&rdquo;
