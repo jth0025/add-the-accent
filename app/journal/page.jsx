@@ -1,6 +1,7 @@
 import EntryList from "@/components/EntryList";
 import JournalNav from "@/components/JournalNav";
 import JournalEntryCard from "@/components/JournalEntryCard";
+import SeriesProgress from "@/components/SeriesProgress";
 import { getAllEntries } from "@/lib/content";
 
 export const metadata = { title: "Journal — Add the Accent" };
@@ -110,6 +111,12 @@ export default function JournalIndex({ searchParams }) {
                   {group.intro}
                 </p>
               )}
+              <SeriesProgress
+                series={group.name}
+                entries={group.entries}
+                tone="dark"
+                className="mt-4 max-w-xs"
+              />
               <ul className="mt-5 space-y-5">
                 {group.entries.map((entry) => (
                   <li key={entry.slug}>

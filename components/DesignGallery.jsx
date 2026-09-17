@@ -81,17 +81,22 @@ export default function DesignGallery() {
                 animationDelay: `${Math.min(i * 40, 640)}ms`,
                 "--deal-rot": i % 2 === 0 ? "-4deg" : "4deg",
               }}
-              className="deal-in group relative mb-5 block w-full cursor-zoom-in overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-xl"
+              className="deal-in group relative mb-5 block w-full cursor-zoom-in drop-shadow-[0_6px_14px_rgba(0,0,0,0.28)] transition-[filter] duration-300 hover:drop-shadow-[0_10px_22px_rgba(0,0,0,0.38)]"
               aria-label={`Enlarge: ${piece.alt}`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={piece.src}
-                alt={piece.alt}
-                className="block w-full"
-                loading="lazy"
-              />
-              <span className="bronze-glare" aria-hidden="true" />
+              {/* The shadow lives on this button so it isn't clipped by
+                  the rounded-corner mask below (box-shadow/drop-shadow on
+                  an overflow-hidden element gets cut off with it). */}
+              <span className="relative block overflow-hidden rounded-lg">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={piece.src}
+                  alt={piece.alt}
+                  className="block w-full"
+                  loading="lazy"
+                />
+                <span className="bronze-glare" aria-hidden="true" />
+              </span>
               {isCommission && (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img

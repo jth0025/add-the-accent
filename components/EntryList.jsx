@@ -2,9 +2,14 @@ import Link from "next/link";
 import { formatDate } from "@/lib/content";
 import JournalNav from "@/components/JournalNav";
 import JournalEntryCard from "@/components/JournalEntryCard";
+import SeriesProgress from "@/components/SeriesProgress";
+import { SERIES_TOTAL_PARTS } from "@/lib/seriesColors";
 
 export default function EntryList({ section, heading, intro, entries }) {
   const isJournal = section === "journal";
+  // A filtered series view (e.g. ?series=Homebody) hands its series name
+  // straight through as the heading; only those get a progress bar.
+  const isSeriesView = isJournal && Boolean(SERIES_TOTAL_PARTS[heading]);
   // A darker olive than the `moss` token so the "Section" label actually
   // reads against the light card.
   const tagTextClass = isJournal ? "text-[#4a5714]" : "text-accent";
@@ -27,6 +32,13 @@ export default function EntryList({ section, heading, intro, entries }) {
           {heading}
         </h1>
         {intro && <p className="mt-4 max-w-xl text-stone">{intro}</p>}
+        {isSeriesView && (
+          <SeriesProgress
+            series={heading}
+            entries={entries}
+            className="mt-5 max-w-xl"
+          />
+        )}
         {isJournal && <JournalNav className="mt-6 border-t border-ink/10 pt-5" />}
       </div>
 
