@@ -83,15 +83,19 @@ export default function JournalIndex({ searchParams }) {
     "grunge-text font-display text-2xl uppercase tracking-tight text-white sm:text-3xl [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]";
   const sectionBlurbClass = "mt-2 max-w-xl text-sm text-white/70";
 
-  // Per-series label color; green on hover.
-  const SERIES_LABEL_COLOR = {
-    "Domain Expansion": "text-[#a855f7]",
-    "Back to Oui": "text-[#e0555f]",
-    "Homebody": "text-[#d3ac52]",
+  // Per-series title: starts black, reveals its own color on hover.
+  const SERIES_HOVER_COLOR = {
+    "Domain Expansion": "hover:text-[#a855f7]",
+    "Back to Oui": "hover:text-[#e0555f]",
+    "Homebody": "hover:text-[#d3ac52]",
   };
+
+  const JOURNAL_PAGE_INTRO =
+    "Before any of this was written, it was played, shot, designed, or filmed. Writing came last — the medium that finally held the others together — and this page is where it keeps going.";
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
+      <h1 className="sr-only">Journal</h1>
       <section className="paper-fold-thirds corner-box relative rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
         <PaperClip position="-top-4 left-14 rotate-[7deg]" />
         <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
@@ -105,11 +109,8 @@ export default function JournalIndex({ searchParams }) {
           alt="The Add the Accent character writing at a wooden desk, books and a small plant beside him"
           className="mx-auto mt-6 w-56 max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.28)] sm:w-64"
         />
-        <h1 className="mt-6 text-center font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
-          Journal
-        </h1>
-        <p className="mx-auto mt-3 max-w-xl text-center text-sm text-stone">
-          {JOURNAL_INTRO}
+        <p className="mx-auto mt-6 max-w-xl text-center text-sm text-stone">
+          {JOURNAL_PAGE_INTRO}
         </p>
       </section>
 
@@ -121,8 +122,8 @@ export default function JournalIndex({ searchParams }) {
           {seriesGroups.map((group) => (
             <div key={group.name}>
               <h3
-                className={`font-serif text-xl italic [text-shadow:0_1px_3px_rgba(0,0,0,0.55)] ${
-                  SERIES_LABEL_COLOR[group.name] || "text-white"
+                className={`font-serif text-xl italic text-ink transition-colors duration-300 [text-shadow:0_1px_3px_rgba(0,0,0,0.55)] ${
+                  SERIES_HOVER_COLOR[group.name] || "hover:text-accent"
                 }`}
               >
                 {group.name}
