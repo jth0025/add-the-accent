@@ -56,7 +56,7 @@ export default function PortfolioIndex() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       <section className="paper-fold-quarters corner-box rounded-xl border border-ink/15 bg-card px-7 py-12 text-center sm:px-10 sm:py-16">
-        <PaperClip position="-top-4 left-11 rotate-[7deg]" />
+        <PaperClip position="-top-4 left-14 rotate-[7deg]" />
         <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
           <span className="h-px w-8 bg-accent/40" />
           <span>Portfolio</span>
