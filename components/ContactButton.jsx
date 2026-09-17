@@ -108,7 +108,13 @@ export default function ContactButton({ className = "" }) {
           role="dialog"
           aria-modal="true"
           aria-label="Contact form"
-          className="fixed inset-0 z-[300] flex items-center justify-center bg-black/70 p-6"
+          // The trigger button sits in a `pointer-events-none` wrapper
+          // (see app/layout.jsx) so that empty corner doesn't block clicks
+          // on the page behind it. `pointer-events` inherits down the DOM
+          // regardless of this being `fixed`, so without this override
+          // every click inside the open modal — inputs included — falls
+          // straight through to the page behind it.
+          className="pointer-events-auto fixed inset-0 z-[300] flex items-center justify-center bg-black/70 p-6"
           onClick={() => setOpen(false)}
         >
           <div
