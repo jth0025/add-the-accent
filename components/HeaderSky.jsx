@@ -123,17 +123,12 @@ export default function HeaderSky() {
         "--header-fg",
         PERIODS[next].fg,
       );
-      // Toggled instead of read via React state so the thunderhead
-      // (rendered from static markup in layout.jsx, not by this
-      // component) can react to it purely in CSS — see
-      // html.header-dark .header-cloud--storm in globals.css.
-      document.documentElement.classList.toggle(
-        "header-dark",
-        PERIODS[next].dark,
-      );
-      // Narrower than header-dark (which also covers dawn/dusk) — just
-      // the actual "night" stretch, for effects meant to show only then
-      // (see html.header-night .logo-backlight in globals.css).
+      // Toggled instead of read via React state so static markup in
+      // layout.jsx (not rendered by this component) can react to it
+      // purely in CSS — just the actual "night" stretch (narrower than
+      // the dark/dawn/midday/etc. period itself), for effects meant to
+      // show only then (see html.header-night .logo-backlight in
+      // globals.css).
       document.documentElement.classList.toggle(
         "header-night",
         next === "night",

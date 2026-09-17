@@ -111,6 +111,25 @@ const HEADER_CLOUDS = [
   { top: 6, width: 23, duration: 70, delay: -58, opacity: 0.82, color: "#1a1a1a" },
 ];
 
+// Real rain across the header, shown only when it's actually raining in
+// LA right now (html.header-raining, toggled by LATemperature after it
+// checks current precipitation) — plain falling lines, independent of
+// the drifting cloud parade above. Staggered duration/delay so they
+// don't fall in lockstep.
+const RAIN_DROPS = [
+  { left: 4, duration: 0.9, delay: -0.1 },
+  { left: 12, duration: 0.75, delay: -0.5 },
+  { left: 21, duration: 0.85, delay: -0.2 },
+  { left: 30, duration: 0.7, delay: -0.8 },
+  { left: 39, duration: 0.95, delay: -0.4 },
+  { left: 48, duration: 0.8, delay: -0.65 },
+  { left: 57, duration: 0.9, delay: -0.05 },
+  { left: 66, duration: 0.75, delay: -0.35 },
+  { left: 75, duration: 0.85, delay: -0.75 },
+  { left: 84, duration: 0.7, delay: -0.15 },
+  { left: 92, duration: 0.95, delay: -0.55 },
+];
+
 // Journal dropdown contents — the three ordered series plus the
 // "Interludes" pool of standalone reflections that surface inside all of
 // them. Each series carries its own label color (purple / red / bronze gold).
@@ -249,34 +268,25 @@ export default function RootLayout({ children }) {
                 </svg>
               ))}
 
-              {/* One lone thunderhead mixed into the parade — darker, with
-                  rain and a flickering bolt trailing well below the cloud
-                  so it clearly reads as a storm, on its own slower schedule
-                  so it only drifts through every so often. */}
-              <svg
-                viewBox="0 0 72 78"
-                className="header-cloud header-cloud--storm absolute"
-                style={{ top: 1, width: 32, opacity: 0.92 }}
+              {/* Real rain, hidden unless html.header-raining is set (see
+                  globals.css) — plain falling lines across the header. */}
+              <div
+                className="header-rain pointer-events-none absolute inset-0"
                 aria-hidden="true"
               >
-                <g stroke="#7ea6c6" strokeWidth="2.2" strokeLinecap="round" opacity="0.8">
-                  <line x1="18" y1="33" x2="14" y2="49" />
-                  <line x1="25" y1="36" x2="21" y2="56" />
-                  <line x1="47" y1="34" x2="43" y2="51" />
-                  <line x1="54" y1="36" x2="50" y2="54" />
-                </g>
-                <path
-                  className="storm-bolt"
-                  d="M38 22 L30 42 L36 42 L28 64 L45 38 L38 38 L44 22 Z"
-                  fill="#f4c752"
-                  stroke="#c9962e"
-                  strokeWidth="0.75"
-                />
-                <rect x="9" y="18" width="52" height="14" rx="7" fill="#343b42" />
-                <ellipse cx="21" cy="19" rx="15" ry="11" fill="#343b42" />
-                <ellipse cx="37" cy="12" rx="18" ry="14" fill="#3d454d" />
-                <ellipse cx="53" cy="19" rx="13" ry="10" fill="#2e343a" />
-              </svg>
+                {RAIN_DROPS.map((drop, i) => (
+                  <span
+                    key={i}
+                    className="header-rain-drop absolute top-[-12%] block w-px bg-[#7ea6c6]"
+                    style={{
+                      left: `${drop.left}%`,
+                      height: 14,
+                      animationDuration: `${drop.duration}s`,
+                      animationDelay: `${drop.delay}s`,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
             <nav className="relative z-10 mx-auto flex max-w-3xl items-end justify-between px-6 pt-4">
               <div className="flex items-end gap-2.5">

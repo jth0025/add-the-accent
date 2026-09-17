@@ -675,22 +675,6 @@ body {
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08));
 }
 
-/* The lone thunderhead rides its own slower keyframe that parks it
-   off-screen for part of every cycle, so it reads as an occasional
-   visitor rather than one more cloud in the steady parade. Hidden
-   once HeaderSky decides it's actually dark out (html.header-dark) —
-   a storm cloud reads wrong once the twinkling stars are out. */
-.header-cloud.header-cloud--storm {
-  animation-name: storm-drift;
-  animation-duration: 96s;
-  animation-delay: -20s;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.16));
-}
-
-html.header-dark .header-cloud.header-cloud--storm {
-  display: none;
-}
-
 /* Logo backlight — a soft glow centered behind the header logo, shown
    only during the actual "night" stretch (html.header-night, a narrower
    window than header-dark) rather than the whole dawn/dusk span. */
@@ -698,54 +682,41 @@ html.header-night .logo-backlight {
   opacity: 1;
 }
 
-@keyframes storm-drift {
-  0%,
-  12% {
-    transform: translateX(122vw);
-  }
-  60% {
-    transform: translateX(-28vw);
-  }
-  100% {
-    transform: translateX(-28vw);
-  }
+/* Real rain — hidden by default; LATemperature toggles html.header-raining
+   once it checks current precipitation in LA, so this only ever shows
+   when it's actually raining, not on a decorative schedule. */
+.header-rain {
+  display: none;
 }
 
-/* Its bolt stays dimly lit, then flashes every few seconds. */
-.storm-bolt {
-  filter: drop-shadow(0 0 1.5px #f4c752);
-  animation: storm-bolt 4s linear infinite;
+html.header-raining .header-rain {
+  display: block;
 }
 
-@keyframes storm-bolt {
-  0%,
-  68%,
+.header-rain-drop {
+  opacity: 0.75;
+  animation-name: rain-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rain-fall {
+  0% {
+    transform: translateY(0);
+  }
   100% {
-    opacity: 0.4;
-  }
-  70% {
-    opacity: 1;
-  }
-  72% {
-    opacity: 0.25;
-  }
-  74% {
-    opacity: 1;
-  }
-  78% {
-    opacity: 0.4;
+    transform: translateY(340%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .header-cloud,
-  .header-cloud.header-cloud--storm {
+  .header-cloud {
     animation: none;
     left: 8%;
   }
-  .storm-bolt {
+  .header-rain-drop {
     animation: none;
-    opacity: 0.6;
+    opacity: 0.4;
   }
 }
 
