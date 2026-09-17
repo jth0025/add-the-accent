@@ -15,12 +15,14 @@
  * cycle (.tab-slow-glow) and holds at full glow for as long as it's
  * hovered. The outer wrapper's clip-path pins a hard boundary at its own
  * (unshifted) top edge — open on every other side — so that glow can
- * never bleed up past where the tab naturally sits, even with the desktop
- * nudge, keeping it off the Now Playing bar and the header above.
+ * never bleed up past where the tab naturally sits and onto whatever's
+ * directly above it: the Now Playing bar and header on desktop, or the
+ * phone nav menu on mobile (that bar sits between the Now Playing bar
+ * and this tab on small screens, so the clip has to hold there too).
  */
 export default function ListenNowTab() {
   return (
-    <div className="listen-now-drop relative z-10 flex justify-center sm:justify-start sm:pl-6 sm:[clip-path:inset(0_-100vw_-100vw_-100vw)]">
+    <div className="listen-now-drop relative z-10 flex justify-center [clip-path:inset(0_-100vw_-100vw_-100vw)] sm:justify-start sm:pl-6">
       <a
         href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
         target="_blank"
