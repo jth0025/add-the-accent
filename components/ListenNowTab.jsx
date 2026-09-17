@@ -1,10 +1,10 @@
 /**
  * A small "tab" hanging directly off the bottom of the Now Playing bar,
  * linking to the Apple Music radio station. Centered under the middle of
- * the bar, flush against its own bottom border (no overlap, no gap) so it
- * reads as one continuous piece, and plays a one-shot drop-and-fade
- * entrance (.listen-now-drop, in globals.css) every time this page mounts
- * — i.e. every time you navigate to the home page.
+ * the bar on phones; on desktop it sits at the far left instead, nudged
+ * slightly up into the bar. Plays a one-shot drop-and-fade entrance
+ * (.listen-now-drop, in globals.css) every time this page mounts — i.e.
+ * every time you navigate to the home page.
  *
  * Copy borrows the small/BIG/small hierarchy and bold condensed-caps
  * treatment of Apple Music's own promo graphics (e.g. its Super Bowl
@@ -13,16 +13,20 @@
  * framed by two small connecting words. The frame art (listen-now-frame.png)
  * is already solid black with its own baked-in shadow; a periodic bronze
  * light streak (.tab-bronze-sweep) runs across the whole tab via
- * mix-blend-mode:screen, and the tab glows on hover.
+ * mix-blend-mode:screen, and the tab glows on hover. The outer wrapper's
+ * clip-path pins a hard boundary at its own (unshifted) top edge — open on
+ * every other side — so the hover glow can never bleed up past where the
+ * tab naturally sits, even with the desktop nudge, keeping it off the Now
+ * Playing bar and the header above.
  */
 export default function ListenNowTab() {
   return (
-    <div className="listen-now-drop relative z-10 flex justify-center">
+    <div className="listen-now-drop relative z-10 flex justify-center sm:justify-start sm:pl-6 sm:[clip-path:inset(0_-100vw_-100vw_-100vw)]">
       <a
         href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block w-[15.5rem] transition-[filter] duration-300 [filter:drop-shadow(0_0_0_rgba(212,163,74,0))] hover:[filter:drop-shadow(0_0_10px_rgba(212,163,74,0.65))_drop-shadow(0_0_22px_rgba(212,163,74,0.35))] sm:w-[17.5rem]"
+        className="group relative block w-[15.5rem] transition-[filter,transform] duration-300 sm:-translate-y-1.5 [filter:drop-shadow(0_0_0_rgba(212,163,74,0))] hover:[filter:drop-shadow(0_0_10px_rgba(212,163,74,0.65))_drop-shadow(0_0_22px_rgba(212,163,74,0.35))] sm:w-[17.5rem]"
       >
         <span className="tab-bronze-sweep relative block w-full overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
