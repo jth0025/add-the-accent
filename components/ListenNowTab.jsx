@@ -1,8 +1,9 @@
 /**
  * A small "tab" hanging directly off the bottom of the Now Playing bar,
  * linking to the Apple Music radio station. Centered under the middle of
- * the bar on phones; on desktop it sits at the far left instead, nudged
- * slightly up into the bar. Plays a one-shot drop-and-fade entrance
+ * the bar on phones (nudged slightly up into it there too); on desktop
+ * it sits at the far left instead, nudged up a bit further. Plays a
+ * one-shot drop-and-fade entrance
  * (.listen-now-drop, in globals.css) every time this page mounts — i.e.
  * every time you navigate to the home page.
  *
@@ -27,7 +28,7 @@ export default function ListenNowTab() {
         href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
         target="_blank"
         rel="noopener noreferrer"
-        className="tab-slow-glow group relative block w-[18rem] transition-transform duration-300 sm:-translate-y-1.5 sm:w-[20.5rem]"
+        className="tab-slow-glow group relative block w-[18rem] -translate-y-1 transition-transform duration-300 sm:-translate-y-1.5 sm:w-[20.5rem]"
       >
         <span className="relative block w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
