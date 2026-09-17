@@ -106,18 +106,22 @@ export default function EntryPage({ section, backLabel, entry }) {
         {art && <EssayArt src={art.src} alt={art.alt} rotate={art.rotate} />}
 
         {entry.slug === "the-difference" && (
-          <div className="relative mx-auto my-8 max-w-xs">
+          <div className="relative mx-auto my-8 max-w-xs overflow-hidden rounded-xl bg-gradient-to-b from-[#141414] to-black px-4 pb-4 pt-6">
+            {/* A single downward spotlight beam — light only, nothing
+                else in it — aimed from the top of the frame straight
+                down onto him. A narrow-to-wide clipped trapezoid, blurred
+                for a soft edge, fading out before it reaches the floor. */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-0 h-28 w-24 -translate-x-1/2 [clip-path:polygon(44%_0%,56%_0%,92%_100%,8%_100%)] bg-gradient-to-b from-[rgba(255,248,222,0.75)] via-[rgba(255,248,222,0.22)] to-[rgba(255,248,222,0)] blur-[5px] sm:h-32 sm:w-28"
+            />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/journal-art/the-difference-solo.png"
-              alt="The Add the Accent character standing alone in a single spotlight"
-              className="pointer-events-none relative z-10 mx-auto -mb-6 h-40 w-auto drop-shadow-[0_12px_18px_rgba(0,0,0,0.6)] sm:h-48"
+              alt="The Add the Accent character standing alone under a single spotlight"
+              className="relative z-10 mx-auto h-40 w-auto drop-shadow-[0_10px_16px_rgba(0,0,0,0.65)] sm:h-48"
             />
-            <div className="relative overflow-hidden rounded-xl bg-gradient-to-b from-[#1c1c1c] to-black px-4 pb-4 pt-14">
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute left-1/2 top-0 h-48 w-48 -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(255,247,214,0.55),rgba(255,247,214,0)_72%)] blur-[2px]"
-              />
+            <div className="relative z-10 mt-4">
               <VoiceClip
                 src="/audio/the-difference-is-you.mp3"
                 label="The difference is you"
