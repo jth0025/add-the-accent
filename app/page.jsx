@@ -7,13 +7,16 @@ import JournalEntryCard from "@/components/JournalEntryCard";
 import VoiceClip from "@/components/VoiceClip";
 import ListenNowTab from "@/components/ListenNowTab";
 import WordOfTheDay from "@/components/WordOfTheDay";
+import SeriesProgress from "@/components/SeriesProgress";
 
 export default function HomePage() {
   const portfolio = getSelectedWork().slice(0, 3);
   const featuredSlugs = new Set(portfolio.map((e) => e.slug));
-  const journal = getAllEntries("journal")
+  const allJournalEntries = getAllEntries("journal");
+  const journal = allJournalEntries
     .filter((e) => !featuredSlugs.has(e.slug))
     .slice(0, 3);
+  const bySeries = (name) => allJournalEntries.filter((e) => e.series === name);
 
   return (
     <>
@@ -209,6 +212,11 @@ export default function HomePage() {
             </span>
           </Link>
           <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+            <SeriesProgress
+              series="Homebody"
+              entries={bySeries("Homebody")}
+              className="mb-5"
+            />
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
               <span className="font-bold italic">Homebody</span> is a
               visual storytelling series exploring masculinity, identity,
@@ -247,6 +255,11 @@ export default function HomePage() {
             </span>
           </Link>
           <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+            <SeriesProgress
+              series="Domain Expansion"
+              entries={bySeries("Domain Expansion")}
+              className="mb-5"
+            />
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
               A <span className="font-bold italic">Homebody</span> Series
               details the accounts of reimagining a new home; inspired by
@@ -285,6 +298,11 @@ export default function HomePage() {
             </span>
           </Link>
           <div className="paper-notebook bg-white border-t border-ink/15 px-8 py-8 sm:px-10">
+            <SeriesProgress
+              series="Back to Oui"
+              entries={bySeries("Back to Oui")}
+              className="mb-5"
+            />
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
               &ldquo;<span className="font-bold italic">Back to Oui</span>
               &rdquo; traces the distance between love and despair;
