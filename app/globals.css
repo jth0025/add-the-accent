@@ -181,7 +181,11 @@ body {
    background-size on the photo layer is 100% auto (the same technique
    as .marble-dark below) so the box holds the photo at its own width
    instead of cropping/stretching it to "cover" a mismatched aspect
-   ratio; repeat-y covers any extra height beyond one tile. */
+   ratio; no-repeat so it shows once in full (repeating it vertically
+   once the box runs taller than one tile — easy on a narrow mobile
+   width, where the same box height needs more tiles — duplicated its
+   fold-crease art instead of extending it). The box's own bg-card
+   fills anything below that one tile. */
 .paper-fold-thirds {
   background-image: repeating-linear-gradient(
       to bottom,
@@ -199,7 +203,7 @@ body {
       transparent 35px
     ),
     url("/textures/about-fold-thirds.png");
-  background-repeat: repeat, no-repeat, repeat-y;
+  background-repeat: repeat, no-repeat, no-repeat;
   background-size: auto, auto, 100% auto;
   background-position: 0 0, 0 0, top center;
 }
@@ -221,7 +225,7 @@ body {
       transparent 35px
     ),
     url("/textures/portfolio-fold-quarters.png");
-  background-repeat: repeat, no-repeat, repeat-y;
+  background-repeat: repeat, no-repeat, no-repeat;
   background-size: auto, auto, 100% auto;
   background-position: 0 0, 0 0, top center;
 }
