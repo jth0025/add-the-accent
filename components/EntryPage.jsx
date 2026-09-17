@@ -2,10 +2,14 @@ import Link from "next/link";
 import { formatDate } from "@/lib/content";
 import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
+import EssayArt from "@/components/EssayArt";
+import VoiceClip from "@/components/VoiceClip";
 import { getCoverColor } from "@/lib/seriesColors";
+import { ESSAY_ART } from "@/lib/essayArt";
 
 export default function EntryPage({ section, backLabel, entry }) {
   const isJournal = section === "journal";
+  const art = ESSAY_ART[entry.slug];
   const tagTextClass = isJournal ? "text-moss" : "text-accent";
   const tagRuleClass = isJournal ? "bg-moss/40" : "bg-accent/40";
   // Journal boxes read as crinkled paper; everything else keeps its own mood.
@@ -97,6 +101,29 @@ export default function EntryPage({ section, backLabel, entry }) {
           <p className="mt-3 font-mono text-xs uppercase tracking-wide text-stone/60">
             {formatDate(entry.date)}
           </p>
+        )}
+
+        {art && <EssayArt src={art.src} alt={art.alt} rotate={art.rotate} />}
+
+        {entry.slug === "the-difference" && (
+          <div className="relative mx-auto my-8 max-w-xs">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/journal-art/the-difference-solo.png"
+              alt="The Add the Accent character standing alone in a single spotlight"
+              className="pointer-events-none relative z-10 mx-auto -mb-6 h-40 w-auto drop-shadow-[0_12px_18px_rgba(0,0,0,0.6)] sm:h-48"
+            />
+            <div className="relative overflow-hidden rounded-xl bg-gradient-to-b from-[#1c1c1c] to-black px-4 pb-4 pt-14">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute left-1/2 top-0 h-48 w-48 -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(255,247,214,0.55),rgba(255,247,214,0)_72%)] blur-[2px]"
+              />
+              <VoiceClip
+                src="/audio/the-difference-is-you.mp3"
+                label="The difference is you"
+              />
+            </div>
+          </div>
         )}
 
         <div
