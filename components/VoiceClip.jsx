@@ -15,7 +15,10 @@ function formatTime(seconds) {
 /**
  * A small tap-to-play audio clip styled for the site — an accent-amber
  * play button, a mono label, and a scrubbable progress bar — sized to
- * sit on the dark hero ground beneath the epigraph.
+ * sit on the dark hero ground beneath the epigraph. Framed in a loose,
+ * hand-drawn rectangle (urban-sketch filter on an SVG rect) instead of a
+ * clean CSS border, with a small sketched sound-wave doodle in the
+ * corner, so the whole clip reads as sketched rather than laid out.
  */
 export default function VoiceClip({ src, label = "Voice note" }) {
   const audioRef = useRef(null);
@@ -96,84 +99,124 @@ export default function VoiceClip({ src, label = "Voice note" }) {
   const pct = duration ? (current / duration) * 100 : 0;
 
   return (
-    <div className="corner-box on-dark flex w-full max-w-sm items-center gap-3 rounded-lg border border-white/25 bg-white/10 px-4 py-3 text-left backdrop-blur-sm">
-      <button
-        type="button"
-        onClick={toggle}
-        aria-label={playing ? `Pause ${label}` : `Play ${label}`}
-        className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full text-[#2c1a08] ring-1 ring-[#3a2410]/60 transition-transform hover:scale-105 shadow-[0_3px_8px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,244,230,0.75),inset_0_-4px_7px_rgba(60,30,10,0.55)]"
-        style={{
-          backgroundImage:
-            "radial-gradient(130% 130% at 32% 22%, #fbe6c8 0%, #e6b784 26%, #bd813f 52%, #8a541f 78%, #5a3512 100%)",
-        }}
+    <div className="relative w-full max-w-sm">
+      {/* Hand-drawn frame in place of a clean CSS border — a loose,
+          slightly wobbly rounded rectangle traced in ink, like the whole
+          clip was sketched rather than laid out. Stretches to the box's
+          actual size (preserveAspectRatio="none") since the wobble reads
+          fine at any ratio. */}
+      <svg
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        className="pointer-events-none absolute inset-0 h-full w-full [filter:url(#urban-sketch)]"
+        aria-hidden="true"
       >
-        {/* top glint — the shine on the metal */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-1.5 top-1 h-1/3 rounded-full bg-white/45 blur-[1.5px]"
+        <rect
+          x="2"
+          y="4"
+          width="96"
+          height="92"
+          rx="12"
+          fill="none"
+          stroke="rgba(255,255,255,0.6)"
+          strokeWidth="1.2"
+          vectorEffect="non-scaling-stroke"
         />
-        {playing ? (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="relative drop-shadow-[0_1px_0_rgba(255,240,220,0.5)]">
-            <rect x="5" y="4" width="5" height="16" rx="1" />
-            <rect x="14" y="4" width="5" height="16" rx="1" />
-          </svg>
-        ) : (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="relative drop-shadow-[0_1px_0_rgba(255,240,220,0.5)]">
-            <path d="M7 4.5v15l13-7.5-13-7.5z" />
-          </svg>
-        )}
-      </button>
+      </svg>
 
-      <div className="min-w-0 flex-1">
-        <div className="mb-1.5 flex items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-widest text-white/85">
-          <span className="truncate">{label}</span>
-          <span className="shrink-0 tabular-nums">
-            {formatTime(current)} / {formatTime(duration)}
-          </span>
-        </div>
-        <div
-          role="slider"
-          tabIndex={0}
-          aria-label={`Seek within ${label}`}
-          aria-valuemin={0}
-          aria-valuemax={Math.round(duration) || 0}
-          aria-valuenow={Math.round(current)}
-          onKeyDown={onTrackKeyDown}
-          onClick={(e) => seekToClientX(e.clientX, e.currentTarget)}
-          className="h-1.5 cursor-pointer rounded-full bg-white/25 outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+      {/* Small hand-drawn sound-wave doodle, tucked into the corner —
+          the one sketch element that says "audio" on its own. */}
+      <svg
+        viewBox="0 0 40 20"
+        className="pointer-events-none absolute -right-2 -top-2.5 h-4 w-9 text-white/70 [filter:url(#urban-sketch)]"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        aria-hidden="true"
+      >
+        <path d="M2 10 Q5 3 8 10 T14 10 T20 10 T26 10 T32 10 T38 10" />
+      </svg>
+
+      <div className="relative flex items-center gap-3 rounded-lg bg-white/10 px-4 py-3 text-left backdrop-blur-sm">
+        <button
+          type="button"
+          onClick={toggle}
+          aria-label={playing ? `Pause ${label}` : `Play ${label}`}
+          className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full text-[#2c1a08] ring-1 ring-[#3a2410]/60 transition-transform hover:scale-105 shadow-[0_3px_8px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,244,230,0.75),inset_0_-4px_7px_rgba(60,30,10,0.55)]"
+          style={{
+            backgroundImage:
+              "radial-gradient(130% 130% at 32% 22%, #fbe6c8 0%, #e6b784 26%, #bd813f 52%, #8a541f 78%, #5a3512 100%)",
+          }}
         >
-          <div
-            className="h-full rounded-full bg-accent"
-            style={{ width: `${pct}%` }}
+          {/* top glint — the shine on the metal */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-1.5 top-1 h-1/3 rounded-full bg-white/45 blur-[1.5px]"
           />
-        </div>
-      </div>
+          {playing ? (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="relative drop-shadow-[0_1px_0_rgba(255,240,220,0.5)]">
+              <rect x="5" y="4" width="5" height="16" rx="1" />
+              <rect x="14" y="4" width="5" height="16" rx="1" />
+            </svg>
+          ) : (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="relative drop-shadow-[0_1px_0_rgba(255,240,220,0.5)]">
+              <path d="M7 4.5v15l13-7.5-13-7.5z" />
+            </svg>
+          )}
+        </button>
 
-      <audio
-        ref={audioRef}
-        src={src}
-        preload="metadata"
-        onPlay={() => {
-          setPlaying(true);
-          announcePlay(SOURCE_ID);
-        }}
-        onPause={() => {
-          setPlaying(false);
-          announceStop(SOURCE_ID);
-        }}
-        onEnded={() => {
-          setPlaying(false);
-          setCurrent(0);
-          announceStop(SOURCE_ID);
-        }}
-        onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => resolveDuration(e.currentTarget)}
-        onDurationChange={(e) => {
-          if (Number.isFinite(e.currentTarget.duration)) {
-            setDuration(e.currentTarget.duration);
-          }
-        }}
-      />
+        <div className="min-w-0 flex-1">
+          <div className="mb-1.5 flex items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-widest text-white/85">
+            <span className="truncate">{label}</span>
+            <span className="shrink-0 tabular-nums">
+              {formatTime(current)} / {formatTime(duration)}
+            </span>
+          </div>
+          <div
+            role="slider"
+            tabIndex={0}
+            aria-label={`Seek within ${label}`}
+            aria-valuemin={0}
+            aria-valuemax={Math.round(duration) || 0}
+            aria-valuenow={Math.round(current)}
+            onKeyDown={onTrackKeyDown}
+            onClick={(e) => seekToClientX(e.clientX, e.currentTarget)}
+            className="h-1.5 cursor-pointer rounded-full bg-white/25 outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+          >
+            <div
+              className="h-full rounded-full bg-accent"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+        </div>
+
+        <audio
+          ref={audioRef}
+          src={src}
+          preload="metadata"
+          onPlay={() => {
+            setPlaying(true);
+            announcePlay(SOURCE_ID);
+          }}
+          onPause={() => {
+            setPlaying(false);
+            announceStop(SOURCE_ID);
+          }}
+          onEnded={() => {
+            setPlaying(false);
+            setCurrent(0);
+            announceStop(SOURCE_ID);
+          }}
+          onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
+          onLoadedMetadata={(e) => resolveDuration(e.currentTarget)}
+          onDurationChange={(e) => {
+            if (Number.isFinite(e.currentTarget.duration)) {
+              setDuration(e.currentTarget.duration);
+            }
+          }}
+        />
+      </div>
     </div>
   );
 }
