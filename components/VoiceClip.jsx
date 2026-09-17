@@ -16,9 +16,11 @@ function formatTime(seconds) {
  * A small tap-to-play audio clip styled for the site — an accent-amber
  * play button, a mono label, and a scrubbable progress bar — sized to
  * sit on the dark hero ground beneath the epigraph. Framed in a loose,
- * hand-drawn rectangle (urban-sketch filter on an SVG rect) instead of a
- * clean CSS border, with a small sketched sound-wave doodle in the
- * corner, so the whole clip reads as sketched rather than laid out.
+ * hand-drawn double-line rectangle (urban-sketch filter on two offset SVG
+ * rects, gold over white) instead of a clean CSS border, tilted a
+ * degree off-square, with a sketched sound-wave doodle and a scribbled
+ * music note propped in opposite corners — bold and colored enough to
+ * actually read against the hero art behind it, not just a faint outline.
  */
 export default function VoiceClip({ src, label = "Voice note" }) {
   const audioRef = useRef(null);
@@ -99,43 +101,73 @@ export default function VoiceClip({ src, label = "Voice note" }) {
   const pct = duration ? (current / duration) * 100 : 0;
 
   return (
-    <div className="relative w-full max-w-sm">
-      {/* Hand-drawn frame in place of a clean CSS border — a loose,
-          slightly wobbly rounded rectangle traced in ink, like the whole
-          clip was sketched rather than laid out. Stretches to the box's
-          actual size (preserveAspectRatio="none") since the wobble reads
-          fine at any ratio. */}
+    <div className="relative w-full max-w-sm -rotate-1">
+      {/* Hand-drawn frame in place of a clean CSS border — two
+          slightly-offset wobbly rectangles (the classic "redrawn ink
+          line" look) in the site's gold-ink color, bold enough to read
+          at a glance instead of blending into the glass panel behind
+          it. Stretches to the box's actual size (preserveAspectRatio=
+          "none") since the wobble reads fine at any ratio. */}
       <svg
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
-        className="pointer-events-none absolute inset-0 h-full w-full [filter:url(#urban-sketch)]"
+        className="pointer-events-none absolute -inset-1.5 h-[calc(100%+12px)] w-[calc(100%+12px)] [filter:url(#urban-sketch)]"
         aria-hidden="true"
       >
         <rect
-          x="2"
-          y="4"
-          width="96"
-          height="92"
+          x="3"
+          y="5"
+          width="94"
+          height="90"
+          rx="14"
+          fill="none"
+          stroke="rgba(212,175,55,0.9)"
+          strokeWidth="2.5"
+          vectorEffect="non-scaling-stroke"
+        />
+        <rect
+          x="6"
+          y="8"
+          width="88"
+          height="84"
           rx="12"
           fill="none"
-          stroke="rgba(255,255,255,0.6)"
-          strokeWidth="1.2"
+          stroke="rgba(255,255,255,0.55)"
+          strokeWidth="1.4"
           vectorEffect="non-scaling-stroke"
         />
       </svg>
 
-      {/* Small hand-drawn sound-wave doodle, tucked into the corner —
-          the one sketch element that says "audio" on its own. */}
+      {/* Hand-drawn sound-wave doodle, propped above the corner — the
+          one sketch element that says "audio" on its own, sized and
+          colored to actually stand out against the hero art behind it. */}
       <svg
         viewBox="0 0 40 20"
-        className="pointer-events-none absolute -right-2 -top-2.5 h-4 w-9 text-white/70 [filter:url(#urban-sketch)]"
+        className="pointer-events-none absolute -right-3 -top-5 h-6 w-14 text-[#d4af37] [filter:url(#urban-sketch)]"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="2"
         strokeLinecap="round"
         aria-hidden="true"
       >
-        <path d="M2 10 Q5 3 8 10 T14 10 T20 10 T26 10 T32 10 T38 10" />
+        <path d="M2 10 Q5 2 8 10 T14 10 T20 10 T26 10 T32 10 T38 10" />
+      </svg>
+
+      {/* A little scribbled music note in the opposite corner, echoing
+          the doodle above so the sketch reads as deliberate. */}
+      <svg
+        viewBox="0 0 24 24"
+        className="pointer-events-none absolute -bottom-3 -left-3 h-6 w-6 text-white/80 [filter:url(#urban-sketch)]"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M9 18V5l10-2v13" />
+        <circle cx="6.5" cy="18" r="2.5" />
+        <circle cx="16.5" cy="16" r="2.5" />
       </svg>
 
       <div className="relative flex items-center gap-3 rounded-lg bg-white/10 px-4 py-3 text-left backdrop-blur-sm">
