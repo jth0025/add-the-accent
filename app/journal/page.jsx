@@ -109,7 +109,10 @@ export default function JournalIndex({ searchParams }) {
           alt="The Add the Accent character writing at a wooden desk, books and a small plant beside him"
           className="mx-auto mt-6 w-56 max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.28)] sm:w-64"
         />
-        <p className="mx-auto mt-6 max-w-xl text-center text-sm text-stone">
+        <p className="mx-auto mt-6 max-w-xl pl-2 pr-6 text-center font-serif text-2xl italic leading-snug text-ink sm:pl-0 sm:pr-8 sm:text-3xl">
+          &ldquo;Write the vision, make it plain.&rdquo;
+        </p>
+        <p className="mx-auto mt-6 max-w-xl pl-2 pr-6 text-center text-sm text-stone sm:pl-0 sm:pr-8">
           {JOURNAL_PAGE_INTRO}
         </p>
       </section>
