@@ -870,10 +870,42 @@ html.header-raining .header-rain {
   }
 }
 
+/* Header envelope icon — a quick wiggle on hover, like it's being
+   handed to you. Triggered inline (group-hover:[animation:...]) on the
+   ContactButton svg rather than a standing class, so .envelope-svg here
+   exists only to give reduced-motion something stable to switch off. */
+@keyframes envelope-shake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(-10deg);
+  }
+  30% {
+    transform: rotate(8deg);
+  }
+  45% {
+    transform: rotate(-6deg);
+  }
+  60% {
+    transform: rotate(4deg);
+  }
+  75% {
+    transform: rotate(-2deg);
+  }
+  90% {
+    transform: rotate(1deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .point-bounce,
   .point-bounce-up {
     animation: none;
+  }
+  .envelope-svg {
+    animation: none !important;
   }
 }
 

@@ -47,7 +47,7 @@ export default function ContactButton({ className = "" }) {
 
     const subject = `Site message from ${name || "someone"}`;
     const body = `${message}\n\n— ${name}${email ? ` (${email})` : ""}`;
-    const mailto = `mailto:hello@addtheaccent.com?subject=${encodeURIComponent(
+    const mailto = `mailto:info@addtheaccent.com?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
 
@@ -62,11 +62,11 @@ export default function ContactButton({ className = "" }) {
         onClick={() => setOpen(true)}
         aria-label="Contact"
         aria-haspopup="dialog"
-        className={`inline-flex shrink-0 items-center transition-colors hover:text-accent ${className}`}
+        className={`group inline-flex shrink-0 items-center transition-colors hover:text-accent ${className}`}
       >
         <svg
           viewBox="0 0 24 24"
-          className="h-[1.05em] w-[1.05em]"
+          className="envelope-svg h-6 w-6 [transform-origin:50%_50%] group-hover:[animation:envelope-shake_0.5s_ease-in-out]"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.8"
