@@ -324,8 +324,27 @@ body {
   );
   mix-blend-mode: overlay;
   opacity: 0;
-  animation: tv-static-flicker 8s steps(1) infinite;
-  animation-delay: -0.08s;
+  animation: tv-static-lines-flicker 8s ease-in-out infinite;
+}
+
+/* Slower than the noise's instant jumps — the scanline band eases in,
+   drifts, and eases back out over roughly a second and a half instead
+   of snapping, so it reads as a scan rather than a strobe. */
+@keyframes tv-static-lines-flicker {
+  0%,
+  50% {
+    opacity: 0;
+    transform: translateY(-4%);
+  }
+  62% {
+    opacity: 0.55;
+    transform: translateY(0%);
+  }
+  74%,
+  100% {
+    opacity: 0;
+    transform: translateY(4%);
+  }
 }
 
 @keyframes tv-static-flicker {
