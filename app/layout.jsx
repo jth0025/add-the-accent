@@ -298,14 +298,20 @@ export default function RootLayout({ children }) {
                       other header spacing since it's purely absolute.
                       mix-blend-mode:screen so the white glow actually
                       brightens whatever sky color is behind it, instead
-                      of just washing out as a pale rectangle. */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/logo-backlight.png"
-                    alt=""
-                    aria-hidden="true"
-                    className="logo-backlight pointer-events-none absolute left-1/2 top-1/2 z-0 w-52 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 mix-blend-screen transition-opacity duration-700"
-                  />
+                      of just washing out as a pale rectangle. Wrapped in
+                      a same-size clipping span, open on top/left/right
+                      but hard-clipped at the bottom edge (right where the
+                      logo itself ends), so the glow never shows below the
+                      logo into the Now Playing bar underneath. */}
+                  <span className="pointer-events-none absolute inset-0 [clip-path:inset(-100vh_-100vw_0_-100vw)]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/logo-backlight.png"
+                      alt=""
+                      aria-hidden="true"
+                      className="logo-backlight absolute left-1/2 top-1/2 z-0 w-52 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 mix-blend-screen transition-opacity duration-700"
+                    />
+                  </span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/logo.png"
