@@ -300,6 +300,81 @@ body {
   background-repeat: repeat-y;
 }
 
+/* TV static — the hero carousel already reads as a TV (antenna, legs,
+   marble "screen"), so every so often it briefly loses signal: a snowy
+   grain layer plus a band of scanlines flicker across it, then settle
+   back to nothing. Mostly at rest, like the site's other periodic
+   effects (.gold-foil, .glare-periodic) — just a couple of quick jolts
+   a cycle rather than a constant overlay. */
+.tv-static-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  mix-blend-mode: overlay;
+  opacity: 0;
+  animation: tv-static-flicker 8s steps(1) infinite;
+}
+
+.tv-static-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.65) 0px,
+    rgba(255, 255, 255, 0.65) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0;
+  animation: tv-static-flicker 8s steps(1) infinite;
+  animation-delay: -0.08s;
+}
+
+@keyframes tv-static-flicker {
+  0%,
+  54% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  54.5% {
+    opacity: 0.8;
+    transform: translateY(-3%);
+  }
+  55% {
+    opacity: 0.2;
+    transform: translateY(2%);
+  }
+  55.5% {
+    opacity: 0.7;
+    transform: translateY(-1%);
+  }
+  56% {
+    opacity: 0.15;
+    transform: translateY(1%);
+  }
+  /* A second, shorter jolt later in the same cycle. */
+  56.5%,
+  83% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  83.3% {
+    opacity: 0.6;
+    transform: translateY(2%);
+  }
+  83.6%,
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tv-static-noise,
+  .tv-static-lines {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* Corner-bracket color override for boxes sitting on a dark/black fill,
    so the brackets stay visible instead of vanishing into the ink color. */
 .corner-box.on-dark::before,

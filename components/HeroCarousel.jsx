@@ -189,6 +189,19 @@ export default function HeroCarousel({ children }) {
               </button>
             ))}
           </div>
+
+          {/* TV static — the carousel already reads as a screen (antenna
+              and legs sit just outside it), so it periodically loses
+              signal for a beat: a snowy grain layer plus a band of
+              scanlines flicker across, then settle back to nothing. */}
+          <div
+            className="tv-static-noise pointer-events-none absolute inset-0 z-20"
+            aria-hidden="true"
+          />
+          <div
+            className="tv-static-lines pointer-events-none absolute inset-0 z-20"
+            aria-hidden="true"
+          />
         </div>
       </div>
 
