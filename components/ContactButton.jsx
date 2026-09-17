@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from "react";
 
+// Set in .env.local (and in Vercel's project env vars for production) to
+// the form endpoint Formspree gives you, e.g.
+// "https://formspree.io/f/xxxxxxxx". See README for the one-time setup.
+// Until it's set, the form falls back to a mailto: draft so it still
+// works — just without landing straight in the inbox unattended.
+const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
+
 /**
  * A small envelope icon that opens a contact form in a modal — kept out
  * of the text nav entirely so it never has to compete for a line's width
@@ -9,14 +16,14 @@ import { useEffect, useState } from "react";
  * together) so it can be dropped once into the desktop nav and once into
  * the phone menu without the two needing to share state.
  *
- * Submission is a mailto: link for now — zero setup, works today, and
- * lands straight in your inbox. Swap `buildMailto` for a fetch() to
- * Formspree/Resend/etc. once you've picked a service; the form itself
- * won't need to change.
+ * Submits straight to Formspree (see FORMSPREE_ENDPOINT above), which
+ * relays it to info@addtheaccent.com — no mail app needed on the
+ * visitor's end. Falls back to a mailto: draft if the endpoint isn't
+ * configured yet.
  */
 export default function ContactButton({ className = "" }) {
   const [open, setOpen] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
 
   useEffect(() => {
     if (!open) return undefined;
@@ -32,27 +39,44 @@ export default function ContactButton({ className = "" }) {
     };
   }, [open]);
 
-  // Reset the "sent" confirmation whenever the modal is reopened, so it
-  // doesn't show a stale success message from a previous visit.
+  // Reset the confirmation/error state whenever the modal is reopened, so
+  // it doesn't show a stale message from a previous visit.
   useEffect(() => {
-    if (open) setSent(false);
+    if (open) setStatus("idle");
   }, [open]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     const name = form.name.value.trim();
     const email = form.email.value.trim();
     const message = form.message.value.trim();
 
-    const subject = `Site message from ${name || "someone"}`;
-    const body = `${message}\n\n— ${name}${email ? ` (${email})` : ""}`;
-    const mailto = `mailto:info@addtheaccent.com?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
+    if (!FORMSPREE_ENDPOINT) {
+      // Not configured yet — fall back to a mailto: draft so the form
+      // still does something useful in the meantime.
+      const subject = `Site message from ${name || "someone"}`;
+      const body = `${message}\n\n— ${name}${email ? ` (${email})` : ""}`;
+      window.location.href = `mailto:info@addtheaccent.com?subject=${encodeURIComponent(
+        subject,
+      )}&body=${encodeURIComponent(body)}`;
+      setStatus("sent");
+      return;
+    }
 
-    window.location.href = mailto;
-    setSent(true);
+    setStatus("sending");
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form),
+      });
+      if (!res.ok) throw new Error("Formspree request failed");
+      setStatus("sent");
+      form.reset();
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -122,21 +146,25 @@ export default function ContactButton({ className = "" }) {
               <span className="h-px w-8 bg-accent/40" />
             </div>
 
-            {sent ? (
+            {status === "sent" ? (
               <div className="py-8 text-center">
                 <p className="font-serif text-lg italic text-ink">
-                  Your mail app should be open with this ready to send.
+                  {FORMSPREE_ENDPOINT
+                    ? "Sent — thanks for reaching out."
+                    : "Your mail app should be open with this ready to send."}
                 </p>
-                <p className="mt-2 text-sm text-stone">
-                  Didn&rsquo;t pop up?{" "}
-                  <button
-                    type="button"
-                    onClick={() => setSent(false)}
-                    className="text-accent underline underline-offset-2"
-                  >
-                    Try again
-                  </button>
-                </p>
+                {!FORMSPREE_ENDPOINT && (
+                  <p className="mt-2 text-sm text-stone">
+                    Didn&rsquo;t pop up?{" "}
+                    <button
+                      type="button"
+                      onClick={() => setStatus("idle")}
+                      className="text-accent underline underline-offset-2"
+                    >
+                      Try again
+                    </button>
+                  </p>
+                )}
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-3">
@@ -145,27 +173,40 @@ export default function ContactButton({ className = "" }) {
                   type="text"
                   required
                   placeholder="Name"
-                  className="w-full rounded-md border border-ink/15 bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent"
+                  disabled={status === "sending"}
+                  className="w-full rounded-md border border-ink/15 bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent disabled:opacity-60"
                 />
                 <input
                   name="email"
                   type="email"
                   required
                   placeholder="Email"
-                  className="w-full rounded-md border border-ink/15 bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent"
+                  disabled={status === "sending"}
+                  className="w-full rounded-md border border-ink/15 bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent disabled:opacity-60"
                 />
                 <textarea
                   name="message"
                   required
                   rows={4}
                   placeholder="What's up?"
-                  className="w-full resize-none rounded-md border border-ink/15 bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent"
+                  disabled={status === "sending"}
+                  className="w-full resize-none rounded-md border border-ink/15 bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent disabled:opacity-60"
                 />
+                {status === "error" && (
+                  <p className="text-sm text-[#c0202a]">
+                    Something went wrong sending that — try again, or email{" "}
+                    <a href="mailto:info@addtheaccent.com" className="underline underline-offset-2">
+                      info@addtheaccent.com
+                    </a>{" "}
+                    directly.
+                  </p>
+                )}
                 <button
                   type="submit"
-                  className="w-full rounded-md bg-accent py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-opacity hover:opacity-90"
+                  disabled={status === "sending"}
+                  className="w-full rounded-md bg-accent py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-opacity hover:opacity-90 disabled:opacity-60"
                 >
-                  Send
+                  {status === "sending" ? "Sending…" : "Send"}
                 </button>
               </form>
             )}
