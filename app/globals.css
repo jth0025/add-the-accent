@@ -254,6 +254,27 @@ body {
   background-size: 200px 200px;
 }
 
+/* Pencil-hatch texture — crossed diagonal hachure lines in white, the
+   actual "drawn on paper" surface for a card sitting on a dark ground
+   (as opposed to .paper-journal-dark's fine grain, this reads as
+   sketched shading strokes). Used by VoiceClip. */
+.sketch-hatch-dark {
+  background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.1) 0,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px,
+      transparent 7px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.07) 0,
+      rgba(255, 255, 255, 0.07) 1px,
+      transparent 1px,
+      transparent 9px
+    );
+}
+
 /* Crinkled journal paper — a genuine crumpled-paper photo texture (not a
    flat pattern), used specifically for Journal boxes: the /journal
    section box, every entry card, and the full article pages. Needs
