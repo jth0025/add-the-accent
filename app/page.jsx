@@ -29,7 +29,7 @@ export default function HomePage() {
           &mdash; George Bernard Shaw
         </figcaption>
 
-        <div className="relative mx-auto mt-5 w-full max-w-sm">
+        <div className="relative mx-auto mt-10 w-full max-w-sm">
           {/* Hand-drawn note pointing at the intro clip — desktop only,
               where there's room in the gutter beside the centered track. */}
           <div className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 select-none items-center gap-1.5 md:flex">
