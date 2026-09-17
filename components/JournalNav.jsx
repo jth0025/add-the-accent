@@ -35,9 +35,14 @@ export default function JournalNav({ className = "", tone = "dark" }) {
   return (
     <nav
       aria-label="Journal sections"
-      className={`flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs font-bold uppercase tracking-widest ${className}`}
+      className={`flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs font-bold uppercase tracking-widest ${className}`}
     >
-      {LINKS.map((link) => (
+      {LINKS.flatMap((link, i) => [
+        i > 0 && (
+          <span key={`sep-${link.id}`} aria-hidden="true" className="text-accent">
+            +
+          </span>
+        ),
         <a
           key={link.id}
           href={`/journal#${link.id}`}
@@ -45,8 +50,8 @@ export default function JournalNav({ className = "", tone = "dark" }) {
           className={`underline-offset-4 transition-colors hover:underline ${linkClass}`}
         >
           {link.label}
-        </a>
-      ))}
+        </a>,
+      ]).filter(Boolean)}
     </nav>
   );
 }

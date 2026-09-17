@@ -363,19 +363,20 @@ export default function AboutPage() {
             years prior, but he carried New Orleans with him everywhere he
             went &mdash; its flavor, its rhythm, its refusal to do anything
             quietly. He never sat me down and taught
-            any of it to me like a lesson &mdash; he just lived it, loud, in
-            our kitchen, in our music, in the way he moved through a room.
-            Two cultures were always brewing under one roof, and somewhere
-            in that mix is exactly where my eye, and my whole perspective,
-            got its flavor.
+            any of it to me like a lesson &mdash; he just lived it out
+            loud, in and out of any room he passed through. Two cultures
+            were always brewing under one roof, and somewhere in that mix
+            is exactly where my eye, and my whole perspective, got its
+            flavor.
           </p>
           <p>
-            Music was always in the house &mdash; the soundtrack of my life
-            started long before I ever became a competitive band kid. But it
-            was one black-and-white photography class that changed
-            everything, cracking open a door to possibilities I didn&rsquo;t
-            know were there. I fell in love with the darkroom: the waiting,
-            the development, the process of watching something invisible
+            That mix showed up first as sound. Music was always in the
+            house &mdash; the soundtrack of my life started long before I
+            ever became a competitive band kid. But it was one
+            black-and-white photography class that changed everything,
+            cracking open a door to possibilities I didn&rsquo;t know were
+            there. I fell in love with the darkroom: the waiting, the
+            development, the process of watching something invisible
             slowly become real. That&rsquo;s where I learned how to develop
             my own vision and actually see it through &mdash; the patience
             it takes, the reward waiting on the other side of it, and the
@@ -395,7 +396,8 @@ export default function AboutPage() {
               alt="Illustration of JT photographing through a cornfield with a Pentax K1000"
               className="float-left mb-2 mr-4 mt-1 w-44 rotate-2 drop-shadow-[0_8px_14px_rgba(0,0,0,0.35)] sm:w-52"
             />
-            I started in property management back in college, and it
+            That same discipline just needed a different room to grow in.
+              I started in property management back in college, and it
               taught me how to actually take care of people and a community
               &mdash; lessons I didn&rsquo;t know I was collecting until
               they started showing up in{" "}
@@ -426,7 +428,8 @@ export default function AboutPage() {
             </p>
 
           <p className="clear-left">
-            <strong className="italic">Add the Accent</strong> itself
+            That same instinct is what became{" "}
+            <strong className="italic">Add the Accent</strong>, which
             materialized after my commute to California &mdash; a
             state that&rsquo;s always symbolized leaving the nest to me.
             Leaving comfort was the only way I could actually build a
