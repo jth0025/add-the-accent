@@ -317,7 +317,7 @@ export default function RootLayout({ children }) {
                   <img
                     src="/logo.png"
                     alt="Add the Accent"
-                    className="relative z-10 block h-16 w-auto"
+                    className="relative z-10 block h-16 w-auto sm:translate-y-1.5"
                   />
                 </Link>
                 <span className="mb-2 hidden font-logo text-[11px] font-semibold lowercase leading-none tracking-wide text-[var(--header-fg)] transition-colors duration-500 sm:ml-4 sm:inline-flex">
@@ -426,7 +426,7 @@ export default function RootLayout({ children }) {
               src="/grass-side.png"
               alt=""
               aria-hidden="true"
-              className="pointer-events-none absolute bottom-0 left-1/2 h-9 w-auto -translate-x-1/2 sm:h-11"
+              className="pointer-events-none absolute bottom-0 left-1/2 h-9 w-auto -translate-x-1/2 sm:h-11 sm:translate-y-1.5"
             />
           </header>
 
