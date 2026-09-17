@@ -2,6 +2,7 @@ import EntryList from "@/components/EntryList";
 import JournalNav from "@/components/JournalNav";
 import JournalEntryCard from "@/components/JournalEntryCard";
 import SeriesProgress from "@/components/SeriesProgress";
+import PaperClip from "@/components/PaperClip";
 import { getAllEntries } from "@/lib/content";
 
 export const metadata = { title: "Journal — Add the Accent" };
@@ -91,8 +92,28 @@ export default function JournalIndex({ searchParams }) {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <h1 className="sr-only">Journal</h1>
-      <JournalNav tone="light" className="justify-center" />
+      <section className="paper-fold-thirds corner-box relative rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+        <PaperClip position="-top-4 left-14 rotate-[7deg]" />
+        <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
+          <span className="h-px w-8 bg-accent/40" />
+          <span>Journal</span>
+          <span className="h-px w-8 bg-accent/40" />
+        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/journal-art/journal-page-art.png"
+          alt="The Add the Accent character writing at a wooden desk, books and a small plant beside him"
+          className="mx-auto mt-6 w-56 max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.28)] sm:w-64"
+        />
+        <h1 className="mt-6 text-center font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
+          Journal
+        </h1>
+        <p className="mx-auto mt-3 max-w-xl text-center text-sm text-stone">
+          {JOURNAL_INTRO}
+        </p>
+      </section>
+
+      <JournalNav tone="light" className="mt-8 justify-center" />
 
       <section id="series" className="mt-12 scroll-mt-24">
         <h2 className={sectionHeadingClass}>Series</h2>

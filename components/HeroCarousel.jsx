@@ -96,7 +96,7 @@ export default function HeroCarousel({ children }) {
             that same fraction of his own rendered height so his legs and
             sneaker hang over the front of the box regardless of size. */}
         <div
-          className="pointer-events-none absolute bottom-full -left-3 z-20 w-24 sm:-left-1 sm:w-32"
+          className="pointer-events-none absolute bottom-full -left-9 z-20 w-24 sm:-left-7 sm:w-32"
           style={{ transform: "translateY(40%)" }}
           aria-hidden="true"
         >

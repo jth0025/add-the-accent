@@ -561,10 +561,8 @@ export default function MusicBar() {
               <span className="text-white/40">Now playing&nbsp;·&nbsp;</span>
               {track.title}
               <span className="text-white/40"> — {track.artist}</span>
-              <span className="text-white/30">
-                {" "}
-                &middot; Green Maize&rsquo;s Station
-              </span>
+              <span className="text-white/30"> &middot; </span>
+              <span className="text-moss">Green Maize&rsquo;s Station</span>
             </span>
             <span className="shrink-0 tabular-nums text-white/50">
               {fmt(current)} / {fmt(duration)}
