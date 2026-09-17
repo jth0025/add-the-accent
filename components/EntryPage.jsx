@@ -113,7 +113,7 @@ export default function EntryPage({ section, backLabel, entry }) {
                 for a soft edge, fading out before it reaches the floor. */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute left-1/2 top-0 h-28 w-24 -translate-x-1/2 [clip-path:polygon(44%_0%,56%_0%,92%_100%,8%_100%)] bg-gradient-to-b from-[rgba(255,248,222,0.75)] via-[rgba(255,248,222,0.22)] to-[rgba(255,248,222,0)] blur-[5px] sm:h-32 sm:w-28"
+              className="pointer-events-none absolute left-1/2 top-0 h-44 w-40 -translate-x-1/2 [clip-path:polygon(44%_0%,56%_0%,98%_100%,2%_100%)] bg-gradient-to-b from-[rgba(255,248,222,0.75)] via-[rgba(255,248,222,0.22)] to-[rgba(255,248,222,0)] blur-[5px] sm:h-56 sm:w-48"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
