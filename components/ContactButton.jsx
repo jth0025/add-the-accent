@@ -66,7 +66,7 @@ export default function ContactButton({ className = "" }) {
       >
         <svg
           viewBox="0 0 24 24"
-          className="envelope-svg h-6 w-6 [transform-origin:50%_50%] group-hover:[animation:envelope-shake_0.5s_ease-in-out]"
+          className="envelope-svg h-6 w-6 [filter:url(#urban-sketch)] [transform-origin:50%_50%] group-hover:[animation:envelope-shake_0.5s_ease-in-out]"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.8"

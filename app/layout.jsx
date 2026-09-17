@@ -329,7 +329,7 @@ export default function RootLayout({ children }) {
                   the logo or the grass. Color tracks --header-fg (set by
                   HeaderSky) so it stays legible against whatever time-of-day
                   sky is currently showing. */}
-              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 sm:-mr-14 sm:flex sm:gap-5">
+              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 sm:-mr-28 sm:flex sm:gap-5">
                 <Link href="/" className="hover:text-accent">
                   Home
                 </Link>
@@ -407,18 +407,17 @@ export default function RootLayout({ children }) {
                 <Link href="/about" className="hover:text-accent">
                   About
                 </Link>
-
-                {/* Icon, not a text label — keeps the row to one line
-                    regardless of viewport width (see ContactButton). */}
-                <ContactButton />
               </div>
             </nav>
 
             {/* Always visible (not just sm:flex like the nav links above),
                 and pinned to the header's own corner rather than sitting in
                 the nav's flex row — so it never has to compete with that
-                row for width and push into the centered grass below. */}
-            <div className="pointer-events-none absolute bottom-3 right-4 z-10 font-mono text-[10px] uppercase tracking-widest text-[var(--header-fg)] opacity-80 transition-colors duration-500 sm:bottom-4 sm:right-6 sm:text-xs">
+                row for width and push into the centered grass below. The
+                envelope stacks directly above the temperature reading,
+                both right-aligned in the same corner. */}
+            <div className="pointer-events-none absolute bottom-3 right-4 z-10 flex flex-col items-end gap-1.5 font-mono text-[10px] uppercase tracking-widest text-[var(--header-fg)] opacity-80 transition-colors duration-500 sm:bottom-4 sm:right-6 sm:text-xs">
+              <ContactButton className="pointer-events-auto" />
               <LATemperature />
             </div>
 
@@ -455,7 +454,6 @@ export default function RootLayout({ children }) {
             <Link href="/about" className="hover:text-accent">
               About
             </Link>
-            <ContactButton />
           </nav>
 
           <main className="flex-1">{children}</main>
