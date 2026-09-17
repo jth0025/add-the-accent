@@ -281,12 +281,23 @@ export default function RootLayout({ children }) {
             <nav className="relative z-10 mx-auto flex max-w-3xl items-end justify-between px-6 pt-4">
               <div className="flex items-end gap-2.5">
                 <VisitCounter />
-                <Link href="/" className="flex items-end">
+                <Link href="/" className="relative flex items-end">
+                  {/* Soft glow behind the logo, night hours only (see
+                      html.header-night in globals.css) — centered on the
+                      logo, sized to sit behind it without touching any
+                      other header spacing since it's purely absolute. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/logo-backlight.png"
+                    alt=""
+                    aria-hidden="true"
+                    className="logo-backlight pointer-events-none absolute left-1/2 top-1/2 z-0 w-40 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-700"
+                  />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/logo.png"
                     alt="Add the Accent"
-                    className="block h-16 w-auto"
+                    className="relative z-10 block h-16 w-auto"
                   />
                 </Link>
                 <span className="mb-2 hidden font-logo text-[11px] font-semibold lowercase leading-none tracking-wide text-[var(--header-fg)] transition-colors duration-500 sm:ml-4 sm:inline-flex">

@@ -131,6 +131,13 @@ export default function HeaderSky() {
         "header-dark",
         PERIODS[next].dark,
       );
+      // Narrower than header-dark (which also covers dawn/dusk) — just
+      // the actual "night" stretch, for effects meant to show only then
+      // (see html.header-night .logo-backlight in globals.css).
+      document.documentElement.classList.toggle(
+        "header-night",
+        next === "night",
+      );
     };
     update();
     const id = setInterval(update, 5 * 60 * 1000);
