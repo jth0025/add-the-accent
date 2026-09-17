@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getSelectedWork } from "@/lib/content";
 import JournalEntryCard from "@/components/JournalEntryCard";
 import CommissionGraphicsGrid from "@/components/CommissionGraphicsGrid";
+import PaperClip from "@/components/PaperClip";
 
 export const metadata = { title: "Selected Work — Add the Accent" };
 
@@ -55,6 +56,7 @@ export default function PortfolioIndex() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       <section className="paper-fold-quarters corner-box rounded-xl border border-ink/15 bg-card px-7 py-12 text-center sm:px-10 sm:py-16">
+        <PaperClip position="-top-4 left-11 rotate-[7deg]" />
         <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
           <span className="h-px w-8 bg-accent/40" />
           <span>Portfolio</span>
@@ -155,9 +157,11 @@ export default function PortfolioIndex() {
 
       <div className="mt-10 grid gap-10 md:grid-cols-2">
         <div>
-          <div className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
+          <div className="group mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
             <span className="h-px w-8 bg-accent/40" />
-            <span>Graphic Design</span>
+            <span className="text-ink transition-colors duration-300 group-hover:text-[#d4af37]">
+              Graphic Design
+            </span>
           </div>
           <CommissionGraphicsGrid />
           <Link
@@ -169,9 +173,11 @@ export default function PortfolioIndex() {
         </div>
 
         <div>
-          <div className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
+          <div className="group mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
             <span className="h-px w-8 bg-accent/40" />
-            <span>From the Journal</span>
+            <span className="text-ink transition-colors duration-300 group-hover:text-[#d4af37]">
+              From the Journal
+            </span>
           </div>
           {work.length > 0 ? (
             <ul className="space-y-5">
