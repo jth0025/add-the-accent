@@ -125,13 +125,13 @@ export default function HeaderSky() {
       );
       // Toggled instead of read via React state so static markup in
       // layout.jsx (not rendered by this component) can react to it
-      // purely in CSS — just the actual "night" stretch (narrower than
-      // the dark/dawn/midday/etc. period itself), for effects meant to
-      // show only then (see html.header-night .logo-backlight in
+      // purely in CSS — any period dark enough for the stars to show
+      // (night, dawn, dusk), for effects meant to show only once it's
+      // actually dark out (see html.header-night .logo-backlight in
       // globals.css).
       document.documentElement.classList.toggle(
         "header-night",
-        next === "night",
+        PERIODS[next].dark,
       );
     };
     update();

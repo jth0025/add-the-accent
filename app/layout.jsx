@@ -295,13 +295,16 @@ export default function RootLayout({ children }) {
                   {/* Soft glow behind the logo, night hours only (see
                       html.header-night in globals.css) — centered on the
                       logo, sized to sit behind it without touching any
-                      other header spacing since it's purely absolute. */}
+                      other header spacing since it's purely absolute.
+                      mix-blend-mode:screen so the white glow actually
+                      brightens whatever sky color is behind it, instead
+                      of just washing out as a pale rectangle. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/logo-backlight.png"
                     alt=""
                     aria-hidden="true"
-                    className="logo-backlight pointer-events-none absolute left-1/2 top-1/2 z-0 w-40 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-700"
+                    className="logo-backlight pointer-events-none absolute left-1/2 top-1/2 z-0 w-52 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 mix-blend-screen transition-opacity duration-700"
                   />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
