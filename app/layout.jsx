@@ -5,6 +5,7 @@ import VisitCounter from "@/components/VisitCounter";
 import MusicBar from "@/components/MusicBar";
 import HeaderSky from "@/components/HeaderSky";
 import LATemperature from "@/components/LATemperature";
+import ContactButton from "@/components/ContactButton";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -406,6 +407,10 @@ export default function RootLayout({ children }) {
                 <Link href="/about" className="hover:text-accent">
                   About
                 </Link>
+
+                {/* Icon, not a text label — keeps the row to one line
+                    regardless of viewport width (see ContactButton). */}
+                <ContactButton />
               </div>
             </nav>
 
@@ -450,6 +455,7 @@ export default function RootLayout({ children }) {
             <Link href="/about" className="hover:text-accent">
               About
             </Link>
+            <ContactButton />
           </nav>
 
           <main className="flex-1">{children}</main>
