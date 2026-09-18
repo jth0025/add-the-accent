@@ -39,7 +39,11 @@ export default function JournalNav({ className = "", tone = "dark" }) {
     >
       {LINKS.flatMap((link, i) => [
         i > 0 && (
-          <span key={`sep-${link.id}`} aria-hidden="true" className="text-accent">
+          <span
+            key={`sep-${link.id}`}
+            aria-hidden="true"
+            className="text-accent text-lg leading-none sm:text-xl"
+          >
             +
           </span>
         ),

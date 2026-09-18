@@ -38,25 +38,20 @@ export default function CommissionGraphicsGrid() {
         <Link
           key={piece.src}
           href="/design"
-          className={`fade-slide-left group relative mb-3 block w-full drop-shadow-[0_6px_14px_rgba(0,0,0,0.28)] transition-[filter] duration-300 hover:drop-shadow-[0_10px_22px_rgba(0,0,0,0.38)] ${
+          className={`fade-slide-left group relative mb-3 block w-full overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-xl ${
             visible ? "is-visible" : ""
           }`}
           style={{ transitionDelay: `${Math.min(i * 70, 560)}ms` }}
           aria-label={`View the graphic design gallery — ${piece.alt.replace(/#/g, "")}`}
         >
-          {/* The shadow lives on this link so it isn't clipped by the
-              rounded-corner mask below (box-shadow/drop-shadow on an
-              overflow-hidden element gets cut off with it). */}
-          <span className="relative block overflow-hidden rounded-lg">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={piece.src}
-              alt=""
-              className="block w-full"
-              loading="lazy"
-            />
-            <span className="bronze-glare" aria-hidden="true" />
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={piece.src}
+            alt=""
+            className="block w-full"
+            loading="lazy"
+          />
+          <span className="bronze-glare" aria-hidden="true" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/design/commission-badge.png"
