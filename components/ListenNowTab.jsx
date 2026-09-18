@@ -43,7 +43,7 @@ export default function ListenNowTab() {
             <span className="flex items-center gap-1 font-sans text-[7px] font-bold uppercase tracking-wide text-white/90 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
               <svg
                 viewBox="0 0 24 24"
-                className="h-[1em] w-[1em] shrink-0"
+                className="h-[1.7em] w-[1.7em] shrink-0"
                 fill="currentColor"
                 aria-hidden="true"
               >
@@ -69,22 +69,22 @@ export default function ListenNowTab() {
                     row's own spacing. */}
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 flex items-center justify-center gap-[2px]"
+                  className="absolute inset-0 flex items-center justify-center gap-[2.5px]"
                 >
                   <span
-                    className="eq-bar h-[6px] w-[1.5px] rounded-[1px] bg-accent sm:h-[7px]"
+                    className="eq-bar h-[10px] w-[2px] rounded-[1px] bg-accent sm:h-[12px]"
                     style={{ animationDelay: "0ms" }}
                   />
                   <span
-                    className="eq-bar h-[6px] w-[1.5px] rounded-[1px] bg-accent sm:h-[7px]"
+                    className="eq-bar h-[10px] w-[2px] rounded-[1px] bg-accent sm:h-[12px]"
                     style={{ animationDelay: "200ms" }}
                   />
                   <span
-                    className="eq-bar h-[6px] w-[1.5px] rounded-[1px] bg-accent sm:h-[7px]"
+                    className="eq-bar h-[10px] w-[2px] rounded-[1px] bg-accent sm:h-[12px]"
                     style={{ animationDelay: "400ms" }}
                   />
                   <span
-                    className="eq-bar h-[6px] w-[1.5px] rounded-[1px] bg-accent sm:h-[7px]"
+                    className="eq-bar h-[10px] w-[2px] rounded-[1px] bg-accent sm:h-[12px]"
                     style={{ animationDelay: "100ms" }}
                   />
                 </span>
