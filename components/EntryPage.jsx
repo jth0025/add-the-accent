@@ -144,7 +144,7 @@ export default function EntryPage({ section, backLabel, entry }) {
               src="/icons/leaf-end-mark.png"
               alt=""
               aria-hidden="true"
-              className="h-11 w-auto opacity-90 drop-shadow-[0_3px_5px_rgba(0,0,0,0.3)]"
+              className="h-14 w-auto opacity-90 drop-shadow-[0_5px_8px_rgba(0,0,0,0.4)]"
             />
           </div>
         )}
