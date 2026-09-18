@@ -3,6 +3,7 @@ import { formatDate } from "@/lib/content";
 import JournalNav from "@/components/JournalNav";
 import JournalEntryCard from "@/components/JournalEntryCard";
 import SeriesProgress from "@/components/SeriesProgress";
+import ShareButton from "@/components/ShareButton";
 import { SERIES_TOTAL_PARTS } from "@/lib/seriesColors";
 
 export default function EntryList({ section, heading, intro, entries }) {
@@ -22,6 +23,9 @@ export default function EntryList({ section, heading, intro, entries }) {
       <div
         className={`${paperClass} corner-box rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9`}
       >
+        {isSeriesView && (
+          <ShareButton title={heading} className="-top-4 right-3" />
+        )}
         <div
           className={`flex items-center gap-3 font-mono text-xs uppercase tracking-widest ${tagTextClass}`}
         >

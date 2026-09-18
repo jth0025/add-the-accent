@@ -2,6 +2,7 @@ import Link from "next/link";
 import { formatDate } from "@/lib/content";
 import EntryBadge from "@/components/EntryBadge";
 import PaperClip from "@/components/PaperClip";
+import ShareButton from "@/components/ShareButton";
 import EssayArt from "@/components/EssayArt";
 import VoiceClip from "@/components/VoiceClip";
 import { getCoverColor } from "@/lib/seriesColors";
@@ -30,6 +31,9 @@ export default function EntryPage({ section, backLabel, entry }) {
         className={`${paperClass} corner-box relative mt-6 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-10 ${isJournal ? "[perspective:1600px]" : ""}`}
       >
         {isJournal && <PaperClip />}
+        {isJournal && (
+          <ShareButton title={entry.title} className="-top-4 right-3" />
+        )}
 
         {isJournal && (
           // Fixed height (not inset-0/full article height) so the label
