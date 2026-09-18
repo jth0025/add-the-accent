@@ -28,7 +28,7 @@ export default function ListenNowTab() {
         href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
         target="_blank"
         rel="noopener noreferrer"
-        className="tab-slow-glow group relative block w-[18rem] -translate-y-1 transition-transform duration-300 sm:-translate-y-1.5 sm:w-[20.5rem]"
+        className="tab-slow-glow group relative block w-[14rem] -translate-y-1 transition-transform duration-300 sm:-translate-y-1.5 sm:w-[16rem]"
       >
         <span className="relative block w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -69,7 +69,7 @@ export default function ListenNowTab() {
                     row's own spacing. */}
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 flex items-center justify-center gap-[2.5px]"
+                  className="absolute inset-0 flex items-center justify-center gap-[1px]"
                 >
                   <span
                     className="eq-bar h-[10px] w-[2px] rounded-[1px] bg-accent sm:h-[12px]"
