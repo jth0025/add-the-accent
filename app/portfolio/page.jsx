@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { getSelectedWork } from "@/lib/content";
-import JournalEntryCard from "@/components/JournalEntryCard";
+import { getSelectedWork, getAllEntries } from "@/lib/content";
 import CommissionGraphicsGrid from "@/components/CommissionGraphicsGrid";
+import JournalPicksFilter from "@/components/JournalPicksFilter";
 import PaperClip from "@/components/PaperClip";
 
 export const metadata = { title: "Selected Work — Add the Accent" };
@@ -52,6 +52,7 @@ const SCATTER = [
 
 export default function PortfolioIndex() {
   const work = getSelectedWork();
+  const allEntries = getAllEntries("journal");
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
@@ -179,27 +180,7 @@ export default function PortfolioIndex() {
               From the Journal
             </span>
           </div>
-          {work.length > 0 ? (
-            <ul className="space-y-5">
-              {work.map((entry) => (
-                <li key={entry.slug}>
-                  <JournalEntryCard entry={entry} />
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="font-mono text-sm text-stone/70">
-              Nothing selected yet &mdash; add slugs to{" "}
-              <code className="rounded bg-ink/10 px-1.5 py-0.5 text-xs">
-                SELECTED_WORK_SLUGS
-              </code>{" "}
-              in{" "}
-              <code className="rounded bg-ink/10 px-1.5 py-0.5 text-xs">
-                lib/content.js
-              </code>
-              .
-            </p>
-          )}
+          <JournalPicksFilter selected={work} allEntries={allEntries} />
         </div>
       </div>
     </div>

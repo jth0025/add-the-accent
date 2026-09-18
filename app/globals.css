@@ -1311,3 +1311,27 @@ html.header-raining .header-rain {
     transform: scaleY(0.6);
   }
 }
+
+/* Series progress "in progress" status — three dots blinking in
+   sequence, like a message still being typed. */
+@keyframes blink-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+.blink-dot {
+  animation: blink-dot 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blink-dot {
+    animation: none;
+    opacity: 1;
+  }
+}

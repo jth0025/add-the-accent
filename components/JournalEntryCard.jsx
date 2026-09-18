@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatDate } from "@/lib/content";
+import { formatDate } from "@/lib/formatDate";
 import { getCoverColor } from "@/lib/seriesColors";
 import EntryBadge from "@/components/EntryBadge";
 
