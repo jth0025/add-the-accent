@@ -24,7 +24,7 @@ export default function EntryList({ section, heading, intro, entries }) {
         className={`${paperClass} corner-box rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9`}
       >
         {isSeriesView && (
-          <ShareButton title={heading} className="-top-4 right-3" />
+          <ShareButton title={heading} className="top-6 right-5" />
         )}
         <div
           className={`flex items-center gap-3 font-mono text-xs uppercase tracking-widest ${tagTextClass}`}

@@ -32,7 +32,7 @@ export default function EntryPage({ section, backLabel, entry }) {
       >
         {isJournal && <PaperClip />}
         {isJournal && (
-          <ShareButton title={entry.title} className="-top-4 right-3" />
+          <ShareButton title={entry.title} className="top-6 right-5" />
         )}
 
         {isJournal && (
