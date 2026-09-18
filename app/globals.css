@@ -1033,7 +1033,6 @@ html.header-raining .header-rain {
   }
   84% {
     background-position: 0 0, 100% 0;
-    filter: brightness(1.25) drop-shadow(0 0 4px rgba(255, 255, 255, 0.45));
   }
   89% {
     background-position: 0 0, 130% 0;
