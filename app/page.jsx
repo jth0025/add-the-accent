@@ -218,13 +218,12 @@ export default function HomePage() {
               className="mb-5"
             />
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
-              <span className="font-bold italic">Homebody</span> is a
-              visual storytelling series exploring masculinity, identity,
-              vulnerability, and the quiet pressures of becoming. Presented
-              as a creative case study, the project examines how concept,
-              art direction, design, and narrative can work together to
-              turn personal experience into a cohesive cultural story; a
-              journey to healing.
+              <span className="font-bold italic">Homebody</span> is the
+              series that never leaves home — a case study in cleaning the
+              room that lives inside you, one session, one rep, at a time.
+              It&rsquo;s where accountability turns into discipline, and
+              discipline into the kind of greatness that&rsquo;s just as
+              useful away from home as it is within it.
             </p>
           </div>
         </div>
@@ -261,7 +260,7 @@ export default function HomePage() {
               className="mb-5"
             />
             <p className="text-left font-playfair text-lg leading-snug text-ink sm:text-xl">
-              A <span className="font-bold italic">Homebody</span> Series
+              A <span className="font-bold italic">Domain Expansion</span> Series
               details the accounts of reimagining a new home; inspired by
               the tale of the stoic majestic black samurai, Kenji; in
               pursuit of a distant treasure, a symbol of enlightenment,
