@@ -89,7 +89,7 @@ export default function ListenNowTab() {
                   />
                 </span>
               </span>
-              <span className="font-display text-[13px] uppercase leading-none text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.9)] sm:text-[15px]">
+              <span className="font-display text-[13px] uppercase leading-none text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.9)] transition-colors duration-300 group-hover:text-[#3ddc4a] group-hover:[text-shadow:0_0_8px_rgba(61,220,74,0.85),0_0_18px_rgba(61,220,74,0.6)] sm:text-[15px]">
                 Green Maize
               </span>
               <span className="font-sans text-[7px] font-medium uppercase tracking-wide text-white/80 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
