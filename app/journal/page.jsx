@@ -18,7 +18,7 @@ const SERIES_INTROS = {
   "Back to Oui":
     "Traces the distance between love and despair; loneliness and belonging; agreeing and retreating.",
   "Homebody":
-    "A visual storytelling series exploring masculinity, identity, vulnerability, and the quiet pressures of becoming — a journey to healing.",
+    "Homebody is the series that never leaves home — a case study in cleaning the room that lives inside you, one session, one rep, at a time. It's where accountability turns into discipline, and discipline into the kind of greatness that's just as useful away from home as it is within it.",
 };
 
 const CATEGORY_INTROS = {
