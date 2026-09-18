@@ -60,8 +60,34 @@ export default function ListenNowTab() {
 
             {/* "through GREEN MAIZE radio" — one line, sized small / BIG / small. */}
             <span className="flex items-baseline gap-1 whitespace-nowrap">
-              <span className="font-sans text-[7px] font-medium uppercase tracking-wide text-white/80 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
+              <span className="relative font-sans text-[7px] font-medium uppercase tracking-wide text-transparent sm:text-[8px]">
                 through
+                {/* A tiny bouncing equalizer, standing in visually for
+                    "through" (still here for screen readers, just
+                    color:transparent above) — signals "this tab is
+                    about music" at a glance, without touching this
+                    row's own spacing. */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 flex items-center justify-center gap-[2px]"
+                >
+                  <span
+                    className="eq-bar h-[6px] w-[1.5px] rounded-[1px] bg-accent sm:h-[7px]"
+                    style={{ animationDelay: "0ms" }}
+                  />
+                  <span
+                    className="eq-bar h-[6px] w-[1.5px] rounded-[1px] bg-accent sm:h-[7px]"
+                    style={{ animationDelay: "200ms" }}
+                  />
+                  <span
+                    className="eq-bar h-[6px] w-[1.5px] rounded-[1px] bg-accent sm:h-[7px]"
+                    style={{ animationDelay: "400ms" }}
+                  />
+                  <span
+                    className="eq-bar h-[6px] w-[1.5px] rounded-[1px] bg-accent sm:h-[7px]"
+                    style={{ animationDelay: "100ms" }}
+                  />
+                </span>
               </span>
               <span className="font-display text-[13px] uppercase leading-none text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.9)] sm:text-[15px]">
                 Green Maize

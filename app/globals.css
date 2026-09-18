@@ -1278,3 +1278,29 @@ html.header-raining .header-rain {
     animation: none;
   }
 }
+
+/* Listen Now tab — a tiny music equalizer, bouncing in place over the
+   word "through" (still in the DOM underneath, for screen readers) so
+   the tab reads as music at a glance without touching the surrounding
+   text's own layout. */
+@keyframes eq-bounce {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.eq-bar {
+  transform-origin: bottom;
+  animation: eq-bounce 0.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-bar {
+    animation: none;
+    transform: scaleY(0.6);
+  }
+}
