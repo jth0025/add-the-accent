@@ -6,10 +6,12 @@ import EssayArt from "@/components/EssayArt";
 import VoiceClip from "@/components/VoiceClip";
 import { getCoverColor } from "@/lib/seriesColors";
 import { ESSAY_ART } from "@/lib/essayArt";
+import { withDropCap } from "@/lib/dropCap";
 
 export default function EntryPage({ section, backLabel, entry }) {
   const isJournal = section === "journal";
   const art = ESSAY_ART[entry.slug];
+  const bodyHtml = isJournal ? withDropCap(entry.html) : entry.html;
   const tagTextClass = isJournal ? "text-moss" : "text-accent";
   const tagRuleClass = isJournal ? "bg-moss/40" : "bg-accent/40";
   // Journal boxes read as crinkled paper; everything else keeps its own mood.
@@ -132,8 +134,20 @@ export default function EntryPage({ section, backLabel, entry }) {
 
         <div
           className="prose prose-accent mt-10 font-serif text-lg"
-          dangerouslySetInnerHTML={{ __html: entry.html }}
+          dangerouslySetInnerHTML={{ __html: bodyHtml }}
         />
+
+        {isJournal && (
+          <div className="clear-both mt-8 flex justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/icons/leaf-end-mark.png"
+              alt=""
+              aria-hidden="true"
+              className="h-7 w-auto opacity-90"
+            />
+          </div>
+        )}
       </article>
     </div>
   );
