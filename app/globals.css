@@ -1069,6 +1069,73 @@ html.header-raining .header-rain {
   }
 }
 
+/* A single word dissolving like a wisp of smoke — fully there, fades
+   and blurs out to nothing, then reforms, on a quick, smooth loop so
+   the sentence around it still reads naturally most of the time. */
+@keyframes smoke-dissolve {
+  0%,
+  50% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1) translateY(0);
+  }
+  68% {
+    opacity: 0;
+    filter: blur(7px);
+    transform: scale(1.1) translateY(-3px);
+  }
+  82% {
+    opacity: 0;
+    filter: blur(7px);
+    transform: scale(1.1) translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1) translateY(0);
+  }
+}
+
+.dissolve-smoke {
+  display: inline-block;
+  animation: smoke-dissolve 4.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dissolve-smoke {
+    animation: none;
+  }
+}
+
+/* A flat globe glyph, spun steadily in place — the closest a static
+   image can get to a slowly turning planet. */
+@keyframes globe-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.globe-spin {
+  animation: globe-spin 9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .globe-spin {
+    animation: none;
+  }
+}
+
+/* A little museum-plaque frame for the gallery teaser grid — a bronze
+   inner line and a dark outer line around the mat, like glass in a
+   gallery case rather than a plain rounded thumbnail. */
+.museum-frame {
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0 1px rgba(58, 26, 10, 0.35),
+    0 0 0 2px #cbb078,
+    0 0 0 3px #3a2a16;
+}
+
 /* Cast-bronze hover — on hover the text fills with a metallic bronze
    gradient and a bright band sweeps across once, like light catching
    the metal. Non-hover state is untouched. */

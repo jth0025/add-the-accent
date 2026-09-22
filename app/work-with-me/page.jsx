@@ -233,28 +233,57 @@ export default function WorkWithMePage() {
           idea the homepage Features boxes use. */}
       <section className="paper-notebook corner-box mt-6 rounded-xl border border-ink/15 bg-white px-7 py-10 text-center sm:px-10">
         <p className="mx-auto max-w-xl text-stone">
-          Add the Accent works with artists, brands, creators, and people
-          with something to say but who may not know what it should look
-          like yet.
+          <span className="font-bold italic text-ink">Add the Accent</span>{" "}
+          walks the road with:
+        </p>
+        <ul className="mx-auto mt-3 max-w-md space-y-1.5 text-left text-stone">
+          <li className="flex items-center gap-2.5">
+            <Dot />
+            Artists
+          </li>
+          <li className="flex items-center gap-2.5">
+            <Dot />
+            Brands
+          </li>
+          <li className="flex items-center gap-2.5">
+            <Dot />
+            Creators
+          </li>
+          <li className="flex gap-2.5">
+            <span
+              aria-hidden="true"
+              className="mt-1.5 h-2 w-2 shrink-0 rotate-45 bg-accent"
+            />
+            <span className="italic">
+              People with something to say but who may not know what it
+              should look like yet.
+            </span>
+          </li>
+        </ul>
+        <p className="mx-auto mt-5 max-w-xl text-stone">
+          Every quest starts somewhere unexpected &mdash; a photograph, a
+          sentence, a song, a story. A half-formed idea sitting quietly in
+          somebody&rsquo;s Notes app, waiting to be called.
         </p>
         <p className="mx-auto mt-4 max-w-xl text-stone">
-          Sometimes the project starts with a photograph. Sometimes a
-          sentence. A song. A story. A half-formed idea sitting in
-          somebody&rsquo;s Notes app.
+          That is enough to begin the quest.
         </p>
         <p className="mx-auto mt-4 max-w-xl text-stone">
-          That&rsquo;s enough to begin.
+          The goal was never to make something that simply looks good.
+          It is to seek out the detail, the perspective, the story
+          &mdash; the treasure &mdash; that makes the work unmistakably
+          yours, then give it form. That is the accent.
         </p>
-        <p className="mx-auto mt-4 max-w-xl text-stone">
-          The goal isn&rsquo;t to make something that simply looks good.
-          It&rsquo;s to find the detail, perspective, or story that makes
-          the work unmistakably yours, then give it form.
+
+        <p className="mx-auto mt-6 max-w-md font-playfair text-xl italic text-ink sm:text-2xl">
+          &ldquo;Your voice is the treasure&hellip;the accent.&rdquo;
         </p>
 
         <p className="mx-auto mt-8 max-w-sm font-playfair text-3xl font-bold not-italic leading-[1.12] text-ink sm:text-4xl">
           <span className="block">The difference is you.</span>
           <span className="block">
-            Let&rsquo;s make it <span className="gold-foil">visible</span>.
+            Let&rsquo;s make it{" "}
+            <span className="dissolve-smoke">visible</span>.
           </span>
         </p>
       </section>
@@ -303,14 +332,16 @@ export default function WorkWithMePage() {
           The Treasure
         </p>
 
-        <h3 className="mx-auto mt-6 max-w-lg font-display text-2xl uppercase tracking-tight text-white sm:text-3xl">
+        <h3 className="mx-auto mt-6 max-w-lg font-playfair text-2xl font-bold not-italic tracking-tight text-white sm:text-3xl">
           Give the project a{" "}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/globe.png"
-            alt="world"
-            className="inline-block h-[1.2em] w-[1.2em] -translate-y-[0.08em] align-middle object-contain [filter:sepia(0.8)_saturate(2.4)_hue-rotate(-12deg)_brightness(1.05)]"
-          />{" "}
+          <span className="relative inline-block h-[1.2em] w-[1.2em] -translate-y-[0.08em] align-middle">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/globe.png"
+              alt="world"
+              className="globe-spin block h-full w-full object-contain"
+            />
+          </span>{" "}
           before anyone presses play.
         </h3>
 
@@ -442,7 +473,7 @@ export default function WorkWithMePage() {
         <p className="font-mono text-xs uppercase tracking-widest text-accent">
           For inspiration, visit the
         </p>
-        <p className="relative mx-auto mt-1 inline-block font-script text-4xl text-ink sm:text-5xl">
+        <p className="gleam-natural relative mx-auto mt-1 inline-block font-script text-4xl sm:text-5xl">
           Smithsonian
           {/* A couple of sketched flourishes either side, plus an
               underline swoop — the "handwritten and underlined for
@@ -498,31 +529,39 @@ export default function WorkWithMePage() {
           &ldquo;I have an idea&hellip;&rdquo;
         </p>
 
-        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
           {smithsonianPicks.map((piece) => (
             <Link
               key={piece.src}
               href="/design"
-              className="group relative block w-full overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-xl"
+              className="museum-frame group relative block w-full overflow-hidden bg-[#efe7d4] p-1.5 shadow-md transition-shadow hover:shadow-xl"
               aria-label={`View the design gallery — ${piece.alt.replace(/#/g, "")}`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={piece.src}
-                alt=""
-                className="block aspect-square w-full object-cover"
-                loading="lazy"
-              />
-              <span className="bronze-glare" aria-hidden="true" />
+              <span className="relative block overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={piece.src}
+                  alt=""
+                  className="block aspect-square w-full object-cover"
+                  loading="lazy"
+                />
+                <span className="bronze-glare" aria-hidden="true" />
+              </span>
             </Link>
           ))}
         </div>
 
         <Link
           href="/design"
-          className="mt-8 inline-block font-mono text-xs font-bold uppercase tracking-widest text-ink transition-colors duration-200 hover:text-accent"
+          className="group mt-8 inline-flex items-center gap-2.5 font-mono text-xs font-bold uppercase tracking-widest text-ink transition-colors duration-200 hover:text-accent"
         >
-          Enter the Smithsonian &rarr;
+          Enter the Museum
+          <span
+            aria-hidden="true"
+            className="flex h-7 w-7 items-center justify-center rounded-full bg-[#4a0f16] text-[#f0d8b0] shadow-[0_2px_5px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all duration-200 group-hover:translate-x-0.5 group-hover:bg-[#5c141d]"
+          >
+            &rarr;
+          </span>
         </Link>
       </section>
 
@@ -536,13 +575,40 @@ export default function WorkWithMePage() {
           Keep It Simple.
         </h2>
         {/* A scribbled margin note — the idea (1) plus the direction (1)
-            becomes the thing (2). */}
-        <p
-          aria-hidden="true"
-          className="pointer-events-none mt-2 -rotate-2 text-center font-hand text-5xl font-bold text-accent/70 [filter:url(#urban-sketch)] sm:text-6xl"
-        >
-          1 + 1 = 2
-        </p>
+            becomes the thing (2) — with a little atmosphere around it:
+            a soft glow and a couple of hand-drawn sparkle marks. */}
+        <div className="relative mt-2 flex justify-center">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute h-24 w-48 rounded-full bg-accent/15 blur-2xl"
+          />
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="pointer-events-none absolute -left-2 -top-3 h-4 w-4 text-accent/60 [filter:url(#urban-sketch)] sm:-left-4"
+          >
+            <path
+              d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"
+              fill="currentColor"
+            />
+          </svg>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="pointer-events-none absolute -bottom-2 -right-2 h-3 w-3 text-accent/50 [filter:url(#urban-sketch)] sm:-right-4"
+          >
+            <path
+              d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"
+              fill="currentColor"
+            />
+          </svg>
+          <p
+            aria-hidden="true"
+            className="pointer-events-none relative -rotate-2 text-center font-hand text-5xl font-bold text-accent/70 [filter:url(#urban-sketch)] sm:text-6xl"
+          >
+            1 + 1 = 2
+          </p>
+        </div>
         <ol className="mx-auto mt-8 max-w-lg space-y-7">
           {STEPS.map((step) => (
             <li key={step.n} className="flex gap-4">
