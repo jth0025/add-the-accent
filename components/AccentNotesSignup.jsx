@@ -45,66 +45,79 @@ export default function AccentNotesSignup() {
   };
 
   return (
-    <section className="paper-notebook corner-box mx-auto mt-10 max-w-xl rounded-xl border border-ink/15 bg-card px-7 py-9 text-center sm:px-10">
-      <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
-        <span className="h-px w-8 bg-accent/40" />
-        <span>Accent Notes</span>
-        <span className="h-px w-8 bg-accent/40" />
-      </div>
-      <p className="mx-auto mt-4 max-w-sm text-stone">
-        A note from the studio when there&rsquo;s something worth sending.
-      </p>
-      <p className="mx-auto mt-1 max-w-sm text-stone">
-        New writing, visual experiments, things I&rsquo;m making, things
-        I&rsquo;m thinking about, and occasionally something you can keep.
-      </p>
+    <section className="paper-notebook corner-box mx-auto mt-10 max-w-xl overflow-hidden rounded-xl border border-ink/15 bg-card px-7 py-9 text-center sm:px-10">
+      {/* The mascot, half-cropped, faint in the background on the far
+          left — a quiet signature rather than an illustration, sized
+          to just graze the text without sitting under any of it. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/logo-man-half.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 h-full w-16 object-cover object-left opacity-[0.12] sm:w-24"
+      />
 
-      {status === "sent" ? (
-        <p className="mt-6 font-serif text-lg italic text-ink">
-          You&rsquo;re on the list.
+      <div className="relative z-10">
+        <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
+          <span className="h-px w-8 bg-accent/40" />
+          <span>Accent Notes</span>
+          <span className="h-px w-8 bg-accent/40" />
+        </div>
+        <p className="mx-auto mt-4 max-w-sm text-stone">
+          A note from the studio when there&rsquo;s something worth sending.
         </p>
-      ) : (
-        <form
-          onSubmit={handleSubmit}
-          className="mx-auto mt-6 flex max-w-sm flex-col gap-2.5 sm:flex-row"
-        >
-          <label htmlFor="accent-notes-email" className="sr-only">
-            Email address
-          </label>
-          <input
-            id="accent-notes-email"
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={status === "sending"}
-            placeholder="you@email.com"
-            className="w-full rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent disabled:opacity-60"
-          />
-          <button
-            type="submit"
-            disabled={status === "sending"}
-            className="shrink-0 rounded-full bg-accent px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-          >
-            {status === "sending" ? "Adding…" : "Add me →"}
-          </button>
-        </form>
-      )}
-      {status === "error" && (
-        <p className="mt-3 text-sm text-[#c0202a]">
-          Something went wrong — try again, or email{" "}
-          <a
-            href="mailto:info@addtheaccent.com"
-            className="underline underline-offset-2"
-          >
-            info@addtheaccent.com
-          </a>
-          .
+        <p className="mx-auto mt-1 max-w-sm text-stone">
+          New writing, visual experiments, things I&rsquo;m making, things
+          I&rsquo;m thinking about, and occasionally something you can keep.
         </p>
-      )}
-      <p className="mt-4 font-mono text-[10px] uppercase tracking-widest text-stone/60">
-        No inbox clutter. Just the accent.
-      </p>
+
+        {status === "sent" ? (
+          <p className="mt-6 font-serif text-lg italic text-ink">
+            You&rsquo;re on the list.
+          </p>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="mx-auto mt-6 flex max-w-sm flex-col gap-2.5 sm:flex-row"
+          >
+            <label htmlFor="accent-notes-email" className="sr-only">
+              Email address
+            </label>
+            <input
+              id="accent-notes-email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={status === "sending"}
+              placeholder="you@email.com"
+              className="w-full rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent disabled:opacity-60"
+            />
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="shrink-0 rounded-full bg-accent px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+            >
+              {status === "sending" ? "Adding…" : "Add me →"}
+            </button>
+          </form>
+        )}
+        {status === "error" && (
+          <p className="mt-3 text-sm text-[#c0202a]">
+            Something went wrong — try again, or email{" "}
+            <a
+              href="mailto:info@addtheaccent.com"
+              className="underline underline-offset-2"
+            >
+              info@addtheaccent.com
+            </a>
+            .
+          </p>
+        )}
+        <p className="mt-4 font-mono text-[10px] uppercase tracking-widest text-stone/60">
+          No inbox clutter. Just the accent.
+        </p>
+      </div>
     </section>
   );
 }

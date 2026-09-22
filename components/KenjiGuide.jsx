@@ -4,11 +4,31 @@ import { useEffect, useRef, useState } from "react";
 
 // Kenji's opening dialogue — written like an NPC greeting rather than a
 // support-widget script, since he's the guide for the whole "quest"
-// framing of this page, not a help bot.
+// framing of this page, not a help bot. The first line is broken into
+// its own greeting/name beats rather than one run-on sentence.
 const LINES = [
-  "Konnichiwa. I am Kenji — lone samurai, sworn to guide wanderers through this forbidden quest.",
-  "You have found your way to Add the Accent seeking treasure: Cover & Key Art, forged to give your idea a world before anyone presses play.",
-  "Speak your idea below, and I will walk it to the gate myself. The quest is yours whenever you are ready.",
+  <>
+    <span className="mb-1 block font-script text-2xl leading-none text-accent">
+      Konnichiwa.
+    </span>
+    <span className="mb-1.5 block font-cinema text-base uppercase tracking-wide text-[#2a2115]">
+      I am Kenji
+    </span>
+    <span className="block font-serif text-[15px] italic leading-snug text-[#2a2115]">
+      &mdash; lone samurai, sworn to guide wanderers through this
+      forbidden quest.
+    </span>
+  </>,
+  <p key="l2" className="font-serif text-[15px] italic leading-snug text-[#2a2115]">
+    You have found your way to{" "}
+    <span className="domain-glow font-bold not-italic">Domain Expansion</span>{" "}
+    seeking treasure: Cover &amp; Key Art, forged to give your idea a world
+    before anyone presses play.
+  </p>,
+  <p key="l3" className="font-serif text-[15px] italic leading-snug text-[#2a2115]">
+    Speak your idea below, and I will walk it to the gate myself. The
+    quest is yours whenever you are ready.
+  </p>,
 ];
 
 /**
@@ -17,7 +37,9 @@ const LINES = [
  * once per visit (a short beat after the page settles) so first-time
  * wanderers get the greeting without having to go looking for it, then
  * stays reachable by hand afterward. Advances one line at a time like
- * game dialogue, ending on a CTA into the inquiry form.
+ * game dialogue, ending on a CTA into the inquiry form. While open, his
+ * full-body form stands beside the dialogue box; closing it sends him
+ * away again.
  */
 export default function KenjiGuide() {
   const [open, setOpen] = useState(false);
@@ -75,73 +97,89 @@ export default function KenjiGuide() {
   return (
     <div className="fixed bottom-5 right-5 z-[250] flex flex-col items-end gap-3 sm:bottom-7 sm:right-7">
       {open && (
-        <div
-          role="dialog"
-          aria-label="Kenji, your guide"
-          className="corner-box relative w-[19rem] rounded-xl border border-[#3a2a16]/60 bg-[#f4ecd8] p-4 text-left shadow-2xl sm:w-80"
-          style={{
-            backgroundImage:
-              "linear-gradient(180deg, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 20%)",
-          }}
-        >
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            aria-label="Close"
-            className="absolute right-3 top-2.5 text-lg leading-none text-stone/70 transition-colors hover:text-ink"
+        <div className="flex items-end">
+          {/* His full form, standing — appears only while the dialogue
+              is open, a head taller than the box it's guarding, with
+              its own shadow on the ground beneath him. Hidden on the
+              smallest phones, where there isn't room beside the box. */}
+          <div
+            aria-hidden="true"
+            className="relative hidden h-60 w-20 shrink-0 sm:block sm:w-24"
           >
-            &times;
-          </button>
-
-          <div className="flex items-start gap-3">
+            <div className="absolute inset-x-6 bottom-3 h-3.5 rounded-[50%] bg-black/55 blur-[5px]" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/kenji-avatar.png"
-              alt="Kenji"
-              className="h-12 w-12 shrink-0 rounded-full border-2 border-accent/60 object-cover shadow-md"
+              src="/kenji-standing.png"
+              alt=""
+              className="absolute bottom-4 left-1/2 h-[calc(100%-1rem)] w-auto -translate-x-1/2 object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
             />
-            <div className="min-w-0 pt-1">
-              <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-accent">
-                Kenji
-              </p>
-              <p
-                key={step}
-                className="kenji-line mt-1 font-serif text-[15px] italic leading-snug text-[#2a2115]"
-              >
-                {LINES[step]}
-              </p>
-            </div>
           </div>
 
-          <div className="mt-4 flex items-center justify-between">
-            <div className="flex gap-1.5" aria-hidden="true">
-              {LINES.map((_, i) => (
-                <span
-                  key={i}
-                  className={`h-1.5 w-1.5 rounded-full transition-colors ${
-                    i === step ? "bg-accent" : "bg-[#3a2a16]/25"
-                  }`}
-                />
-              ))}
+          <div
+            role="dialog"
+            aria-label="Kenji, your guide"
+            className="corner-box relative w-[19rem] rounded-xl border border-[#3a2a16]/60 bg-[#f4ecd8] p-4 text-left shadow-2xl sm:w-80"
+            style={{
+              backgroundImage:
+                "linear-gradient(180deg, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 20%)",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="Close"
+              className="absolute right-3 top-2.5 text-lg leading-none text-stone/70 transition-colors hover:text-ink"
+            >
+              &times;
+            </button>
+
+            <div className="flex items-start gap-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/kenji-avatar.png"
+                alt="Kenji"
+                className="h-12 w-12 shrink-0 rounded-full border-2 border-accent/60 object-cover shadow-md"
+              />
+              <div className="min-w-0 pt-1">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-accent">
+                  Kenji
+                </p>
+                <div key={step} className="kenji-line mt-1.5">
+                  {LINES[step]}
+                </div>
+              </div>
             </div>
 
-            {isLastLine ? (
-              <button
-                type="button"
-                onClick={beginQuest}
-                className="rounded-full bg-accent px-4 py-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-white transition-transform hover:scale-[1.04]"
-              >
-                Begin the Quest &rarr;
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setStep((s) => Math.min(s + 1, LINES.length - 1))}
-                className="font-mono text-[11px] font-bold uppercase tracking-widest text-accent hover:underline"
-              >
-                Next &rsaquo;
-              </button>
-            )}
+            <div className="mt-4 flex items-center justify-between">
+              <div className="flex gap-1.5" aria-hidden="true">
+                {LINES.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                      i === step ? "bg-accent" : "bg-[#3a2a16]/25"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {isLastLine ? (
+                <button
+                  type="button"
+                  onClick={beginQuest}
+                  className="rounded-full bg-accent px-4 py-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-white transition-transform hover:scale-[1.04]"
+                >
+                  Begin the Quest &rarr;
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setStep((s) => Math.min(s + 1, LINES.length - 1))}
+                  className="font-mono text-[11px] font-bold uppercase tracking-widest text-accent hover:underline"
+                >
+                  Next &rsaquo;
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PIECES } from "@/lib/designPieces";
+import { PIECES, tagsOf } from "@/lib/designPieces";
 import PaperClip from "@/components/PaperClip";
 import ServiceCTA from "@/components/ServiceCTA";
 import WorkInquiryForm from "@/components/WorkInquiryForm";
@@ -7,6 +7,11 @@ import AccentNotesSignup from "@/components/AccentNotesSignup";
 import KenjiGuide from "@/components/KenjiGuide";
 
 export const metadata = { title: "Work With Me — Add the Accent" };
+
+// The Smithsonian teaser below picks a fresh handful of commissioned
+// pieces on every request rather than baking one static set in at
+// build time.
+export const dynamic = "force-dynamic";
 
 function SectionLabel({ children, tone = "text-accent", rule = "bg-accent/40" }) {
   return (
@@ -20,25 +25,28 @@ function SectionLabel({ children, tone = "text-accent", rule = "bg-accent/40" })
   );
 }
 
-const headingClass =
-  "mt-3 text-center font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl";
+// Two-line "editorial" headline treatment shared by the service cards —
+// a smaller cousin of the Playfair hero lines on the home page.
+function EditorialHeading({ lines }) {
+  return (
+    <h2 className="mx-auto mt-3 max-w-[19rem] font-playfair text-xl italic leading-tight text-ink sm:max-w-lg sm:text-3xl">
+      {lines.map((line) => (
+        <span key={line} className="block">
+          {line}
+        </span>
+      ))}
+    </h2>
+  );
+}
 
-// A handful of named, commissioned covers/key-art — curated rather than
-// the whole /design set, so this reads as a highlight reel. Pulled from
-// the same list the full gallery uses; add or swap a src to change it.
-const FEATURED_SRCS = [
-  "/design/paradise-album-cover.jpg",
-  "/design/kobe-tribute-planet.jpg",
-  "/design/loomieverse-collage.jpg",
-  "/design/mirokol-hummingbird-portrait.jpg",
-  "/design/nu-outcast-planet-cover.jpg",
-  "/design/loomis-butterfly-cover.jpg",
-  "/design/aso-asa-desert-astronaut.jpg",
-  "/design/piano-stairway-car.jpg",
-];
-const FEATURED_WORK = FEATURED_SRCS.map((src) =>
-  PIECES.find((p) => p.src === src),
-).filter(Boolean);
+function Dot({ tone = "bg-accent" }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${tone}`}
+    />
+  );
+}
 
 const GOOD_FOR = {
   cover: [
@@ -65,15 +73,12 @@ const GOOD_FOR = {
   ],
 };
 
-function GoodForList({ items }) {
+function GoodForList({ items, tone = "text-stone", dot = "bg-accent" }) {
   return (
-    <ul className="mx-auto mt-4 flex max-w-md flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-stone">
+    <ul className={`mx-auto mt-4 flex max-w-md flex-wrap justify-center gap-x-5 gap-y-2 text-sm ${tone}`}>
       {items.map((item) => (
         <li key={item} className="flex items-center gap-1.5">
-          <span
-            aria-hidden="true"
-            className="h-1 w-1 shrink-0 rounded-full bg-accent"
-          />
+          <span aria-hidden="true" className={`h-1 w-1 shrink-0 rounded-full ${dot}`} />
           {item}
         </li>
       ))}
@@ -99,7 +104,23 @@ const STEPS = [
   },
 ];
 
+// The pool the Smithsonian teaser draws its random handful from — every
+// #commission-tagged piece in the design library (see CommissionGraphicsGrid
+// for the same filter, used on the portfolio page).
+const COMMISSION_POOL = PIECES.filter((p) => tagsOf(p.alt).includes("commission"));
+
+function pickRandom(list, count) {
+  const pool = [...list];
+  for (let i = pool.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, count);
+}
+
 export default function WorkWithMePage() {
+  const smithsonianPicks = pickRandom(COMMISSION_POOL, 4);
+
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       {/* Hero — Kenji, guide of the quest, introduces the studio. */}
@@ -108,30 +129,47 @@ export default function WorkWithMePage() {
         <SectionLabel>Work With Me</SectionLabel>
 
         <div className="relative mx-auto mt-8 w-[13rem] sm:w-[16rem]">
-          {/* A soft, detached shadow — he's not standing on the ground,
-              he's hovering just above it. */}
+          {/* A tight, dark shadow — he's hovering just above the ground,
+              close enough that it reads almost like it's touching, not
+              the soft faraway shadow a standing figure would cast. */}
           <div
             aria-hidden="true"
-            className="absolute inset-x-10 -bottom-2 h-5 rounded-[50%] bg-black/35 blur-md"
+            className="absolute inset-x-14 -bottom-1 h-3.5 rounded-[50%] bg-black/70 blur-[5px] sm:inset-x-16"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/kenji-meditating.png"
             alt="Kenji, a lone samurai rendered in carved wood and gold armor, seated cross-legged in meditation"
-            className="relative w-full drop-shadow-[0_18px_20px_rgba(0,0,0,0.28)]"
+            className="relative w-full drop-shadow-[0_14px_16px_rgba(0,0,0,0.3)]"
           />
         </div>
 
-        <p className="mx-auto mt-5 max-w-sm font-hand text-xl leading-tight text-accent">
-          &ldquo;Every quest begins the same way &mdash; someone says,
-          &lsquo;I have an idea&hellip;&rsquo;&rdquo;
+        <p className="mx-auto mt-5 max-w-[15rem] font-hand text-xl leading-tight text-accent">
+          Every quest begins the same way.
+          <br />
+          Someone says, &ldquo;I have an idea.&rdquo;
         </p>
 
-        <h1 className="mt-6 font-cinema text-3xl uppercase tracking-[0.04em] text-ink sm:text-4xl">
-          Bring me the idea before it&rsquo;s finished.
-        </h1>
+        {/* A worn hanko-style seal, like the mark stamped at the close
+            of a passage — here it marks the start of one instead. 始
+            ("hajime") reads as "begin". */}
+        <div className="mt-4 flex justify-center" aria-hidden="true">
+          <span className="grunge-text flex h-11 w-11 rotate-[-7deg] items-center justify-center rounded-[3px] bg-[#8f2c1a] font-serif text-2xl font-bold text-[#f4e4c4] shadow-[0_2px_6px_rgba(0,0,0,0.4)]">
+            始
+          </span>
+        </div>
 
-        <p className="mx-auto mt-6 max-w-xl text-stone">
+        <h1 className="mx-auto mt-5 max-w-xs font-playfair text-4xl font-bold not-italic leading-[1.08] text-ink sm:text-5xl">
+          <span className="block">Bring me the idea</span>
+          <span className="block">before it&rsquo;s finished.</span>
+        </h1>
+      </section>
+
+      {/* Everything the headline promises sits on its own sheet of
+          paper — the same "photo card, then a separate paper panel"
+          idea the homepage Features boxes use. */}
+      <section className="paper-notebook corner-box mt-6 rounded-xl border border-ink/15 bg-white px-7 py-10 text-center sm:px-10">
+        <p className="mx-auto max-w-xl text-stone">
           Add the Accent works with artists, brands, creators, and people
           with something to say but who may not know what it should look
           like yet.
@@ -141,20 +179,24 @@ export default function WorkWithMePage() {
           sentence. A song. A story. A half-formed idea sitting in
           somebody&rsquo;s Notes app.
         </p>
-        <p className="mx-auto mt-4 max-w-xl text-stone">That&rsquo;s enough to begin.</p>
+        <p className="mx-auto mt-4 max-w-xl text-stone">
+          That&rsquo;s enough to begin.
+        </p>
         <p className="mx-auto mt-4 max-w-xl text-stone">
           The goal isn&rsquo;t to make something that simply looks good.
           It&rsquo;s to find the detail, perspective, or story that makes
           the work unmistakably yours, then give it form.
         </p>
 
-        <p className="mx-auto mt-6 max-w-xl font-serif text-xl italic leading-snug text-ink sm:text-2xl">
-          The difference is you. Let&rsquo;s make it visible.
+        <p className="mx-auto mt-8 max-w-sm font-playfair text-3xl font-bold not-italic leading-[1.12] text-ink sm:text-4xl">
+          <span className="block">The difference is you.</span>
+          <span className="block">Let&rsquo;s make it visible.</span>
         </p>
       </section>
 
       {/* Cover & Key Art — the treasure Kenji speaks of, so it gets the
-          gold-and-bronze card the rest of the offerings don't. */}
+          gold-and-bronze card the rest of the offerings don't, ringed
+          with a handful of hand-drawn treasure pieces at the corners. */}
       <section
         id="cover-key-art"
         className="paper-journal-dark corner-box mt-10 scroll-mt-24 rounded-xl border border-black/30 px-7 py-10 text-center text-[#e7ded2] shadow-lg sm:px-10"
@@ -163,37 +205,91 @@ export default function WorkWithMePage() {
             "linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
         }}
       >
-        <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-[#f6e0bd]">
-          <span className="h-px w-8 bg-[#e7ded2]/30" />
-          <span>The Treasure &mdash; Cover &amp; Key Art</span>
-          <span className="h-px w-8 bg-[#e7ded2]/30" />
-        </div>
-        <h2 className="mt-4 font-display text-2xl uppercase tracking-tight text-white sm:text-3xl">
-          Give the project a world before anyone presses play.
-        </h2>
-        <p className="mx-auto mt-5 max-w-xl text-[#e7ded2]/90">
-          Cover artwork and key visuals for music, podcasts, films,
-          editorial projects, campaigns, and creative releases.
+        {/* Corner treasure — a coin, a gem, a key, a small chest, each
+            drawn in the site's loose hand-sketch line style and left
+            overlapping the box edge like they were dropped there. */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 40 40"
+          className="pointer-events-none absolute -left-3 -top-3 z-10 h-10 w-10 -rotate-[18deg] [filter:url(#urban-sketch)] sm:h-12 sm:w-12"
+        >
+          <circle cx="20" cy="20" r="14" fill="#d9a441" stroke="#3a2415" strokeWidth="2" />
+          <circle cx="20" cy="20" r="9.5" fill="none" stroke="#3a2415" strokeWidth="1.3" />
+          <path d="M20 14v12M15 17l10 6M25 17l-10 6" stroke="#3a2415" strokeWidth="1.1" strokeLinecap="round" />
+        </svg>
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 40 40"
+          className="pointer-events-none absolute -right-3 -top-3 z-10 h-10 w-10 rotate-[14deg] [filter:url(#urban-sketch)] sm:h-12 sm:w-12"
+        >
+          <path
+            d="M8 15 L20 6 L32 15 L26 34 L14 34 Z"
+            fill="#8fd8e6"
+            stroke="#1a4a52"
+            strokeWidth="2"
+          />
+          <path
+            d="M8 15 L32 15 M14 34 L20 15 L26 34 M20 6 L14 15 M20 6 L26 15"
+            fill="none"
+            stroke="#1a4a52"
+            strokeWidth="1"
+          />
+        </svg>
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 40 40"
+          className="pointer-events-none absolute -bottom-3 -left-3 z-10 h-10 w-10 rotate-[10deg] [filter:url(#urban-sketch)] sm:h-12 sm:w-12"
+        >
+          <circle cx="12" cy="12" r="7" fill="none" stroke="#f6e0bd" strokeWidth="2.6" />
+          <circle cx="12" cy="12" r="2.2" fill="#f6e0bd" />
+          <path d="M17 17 L32 32 M25 25 l4.5 -4.5 M29.5 29.5 l4 -4" stroke="#f6e0bd" strokeWidth="2.6" strokeLinecap="round" />
+        </svg>
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 40 40"
+          className="pointer-events-none absolute -bottom-3 -right-3 z-10 h-10 w-10 -rotate-[12deg] [filter:url(#urban-sketch)] sm:h-12 sm:w-12"
+        >
+          <rect x="5" y="17" width="30" height="15" rx="2" fill="#8a5a2a" stroke="#2a1a0c" strokeWidth="2" />
+          <path d="M5 21 Q20 10 35 21" fill="none" stroke="#2a1a0c" strokeWidth="2" />
+          <circle cx="20" cy="23.5" r="2.4" fill="#f6e0bd" stroke="#2a1a0c" strokeWidth="1" />
+        </svg>
+
+        <p className="font-mono text-xs uppercase tracking-widest text-[#f6e0bd]/80">
+          Cover &amp; Key Art
         </p>
-        <p className="mx-auto mt-4 max-w-xl text-[#e7ded2]/90">
-          Concept development, composition, typography, image treatment,
-          and final artwork are shaped around the story behind the
-          project rather than a template.
+        <p className="mt-1 font-oldenglish text-4xl leading-none text-[#f6e0bd] sm:text-5xl">
+          The Treasure
         </p>
+
+        <h3 className="mx-auto mt-6 max-w-lg font-display text-2xl uppercase tracking-tight text-white sm:text-3xl">
+          Give the project a{" "}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/globe.png"
+            alt="world"
+            className="inline-block h-[1.2em] w-[1.2em] -translate-y-[0.08em] align-middle object-contain"
+          />{" "}
+          before anyone presses play.
+        </h3>
+
+        <ul className="mx-auto mt-6 max-w-md space-y-2.5 text-left text-[#e7ded2]/90">
+          <li className="flex gap-2.5">
+            <Dot tone="bg-[#f6e0bd]" />
+            Cover artwork and key visuals for music, podcasts, films,
+            editorial projects, campaigns, and creative releases.
+          </li>
+          <li className="flex gap-2.5">
+            <Dot tone="bg-[#f6e0bd]" />
+            Concept development, composition, typography, image
+            treatment, and final artwork are shaped around the story
+            behind the project rather than a template.
+          </li>
+        </ul>
+
         <p className="mt-6 font-mono text-xs uppercase tracking-widest text-[#f6e0bd]/80">
           Good for
         </p>
-        <ul className="mx-auto mt-3 flex max-w-md flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-[#e7ded2]/90">
-          {GOOD_FOR.cover.map((item) => (
-            <li key={item} className="flex items-center gap-1.5">
-              <span
-                aria-hidden="true"
-                className="h-1 w-1 shrink-0 rounded-full bg-[#f6e0bd]"
-              />
-              {item}
-            </li>
-          ))}
-        </ul>
+        <GoodForList items={GOOD_FOR.cover} tone="text-[#e7ded2]/90" dot="bg-[#f6e0bd]" />
         <ServiceCTA presetType="Cover / Key Art">Start a Project</ServiceCTA>
       </section>
 
@@ -203,17 +299,19 @@ export default function WorkWithMePage() {
         className="paper-journal corner-box mt-10 scroll-mt-24 rounded-xl border border-ink/15 bg-card px-7 py-10 text-center sm:px-10"
       >
         <SectionLabel>Visual Storytelling</SectionLabel>
-        <h2 className={headingClass}>
-          Not just a picture. A point of view.
-        </h2>
-        <p className="mx-auto mt-5 max-w-xl text-stone">
-          Conceptual portraits, composites, and narrative visuals built
-          around an idea, memory, person, or story.
-        </p>
-        <p className="mx-auto mt-4 max-w-xl text-stone">
-          This is where photography, design, surrealism, and art
-          direction can collide a little.
-        </p>
+        <EditorialHeading lines={["Not just a picture.", "A point of view."]} />
+        <ul className="mx-auto mt-5 max-w-xl space-y-2 text-left text-stone">
+          <li className="flex gap-2.5">
+            <Dot />
+            Conceptual portraits, composites, and narrative visuals
+            built around an idea, memory, person, or story.
+          </li>
+          <li className="flex gap-2.5">
+            <Dot />
+            This is where photography, design, surrealism, and art
+            direction can collide a little.
+          </li>
+        </ul>
         <p className="mx-auto mt-4 max-w-xl font-serif italic text-ink">
           Bring the story. We&rsquo;ll figure out what it needs to become.
         </p>
@@ -232,19 +330,23 @@ export default function WorkWithMePage() {
         className="paper-journal corner-box mt-10 scroll-mt-24 rounded-xl border border-ink/15 bg-card px-7 py-10 text-center sm:px-10"
       >
         <SectionLabel>Creative Direction &amp; Brand Story</SectionLabel>
-        <h2 className={headingClass}>
-          You know what you&rsquo;re trying to say. You just
-          can&rsquo;t see it yet.
-        </h2>
-        <p className="mx-auto mt-5 max-w-xl text-stone">
-          For artists, creators, and growing brands who need help turning
-          scattered ideas into a clearer creative world.
-        </p>
-        <p className="mx-auto mt-4 max-w-xl text-stone">
-          We&rsquo;ll work through the story, positioning, visual
-          language, tone, references, and creative direction until the
-          pieces begin to feel like they belong to the same universe.
-        </p>
+        <EditorialHeading
+          lines={["You know what you're trying to say.", "You just can't see it yet."]}
+        />
+        <ul className="mx-auto mt-5 max-w-xl space-y-2 text-left text-stone">
+          <li className="flex gap-2.5">
+            <Dot />
+            For artists, creators, and growing brands who need help
+            turning scattered ideas into a clearer creative world.
+          </li>
+          <li className="flex gap-2.5">
+            <Dot />
+            We&rsquo;ll work through the story, positioning, visual
+            language, tone, references, and creative direction until
+            the pieces begin to feel like they belong to the same
+            universe.
+          </li>
+        </ul>
         <p className="mt-6 font-mono text-xs uppercase tracking-widest text-accent">
           Good for
         </p>
@@ -254,13 +356,18 @@ export default function WorkWithMePage() {
         </ServiceCTA>
       </section>
 
-      {/* Selected Commissioned Work */}
-      <section
-        id="selected-work"
-        className="mt-14 scroll-mt-24 text-center"
-      >
-        <SectionLabel>Selected Commissioned Work</SectionLabel>
-        <p className="mx-auto mt-4 max-w-md text-stone">
+      {/* For inspiration, visit the Smithsonian — a playful stand-in
+          name for the design gallery, with a fresh random handful of
+          commissioned pieces on every visit. */}
+      <section id="selected-work" className="mt-14 scroll-mt-24 text-center">
+        <p className="font-mono text-xs uppercase tracking-widest text-accent">
+          For inspiration, visit the
+        </p>
+        <p className="mt-1 font-script text-4xl text-accent sm:text-5xl">
+          Smithsonian
+        </p>
+
+        <p className="mx-auto mt-5 max-w-md text-stone">
           A few things that began the same way most good projects do:
           with somebody saying,
         </p>
@@ -269,7 +376,7 @@ export default function WorkWithMePage() {
         </p>
 
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {FEATURED_WORK.map((piece) => (
+          {smithsonianPicks.map((piece) => (
             <Link
               key={piece.src}
               href="/design"
@@ -292,17 +399,27 @@ export default function WorkWithMePage() {
           href="/design"
           className="mt-8 inline-block font-mono text-xs font-bold uppercase tracking-widest text-accent hover:underline"
         >
-          See More Design &rarr;
+          Enter the Smithsonian &rarr;
         </Link>
       </section>
 
       {/* How It Works */}
       <section
         id="how-it-works"
-        className="paper-notebook corner-box mt-14 scroll-mt-24 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10"
+        className="paper-notebook corner-box relative mt-14 scroll-mt-24 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10"
       >
         <SectionLabel>How It Works</SectionLabel>
-        <h2 className={`${headingClass} text-center`}>Simple.</h2>
+        {/* A scribbled margin note — the idea (1) plus the direction (1)
+            becomes the thing (2). */}
+        <p
+          aria-hidden="true"
+          className="pointer-events-none absolute right-5 top-5 -rotate-6 font-hand text-3xl font-bold text-accent/70 [filter:url(#urban-sketch)] sm:right-8 sm:top-7 sm:text-4xl"
+        >
+          1 + 1 = 2
+        </p>
+        <h2 className="mt-3 text-center font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
+          Keep It Simple.
+        </h2>
         <ol className="mx-auto mt-8 max-w-lg space-y-7">
           {STEPS.map((step) => (
             <li key={step.n} className="flex gap-4">
@@ -326,7 +443,7 @@ export default function WorkWithMePage() {
         className="paper-fold-quarters corner-box mt-14 scroll-mt-24 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10"
       >
         <SectionLabel>Have Something in Mind?</SectionLabel>
-        <p className="mx-auto mt-4 max-w-md text-center text-stone">
+        <p className="mx-auto mt-4 max-w-md text-center font-playfair text-xl italic text-ink sm:text-2xl">
           You don&rsquo;t need the perfect creative brief.
         </p>
         <p className="mx-auto mt-2 max-w-md text-center text-stone">

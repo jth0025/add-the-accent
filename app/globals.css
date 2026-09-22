@@ -1372,6 +1372,35 @@ html.header-raining .header-rain {
   }
 }
 
+/* Kenji's dialogue — "Domain Expansion" glows like the name of a real
+   place, reusing the nav item's own breathing-gold mechanic. */
+.domain-glow {
+  color: #cf8c2e;
+  animation: nav-glow-pulse 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .domain-glow {
+    animation: none;
+    filter: drop-shadow(0 0 4px rgba(224, 168, 96, 0.6));
+  }
+}
+
+/* The Work With Me inquiry form's "scantron" sheet — pale ruled paper
+   under the numbered fields, standing in for the boxed white card the
+   rest of the site's forms use. */
+.scantron-sheet {
+  background-color: #f2ecd3;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(26, 26, 26, 0.07) 0,
+    rgba(26, 26, 26, 0.07) 1px,
+    transparent 1px,
+    transparent 34px
+  );
+  border: 1px solid rgba(26, 26, 26, 0.15);
+}
+
 /* Kenji guide (Work With Me page) — the floating launcher bobs gently
    and carries a breathing gold ring, like a quest-giver marker on a
    map. Dialogue lines fade/rise in one at a time as they advance. */

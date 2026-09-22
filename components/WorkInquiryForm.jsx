@@ -30,10 +30,34 @@ const SOURCES = [
   "Somewhere else",
 ];
 
+// Underlined "fill in the blank" fields on a ruled cream sheet, rather
+// than boxed inputs — see the .scantron-sheet rule in globals.css for
+// the paper itself.
 const fieldClass =
-  "w-full rounded-md border border-ink/15 bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent disabled:opacity-60";
+  "w-full border-0 border-b-2 border-dotted border-ink/35 bg-transparent px-0.5 py-1.5 font-mono text-sm text-ink outline-none placeholder:text-stone/50 focus:border-accent disabled:opacity-60";
 const labelClass =
-  "mb-1.5 block font-mono text-[10px] uppercase tracking-widest text-stone";
+  "mb-1 block font-mono text-[10px] uppercase tracking-widest text-stone";
+
+// One "question" on the scantron sheet — a circled number, like an
+// answer-sheet row, with the actual field underneath it.
+function ScantronField({ n, label, required, children }) {
+  return (
+    <div className="flex items-start gap-3">
+      <span
+        aria-hidden="true"
+        className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-ink/60 font-mono text-[11px] font-bold text-ink"
+      >
+        {n}
+      </span>
+      <div className="min-w-0 flex-1">
+        <label htmlFor={`wwm-${n}`} className={labelClass}>
+          {label} {required && <span className="text-[#c0202a]">*</span>}
+        </label>
+        {children}
+      </div>
+    </div>
+  );
+}
 
 /**
  * The Work With Me project-inquiry form — a proper qualifying form
@@ -146,7 +170,10 @@ export default function WorkInquiryForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 space-y-4 text-left">
+    <form
+      onSubmit={handleSubmit}
+      className="scantron-sheet relative mt-6 space-y-5 rounded-lg p-5 text-left sm:p-7"
+    >
       <input
         type="hidden"
         name="_subject"
@@ -162,13 +189,10 @@ export default function WorkInquiryForm() {
         className="absolute left-[-9999px] h-0 w-0 opacity-0"
       />
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="wwm-name" className={labelClass}>
-            Your name <span className="text-accent">*</span>
-          </label>
+      <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+        <ScantronField n="01" label="Your name" required>
           <input
-            id="wwm-name"
+            id="wwm-01"
             name="name"
             type="text"
             required
@@ -176,13 +200,10 @@ export default function WorkInquiryForm() {
             className={fieldClass}
             placeholder="Jane Doe"
           />
-        </div>
-        <div>
-          <label htmlFor="wwm-email" className={labelClass}>
-            Email <span className="text-accent">*</span>
-          </label>
+        </ScantronField>
+        <ScantronField n="02" label="Email" required>
           <input
-            id="wwm-email"
+            id="wwm-02"
             name="email"
             type="email"
             required
@@ -190,35 +211,29 @@ export default function WorkInquiryForm() {
             className={fieldClass}
             placeholder="jane@email.com"
           />
-        </div>
+        </ScantronField>
       </div>
 
-      <div>
-        <label htmlFor="wwm-company" className={labelClass}>
-          Company / Artist / Brand
-        </label>
+      <ScantronField n="03" label="Company / Artist / Brand">
         <input
-          id="wwm-company"
+          id="wwm-03"
           name="company"
           type="text"
           disabled={status === "sending"}
           className={fieldClass}
           placeholder="Optional"
         />
-      </div>
+      </ScantronField>
 
-      <div>
-        <label htmlFor="wwm-project-type" className={labelClass}>
-          What are we making? <span className="text-accent">*</span>
-        </label>
+      <ScantronField n="04" label="What are we making?" required>
         <select
-          id="wwm-project-type"
+          id="wwm-04"
           name="project_type"
           required
           disabled={status === "sending"}
           value={projectType}
           onChange={(e) => setProjectType(e.target.value)}
-          className={`${fieldClass} appearance-none bg-white`}
+          className={`${fieldClass} appearance-none bg-transparent`}
         >
           <option value="" disabled>
             Choose one
@@ -229,14 +244,11 @@ export default function WorkInquiryForm() {
             </option>
           ))}
         </select>
-      </div>
+      </ScantronField>
 
-      <div>
-        <label htmlFor="wwm-message" className={labelClass}>
-          Tell me about it <span className="text-accent">*</span>
-        </label>
+      <ScantronField n="05" label="Tell me about it" required>
         <textarea
-          id="wwm-message"
+          id="wwm-05"
           name="message"
           required
           rows={5}
@@ -244,33 +256,27 @@ export default function WorkInquiryForm() {
           className={`${fieldClass} resize-none`}
           placeholder="The idea, the reference, the feeling you're after — whatever you've got."
         />
-      </div>
+      </ScantronField>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="wwm-timeline" className={labelClass}>
-            When do you need it?
-          </label>
+      <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+        <ScantronField n="06" label="When do you need it?">
           <input
-            id="wwm-timeline"
+            id="wwm-06"
             name="timeline"
             type="text"
             disabled={status === "sending"}
             className={fieldClass}
             placeholder="No rush / a date"
           />
-        </div>
-        <div>
-          <label htmlFor="wwm-budget" className={labelClass}>
-            Budget <span className="text-accent">*</span>
-          </label>
+        </ScantronField>
+        <ScantronField n="07" label="Budget" required>
           <select
-            id="wwm-budget"
+            id="wwm-07"
             name="budget"
             required
             defaultValue=""
             disabled={status === "sending"}
-            className={`${fieldClass} appearance-none bg-white`}
+            className={`${fieldClass} appearance-none bg-transparent`}
           >
             <option value="" disabled>
               Choose one
@@ -281,33 +287,27 @@ export default function WorkInquiryForm() {
               </option>
             ))}
           </select>
-        </div>
+        </ScantronField>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="wwm-reference" className={labelClass}>
-            Reference link
-          </label>
+      <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+        <ScantronField n="08" label="Reference link">
           <input
-            id="wwm-reference"
+            id="wwm-08"
             name="reference"
             type="url"
             disabled={status === "sending"}
             className={fieldClass}
             placeholder="Optional"
           />
-        </div>
-        <div>
-          <label htmlFor="wwm-source" className={labelClass}>
-            How did you find Add the Accent?
-          </label>
+        </ScantronField>
+        <ScantronField n="09" label="How did you find Add the Accent?">
           <select
-            id="wwm-source"
+            id="wwm-09"
             name="source"
             defaultValue=""
             disabled={status === "sending"}
-            className={`${fieldClass} appearance-none bg-white`}
+            className={`${fieldClass} appearance-none bg-transparent`}
           >
             <option value="">Optional</option>
             {SOURCES.map((s) => (
@@ -316,7 +316,7 @@ export default function WorkInquiryForm() {
               </option>
             ))}
           </select>
-        </div>
+        </ScantronField>
       </div>
 
       {status === "error" && (
@@ -335,8 +335,15 @@ export default function WorkInquiryForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full rounded-full bg-accent py-3 font-mono text-xs font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+        className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-accent py-2.5 pl-3 pr-5 font-mono text-xs font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90 disabled:opacity-60"
       >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/kenji-avatar.png"
+          alt=""
+          aria-hidden="true"
+          className="h-8 w-8 shrink-0 rounded-full border-2 border-white/80 object-cover"
+        />
         {status === "sending" ? "Sending…" : "Send it to Kenji →"}
       </button>
     </form>
