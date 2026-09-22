@@ -1000,6 +1000,18 @@ html.header-raining .header-rain {
   }
 }
 
+/* Stack onto .gold-foil for a stamped, plated look — a bright bevel
+   edge above, a dark engraved edge below, and a soft warm glow, all
+   via text-shadow so it reads on top of the gradient fill underneath
+   rather than replacing it. */
+.gold-plate {
+  text-shadow:
+    0 1px 0 rgba(255, 244, 214, 0.6),
+    0 -1px 1px rgba(58, 36, 21, 0.65),
+    0 3px 4px rgba(0, 0, 0, 0.45),
+    0 0 16px rgba(255, 214, 130, 0.3);
+}
+
 /* Gleam, natural color — the exact same mechanic as .gold-foil (one
    repeating gradient, its position sliding the whole cycle through,
    same keyframe shape/timing) but with the resting color kept at the
@@ -1416,6 +1428,30 @@ html.header-raining .header-rain {
 
 .kenji-bob {
   animation: kenji-bob 3.4s ease-in-out infinite;
+}
+
+/* The meditating hero shot on the Work With Me page — a slower, smaller
+   drift than the launcher's bob, just enough to read as levitation
+   rather than a bounce. The shadow beneath him stays still (see the
+   markup), which is what actually sells the effect. */
+@keyframes kenji-levitate {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.kenji-levitate {
+  animation: kenji-levitate 4.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kenji-levitate {
+    animation: none;
+  }
 }
 
 @keyframes kenji-ring-pulse {

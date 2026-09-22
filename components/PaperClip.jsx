@@ -15,7 +15,11 @@ export default function PaperClip({ position = "-top-4 left-1 rotate-[7deg]" }) 
       className={`pointer-events-none absolute z-20 h-16 w-auto ${position}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/icons/paperclip-photo.png" alt="" className="h-full w-auto" />
+      <img
+        src="/icons/paperclip-photo.png"
+        alt=""
+        className="h-full w-auto drop-shadow-[3px_5px_4px_rgba(0,0,0,0.45)]"
+      />
     </span>
   );
 }

@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 // its own greeting/name beats rather than one run-on sentence.
 const LINES = [
   <>
-    <span className="mb-1 block font-script text-2xl leading-none text-accent">
+    <span className="mb-1 block font-tribal text-2xl leading-none tracking-wide text-accent">
       Konnichiwa.
     </span>
     <span className="mb-1.5 block font-cinema text-base uppercase tracking-wide text-[#2a2115]">
@@ -99,15 +99,15 @@ export default function KenjiGuide() {
       {open && (
         <div className="flex items-end">
           {/* His full form, standing — appears only while the dialogue
-              is open, with a tight shadow planted right under his feet
-              (he's standing on the ground here, not levitating the way
-              the meditating hero shot is). Hidden on the smallest
-              phones, where there isn't room beside the box. */}
+              is open, feet planted right in his own shadow (he's
+              standing on the ground here, not levitating the way the
+              meditating hero shot is). Hidden on the smallest phones,
+              where there isn't room beside the box. */}
           <div
             aria-hidden="true"
             className="relative hidden h-80 w-28 shrink-0 sm:block sm:h-[22rem] sm:w-32"
           >
-            <div className="absolute inset-x-9 bottom-0.5 h-3 rounded-[50%] bg-black/65 blur-[3px] sm:inset-x-10" />
+            <div className="absolute inset-x-8 -bottom-1 h-4 rounded-[50%] bg-black/70 blur-[3px] sm:inset-x-9" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/kenji-standing.png"

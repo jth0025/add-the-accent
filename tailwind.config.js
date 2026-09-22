@@ -29,6 +29,7 @@ module.exports = {
         oldenglish: ["var(--font-oldenglish)", "\"Old English Text MT\"", "Georgia", "serif"],
         hand: ["var(--font-hand)", "\"Bradley Hand\"", "\"Comic Sans MS\"", "cursive"],
         cinema: ["var(--font-cinema)", "\"Oswald\"", "\"Arial Narrow\"", "sans-serif"],
+        tribal: ["var(--font-tribal)", "\"Copperplate\"", "serif"],
       },
       typography: () => ({
         accent: {

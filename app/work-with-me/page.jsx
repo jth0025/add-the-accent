@@ -188,22 +188,22 @@ export default function WorkWithMePage() {
     <div className="mx-auto max-w-3xl px-6 py-16">
       {/* Hero — Kenji, guide of the quest, introduces the studio. */}
       <section className="paper-fold-quarters corner-box rounded-xl border border-ink/15 bg-card px-7 py-12 text-center sm:px-10 sm:py-16">
-        <PaperClip position="-top-4 left-14 rotate-[7deg]" />
+        <PaperClip position="-top-4 left-24 rotate-[7deg]" />
         <SectionLabel>Work With Me</SectionLabel>
 
         <div className="relative mx-auto mt-8 w-[13rem] sm:w-[16rem]">
-          {/* A tight, dark shadow — he's hovering just above the ground,
-              close enough that it reads almost like it's touching, not
-              the soft faraway shadow a standing figure would cast. */}
+          {/* A wide, grounded shadow that stays put while he drifts above
+              it — the gap and the stillness are what sell the levitation,
+              rather than a shadow that tracks his every move. */}
           <div
             aria-hidden="true"
-            className="absolute inset-x-14 -bottom-1 h-3.5 rounded-[50%] bg-black/70 blur-[5px] sm:inset-x-16"
+            className="absolute inset-x-3 -bottom-4 h-5 rounded-[50%] bg-black/75 blur-[6px] sm:inset-x-4 sm:-bottom-5"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/kenji-meditating.png"
             alt="Kenji, a lone samurai rendered in carved wood and gold armor, seated cross-legged in meditation"
-            className="relative w-full drop-shadow-[0_14px_16px_rgba(0,0,0,0.3)]"
+            className="kenji-levitate relative w-full drop-shadow-[0_14px_16px_rgba(0,0,0,0.3)]"
           />
         </div>
 
@@ -299,7 +299,7 @@ export default function WorkWithMePage() {
         <p className="font-mono text-xs uppercase tracking-widest text-[#f6e0bd]/80">
           Cover &amp; Key Art
         </p>
-        <p className="gold-foil mt-1 font-oldenglish text-4xl leading-none sm:text-5xl">
+        <p className="gold-foil gold-plate mt-1 font-oldenglish text-4xl leading-none sm:text-5xl">
           The Treasure
         </p>
 
@@ -309,7 +309,7 @@ export default function WorkWithMePage() {
           <img
             src="/globe.png"
             alt="world"
-            className="inline-block h-[1.2em] w-[1.2em] -translate-y-[0.08em] align-middle object-contain"
+            className="inline-block h-[1.2em] w-[1.2em] -translate-y-[0.08em] align-middle object-contain [filter:sepia(0.8)_saturate(2.4)_hue-rotate(-12deg)_brightness(1.05)]"
           />{" "}
           before anyone presses play.
         </h3>
@@ -357,7 +357,7 @@ export default function WorkWithMePage() {
           src="/scroll.png"
           alt=""
           aria-hidden="true"
-          className="mx-auto mt-4 w-40 drop-shadow-[0_22px_26px_rgba(0,0,0,0.55)] sm:w-52"
+          className="mx-auto mt-4 w-32 [filter:drop-shadow(0_6px_5px_rgba(0,0,0,0.55))_drop-shadow(0_22px_18px_rgba(0,0,0,0.4))] sm:w-44"
         />
         <ul className="mx-auto mt-5 max-w-xl space-y-2 text-left text-stone">
           <li className="flex gap-2.5">
@@ -442,8 +442,52 @@ export default function WorkWithMePage() {
         <p className="font-mono text-xs uppercase tracking-widest text-accent">
           For inspiration, visit the
         </p>
-        <p className="mt-1 font-script text-4xl text-accent sm:text-5xl">
+        <p className="relative mx-auto mt-1 inline-block font-script text-4xl text-ink sm:text-5xl">
           Smithsonian
+          {/* A couple of sketched flourishes either side, plus an
+              underline swoop — the "handwritten and underlined for
+              emphasis" atmosphere rather than a plain wordmark. */}
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 36 36"
+            className="pointer-events-none absolute -left-8 top-0 h-6 w-6 -rotate-[8deg] text-accent/70 [filter:url(#urban-sketch)] sm:-left-9 sm:h-7 sm:w-7"
+          >
+            <path
+              d="M6 28 L26 6 M18 6 L26 6 L26 14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 36 36"
+            className="pointer-events-none absolute -right-8 top-0 h-6 w-6 rotate-[8deg] scale-x-[-1] text-accent/70 [filter:url(#urban-sketch)] sm:-right-9 sm:h-7 sm:w-7"
+          >
+            <path
+              d="M6 28 L26 6 M18 6 L26 6 L26 14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 200 20"
+            className="pointer-events-none absolute -bottom-1 left-1/2 h-3 w-36 -translate-x-1/2 text-accent/60 [filter:url(#urban-sketch)] sm:w-44"
+          >
+            <path
+              d="M4 10 Q60 18 100 9 T196 11"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+            />
+          </svg>
         </p>
 
         <p className="mx-auto mt-5 max-w-md text-stone">

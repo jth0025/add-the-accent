@@ -1,4 +1,4 @@
-import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display, UnifrakturCook, Caveat, Anton } from "next/font/google";
+import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display, UnifrakturCook, Caveat, Anton, Yuji_Syuku } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import VisitCounter from "@/components/VisitCounter";
@@ -88,6 +88,15 @@ const anton = Anton({
   display: "swap",
 });
 
+// Bold Japanese brush-ink calligraphy face (reads in the Latin alphabet)
+// — Kenji's "Konnichiwa" greeting, for a tribal, inked-by-hand feel.
+const yujiSyuku = Yuji_Syuku({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-tribal",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Add the Accent",
   description:
@@ -159,7 +168,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable} ${playfairDisplay.variable} ${unifrakturCook.variable} ${caveat.variable} ${anton.variable}`}
+      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable} ${playfairDisplay.variable} ${unifrakturCook.variable} ${caveat.variable} ${anton.variable} ${yujiSyuku.variable}`}
     >
       <body className="font-sans antialiased">
         {/* Grunge/distressed-type filter — referenced by `.grunge-text`
@@ -340,7 +349,7 @@ export default function RootLayout({ children }) {
                   falls through to the full-width phone/tablet bar
                   instead, same pattern the header already used before
                   this item existed. */}
-              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 xl:-mr-[10.5rem] xl:flex xl:gap-3">
+              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 xl:-mr-[11.25rem] xl:flex xl:gap-3 2xl:-mr-[13.5rem]">
                 <Link href="/" className="hover:text-accent">
                   Home
                 </Link>
@@ -349,8 +358,11 @@ export default function RootLayout({ children }) {
                   Portfolio
                 </Link>
 
-                <Link href="/design" className="hover:text-accent">
-                  Design
+                <Link href="/design" className="relative inline-block pt-2.5 leading-none hover:text-accent">
+                  <span className="absolute left-0 top-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
+                    the
+                  </span>
+                  Museum
                 </Link>
 
                 <Link href="/work-with-me" className="nav-glow">
@@ -441,7 +453,7 @@ export default function RootLayout({ children }) {
               src="/grass-side.png"
               alt=""
               aria-hidden="true"
-              className="pointer-events-none absolute bottom-0 left-1/2 h-9 w-auto -translate-x-1/2 sm:h-11"
+              className="pointer-events-none absolute bottom-0 left-1/2 h-9 w-auto -translate-x-1/2 sm:h-11 xl:translate-x-[calc(-50%+0.75rem)] 2xl:translate-x-[calc(-50%+2.5rem)]"
             />
           </header>
 
@@ -463,8 +475,11 @@ export default function RootLayout({ children }) {
             <Link href="/portfolio" className="hover:text-accent">
               Portfolio
             </Link>
-            <Link href="/design" className="hover:text-accent">
-              Design
+            <Link href="/design" className="relative inline-block pt-2.5 leading-none hover:text-accent">
+              <span className="absolute left-0 top-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
+                the
+              </span>
+              Museum
             </Link>
             <Link href="/journal" className="hover:text-accent">
               Journal
