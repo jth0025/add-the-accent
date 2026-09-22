@@ -97,14 +97,15 @@ export default function KenjiGuide() {
   return (
     <div className="fixed bottom-5 right-5 z-[250] flex flex-col items-end gap-3 sm:bottom-7 sm:right-7">
       {open && (
-        <div className="flex items-end">
+        <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-end sm:gap-0">
           {/* His full form, standing — appears only while the dialogue
-              is open, feet planted right at the bottom of the box
-              beside him. Hidden on the smallest phones, where there
-              isn't room beside the box. */}
+              is open, feet planted right at the bottom of the box. On
+              phones there isn't room beside the box, so he stacks
+              above it instead (smaller, centered); from sm: up he
+              stands beside it at full size. */}
           <div
             aria-hidden="true"
-            className="relative hidden h-80 w-28 shrink-0 sm:block sm:h-[22rem] sm:w-32"
+            className="relative h-56 w-24 shrink-0 self-center sm:h-[22rem] sm:w-32 sm:self-auto"
           >
             <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
