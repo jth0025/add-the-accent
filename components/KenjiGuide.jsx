@@ -116,13 +116,6 @@ export default function KenjiGuide() {
                 alt=""
                 className="h-full w-auto object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
               />
-              {/* A small gleam at the tip of his raised sword — mostly
-                  dormant, catching the light every few seconds. */}
-              <span
-                aria-hidden="true"
-                className="lens-flare pointer-events-none absolute h-5 w-5 sm:h-6 sm:w-6"
-                style={{ left: "97%", top: "83%" }}
-              />
             </div>
           </div>
 
