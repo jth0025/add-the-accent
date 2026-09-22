@@ -99,19 +99,20 @@ export default function KenjiGuide() {
       {open && (
         <div className="flex items-end">
           {/* His full form, standing — appears only while the dialogue
-              is open, a head taller than the box it's guarding, with
-              its own shadow on the ground beneath him. Hidden on the
-              smallest phones, where there isn't room beside the box. */}
+              is open, with a tight shadow planted right under his feet
+              (he's standing on the ground here, not levitating the way
+              the meditating hero shot is). Hidden on the smallest
+              phones, where there isn't room beside the box. */}
           <div
             aria-hidden="true"
-            className="relative hidden h-60 w-20 shrink-0 sm:block sm:w-24"
+            className="relative hidden h-80 w-28 shrink-0 sm:block sm:h-[22rem] sm:w-32"
           >
-            <div className="absolute inset-x-6 bottom-3 h-3.5 rounded-[50%] bg-black/55 blur-[5px]" />
+            <div className="absolute inset-x-9 bottom-0.5 h-3 rounded-[50%] bg-black/65 blur-[3px] sm:inset-x-10" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/kenji-standing.png"
               alt=""
-              className="absolute bottom-4 left-1/2 h-[calc(100%-1rem)] w-auto -translate-x-1/2 object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
+              className="absolute bottom-0 left-1/2 h-full w-auto -translate-x-1/2 object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
             />
           </div>
 

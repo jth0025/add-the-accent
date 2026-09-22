@@ -47,14 +47,15 @@ export default function AccentNotesSignup() {
   return (
     <section className="paper-notebook corner-box mx-auto mt-10 max-w-xl overflow-hidden rounded-xl border border-ink/15 bg-card px-7 py-9 text-center sm:px-10">
       {/* The mascot, half-cropped, faint in the background on the far
-          left — a quiet signature rather than an illustration, sized
-          to just graze the text without sitting under any of it. */}
+          left — shown whole (not sliced by a narrow crop box) so it
+          reads as a watermark bleeding in under the text rather than a
+          clipped sliver. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/logo-man-half.png"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-0 h-full w-16 object-cover object-left opacity-[0.12] sm:w-24"
+        className="pointer-events-none absolute left-0 top-0 h-full w-auto max-w-[9rem] object-contain object-left opacity-[0.22] [mix-blend-mode:multiply] sm:max-w-[12rem]"
       />
 
       <div className="relative z-10">

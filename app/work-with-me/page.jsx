@@ -39,6 +39,69 @@ function EditorialHeading({ lines }) {
   );
 }
 
+// Hand-sketched treasure pieces scattered around the Cover & Key Art
+// card — a few shared shapes (coin, gem, key, chest) reused at
+// different sizes, colors, and rotations along the corners and sides.
+function CoinIcon({ className }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 40 40"
+      className={`pointer-events-none absolute z-10 [filter:url(#urban-sketch)] ${className}`}
+    >
+      <circle cx="20" cy="20" r="14" fill="#d9a441" stroke="#3a2415" strokeWidth="2" />
+      <circle cx="20" cy="20" r="9.5" fill="none" stroke="#3a2415" strokeWidth="1.3" />
+      <path d="M20 14v12M15 17l10 6M25 17l-10 6" stroke="#3a2415" strokeWidth="1.1" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function GemIcon({ className, fill = "#8fd8e6", stroke = "#1a4a52" }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 40 40"
+      className={`pointer-events-none absolute z-10 [filter:url(#urban-sketch)] ${className}`}
+    >
+      <path d="M8 15 L20 6 L32 15 L26 34 L14 34 Z" fill={fill} stroke={stroke} strokeWidth="2" />
+      <path
+        d="M8 15 L32 15 M14 34 L20 15 L26 34 M20 6 L14 15 M20 6 L26 15"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1"
+      />
+    </svg>
+  );
+}
+
+function KeyIcon({ className }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 40 40"
+      className={`pointer-events-none absolute z-10 [filter:url(#urban-sketch)] ${className}`}
+    >
+      <circle cx="12" cy="12" r="7" fill="none" stroke="#f6e0bd" strokeWidth="2.6" />
+      <circle cx="12" cy="12" r="2.2" fill="#f6e0bd" />
+      <path d="M17 17 L32 32 M25 25 l4.5 -4.5 M29.5 29.5 l4 -4" stroke="#f6e0bd" strokeWidth="2.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function ChestIcon({ className }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 40 40"
+      className={`pointer-events-none absolute z-10 [filter:url(#urban-sketch)] ${className}`}
+    >
+      <rect x="5" y="17" width="30" height="15" rx="2" fill="#8a5a2a" stroke="#2a1a0c" strokeWidth="2" />
+      <path d="M5 21 Q20 10 35 21" fill="none" stroke="#2a1a0c" strokeWidth="2" />
+      <circle cx="20" cy="23.5" r="2.4" fill="#f6e0bd" stroke="#2a1a0c" strokeWidth="1" />
+    </svg>
+  );
+}
+
 function Dot({ tone = "bg-accent" }) {
   return (
     <span
@@ -190,7 +253,9 @@ export default function WorkWithMePage() {
 
         <p className="mx-auto mt-8 max-w-sm font-playfair text-3xl font-bold not-italic leading-[1.12] text-ink sm:text-4xl">
           <span className="block">The difference is you.</span>
-          <span className="block">Let&rsquo;s make it visible.</span>
+          <span className="block">
+            Let&rsquo;s make it <span className="gold-foil">visible</span>.
+          </span>
         </p>
       </section>
 
@@ -205,59 +270,36 @@ export default function WorkWithMePage() {
             "linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
         }}
       >
-        {/* Corner treasure — a coin, a gem, a key, a small chest, each
+        {/* Corner treasure — a ruby, a gem, a key, a small chest, each
             drawn in the site's loose hand-sketch line style and left
-            overlapping the box edge like they were dropped there. */}
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 40 40"
-          className="pointer-events-none absolute -left-3 -top-3 z-10 h-10 w-10 -rotate-[18deg] [filter:url(#urban-sketch)] sm:h-12 sm:w-12"
-        >
-          <circle cx="20" cy="20" r="14" fill="#d9a441" stroke="#3a2415" strokeWidth="2" />
-          <circle cx="20" cy="20" r="9.5" fill="none" stroke="#3a2415" strokeWidth="1.3" />
-          <path d="M20 14v12M15 17l10 6M25 17l-10 6" stroke="#3a2415" strokeWidth="1.1" strokeLinecap="round" />
-        </svg>
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 40 40"
-          className="pointer-events-none absolute -right-3 -top-3 z-10 h-10 w-10 rotate-[14deg] [filter:url(#urban-sketch)] sm:h-12 sm:w-12"
-        >
-          <path
-            d="M8 15 L20 6 L32 15 L26 34 L14 34 Z"
-            fill="#8fd8e6"
-            stroke="#1a4a52"
-            strokeWidth="2"
-          />
-          <path
-            d="M8 15 L32 15 M14 34 L20 15 L26 34 M20 6 L14 15 M20 6 L26 15"
-            fill="none"
-            stroke="#1a4a52"
-            strokeWidth="1"
-          />
-        </svg>
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 40 40"
-          className="pointer-events-none absolute -bottom-3 -left-3 z-10 h-10 w-10 rotate-[10deg] [filter:url(#urban-sketch)] sm:h-12 sm:w-12"
-        >
-          <circle cx="12" cy="12" r="7" fill="none" stroke="#f6e0bd" strokeWidth="2.6" />
-          <circle cx="12" cy="12" r="2.2" fill="#f6e0bd" />
-          <path d="M17 17 L32 32 M25 25 l4.5 -4.5 M29.5 29.5 l4 -4" stroke="#f6e0bd" strokeWidth="2.6" strokeLinecap="round" />
-        </svg>
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 40 40"
-          className="pointer-events-none absolute -bottom-3 -right-3 z-10 h-10 w-10 -rotate-[12deg] [filter:url(#urban-sketch)] sm:h-12 sm:w-12"
-        >
-          <rect x="5" y="17" width="30" height="15" rx="2" fill="#8a5a2a" stroke="#2a1a0c" strokeWidth="2" />
-          <path d="M5 21 Q20 10 35 21" fill="none" stroke="#2a1a0c" strokeWidth="2" />
-          <circle cx="20" cy="23.5" r="2.4" fill="#f6e0bd" stroke="#2a1a0c" strokeWidth="1" />
-        </svg>
+            overlapping the box edge like they were dropped there, plus
+            a handful more scattered along each side. */}
+        <GemIcon
+          className="-left-3 -top-3 h-10 w-10 -rotate-[18deg] sm:h-12 sm:w-12"
+          fill="#c8203a"
+          stroke="#4a0b14"
+        />
+        <GemIcon className="-right-3 -top-3 h-10 w-10 rotate-[14deg] sm:h-12 sm:w-12" />
+        <KeyIcon className="-bottom-3 -left-3 h-10 w-10 rotate-[10deg] sm:h-12 sm:w-12" />
+        <ChestIcon className="-bottom-3 -right-3 h-10 w-10 -rotate-[12deg] sm:h-12 sm:w-12" />
+
+        <CoinIcon className="-left-2 top-[26%] h-7 w-7 rotate-[9deg] sm:h-8 sm:w-8" />
+        <GemIcon
+          className="-left-2 bottom-[22%] h-7 w-7 -rotate-[11deg] sm:h-8 sm:w-8"
+          fill="#c8203a"
+          stroke="#4a0b14"
+        />
+        <GemIcon
+          className="-right-2 top-[38%] h-7 w-7 -rotate-[16deg] sm:h-8 sm:w-8"
+          fill="#b083e0"
+          stroke="#3a1a5a"
+        />
+        <CoinIcon className="-right-2 bottom-[16%] h-7 w-7 -rotate-[12deg] sm:h-8 sm:w-8" />
 
         <p className="font-mono text-xs uppercase tracking-widest text-[#f6e0bd]/80">
           Cover &amp; Key Art
         </p>
-        <p className="mt-1 font-oldenglish text-4xl leading-none text-[#f6e0bd] sm:text-5xl">
+        <p className="gold-foil mt-1 font-oldenglish text-4xl leading-none sm:text-5xl">
           The Treasure
         </p>
 
@@ -284,6 +326,16 @@ export default function WorkWithMePage() {
             treatment, and final artwork are shaped around the story
             behind the project rather than a template.
           </li>
+          <li className="flex gap-2.5">
+            <Dot tone="bg-[#f6e0bd]" />
+            Delivered print-ready and platform-ready, sized and formatted
+            for wherever the piece is going to live.
+          </li>
+          <li className="flex gap-2.5">
+            <Dot tone="bg-[#f6e0bd]" />
+            Revisions built into the process, not billed as an
+            afterthought.
+          </li>
         </ul>
 
         <p className="mt-6 font-mono text-xs uppercase tracking-widest text-[#f6e0bd]/80">
@@ -300,6 +352,13 @@ export default function WorkWithMePage() {
       >
         <SectionLabel>Visual Storytelling</SectionLabel>
         <EditorialHeading lines={["Not just a picture.", "A point of view."]} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/scroll.png"
+          alt=""
+          aria-hidden="true"
+          className="mx-auto mt-4 w-40 drop-shadow-[0_22px_26px_rgba(0,0,0,0.55)] sm:w-52"
+        />
         <ul className="mx-auto mt-5 max-w-xl space-y-2 text-left text-stone">
           <li className="flex gap-2.5">
             <Dot />
@@ -310,6 +369,16 @@ export default function WorkWithMePage() {
             <Dot />
             This is where photography, design, surrealism, and art
             direction can collide a little.
+          </li>
+          <li className="flex gap-2.5">
+            <Dot />
+            Portraits that read like a scene, not just a subject standing
+            in front of a backdrop.
+          </li>
+          <li className="flex gap-2.5">
+            <Dot />
+            Built from a single image or blended from several &mdash;
+            whatever the idea actually needs.
           </li>
         </ul>
         <p className="mx-auto mt-4 max-w-xl font-serif italic text-ink">
@@ -345,6 +414,16 @@ export default function WorkWithMePage() {
             language, tone, references, and creative direction until
             the pieces begin to feel like they belong to the same
             universe.
+          </li>
+          <li className="flex gap-2.5">
+            <Dot />
+            Moodboards, references, and language that keep every
+            decision pointed the same direction.
+          </li>
+          <li className="flex gap-2.5">
+            <Dot />
+            A framework you can keep using long after the first project
+            wraps.
           </li>
         </ul>
         <p className="mt-6 font-mono text-xs uppercase tracking-widest text-accent">
@@ -397,7 +476,7 @@ export default function WorkWithMePage() {
 
         <Link
           href="/design"
-          className="mt-8 inline-block font-mono text-xs font-bold uppercase tracking-widest text-accent hover:underline"
+          className="mt-8 inline-block font-mono text-xs font-bold uppercase tracking-widest text-ink transition-colors duration-200 hover:text-accent"
         >
           Enter the Smithsonian &rarr;
         </Link>
@@ -409,17 +488,17 @@ export default function WorkWithMePage() {
         className="paper-notebook corner-box relative mt-14 scroll-mt-24 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10"
       >
         <SectionLabel>How It Works</SectionLabel>
+        <h2 className="mt-3 text-center font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
+          Keep It Simple.
+        </h2>
         {/* A scribbled margin note — the idea (1) plus the direction (1)
             becomes the thing (2). */}
         <p
           aria-hidden="true"
-          className="pointer-events-none absolute right-5 top-5 -rotate-6 font-hand text-3xl font-bold text-accent/70 [filter:url(#urban-sketch)] sm:right-8 sm:top-7 sm:text-4xl"
+          className="pointer-events-none mt-2 -rotate-2 text-center font-hand text-5xl font-bold text-accent/70 [filter:url(#urban-sketch)] sm:text-6xl"
         >
           1 + 1 = 2
         </p>
-        <h2 className="mt-3 text-center font-display text-2xl uppercase tracking-tight text-ink sm:text-3xl">
-          Keep It Simple.
-        </h2>
         <ol className="mx-auto mt-8 max-w-lg space-y-7">
           {STEPS.map((step) => (
             <li key={step.n} className="flex gap-4">
