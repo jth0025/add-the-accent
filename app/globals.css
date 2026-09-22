@@ -1335,3 +1335,98 @@ html.header-raining .header-rain {
     opacity: 1;
   }
 }
+
+/* "Work With Me" nav glow — a slow breathing gold glow, always on
+   (not just on hover), so the item reads as a standing invitation
+   rather than one more plain link. Holds at full brightness while
+   hovered instead of resuming the cycle mid-fade. Color is fixed gold
+   rather than tracking --header-fg, on purpose — it should look the
+   same no matter what time-of-day sky is behind it. */
+.nav-glow {
+  color: #dc9a3f;
+  animation: nav-glow-pulse 3.2s ease-in-out infinite;
+}
+
+.nav-glow:hover {
+  animation-play-state: paused;
+  color: #f2b862;
+  filter: drop-shadow(0 0 6px rgba(224, 168, 96, 0.85))
+    drop-shadow(0 0 14px rgba(224, 168, 96, 0.5));
+}
+
+@keyframes nav-glow-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(224, 168, 96, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 5px rgba(224, 168, 96, 0.75))
+      drop-shadow(0 0 11px rgba(224, 168, 96, 0.4));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-glow {
+    animation: none;
+    filter: drop-shadow(0 0 4px rgba(224, 168, 96, 0.6));
+  }
+}
+
+/* Kenji guide (Work With Me page) — the floating launcher bobs gently
+   and carries a breathing gold ring, like a quest-giver marker on a
+   map. Dialogue lines fade/rise in one at a time as they advance. */
+@keyframes kenji-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.kenji-bob {
+  animation: kenji-bob 3.4s ease-in-out infinite;
+}
+
+@keyframes kenji-ring-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(224, 168, 96, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(224, 168, 96, 0);
+  }
+}
+
+.kenji-ring {
+  animation: kenji-ring-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes kenji-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.kenji-line {
+  animation: kenji-line-in 0.4s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kenji-bob {
+    animation: none;
+  }
+  .kenji-ring {
+    animation: none;
+    box-shadow: 0 0 0 3px rgba(224, 168, 96, 0.35);
+  }
+  .kenji-line {
+    animation: none;
+  }
+}

@@ -329,7 +329,18 @@ export default function RootLayout({ children }) {
                   the logo or the grass. Color tracks --header-fg (set by
                   HeaderSky) so it stays legible against whatever time-of-day
                   sky is currently showing. */}
-              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 sm:-mr-28 sm:flex sm:gap-5">
+              {/* xl+ only — six items (five plus "Work With Me") need
+                  real clearance around the centered grass, more than
+                  the max-w-3xl row has room for on its own, so this
+                  rides out into the header's surrounding space via the
+                  negative margin below. At exactly 1024–1279px there
+                  isn't enough slack on both sides at once to do that
+                  safely (it's a mathematical wash, not just a style
+                  choice), so that band — like every narrower one —
+                  falls through to the full-width phone/tablet bar
+                  instead, same pattern the header already used before
+                  this item existed. */}
+              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 xl:-mr-[10.5rem] xl:flex xl:gap-3">
                 <Link href="/" className="hover:text-accent">
                   Home
                 </Link>
@@ -340,6 +351,10 @@ export default function RootLayout({ children }) {
 
                 <Link href="/design" className="hover:text-accent">
                   Design
+                </Link>
+
+                <Link href="/work-with-me" className="nav-glow">
+                  Work With Me
                 </Link>
 
                 <div className="group relative">
@@ -432,12 +447,15 @@ export default function RootLayout({ children }) {
 
           <MusicBar />
 
-          {/* Phone menu — its own full-width bar directly under the header,
-              on a dark ground with white type so it stays legible and clear
-              of the logo and grass. Hidden from tablets up. */}
+          {/* Phone/tablet menu — its own full-width bar directly under
+              the header, on a dark ground with white type so it stays
+              legible and clear of the logo and grass. Now covers up
+              through 1279px (xl:hidden) since six items need real
+              width to clear the centered grass in the header row —
+              see the desktop row's comment above. */}
           <nav
             aria-label="Primary"
-            className="flex flex-wrap justify-center gap-x-7 gap-y-1 border-b-2 border-ink/55 bg-ink px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-white sm:hidden"
+            className="flex flex-wrap justify-center gap-x-7 gap-y-1 border-b-2 border-ink/55 bg-ink px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-white xl:hidden"
           >
             <Link href="/" className="hover:text-accent">
               Home
@@ -450,6 +468,9 @@ export default function RootLayout({ children }) {
             </Link>
             <Link href="/journal" className="hover:text-accent">
               Journal
+            </Link>
+            <Link href="/work-with-me" className="nav-glow">
+              Work With Me
             </Link>
             <Link href="/about" className="hover:text-accent">
               About
