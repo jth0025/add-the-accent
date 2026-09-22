@@ -97,15 +97,17 @@ export default function KenjiGuide() {
   return (
     <div className="fixed bottom-5 right-5 z-[250] flex flex-col items-end gap-3 sm:bottom-7 sm:right-7">
       {open && (
-        <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-end sm:gap-0">
+        <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-stretch sm:gap-0">
           {/* His full form, standing — appears only while the dialogue
               is open, feet planted right at the bottom of the box. On
               phones there isn't room beside the box, so he stacks
               above it instead (smaller, centered); from sm: up he
-              stands beside it at full size. */}
+              stretches to match the open dialogue box's own height
+              (sm:items-stretch on the row, h-auto here) rather than a
+              fixed size, so he's always as tall as the box beside him. */}
           <div
             aria-hidden="true"
-            className="relative h-56 w-24 shrink-0 self-center sm:h-[22rem] sm:w-32 sm:self-auto"
+            className="relative h-56 w-24 shrink-0 self-center sm:h-auto sm:w-40 sm:self-auto"
           >
             <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -118,7 +120,7 @@ export default function KenjiGuide() {
                   dormant, catching the light every few seconds. */}
               <span
                 aria-hidden="true"
-                className="lens-flare pointer-events-none absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 sm:h-6 sm:w-6"
+                className="lens-flare pointer-events-none absolute h-5 w-5 sm:h-6 sm:w-6"
                 style={{ left: "97%", top: "83%" }}
               />
             </div>
