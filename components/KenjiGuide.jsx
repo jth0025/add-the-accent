@@ -99,21 +99,28 @@ export default function KenjiGuide() {
       {open && (
         <div className="flex items-end">
           {/* His full form, standing — appears only while the dialogue
-              is open, feet planted right in his own shadow (he's
-              standing on the ground here, not levitating the way the
-              meditating hero shot is). Hidden on the smallest phones,
-              where there isn't room beside the box. */}
+              is open, feet planted right at the bottom of the box
+              beside him. Hidden on the smallest phones, where there
+              isn't room beside the box. */}
           <div
             aria-hidden="true"
             className="relative hidden h-80 w-28 shrink-0 sm:block sm:h-[22rem] sm:w-32"
           >
-            <div className="absolute inset-x-8 -bottom-1 h-4 rounded-[50%] bg-black/70 blur-[3px] sm:inset-x-9" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/kenji-standing.png"
-              alt=""
-              className="absolute bottom-0 left-1/2 h-full w-auto -translate-x-1/2 object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
-            />
+            <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/kenji-standing.png"
+                alt=""
+                className="h-full w-auto object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
+              />
+              {/* A small gleam at the tip of his raised sword — mostly
+                  dormant, catching the light every few seconds. */}
+              <span
+                aria-hidden="true"
+                className="lens-flare pointer-events-none absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 sm:h-6 sm:w-6"
+                style={{ left: "97%", top: "83%" }}
+              />
+            </div>
           </div>
 
           <div

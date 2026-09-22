@@ -358,8 +358,8 @@ export default function RootLayout({ children }) {
                   Portfolio
                 </Link>
 
-                <Link href="/design" className="relative inline-block pt-2.5 leading-none hover:text-accent">
-                  <span className="absolute left-0 top-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
+                <Link href="/design" className="relative hover:text-accent">
+                  <span className="absolute -top-2 left-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
                     the
                   </span>
                   Museum
@@ -475,8 +475,8 @@ export default function RootLayout({ children }) {
             <Link href="/portfolio" className="hover:text-accent">
               Portfolio
             </Link>
-            <Link href="/design" className="relative inline-block pt-2.5 leading-none hover:text-accent">
-              <span className="absolute left-0 top-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
+            <Link href="/design" className="relative hover:text-accent">
+              <span className="absolute -top-2 left-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
                 the
               </span>
               Museum
