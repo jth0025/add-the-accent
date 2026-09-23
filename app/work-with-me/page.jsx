@@ -191,68 +191,18 @@ export default function WorkWithMePage() {
         <PaperClip position="-top-4 left-24 rotate-[7deg]" />
         <SectionLabel>Work With Me</SectionLabel>
 
-        {/* A black-line sketch of a rainforest, drawn behind him and
-            faded well back into the paper — dense palm fronds either
-            side, vines hanging from above, undergrowth along the
-            bottom, and a winding stream leading up to where he sits.
-            Kenji himself is untouched; this is a separate layer
-            painted underneath, meant to read as atmosphere rather
-            than a foreground illustration. */}
-        <svg
+        {/* The rainforest reference art itself, laid in behind him —
+            multiply-blended and faded well back into the paper so the
+            white of the source photo disappears into the card and only
+            the dark linework reads through, like atmosphere rather
+            than a foreground photo. Kenji himself is untouched. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/jungle-sketch.jpg"
+          alt=""
           aria-hidden="true"
-          viewBox="0 0 320 280"
-          className="pointer-events-none absolute left-1/2 top-10 h-[22rem] w-[23rem] -translate-x-1/2 text-ink/25 [filter:url(#urban-sketch)] sm:top-12 sm:h-[26rem] sm:w-[27rem]"
-        >
-          {/* Winding stream leading up to him — two loose parallel banks. */}
-          <path
-            d="M150 279 C140 240,180 220,160 190 S110 150,140 120 S180 90,158 54"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          />
-          <path
-            d="M172 279 C162 240,202 220,182 190 S132 150,162 120 S202 90,180 54"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          />
-
-          {/* Left palm burst, fanning up from a low base. */}
-          <g stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round">
-            <path d="M52 130 Q42 70 14 22" />
-            <path d="M52 130 Q46 65 44 8" />
-            <path d="M52 130 Q56 62 76 14" />
-            <path d="M52 130 Q64 72 98 38" />
-            <path d="M52 130 Q60 88 96 76" />
-            <path d="M52 130 Q40 92 12 82" />
-            <path d="M20 30 L28 36 M30 20 L36 28 M42 14 L44 22 M58 18 L54 26 M72 24 L64 30 M84 44 L74 46" />
-          </g>
-
-          {/* Right palm burst, mirrored. */}
-          <g stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round">
-            <path d="M268 130 Q278 70 306 22" />
-            <path d="M268 130 Q274 65 276 8" />
-            <path d="M268 130 Q264 62 244 14" />
-            <path d="M268 130 Q256 72 222 38" />
-            <path d="M268 130 Q260 88 224 76" />
-            <path d="M268 130 Q280 92 308 82" />
-            <path d="M300 30 L292 36 M290 20 L284 28 M278 14 L276 22 M262 18 L266 26 M248 24 L256 30 M236 44 L246 46" />
-          </g>
-
-          {/* Hanging vines from the canopy. */}
-          <path d="M118 0 C112 22 124 34 116 58 C110 76 120 84 114 100" fill="none" stroke="currentColor" strokeWidth="1.3" />
-          <path d="M206 0 C212 22 200 34 208 58 C214 76 204 84 210 98" fill="none" stroke="currentColor" strokeWidth="1.3" />
-
-          {/* Undergrowth along the bottom, banking the stream. */}
-          <g stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinejoin="round">
-            <path d="M8 279 Q4 244 34 228 Q46 252 30 279Z" />
-            <path d="M40 279 Q40 250 66 236 Q76 258 62 279Z" />
-            <path d="M4 244 L20 250 M14 258 L30 262" />
-            <path d="M312 279 Q316 244 286 228 Q274 252 290 279Z" />
-            <path d="M280 279 Q280 250 254 236 Q244 258 258 279Z" />
-            <path d="M316 244 L300 250 M306 258 L290 262" />
-          </g>
-        </svg>
+          className="pointer-events-none absolute left-1/2 top-10 h-[22rem] w-[23rem] -translate-x-1/2 rounded-lg object-cover opacity-[0.16] [mix-blend-mode:multiply] sm:top-12 sm:h-[26rem] sm:w-[27rem]"
+        />
 
         <div className="relative mx-auto mt-8 w-[13rem] sm:w-[16rem]">
           {/* A wide, grounded shadow that stays put while he drifts above
