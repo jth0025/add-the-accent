@@ -100,12 +100,13 @@ export default function KenjiGuide() {
         <div className="relative">
           {/* His full form, standing — appears only while the dialogue
               is open, perched on top of the box over on the right side.
-              Pulled well down past bottom-full on purpose so he's
-              planted into the box up past the ankles, not just
-              touching the top edge — reads as standing on the box. */}
+              Pulled down past bottom-full on purpose so he's planted
+              into the box up past the ankles, not just touching the
+              top edge — reads as standing on the box. Fades/blurs in
+              like smoke clearing (smoke-in) rather than popping in. */}
           <div
             aria-hidden="true"
-            className="absolute bottom-[calc(100%-58px)] right-6 z-10 h-36 w-16 sm:bottom-[calc(100%-88px)] sm:right-9 sm:h-52 sm:w-24"
+            className="smoke-in absolute bottom-[calc(100%-38px)] right-6 z-10 h-36 w-16 sm:bottom-[calc(100%-62px)] sm:right-9 sm:h-52 sm:w-24"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -200,7 +201,9 @@ export default function KenjiGuide() {
           src="/kenji-avatar.png"
           alt=""
           aria-hidden="true"
-          className="h-14 w-14 rounded-full border-2 border-accent/70 object-cover shadow-lg sm:h-16 sm:w-16"
+          className={`h-14 w-14 rounded-full border-2 border-accent/70 object-cover shadow-lg transition-all duration-700 ease-out sm:h-16 sm:w-16 ${
+            open ? "scale-90 opacity-0 blur-md" : "scale-100 opacity-100 blur-0"
+          }`}
         />
       </button>
     </div>

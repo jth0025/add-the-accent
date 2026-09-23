@@ -1142,6 +1142,29 @@ html.header-raining .header-rain {
   }
 }
 
+/* A one-shot entrance — standing Kenji clearing into view like smoke
+   settling, rather than popping in the instant the dialogue opens. */
+@keyframes smoke-in {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+.smoke-in {
+  animation: smoke-in 0.8s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smoke-in {
+    animation: none;
+  }
+}
+
 /* A flat globe glyph, spun steadily in place — the closest a static
    image can get to a slowly turning planet. */
 @keyframes globe-spin {
