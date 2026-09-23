@@ -220,42 +220,10 @@ export default function WorkWithMePage() {
           />
         </div>
 
-        <p className="mx-auto mt-5 flex max-w-[17rem] items-center justify-center gap-1.5 font-hand text-xl leading-tight text-accent">
-          <span>
-            Every quest begins the same way.
-            <br />
-            Someone says, &ldquo;I have an idea.&rdquo;
-          </span>
-          {/* A little sketched lightbulb, rocking as if it just flickered
-              on with the idea. */}
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 32"
-            className="bulb-tilt h-6 w-6 shrink-0 text-accent [filter:url(#urban-sketch)]"
-          >
-            <path
-              d="M12 2c-4.4 0-7.5 3.3-7.5 7.3 0 2.7 1.4 4.5 2.8 5.9.9.9 1.4 1.7 1.4 2.8v1h6.6v-1c0-1.1.5-1.9 1.4-2.8 1.4-1.4 2.8-3.2 2.8-5.9C19.5 5.3 16.4 2 12 2Z"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M9.3 22h5.4M10 25h4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            />
-            <path
-              d="M12 6.5c-1.8 0-3.1 1.4-3.1 3.1M17 4l1.6-1.6M19.5 9.5h2.2M4.5 9.5H2.3M5.4 4L3.8 2.4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.2"
-              strokeLinecap="round"
-            />
-          </svg>
+        <p className="mx-auto mt-5 max-w-[17rem] font-hand text-xl leading-tight text-accent">
+          Every quest begins the same way.
+          <br />
+          Someone says, &ldquo;I have an idea.&rdquo;
         </p>
 
         {/* A worn hanko-style seal, like the mark stamped at the close
@@ -570,8 +538,38 @@ export default function WorkWithMePage() {
           A few things that began the same way most good projects do:
           with somebody saying,
         </p>
-        <p className="mt-1 font-serif text-xl italic text-ink">
+        <p className="mt-1 flex items-center justify-center gap-2 font-serif text-xl italic text-ink">
           &ldquo;I have an idea&hellip;&rdquo;
+          {/* A little sketched lightbulb, rocking as if it just
+              flickered on with the idea. */}
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 32"
+            className="bulb-tilt h-8 w-8 shrink-0 text-accent [filter:url(#urban-sketch)]"
+          >
+            <path
+              d="M12 2c-4.4 0-7.5 3.3-7.5 7.3 0 2.7 1.4 4.5 2.8 5.9.9.9 1.4 1.7 1.4 2.8v1h6.6v-1c0-1.1.5-1.9 1.4-2.8 1.4-1.4 2.8-3.2 2.8-5.9C19.5 5.3 16.4 2 12 2Z"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M9.3 22h5.4M10 25h4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+            />
+            <path
+              d="M12 6.5c-1.8 0-3.1 1.4-3.1 3.1M17 4l1.6-1.6M19.5 9.5h2.2M4.5 9.5H2.3M5.4 4L3.8 2.4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+          </svg>
         </p>
 
         <div className="mt-8 grid grid-cols-2 gap-4 pt-7 sm:grid-cols-4 sm:pt-9">

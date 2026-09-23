@@ -100,19 +100,27 @@ export default function KenjiGuide() {
         <div className="relative">
           {/* His full form, standing — appears only while the dialogue
               is open, perched on top of the box over on the right side
-              (back to a small overlap, just a touch higher than before).
-              Fades/blurs in like smoke clearing (smoke-in) rather than
-              popping in. */}
+              (a bit lower/deeper into the box than before). Fades/blurs
+              in like smoke clearing (smoke-in) rather than popping in. */}
           <div
             aria-hidden="true"
-            className="smoke-in absolute bottom-[calc(100%-24px)] right-6 z-10 h-36 w-16 sm:bottom-[calc(100%-42px)] sm:right-9 sm:h-52 sm:w-24"
+            className="smoke-in absolute bottom-[calc(100%-34px)] right-6 z-10 h-36 w-16 sm:bottom-[calc(100%-54px)] sm:right-9 sm:h-52 sm:w-24"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/kenji-standing.png"
-              alt=""
-              className="absolute bottom-0 left-1/2 h-full w-auto -translate-x-1/2 object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
-            />
+            <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/kenji-standing.png"
+                alt=""
+                className="h-full w-auto object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
+              />
+              {/* A small gleam at the tip of his lower sword — mostly
+                  dormant, catching the light every few seconds. */}
+              <span
+                aria-hidden="true"
+                className="lens-flare pointer-events-none absolute h-5 w-5 sm:h-6 sm:w-6"
+                style={{ left: "97%", top: "83%" }}
+              />
+            </div>
           </div>
 
           <div
