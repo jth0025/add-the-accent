@@ -151,7 +151,17 @@ export default function WorkInquiryForm() {
           aria-hidden="true"
           className="mx-auto mt-4 h-24 w-24 object-contain drop-shadow-[0_8px_10px_rgba(0,0,0,0.25)]"
         />
-        <p className="mt-4 font-serif text-2xl italic text-ink">
+        <p className="mx-auto mt-4 max-w-sm font-hand text-lg text-accent">
+          Kenji nods once, and slips back into the fog.
+        </p>
+        {/* A second hanko stamp, bookending the "始" (begin) one up in
+            the hero — 完 ("kan") reads as "complete." */}
+        <div className="mt-3 flex justify-center" aria-hidden="true">
+          <span className="grunge-text flex h-11 w-11 rotate-[6deg] items-center justify-center rounded-[3px] bg-[#8f2c1a] font-serif text-2xl font-bold text-[#f4e4c4] shadow-[0_2px_6px_rgba(0,0,0,0.4)]">
+            完
+          </span>
+        </div>
+        <p className="mt-5 font-serif text-2xl italic text-ink">
           And we&rsquo;re off.
         </p>
         <p className="mx-auto mt-3 max-w-sm text-stone">
@@ -161,12 +171,9 @@ export default function WorkInquiryForm() {
         <p className="mx-auto mt-2 max-w-sm text-stone">
           In the meantime, wander around a little.
         </p>
-        <p className="mx-auto mt-3 max-w-sm font-hand text-lg text-accent">
-          Kenji nods once, and slips back into the fog.
-        </p>
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-widest">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-widest">
           <Link href="/design" className="text-accent hover:underline">
-            View the Design Gallery &rarr;
+            View Museum Gallery &rarr;
           </Link>
           <Link href="/journal" className="text-accent hover:underline">
             Read the Journal &rarr;
@@ -177,10 +184,23 @@ export default function WorkInquiryForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="scantron-sheet relative mt-6 space-y-5 rounded-lg p-5 text-left sm:p-7"
-    >
+    <>
+      <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
+        <span className="h-px w-8 bg-accent/40" />
+        <span>Have Something in Mind?</span>
+        <span className="h-px w-8 bg-accent/40" />
+      </div>
+      <p className="mx-auto mt-4 max-w-md text-center font-playfair text-xl italic text-ink sm:text-2xl">
+        You don&rsquo;t need the perfect creative brief.
+      </p>
+      <p className="mx-auto mt-2 max-w-md text-center text-stone">
+        Tell me what you&rsquo;re making, why you&rsquo;re making it, and
+        where you feel stuck. We&rsquo;ll start there.
+      </p>
+      <form
+        onSubmit={handleSubmit}
+        className="scantron-sheet relative mt-6 space-y-5 rounded-lg p-5 text-left sm:p-7"
+      >
       <input
         type="hidden"
         name="_subject"
@@ -353,6 +373,7 @@ export default function WorkInquiryForm() {
         />
         {status === "sending" ? "Sending…" : "Send it to Kenji →"}
       </button>
-    </form>
+      </form>
+    </>
   );
 }

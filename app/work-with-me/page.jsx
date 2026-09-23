@@ -191,6 +191,41 @@ export default function WorkWithMePage() {
         <PaperClip position="-top-4 left-24 rotate-[7deg]" />
         <SectionLabel>Work With Me</SectionLabel>
 
+        {/* A black-line sketch of a rainforest, drawn behind him, with a
+            winding trail leading up to where he sits — the world the
+            quest starts from. Kenji himself is untouched; this is a
+            separate layer painted underneath. */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 320 280"
+          className="pointer-events-none absolute left-1/2 top-16 h-[19rem] w-[20rem] -translate-x-1/2 text-ink/80 [filter:url(#urban-sketch)] sm:top-20 sm:h-[23rem] sm:w-[24rem]"
+        >
+          <path
+            d="M160 278 C150 240,190 220,170 190 S120 150,150 120 S190 90,168 55"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.6"
+            strokeLinecap="round"
+            strokeDasharray="2 9"
+          />
+          <g stroke="currentColor" strokeWidth="1.9" fill="none" strokeLinecap="round">
+            <line x1="40" y1="230" x2="40" y2="170" />
+            <path d="M40 170 L20 150 M40 170 L60 150 M40 170 L40 140 M40 170 L26 158 M40 170 L54 158" />
+            <line x1="82" y1="258" x2="82" y2="208" />
+            <path d="M82 208 L60 191 M82 208 L104 191 M82 208 L82 181 M82 208 L68 195 M82 208 L96 195" />
+            <line x1="25" y1="122" x2="25" y2="82" />
+            <path d="M25 82 L8 66 M25 82 L42 66 M25 82 L25 58 M25 82 L14 70 M25 82 L36 70" />
+          </g>
+          <g stroke="currentColor" strokeWidth="1.9" fill="none" strokeLinecap="round">
+            <line x1="280" y1="230" x2="280" y2="170" />
+            <path d="M280 170 L260 150 M280 170 L300 150 M280 170 L280 140 M280 170 L266 158 M280 170 L294 158" />
+            <line x1="238" y1="258" x2="238" y2="208" />
+            <path d="M238 208 L216 191 M238 208 L260 191 M238 208 L238 181 M238 208 L224 195 M238 208 L252 195" />
+            <line x1="295" y1="122" x2="295" y2="82" />
+            <path d="M295 82 L278 66 M295 82 L312 66 M295 82 L295 58 M295 82 L284 70 M295 82 L306 70" />
+          </g>
+        </svg>
+
         <div className="relative mx-auto mt-8 w-[13rem] sm:w-[16rem]">
           {/* A wide, grounded shadow that stays put while he drifts above
               it — the gap and the stillness are what sell the levitation,
@@ -420,7 +455,7 @@ export default function WorkWithMePage() {
           src="/scroll.png"
           alt=""
           aria-hidden="true"
-          className="mx-auto mt-4 w-32 [filter:drop-shadow(0_6px_5px_rgba(0,0,0,0.55))_drop-shadow(0_22px_18px_rgba(0,0,0,0.4))] sm:w-44"
+          className="mx-auto mt-4 w-32 sm:w-44"
         />
         <ul className="mx-auto mt-5 max-w-xl space-y-2 text-left text-stone">
           <li className="flex gap-2.5">
@@ -561,14 +596,49 @@ export default function WorkWithMePage() {
           &ldquo;I have an idea&hellip;&rdquo;
         </p>
 
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-4 pt-7 sm:grid-cols-4 sm:pt-9">
           {smithsonianPicks.map((piece) => (
             <Link
               key={piece.src}
               href="/design"
-              className="museum-frame group relative block w-full overflow-hidden bg-[#efe7d4] p-1.5 shadow-md transition-shadow hover:shadow-xl"
+              className="museum-frame group relative block w-full bg-[#efe7d4] p-1.5 shadow-md transition-shadow hover:shadow-xl"
               aria-label={`View the design gallery — ${piece.alt.replace(/#/g, "")}`}
             >
+              {/* A small gallery picture-light mounted above the frame,
+                  sketched like the site's other hand-drawn accents. */}
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 60 30"
+                className="pointer-events-none absolute -top-6 left-1/2 h-5 w-14 -translate-x-1/2 text-[#8a6a2a] [filter:url(#urban-sketch)]"
+              >
+                <path
+                  d="M8 26 Q30 2 52 26"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <ellipse
+                  cx="30"
+                  cy="26"
+                  rx="10"
+                  ry="3.5"
+                  fill="#3a2a16"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+              </svg>
+              {/* The beam, dormant until hovered — a soft cone of light
+                  angling down from the fixture onto the piece. */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-2 left-1/2 h-20 w-28 -translate-x-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgba(255, 244, 214, 0.6), rgba(255, 244, 214, 0))",
+                  clipPath: "polygon(46% 0%, 54% 0%, 100% 100%, 0% 100%)",
+                }}
+              />
               <span className="relative block overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -658,19 +728,15 @@ export default function WorkWithMePage() {
         </ol>
       </section>
 
-      {/* Have Something in Mind — the qualifying inquiry form */}
+      {/* Have Something in Mind — the qualifying inquiry form. The
+          "Have Something in Mind?" intro and the form itself both live
+          inside WorkInquiryForm now, since the intro needs to disappear
+          once the form has been sent (the success state replaces it
+          with its own content) rather than sitting above it always. */}
       <section
         id="inquiry"
         className="paper-fold-quarters corner-box mt-14 scroll-mt-24 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10"
       >
-        <SectionLabel>Have Something in Mind?</SectionLabel>
-        <p className="mx-auto mt-4 max-w-md text-center font-playfair text-xl italic text-ink sm:text-2xl">
-          You don&rsquo;t need the perfect creative brief.
-        </p>
-        <p className="mx-auto mt-2 max-w-md text-center text-stone">
-          Tell me what you&rsquo;re making, why you&rsquo;re making it,
-          and where you feel stuck. We&rsquo;ll start there.
-        </p>
         <WorkInquiryForm />
       </section>
 
