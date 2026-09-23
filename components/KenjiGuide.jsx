@@ -100,12 +100,12 @@ export default function KenjiGuide() {
         <div className="relative">
           {/* His full form, standing — appears only while the dialogue
               is open, perched on top of the box over on the right side.
-              Pulled down past bottom-full on purpose so his feet sink a
-              little into the box's top edge instead of just touching
-              it — reads as standing on the box, not floating above it. */}
+              Pulled well down past bottom-full on purpose so he's
+              planted into the box up past the ankles, not just
+              touching the top edge — reads as standing on the box. */}
           <div
             aria-hidden="true"
-            className="absolute bottom-[calc(100%-14px)] right-6 z-10 h-36 w-16 sm:bottom-[calc(100%-20px)] sm:right-9 sm:h-52 sm:w-24"
+            className="absolute bottom-[calc(100%-58px)] right-6 z-10 h-36 w-16 sm:bottom-[calc(100%-88px)] sm:right-9 sm:h-52 sm:w-24"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

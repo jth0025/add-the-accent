@@ -144,6 +144,13 @@ export default function WorkInquiryForm() {
           aria-hidden="true"
           className="mx-auto h-14 w-14 rounded-full border-2 border-accent/50 object-cover shadow-md"
         />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/quest-path.png"
+          alt=""
+          aria-hidden="true"
+          className="mx-auto mt-4 h-24 w-24 object-contain drop-shadow-[0_8px_10px_rgba(0,0,0,0.25)]"
+        />
         <p className="mt-4 font-serif text-2xl italic text-ink">
           And we&rsquo;re off.
         </p>
