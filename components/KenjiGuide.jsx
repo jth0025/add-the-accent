@@ -77,6 +77,13 @@ export default function KenjiGuide() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+  // Lets the hero's meditating Kenji (a separate component elsewhere on
+  // the page) know to smoke away while the full-body form is out, and
+  // smoke back in once he leaves.
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("kenji-guide-open", { detail: open }));
+  }, [open]);
+
   const isLastLine = step === LINES.length - 1;
 
   const beginQuest = () => {
@@ -104,7 +111,7 @@ export default function KenjiGuide() {
               popping in. */}
           <div
             aria-hidden="true"
-            className="smoke-in absolute bottom-[calc(100%-10px)] right-6 z-10 h-[9rem] w-[3.9rem] sm:bottom-[calc(100%-24px)] sm:right-9 sm:h-[14.6rem] sm:w-[5rem]"
+            className="smoke-in absolute bottom-[calc(100%-6px)] right-6 z-10 h-[8.1rem] w-[3.5rem] sm:bottom-[calc(100%-16px)] sm:right-9 sm:h-[13.1rem] sm:w-[4.5rem]"
           >
             <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
               {/* eslint-disable-next-line @next/next/no-img-element */}

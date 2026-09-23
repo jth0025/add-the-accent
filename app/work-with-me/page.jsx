@@ -5,6 +5,7 @@ import ServiceCTA from "@/components/ServiceCTA";
 import WorkInquiryForm from "@/components/WorkInquiryForm";
 import AccentNotesSignup from "@/components/AccentNotesSignup";
 import KenjiGuide from "@/components/KenjiGuide";
+import HeroKenji from "@/components/HeroKenji";
 
 export const metadata = { title: "Work With Me — Add the Accent" };
 
@@ -204,21 +205,7 @@ export default function WorkWithMePage() {
           className="pointer-events-none absolute left-1/2 top-10 h-[22rem] w-[23rem] -translate-x-1/2 rounded-lg object-cover opacity-[0.16] [mix-blend-mode:multiply] sm:top-12 sm:h-[26rem] sm:w-[27rem]"
         />
 
-        <div className="relative mx-auto mt-8 w-[13rem] sm:w-[16rem]">
-          {/* A wide, grounded shadow that stays put while he drifts above
-              it — the gap and the stillness are what sell the levitation,
-              rather than a shadow that tracks his every move. */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-3 -bottom-4 h-5 rounded-[50%] bg-black/75 blur-[6px] sm:inset-x-4 sm:-bottom-5"
-          />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/kenji-meditating.png"
-            alt="Kenji, a lone samurai rendered in carved wood and gold armor, seated cross-legged in meditation"
-            className="kenji-levitate relative w-full drop-shadow-[0_14px_16px_rgba(0,0,0,0.3)]"
-          />
-        </div>
+        <HeroKenji />
 
         <p className="mx-auto mt-5 max-w-[17rem] font-hand text-xl leading-tight text-accent">
           Every quest begins the same way.
