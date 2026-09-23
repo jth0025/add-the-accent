@@ -236,30 +236,28 @@ export default function WorkWithMePage() {
           <span className="font-bold italic text-ink">Add the Accent</span>{" "}
           walks the road with:
         </p>
-        <ul className="mx-auto mt-3 max-w-md space-y-1.5 text-left text-stone">
-          <li className="flex items-center gap-2.5">
+        <ul className="mx-auto mt-3 flex max-w-md flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-stone">
+          <li className="flex items-center gap-1.5">
             <Dot />
             Artists
           </li>
-          <li className="flex items-center gap-2.5">
+          <li className="flex items-center gap-1.5">
             <Dot />
             Brands
           </li>
-          <li className="flex items-center gap-2.5">
+          <li className="flex items-center gap-1.5">
             <Dot />
             Creators
           </li>
-          <li className="flex gap-2.5">
-            <span
-              aria-hidden="true"
-              className="mt-1.5 h-2 w-2 shrink-0 rotate-45 bg-accent"
-            />
-            <span className="italic">
-              People with something to say but who may not know what it
-              should look like yet.
-            </span>
-          </li>
         </ul>
+        <p className="mx-auto mt-3 flex max-w-md items-start justify-center gap-2.5 text-center italic text-stone">
+          <span
+            aria-hidden="true"
+            className="mt-1.5 h-2 w-2 shrink-0 rotate-45 bg-accent"
+          />
+          People with something to say but who may not know what it
+          should look like yet.
+        </p>
         <p className="mx-auto mt-5 max-w-xl text-stone">
           Every quest starts somewhere unexpected &mdash; a photograph, a
           sentence, a song, a story. A half-formed idea sitting quietly in

@@ -202,6 +202,31 @@ export default function HeroCarousel({ children }) {
             className="tv-static-lines pointer-events-none absolute inset-0 z-20"
             aria-hidden="true"
           />
+
+          {/* A control strip along the bottom edge — a power light,
+              channel/volume knobs, and a speaker grille either side —
+              so the box reads as a real console TV, not just a framed
+              screen. Sits above the static so the bezel itself never
+              "loses signal." */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex h-5 items-center justify-center gap-4 border-t border-white/10 bg-black/55"
+          >
+            <span className="flex items-center gap-[3px]" aria-hidden="true">
+              <span className="h-2 w-[2px] rounded-full bg-white/25" />
+              <span className="h-2 w-[2px] rounded-full bg-white/25" />
+              <span className="h-2 w-[2px] rounded-full bg-white/25" />
+            </span>
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#e0403f] shadow-[0_0_4px_rgba(224,64,63,0.9)]" />
+            <span className="h-2 w-2 shrink-0 rounded-full border border-white/40" />
+            <span className="h-2.5 w-2.5 shrink-0 rounded-full border-2 border-white/50" />
+            <span className="h-2 w-2 shrink-0 rounded-full border border-white/40" />
+            <span className="flex items-center gap-[3px]" aria-hidden="true">
+              <span className="h-2 w-[2px] rounded-full bg-white/25" />
+              <span className="h-2 w-[2px] rounded-full bg-white/25" />
+              <span className="h-2 w-[2px] rounded-full bg-white/25" />
+            </span>
+          </div>
         </div>
       </div>
 

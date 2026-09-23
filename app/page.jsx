@@ -8,6 +8,7 @@ import VoiceClip from "@/components/VoiceClip";
 import ListenNowTab from "@/components/ListenNowTab";
 import WordOfTheDay from "@/components/WordOfTheDay";
 import SeriesProgress from "@/components/SeriesProgress";
+import KenjiQuestPromo from "@/components/KenjiQuestPromo";
 
 export default function HomePage() {
   const portfolio = getSelectedWork().slice(0, 3);
@@ -22,7 +23,13 @@ export default function HomePage() {
     <>
       <ListenNowTab />
 
-      <div className="mx-auto max-w-3xl px-6">
+      <div className="relative mx-auto max-w-3xl px-6">
+        {/* Kenji's Quest — pinned in the left gutter on wide desktop
+            screens, right under the Listen Now tab; the same card moves
+            to the very bottom of the page on every narrower breakpoint
+            (see the second instance below). */}
+        <KenjiQuestPromo variant="gutter" />
+
         <figure className="mt-8 text-center text-white sm:mt-4">
         <blockquote className="whitespace-nowrap font-serif italic leading-snug text-[min(calc((100vw-3rem)/38),1.2rem)]">
           &ldquo;The goal of an artist is to create the definitive work that
@@ -451,6 +458,11 @@ export default function HomePage() {
           </ul>
         </section>
       )}
+
+      {/* Kenji's Quest again — this time as a normal block at the very
+          bottom of the page, for every screen too narrow for the
+          gutter placement up top to have room to breathe. */}
+      <KenjiQuestPromo variant="bottom" />
       </div>
     </>
   );
