@@ -137,13 +137,17 @@ export default function WorkInquiryForm() {
   if (status === "sent") {
     return (
       <div className="py-6 text-center">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/kenji-avatar.png"
-          alt=""
-          aria-hidden="true"
-          className="mx-auto h-14 w-14 rounded-full border-2 border-accent/50 object-cover shadow-md"
-        />
+        <div className="flex items-center justify-center gap-3">
+          <span aria-hidden="true" className="h-px w-8 bg-accent/40" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/kenji-avatar.png"
+            alt=""
+            aria-hidden="true"
+            className="h-14 w-14 shrink-0 rounded-full border-2 border-accent/50 object-cover shadow-md"
+          />
+          <span aria-hidden="true" className="h-px w-8 bg-accent/40" />
+        </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/quest-path.png"

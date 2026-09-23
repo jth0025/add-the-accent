@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 // its own greeting/name beats rather than one run-on sentence.
 const LINES = [
   <>
-    <span className="mb-1 block font-tribal text-2xl leading-none tracking-wide text-accent">
+    <span className="mb-1 block font-hand text-2xl font-bold leading-none tracking-wide text-accent">
       Konnichiwa.
     </span>
     <span className="mb-1.5 block font-cinema text-base uppercase tracking-wide text-[#2a2115]">
@@ -99,13 +99,13 @@ export default function KenjiGuide() {
       {open && (
         <div className="relative">
           {/* His full form, standing — appears only while the dialogue
-              is open, perched just outside the box over on the right
-              side (bottom-full plus a small lift, rather than sinking
-              into it). Fades/blurs in like smoke clearing (smoke-in)
-              rather than popping in. */}
+              is open, perched on top of the box over on the right side
+              (back to a small overlap, just a touch higher than before).
+              Fades/blurs in like smoke clearing (smoke-in) rather than
+              popping in. */}
           <div
             aria-hidden="true"
-            className="smoke-in absolute bottom-[calc(100%+10px)] right-6 z-10 h-36 w-16 sm:bottom-[calc(100%+16px)] sm:right-9 sm:h-52 sm:w-24"
+            className="smoke-in absolute bottom-[calc(100%-24px)] right-6 z-10 h-36 w-16 sm:bottom-[calc(100%-42px)] sm:right-9 sm:h-52 sm:w-24"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
