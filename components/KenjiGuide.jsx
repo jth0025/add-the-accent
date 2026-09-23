@@ -104,7 +104,7 @@ export default function KenjiGuide() {
               popping in. */}
           <div
             aria-hidden="true"
-            className="smoke-in absolute bottom-[calc(100%-16px)] right-6 z-10 h-[11.25rem] w-[4.9rem] sm:bottom-[calc(100%-32px)] sm:right-9 sm:h-[18.2rem] sm:w-[6.3rem]"
+            className="smoke-in absolute bottom-[calc(100%-10px)] right-6 z-10 h-[9rem] w-[3.9rem] sm:bottom-[calc(100%-24px)] sm:right-9 sm:h-[14.6rem] sm:w-[5rem]"
           >
             <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -134,13 +134,11 @@ export default function KenjiGuide() {
               &times;
             </button>
 
+            {/* No small avatar here — his full-body form standing right
+                beside the box is who's talking, so the little circular
+                portrait would just be a redundant "other Kenji" instead
+                of a second speaker. */}
             <div className="flex items-start gap-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/kenji-avatar.png"
-                alt="Kenji"
-                className="h-12 w-12 shrink-0 rounded-full border-2 border-accent/60 object-cover shadow-md"
-              />
               <div className="min-w-0 pt-1">
                 <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-accent">
                   Kenji
