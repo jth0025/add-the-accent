@@ -1091,7 +1091,7 @@ html.header-raining .header-rain {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: gleam-natural-sweep 16s ease-in-out infinite;
+  animation: gleam-natural-sweep 6s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -99,12 +99,12 @@ export default function KenjiGuide() {
       {open && (
         <div className="relative">
           {/* His full form, standing — appears only while the dialogue
-              is open, perched on top of the box over on the right side
-              (a bit lower/deeper into the box than before). Fades/blurs
-              in like smoke clearing (smoke-in) rather than popping in. */}
+              is open, perched on top of the box over on the right side.
+              Fades/blurs in like smoke clearing (smoke-in) rather than
+              popping in. */}
           <div
             aria-hidden="true"
-            className="smoke-in absolute bottom-[calc(100%-34px)] right-6 z-10 h-36 w-16 sm:bottom-[calc(100%-54px)] sm:right-9 sm:h-52 sm:w-24"
+            className="smoke-in absolute bottom-[calc(100%-24px)] right-6 z-10 h-36 w-16 sm:bottom-[calc(100%-42px)] sm:right-9 sm:h-52 sm:w-24"
           >
             <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
