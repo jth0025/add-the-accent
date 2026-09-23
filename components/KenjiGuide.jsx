@@ -38,8 +38,8 @@ const LINES = [
  * wanderers get the greeting without having to go looking for it, then
  * stays reachable by hand afterward. Advances one line at a time like
  * game dialogue, ending on a CTA into the inquiry form. While open, his
- * full-body form stands beside the dialogue box; closing it sends him
- * away again.
+ * full-body form stands on top of the dialogue box, over on the right;
+ * closing it sends him away again.
  */
 export default function KenjiGuide() {
   const [open, setOpen] = useState(false);
@@ -97,26 +97,21 @@ export default function KenjiGuide() {
   return (
     <div className="fixed bottom-5 right-5 z-[250] flex flex-col items-end gap-3 sm:bottom-7 sm:right-7">
       {open && (
-        <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-stretch sm:gap-0">
+        <div className="relative">
           {/* His full form, standing — appears only while the dialogue
-              is open, feet planted right at the bottom of the box. On
-              phones there isn't room beside the box, so he stacks
-              above it instead (smaller, centered); from sm: up he
-              stretches to match the open dialogue box's own height
-              (sm:items-stretch on the row, h-auto here) rather than a
-              fixed size, so he's always as tall as the box beside him. */}
+              is open, perched on top of the box over on the right side,
+              feet flush with the box's own top edge (bottom-full) so
+              there's no gap between him and the paper beneath him. */}
           <div
             aria-hidden="true"
-            className="relative h-56 w-24 shrink-0 self-center sm:h-auto sm:w-40 sm:self-auto"
+            className="absolute bottom-full right-6 z-10 h-36 w-16 sm:right-9 sm:h-52 sm:w-24"
           >
-            <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/kenji-standing.png"
-                alt=""
-                className="h-full w-auto object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
-              />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/kenji-standing.png"
+              alt=""
+              className="absolute bottom-0 left-1/2 h-full w-auto -translate-x-1/2 object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
+            />
           </div>
 
           <div
