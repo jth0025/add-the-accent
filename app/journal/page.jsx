@@ -96,7 +96,11 @@ export default function JournalIndex({ searchParams }) {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="sr-only">Journal</h1>
-      <section className="paper-fold-thirds corner-box relative rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+      {/* On phones the fold texture (a fixed-aspect image sized to the
+          card's width) is too short to reach the quote and copy, so it
+          stretches to the card's full height there; from sm: up it goes
+          back to its natural proportions. */}
+      <section className="paper-fold-thirds corner-box relative rounded-xl border border-ink/15 bg-card px-7 pb-14 pt-10 ![background-size:auto,auto,100%_100%] sm:px-10 sm:py-12 sm:![background-size:auto,auto,100%_auto]">
         <PaperClip position="-top-4 left-14 rotate-[7deg]" />
         <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
           <span className="h-px w-8 bg-accent/40" />
@@ -107,12 +111,13 @@ export default function JournalIndex({ searchParams }) {
         <img
           src="/journal-art/journal-page-art.png"
           alt="The Add the Accent character writing at a wooden desk, books and a small plant beside him"
-          className="mx-auto mt-6 w-56 max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.28)] sm:w-64"
+          className="mx-auto mt-4 w-48 max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.28)] sm:mt-6 sm:w-64"
         />
-        <p className="mx-auto mt-6 max-w-xl pl-2 pr-6 text-center font-serif text-2xl italic leading-snug text-ink sm:pl-0 sm:pr-8 sm:text-3xl">
-          &ldquo;Write the vision, make it plain.&rdquo;
+        <p className="mx-auto mt-4 max-w-xl pl-2 pr-6 text-center font-serif text-2xl italic leading-snug text-ink sm:mt-6 sm:pl-0 sm:pr-8 sm:text-3xl">
+          &ldquo;Write the vision,
+          <br className="sm:hidden" /> make it plain.&rdquo;
         </p>
-        <p className="mx-auto mt-6 max-w-xl pl-2 pr-6 text-center text-sm text-stone sm:pl-0 sm:pr-8">
+        <p className="mx-auto mt-4 max-w-xl pl-2 pr-6 text-center text-sm text-stone sm:mt-6 sm:pl-0 sm:pr-8">
           {JOURNAL_PAGE_INTRO}
         </p>
       </section>
