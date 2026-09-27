@@ -1,10 +1,10 @@
 ---
-title: "Lone Star"
+title: "Back to Oui: Lone Star"
 date: "2026-09-27"
 excerpt: "LA summers, a friendship undone by rumor, and the slow relearning of the difference between a season failing and a season finishing."
 draft: false
-series: "Homebody"
-part: 4
+series: "Back to Oui"
+part: 3
 ---
 
 My favorite season has always been fall — that narrow country between warmth and cold, beautiful but indifferent, full of purpose and stripped of any real surprise. People call it a subtle transition. I've always felt it as something closer to a storm gathering on the horizon of summer's brilliance, grey before it ever announces itself as grey.
