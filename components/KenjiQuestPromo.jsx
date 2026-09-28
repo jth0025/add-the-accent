@@ -22,14 +22,14 @@ export default function KenjiQuestPromo() {
     >
       <Link
         href="/kenji-quest"
-        className="group relative block aspect-[16/9] overflow-hidden"
+        className="group relative block overflow-hidden"
         aria-label="Learn more about Kenji's Quest: First Light"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/kenji-quest-key-art.jpg"
           alt="Kenji's Quest: First Light — a lone samurai stands atop a jungle island over dark water, the game's title carved into the rock beneath him"
-          className="absolute inset-0 h-full w-full object-cover object-[center_38%] transition-transform duration-500 group-hover:scale-[1.05]"
+          className="block h-auto w-full object-contain transition-transform duration-500 group-hover:scale-[1.05]"
         />
         <span className="pointer-events-none absolute bottom-1.5 right-1.5 rounded-full bg-black/70 px-2 py-0.5 font-mono text-[8px] uppercase tracking-widest text-[#e7ded2] opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
           Learn more &rarr;
