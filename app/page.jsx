@@ -24,9 +24,14 @@ export default function HomePage() {
       <ListenNowTab />
 
       <div className="relative mx-auto max-w-3xl px-6">
-        {/* Kenji's Quest — sits right under the Listen Now tab on
-            desktop/tablet; the same card moves to the very bottom of
-            the page on mobile (see the second instance below). */}
+        {/* Kenji's Quest — pinned as a narrow column in the left
+            margin, right under the Listen Now tab, on wide desktop
+            screens where that margin actually has room (xl+); the
+            full-size card sits in-flow at the same spot for
+            tablet/ordinary-desktop widths, and moves to the very
+            bottom of the page on mobile (see the other instances
+            below). */}
+        <KenjiQuestPromo variant="rail" />
         <KenjiQuestPromo variant="top" />
 
         <figure className="mt-8 text-center text-white sm:mt-4">
