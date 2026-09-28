@@ -23,21 +23,25 @@ export default function HomePage() {
     <>
       <ListenNowTab />
 
-      <div className="relative mx-auto max-w-3xl px-6">
-        {/* Kenji's Quest — a narrow rail parked in the left margin
-            beside this centered column, right under the Listen Now
-            tab, on wide desktop screens where that margin has real,
-            unclipped room (xl+). It's positioned absolutely, so it
-            adds no height to this column — everything else here
-            starts at its normal spot with no extra headspace. Below
-            xl there isn't room for a side column, so the same card
-            drops to a normal block at the very bottom of the page
-            instead (see the second instance, further down). */}
-        <div className="pointer-events-none absolute right-full top-0 z-10 mr-4 hidden w-56 xl:block">
+      {/* Kenji's Quest — a narrow rail directly under the Listen Now
+          tab, left-aligned with it exactly (same left-6 inset the tab
+          uses for its own pl-6, off this same untouched, full-width
+          position — the tab itself isn't moved or resized). Absolutely
+          positioned so it adds no flow height of its own: this wrapper
+          sits between the tab and the centered content below with zero
+          height, and the content isn't shifted. xl+ only, where the
+          margin beside the centered column has real, unclipped room;
+          below that the same card drops to a normal block at the very
+          bottom of the page instead (see the other instance). */}
+      <div className="relative">
+        <div className="pointer-events-none absolute left-6 top-0 z-10 hidden w-56 xl:block">
           <div className="pointer-events-auto">
             <KenjiQuestPromo />
           </div>
         </div>
+      </div>
+
+      <div className="relative mx-auto max-w-3xl px-6">
 
         <figure className="mt-4 text-center text-white sm:mt-8">
         <blockquote className="whitespace-nowrap font-serif italic leading-snug text-[min(calc((100vw-3rem)/38),1.2rem)]">
