@@ -1,73 +1,83 @@
 import Link from "next/link";
 
 /**
- * The teaser/entry point for "Kenji's Quest: First Light" — the game's
- * key art, clean (no copy laid over it), with a small paper tag
- * "pulled down" from its bottom edge carrying the promotional copy in
- * the site's lore-styled type. Links to the full canon page at
- * app/kenji-quest. Rendered twice by the homepage via the `variant`
- * prop: once pinned in the left gutter next to the centered column
- * (only once the viewport is wide enough that the gutter has real,
- * unclipped room to sit in — see the 2xl breakpoint below), and once
- * as a normal block at the very bottom of the page on every narrower
- * breakpoint, including ordinary desktop windows. Same banner either
- * way.
+ * The teaser/entry point for "Kenji's Quest: First Light" — styled like
+ * one of the homepage's own Features boxes (the same notebook-line
+ * corner-box frame, the image on top, a paper-textured card of copy
+ * directly underneath) so it reads as part of the site's existing
+ * visual language rather than a one-off widget. Rendered twice by the
+ * homepage via the `variant` prop: once near the top of the page,
+ * right under the Listen Now tab, on desktop/tablet widths; once at
+ * the very bottom of the page on mobile. Same card either way — only
+ * the position changes.
  */
 function QuestBanner() {
   return (
-    <Link href="/kenji-quest" className="group block">
-      <span className="corner-box relative mx-auto block w-40 overflow-hidden rounded-xl border border-black/40 bg-black shadow-xl sm:w-48">
+    <div
+      className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
+      style={{
+        backgroundImage:
+          "repeating-linear-gradient(to bottom, rgba(231,222,210,.08) 0, rgba(231,222,210,.08) 1px, transparent 1px, transparent 27px), linear-gradient(to right, transparent 0, transparent 34px, rgba(224,168,96,.4) 34px, rgba(224,168,96,.4) 35px, transparent 35px), linear-gradient(135deg, #b9724a 0%, #6b4028 55%, #3a2415 100%)",
+        backgroundRepeat: "repeat, no-repeat, no-repeat",
+      }}
+    >
+      <Link
+        href="/kenji-quest"
+        className="group relative block overflow-hidden"
+        aria-label="Learn more about Kenji's Quest: First Light"
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/kenji-quest-key-art.jpg"
           alt="Kenji's Quest: First Light — a lone samurai stands atop a jungle island over dark water, the game's title carved into the rock beneath him"
-          className="block h-auto w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+          className="w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
         />
-      </span>
-
-      {/* A small paper tag, pulled down out of the art above it — a
-          short vertical "string" bridging the two, then the card
-          itself carrying the copy the image used to. */}
-      <span aria-hidden="true" className="mx-auto block h-3 w-px bg-black/30" />
-      <span className="relative -mt-px block rotate-[-0.6deg] rounded-sm border border-black/10 bg-[#f4ecd8] px-4 pb-4 pt-3 text-center shadow-[0_10px_18px_rgba(0,0,0,0.35)] transition-transform duration-300 group-hover:-translate-y-0.5">
-        <span className="badge-glow block font-mono text-base font-extrabold uppercase tracking-[0.15em] text-[#af691e]">
+        <span className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-black/70 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#e7ded2] opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
+          Learn more &rarr;
+        </span>
+      </Link>
+      <div className="paper-notebook border-t border-ink/15 bg-white px-8 py-8 text-center sm:px-10">
+        <span className="badge-glow font-mono text-base font-extrabold uppercase tracking-[0.15em] text-[#af691e]">
           Coming Soon
         </span>
-        <span className="mt-2 block font-cinema text-sm uppercase tracking-wide text-[#3a2a16]">
+        <p className="mt-2 font-cinema text-sm uppercase tracking-wide text-ink">
           Kenji&rsquo;s Quest
-        </span>
-        <span className="title-glow -mt-0.5 block font-oldenglish text-3xl leading-tight text-[#8a4412]">
+        </p>
+        <p className="title-glow -mt-1 font-oldenglish text-4xl leading-tight text-[#8a4412]">
           First Light
-        </span>
-        <span className="mx-auto mt-2 block max-w-[15rem] font-serif text-xs italic leading-relaxed text-stone">
-          An interactive adventure inspired by the stories of Add the Accent.
+        </p>
+        <p className="mx-auto mt-3 max-w-sm font-serif text-sm italic leading-relaxed text-stone">
+          An interactive adventure inspired by the stories of Add the
+          Accent.
           <br />
-          One traveler. Seven sacred stages. A world waiting to be explored.
-        </span>
-        <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-accent px-3.5 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest text-white shadow-md transition-transform group-hover:scale-[1.03]">
+          One traveler. Seven sacred stages. A world waiting to be
+          explored.
+        </p>
+        <Link
+          href="/kenji-quest"
+          className="group/btn mt-4 inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-widest text-white shadow-lg transition-transform hover:scale-[1.03]"
+        >
           Learn More
-          <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">
+          <span aria-hidden="true" className="transition-transform duration-200 group-hover/btn:translate-x-0.5">
             &rarr;
           </span>
-        </span>
-      </span>
-    </Link>
+        </Link>
+      </div>
+    </div>
   );
 }
 
 export default function KenjiQuestPromo({ variant }) {
-  if (variant === "gutter") {
+  if (variant === "top") {
     return (
-      <div className="pointer-events-none absolute right-full top-0 z-10 mr-6 hidden w-48 2xl:block">
-        <div className="pointer-events-auto">
-          <QuestBanner />
-        </div>
+      <div className="mx-auto mb-10 hidden max-w-sm md:block">
+        <QuestBanner />
       </div>
     );
   }
 
   return (
-    <div className="mx-auto mt-16 max-w-[13rem] 2xl:hidden">
+    <div className="mx-auto mt-16 max-w-sm md:hidden">
       <QuestBanner />
     </div>
   );
