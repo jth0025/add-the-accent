@@ -64,6 +64,28 @@ export default function KenjiQuestPage() {
             alt="Kenji, a lone Afro-Japanese traveler in carved wood and gold armor, standing ready with a sheathed blade"
             className="relative z-10 w-full"
           />
+          {/* The recurring butterfly — small, luminous, and never far
+              (see "Meet Kenji" below) — looping around his head and
+              shoulder. */}
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 32 32"
+            className="butterfly-fly pointer-events-none absolute z-20 h-5 w-5 text-[#f6d999] sm:h-6 sm:w-6"
+          >
+            <g className="butterfly-wing">
+              <path
+                d="M16 16 C 7 3, -3 5, 3 16 C -3 27, 7 29, 16 16 Z"
+                fill="currentColor"
+              />
+            </g>
+            <g className="butterfly-wing">
+              <path
+                d="M16 16 C 25 3, 35 5, 29 16 C 35 27, 25 29, 16 16 Z"
+                fill="currentColor"
+              />
+            </g>
+            <ellipse cx="16" cy="16" rx="1.4" ry="6" fill="#2a2015" />
+          </svg>
         </div>
       </section>
 
