@@ -23,17 +23,17 @@ export default function HomePage() {
     <>
       <ListenNowTab />
 
-      <div className="relative mx-auto max-w-3xl px-6">
-        {/* Kenji's Quest — pinned as a narrow column in the left
-            margin, right under the Listen Now tab, on wide desktop
-            screens where that margin actually has room (xl+); the
-            full-size card sits in-flow at the same spot for
-            tablet/ordinary-desktop widths, and moves to the very
-            bottom of the page on mobile (see the other instances
-            below). */}
-        <KenjiQuestPromo variant="rail" />
-        <KenjiQuestPromo variant="top" />
+      {/* Kenji's Quest — sized and positioned to match the Listen Now
+          tab exactly (same width, same responsive alignment: centered
+          on phones, left-aligned with the same padding on desktop),
+          sitting directly underneath it. The tab itself isn't touched. */}
+      <div className="relative z-10 mt-3 flex justify-center sm:mt-4 sm:justify-start sm:pl-6">
+        <div className="w-[17rem] sm:w-[19.5rem]">
+          <KenjiQuestPromo />
+        </div>
+      </div>
 
+      <div className="relative mx-auto max-w-3xl px-6">
         <figure className="mt-8 text-center text-white sm:mt-4">
         <blockquote className="whitespace-nowrap font-serif italic leading-snug text-[min(calc((100vw-3rem)/38),1.2rem)]">
           &ldquo;The goal of an artist is to create the definitive work that
@@ -463,10 +463,6 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Kenji's Quest again — this time as a normal block at the very
-          bottom of the page, for every screen too narrow for the
-          gutter placement up top to have room to breathe. */}
-      <KenjiQuestPromo variant="bottom" />
       </div>
     </>
   );
