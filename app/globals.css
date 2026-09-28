@@ -1030,6 +1030,29 @@ html.header-raining .header-rain {
     0 0 16px rgba(255, 214, 130, 0.3);
 }
 
+/* A bigger, brighter cousin of .gold-plate — for a single marquee
+   word that needs to read as illuminated/lit-from-within rather than
+   just embossed (a movie-title subtitle treatment, e.g. "First
+   Light"). Stack onto .gold-foil the same way. */
+.title-glow {
+  text-shadow:
+    0 1px 0 rgba(255, 244, 214, 0.75),
+    0 -1px 1px rgba(58, 36, 21, 0.6),
+    0 4px 10px rgba(0, 0, 0, 0.5),
+    0 0 18px rgba(255, 214, 130, 0.6),
+    0 0 40px rgba(255, 196, 110, 0.45),
+    0 0 80px rgba(255, 180, 90, 0.3);
+}
+
+/* A warm, pulsing glow for small badge/eyebrow text — "Coming Soon"
+   labels that need to feel lit, not just colored. */
+.badge-glow {
+  text-shadow:
+    0 0 6px rgba(217, 164, 65, 0.85),
+    0 0 18px rgba(217, 164, 65, 0.5),
+    0 0 36px rgba(217, 164, 65, 0.3);
+}
+
 /* Gleam, natural color — the exact same mechanic as .gold-foil (one
    repeating gradient, its position sliding the whole cycle through,
    same keyframe shape/timing) but with the resting color kept at the
