@@ -39,7 +39,7 @@ export default function KenjiQuestPage() {
         <h1 className="mt-4 font-cinema text-4xl uppercase tracking-wide text-[#f6e0bd] sm:text-6xl">
           Kenji&rsquo;s Quest
         </h1>
-        <p className="title-glow mx-auto mt-2 font-athelas font-bold uppercase text-5xl leading-none tracking-wide text-white sm:text-7xl">
+        <p className="title-glow mx-auto mt-2 font-athelas uppercase text-5xl leading-none tracking-wide text-white sm:text-7xl">
           First Light
         </p>
         <p className="mx-auto mt-6 max-w-lg font-serif text-lg italic leading-snug text-[#e7ded2]/90 sm:text-xl">
@@ -173,8 +173,8 @@ export default function KenjiQuestPage() {
           className="mx-auto mt-6 w-48 rounded-lg border border-ink/15 shadow-md sm:w-56"
         />
         <p className="mx-auto mt-6 max-w-md text-stone">
-          <strong className="font-bold">Kenji&rsquo;s Quest: First Light</strong>{" "}
-          is in development &mdash; and it&rsquo;s shaping up to be
+          <strong className="font-bold">Kenji&rsquo;s Quest</strong>: First
+          Light is in development &mdash; and it&rsquo;s shaping up to be
           something worth the wait.
         </p>
         <p className="mx-auto mt-3 max-w-md text-stone">
