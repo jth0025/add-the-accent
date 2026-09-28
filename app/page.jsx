@@ -33,7 +33,7 @@ export default function HomePage() {
             xl there isn't room for a side column, so the same card
             drops to a normal block at the very bottom of the page
             instead (see the second instance, further down). */}
-        <div className="pointer-events-none absolute right-full top-0 z-10 mr-4 hidden w-44 xl:block">
+        <div className="pointer-events-none absolute right-full top-0 z-10 mr-4 hidden w-56 xl:block">
           <div className="pointer-events-auto">
             <KenjiQuestPromo />
           </div>
