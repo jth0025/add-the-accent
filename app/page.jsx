@@ -23,18 +23,23 @@ export default function HomePage() {
     <>
       <ListenNowTab />
 
-      {/* Kenji's Quest — sized and positioned to match the Listen Now
-          tab exactly (same width, same responsive alignment: centered
-          on phones, left-aligned with the same padding on desktop),
-          sitting directly underneath it. The tab itself isn't touched. */}
-      <div className="relative z-10 mt-3 flex justify-center sm:mt-4 sm:justify-start sm:pl-6">
-        <div className="w-[17rem] sm:w-[19.5rem]">
-          <KenjiQuestPromo />
-        </div>
-      </div>
-
       <div className="relative mx-auto max-w-3xl px-6">
-        <figure className="mt-4 text-center text-white">
+        {/* Kenji's Quest — a narrow rail parked in the left margin
+            beside this centered column, right under the Listen Now
+            tab, on wide desktop screens where that margin has real,
+            unclipped room (xl+). It's positioned absolutely, so it
+            adds no height to this column — everything else here
+            starts at its normal spot with no extra headspace. Below
+            xl there isn't room for a side column, so the same card
+            drops to a normal block at the very bottom of the page
+            instead (see the second instance, further down). */}
+        <div className="pointer-events-none absolute right-full top-0 z-10 mr-4 hidden w-44 xl:block">
+          <div className="pointer-events-auto">
+            <KenjiQuestPromo />
+          </div>
+        </div>
+
+        <figure className="mt-4 text-center text-white sm:mt-8">
         <blockquote className="whitespace-nowrap font-serif italic leading-snug text-[min(calc((100vw-3rem)/38),1.2rem)]">
           &ldquo;The goal of an artist is to create the definitive work that
           cannot be surpassed.&rdquo;
@@ -463,6 +468,12 @@ export default function HomePage() {
         </section>
       )}
 
+      {/* Kenji's Quest again — the same card, as a normal block at the
+          very bottom of the page, for every width too narrow for the
+          rail up top to have room (see the first instance above). */}
+      <div className="mx-auto mt-16 max-w-xs xl:hidden">
+        <KenjiQuestPromo />
+      </div>
       </div>
     </>
   );

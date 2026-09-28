@@ -39,7 +39,7 @@ export default function KenjiQuestPage() {
         <h1 className="mt-4 font-cinema text-4xl uppercase tracking-wide text-[#f6e0bd] sm:text-6xl">
           Kenji&rsquo;s Quest
         </h1>
-        <p className="gold-foil gold-plate title-glow mx-auto mt-2 font-athelas font-bold text-5xl leading-none tracking-wide sm:text-7xl">
+        <p className="title-glow mx-auto mt-2 font-athelas font-bold uppercase text-5xl leading-none tracking-wide text-white sm:text-7xl">
           First Light
         </p>
         <p className="mx-auto mt-6 max-w-lg font-serif text-lg italic leading-snug text-[#e7ded2]/90 sm:text-xl">
