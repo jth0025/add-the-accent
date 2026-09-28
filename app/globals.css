@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Athelas — used for "First Light" as a grand, illuminated movie-title
+   subtitle (see .title-glow). Self-hosted from local font files. */
+@font-face {
+  font-family: "Athelas";
+  src: url("/fonts/athelas/Athelas-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Athelas";
+  src: url("/fonts/athelas/Athelas-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Athelas";
+  src: url("/fonts/athelas/Athelas-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Athelas";
+  src: url("/fonts/athelas/Athelas-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 html {
   scroll-behavior: smooth;
   /* Header nav/tagline/temperature color — set here so it matches the

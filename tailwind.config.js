@@ -30,6 +30,7 @@ module.exports = {
         hand: ["var(--font-hand)", "\"Bradley Hand\"", "\"Comic Sans MS\"", "cursive"],
         cinema: ["var(--font-cinema)", "\"Oswald\"", "\"Arial Narrow\"", "sans-serif"],
         tribal: ["var(--font-tribal)", "\"Copperplate\"", "serif"],
+        athelas: ["Athelas", "Georgia", "serif"],
       },
       typography: () => ({
         accent: {

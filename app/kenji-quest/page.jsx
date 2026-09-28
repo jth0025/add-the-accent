@@ -39,7 +39,7 @@ export default function KenjiQuestPage() {
         <h1 className="mt-4 font-cinema text-4xl uppercase tracking-wide text-[#f6e0bd] sm:text-6xl">
           Kenji&rsquo;s Quest
         </h1>
-        <p className="gold-foil gold-plate title-glow mx-auto mt-2 font-oldenglish text-5xl leading-none tracking-wide sm:text-7xl">
+        <p className="gold-foil gold-plate title-glow mx-auto mt-2 font-athelas font-bold text-5xl leading-none tracking-wide sm:text-7xl">
           First Light
         </p>
         <p className="mx-auto mt-6 max-w-lg font-serif text-lg italic leading-snug text-[#e7ded2]/90 sm:text-xl">
@@ -48,15 +48,21 @@ export default function KenjiQuestPage() {
         </p>
 
         <div className="relative mx-auto mt-8 w-48 sm:w-56">
-          <div
+          {/* A warm backlight glowing behind Kenji instead of a ground
+              shadow — same glow image and screen-blend trick as the
+              header logo's night-mode backlight, just always on here. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo-backlight.png"
+            alt=""
             aria-hidden="true"
-            className="absolute inset-x-6 -bottom-2 h-4 rounded-[50%] bg-black/70 blur-[6px]"
+            className="pointer-events-none absolute left-1/2 top-1/2 z-0 w-[170%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/kenji-standing.png"
             alt="Kenji, a lone Afro-Japanese traveler in carved wood and gold armor, standing ready with a sheathed blade"
-            className="relative w-full drop-shadow-[0_16px_18px_rgba(0,0,0,0.4)]"
+            className="relative z-10 w-full"
           />
         </div>
       </section>
@@ -64,7 +70,7 @@ export default function KenjiQuestPage() {
       {/* The quest */}
       <section className="paper-journal-dark corner-box mt-8 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10">
         <SectionLabel>The Quest</SectionLabel>
-        <h2 className="mx-auto mt-3 max-w-lg text-center font-playfair text-2xl italic text-ink sm:text-3xl">
+        <h2 className="mt-3 whitespace-nowrap text-center font-playfair text-[min(calc((100vw-7.5rem)/22),1.875rem)] italic text-ink">
           Every road home starts with a reason to leave.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-stone">
@@ -146,7 +152,7 @@ export default function KenjiQuestPage() {
         <h2 className="mx-auto mt-3 max-w-lg font-playfair text-2xl italic text-ink sm:text-3xl">
           Seven sacred stages await across the Reach.
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-stone">
+        <p className="mx-auto mt-5 max-w-md text-stone">
           A ruined room. A guarded city. A hidden grove, and more waiting
           beyond &mdash; each stage asks something different of Kenji
           before it lets him pass. We&rsquo;re saving the details for when
@@ -160,7 +166,13 @@ export default function KenjiQuestPage() {
         <p className="mx-auto mt-4 max-w-md font-playfair text-xl italic text-ink sm:text-2xl">
           The path is still being cleared.
         </p>
-        <p className="mx-auto mt-3 max-w-md text-stone">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/quest-path.png"
+          alt="A hand-drawn map of a winding path through jungle island terrain"
+          className="mx-auto mt-6 w-48 rounded-lg border border-ink/15 shadow-md sm:w-56"
+        />
+        <p className="mx-auto mt-6 max-w-md text-stone">
           <strong className="font-bold">Kenji&rsquo;s Quest: First Light</strong>{" "}
           is in development &mdash; and it&rsquo;s shaping up to be
           something worth the wait.

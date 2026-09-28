@@ -42,7 +42,7 @@ export default function KenjiQuestPromo() {
         <p className="mt-2 font-cinema text-[10px] uppercase tracking-wide text-ink">
           Kenji&rsquo;s Quest
         </p>
-        <p className="title-glow -mt-1 font-oldenglish text-xl leading-tight text-[#8a4412]">
+        <p className="title-glow -mt-1 font-athelas font-bold text-xl leading-tight text-[#8a4412]">
           First Light
         </p>
         <p className="mx-auto mt-2 font-serif text-[11px] italic leading-relaxed text-stone">
