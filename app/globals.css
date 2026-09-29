@@ -1716,44 +1716,9 @@ html.header-raining .header-rain {
   }
 }
 
-/* The small, luminous butterfly that keeps Kenji company on the
-   kenji-quest hero — a loose, looping flight path around his head and
-   shoulder, plus a much faster wing-flap layered on top of it. */
-@keyframes butterfly-fly {
-  0% {
-    left: 8%;
-    top: 6%;
-    transform: rotate(-6deg);
-  }
-  20% {
-    left: 62%;
-    top: 0%;
-    transform: rotate(10deg);
-  }
-  40% {
-    left: 78%;
-    top: 20%;
-    transform: rotate(-4deg);
-  }
-  60% {
-    left: 52%;
-    top: 30%;
-    transform: rotate(12deg);
-  }
-  80% {
-    left: 18%;
-    top: 18%;
-    transform: rotate(-10deg);
-  }
-  100% {
-    left: 8%;
-    top: 6%;
-    transform: rotate(-6deg);
-  }
-}
-
-.butterfly-fly {
-  animation: butterfly-fly 15s ease-in-out infinite;
+/* The small, luminous butterfly perched on Kenji's sword hilt on the
+   kenji-quest hero — a static glow, wings still fluttering. */
+.butterfly-glow {
   filter: drop-shadow(0 0 5px rgba(255, 224, 160, 0.85))
     drop-shadow(0 0 10px rgba(255, 224, 160, 0.4));
 }
@@ -1774,11 +1739,6 @@ html.header-raining .header-rain {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .butterfly-fly {
-    animation: none;
-    left: 68%;
-    top: 8%;
-  }
   .butterfly-wing {
     animation: none;
   }

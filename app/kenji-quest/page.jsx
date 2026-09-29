@@ -36,13 +36,13 @@ export default function KenjiQuestPage() {
       >
         <SectionLabel>In Development</SectionLabel>
 
-        <h1 className="mt-4 font-cinema text-4xl uppercase tracking-wide text-[#f6e0bd] sm:text-6xl">
+        <h1 className="mt-4 font-cinema text-3xl uppercase tracking-wide text-[#f6e0bd] sm:text-5xl">
           Kenji&rsquo;s Quest
         </h1>
         <p className="title-glow mx-auto mt-2 font-athelas uppercase text-5xl leading-none tracking-wide text-white sm:text-7xl">
           First Light
         </p>
-        <p className="mx-auto mt-6 max-w-lg font-serif text-lg italic leading-snug text-[#e7ded2]/90 sm:text-xl">
+        <p className="mx-auto mt-6 max-w-lg font-athelas text-lg leading-snug text-[#e7ded2]/90 sm:text-xl">
           A pilgrimage through memory, mystery, and light &mdash; coming
           soon to Add the Accent.
         </p>
@@ -50,14 +50,17 @@ export default function KenjiQuestPage() {
         <div className="relative mx-auto mt-8 w-48 sm:w-56">
           {/* A warm backlight glowing behind Kenji instead of a ground
               shadow — same glow image and screen-blend trick as the
-              header logo's night-mode backlight, just always on here. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo-backlight.png"
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-1/2 z-0 w-[170%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
-          />
+              header logo's night-mode backlight, clipped the same way
+              too, so it never bleeds past the floor he's standing on. */}
+          <span className="pointer-events-none absolute inset-0 z-0 [clip-path:inset(-100vh_-100vw_0_-100vw)]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-backlight.png"
+              alt=""
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 w-[170%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
+            />
+          </span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/kenji-standing.png"
@@ -65,12 +68,12 @@ export default function KenjiQuestPage() {
             className="relative z-10 w-full"
           />
           {/* The recurring butterfly — small, luminous, and never far
-              (see "Meet Kenji" below) — looping around his head and
-              shoulder. */}
+              (see "Meet Kenji" below) — perched on the tip of the
+              sword hilt behind his shoulder, wings still fluttering. */}
           <svg
             aria-hidden="true"
             viewBox="0 0 32 32"
-            className="butterfly-fly pointer-events-none absolute z-20 h-5 w-5 text-[#f6d999] sm:h-6 sm:w-6"
+            className="butterfly-glow pointer-events-none absolute left-[70%] top-[10%] z-20 h-5 w-5 -translate-x-1/2 -translate-y-full text-[#f6d999] sm:h-6 sm:w-6"
           >
             <g className="butterfly-wing">
               <path
@@ -96,8 +99,8 @@ export default function KenjiQuestPage() {
           Every road home starts with a reason to leave.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-stone">
-          <strong className="font-bold">Kenji&rsquo;s Quest</strong> is an
-          interactive adventure built from the same world as the essays on
+          <strong className="font-bold italic">Kenji&rsquo;s Quest</strong> is
+          an interactive adventure built from the same world as the essays on
           this site &mdash; a chance to step inside the ideas Add the
           Accent has always circled back to: presence, inheritance,
           self-discovery, and the courage it takes to keep moving forward.
@@ -105,10 +108,12 @@ export default function KenjiQuestPage() {
           something you play.
         </p>
         <p className="mx-auto mt-4 max-w-xl text-stone">
-          You&rsquo;ll follow a young Afro-Japanese traveler raised by House
-          Mizuhara, as an inherited blade and a fragmented scroll pull him
-          across the Kuroshio Reach toward a destination the scroll calls
-          only First Light.
+          You&rsquo;ll follow a young Afro-Japanese traveler raised by{" "}
+          <strong className="font-bold italic">House Mizuhara</strong>, as an
+          inherited blade and a fragmented scroll pull him across the{" "}
+          <strong className="font-bold italic">Kuroshio Reach</strong> toward
+          a destination the scroll calls only{" "}
+          <strong className="font-bold italic">First Light</strong>.
         </p>
         <p className="mx-auto mt-4 max-w-xl font-serif italic text-ink/80">
           It isn&rsquo;t a hunt for treasure. It&rsquo;s a pilgrimage
@@ -130,18 +135,11 @@ export default function KenjiQuestPage() {
           <div>
             <p className="text-stone">
               Kenji is quiet, deliberate, and slow to anger &mdash; the
-              product of a childhood spent inside House Mizuhara&rsquo;s
-              discipline, not the birth clan he barely remembers. He
+              product of a childhood spent inside{" "}
+              <strong className="font-bold italic">House Mizuhara</strong>
+              &rsquo;s discipline, not the birth clan he barely remembers. He
               listens more than he speaks, and watches before he acts.
             </p>
-            <p className="mt-4 text-sm font-mono uppercase tracking-widest text-accent">
-              Carries
-            </p>
-            <ul className="mt-2 space-y-1.5 text-stone">
-              <li>An inherited blade, seldom drawn</li>
-              <li>A scroll, fragmented and still unfolding</li>
-              <li>A single, recurring butterfly &mdash; more guide than pet</li>
-            </ul>
           </div>
         </div>
       </section>
@@ -149,11 +147,11 @@ export default function KenjiQuestPage() {
       {/* What you'll do */}
       <section className="corner-box mt-8 rounded-xl border border-ink/15 bg-card px-7 py-10 text-center sm:px-10">
         <SectionLabel>What You&rsquo;ll Do</SectionLabel>
-        <h2 className="mx-auto mt-3 max-w-lg font-playfair text-2xl italic text-ink sm:text-3xl">
+        <h2 className="mt-3 whitespace-nowrap font-playfair text-[min(calc((100vw-7.5rem)/22),1.875rem)] italic text-ink">
           An adventure built to be felt, not just read.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-stone">
-          <strong className="font-bold">Kenji&rsquo;s Quest</strong> is
+          <strong className="font-bold italic">Kenji&rsquo;s Quest</strong> is
           designed as a real, playable adventure &mdash; a way of giving
           Add the Accent&rsquo;s stories an interactive dimension, where
           you move through the world instead of only reading about it.
@@ -171,14 +169,19 @@ export default function KenjiQuestPage() {
       {/* The path */}
       <section className="paper-fold-thirds corner-box mt-8 rounded-xl border border-ink/15 bg-card px-7 py-10 text-center sm:px-10">
         <SectionLabel>The Path</SectionLabel>
-        <h2 className="mx-auto mt-3 max-w-lg font-playfair text-2xl italic text-ink sm:text-3xl">
+        <h2 className="mt-3 whitespace-nowrap font-playfair text-[min(calc((100vw-7.5rem)/22),1.875rem)] italic text-ink">
           Seven sacred stages await across the Reach.
         </h2>
-        <p className="mx-auto mt-5 max-w-md text-stone">
-          A ruined room. A guarded city. A hidden grove, and more waiting
-          beyond &mdash; each stage asks something different of Kenji
-          before it lets him pass. We&rsquo;re saving the details for when
-          you can experience them yourself.
+        <ul className="mx-auto mt-5 max-w-md list-disc space-y-1.5 pl-5 text-left text-stone marker:text-accent">
+          <li>A ruined room.</li>
+          <li>A guarded city.</li>
+          <li>A hidden grove.</li>
+          <li>And more waiting beyond.</li>
+        </ul>
+        <p className="mx-auto mt-4 max-w-md text-stone">
+          Each stage asks something different of Kenji before it lets him
+          pass. We&rsquo;re saving the details for when you can experience
+          them yourself.
         </p>
       </section>
 
@@ -195,13 +198,14 @@ export default function KenjiQuestPage() {
           className="mx-auto mt-6 w-48 rounded-lg border border-ink/15 shadow-md sm:w-56"
         />
         <p className="mx-auto mt-6 max-w-md text-stone">
-          <strong className="font-bold">Kenji&rsquo;s Quest</strong>: First
-          Light is in development &mdash; and it&rsquo;s shaping up to be
-          something worth the wait.
+          <strong className="font-bold italic">Kenji&rsquo;s Quest</strong>:{" "}
+          <strong className="font-bold italic">First Light</strong> is in
+          development &mdash; and it&rsquo;s shaping up to be something
+          worth the wait.
         </p>
         <p className="mx-auto mt-3 max-w-md text-stone">
-          Accent Notes is where it&rsquo;ll be announced first &mdash; sign
-          up on the{" "}
+          <span className="font-script text-lg text-ink">Accent Notes</span>{" "}
+          is where it&rsquo;ll be announced first &mdash; sign up on the{" "}
           <Link href="/work-with-me" className="text-accent hover:underline">
             Work With Me
           </Link>{" "}

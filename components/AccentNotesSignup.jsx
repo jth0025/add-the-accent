@@ -59,9 +59,11 @@ export default function AccentNotesSignup() {
       />
 
       <div className="relative z-10">
-        <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
+        <div className="flex items-center justify-center gap-3 text-accent">
           <span className="h-px w-8 bg-accent/40" />
-          <span>Accent Notes</span>
+          <span className="font-script text-2xl normal-case tracking-normal">
+            Accent Notes
+          </span>
           <span className="h-px w-8 bg-accent/40" />
         </div>
         <p className="mx-auto mt-4 max-w-sm text-stone">
