@@ -36,15 +36,17 @@ export default function KenjiQuestPage() {
       >
         <SectionLabel>In Development</SectionLabel>
 
-        <h1 className="mt-4 font-cinema text-3xl uppercase tracking-wide text-[#f6e0bd] sm:text-5xl">
+        <h1 className="mt-4 font-cinema text-sm uppercase tracking-wide text-[#f6e0bd] sm:text-base">
           Kenji&rsquo;s Quest
         </h1>
-        <p className="title-glow mx-auto mt-2 font-athelas uppercase text-5xl leading-none tracking-wide text-white sm:text-7xl">
+        <p className="title-glow mx-auto mt-2 font-athelas font-light uppercase text-5xl leading-none tracking-[0.02em] text-white sm:text-7xl">
           First Light
         </p>
         <p className="mx-auto mt-6 max-w-lg font-athelas text-lg leading-snug text-[#e7ded2]/90 sm:text-xl">
-          A pilgrimage through memory, mystery, and light &mdash; coming
-          soon to Add the Accent.
+          A pilgrimage through memory, mystery, and light.
+        </p>
+        <p className="title-glow mx-auto mt-2 whitespace-nowrap font-athelas font-light text-white text-[min(calc((100vw-5.5rem)/16),1.75rem)]">
+          Coming soon to Add the Accent.
         </p>
 
         <div className="relative mx-auto mt-8 w-48 sm:w-56">
@@ -61,6 +63,13 @@ export default function KenjiQuestPage() {
               className="absolute left-1/2 top-1/2 w-[170%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
             />
           </span>
+          {/* A grounding shadow under his feet — distinct from the
+              backlight above, which glows behind him rather than
+              anchoring him to the floor. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-8 bottom-1 z-[5] h-3 rounded-[50%] bg-black/60 blur-[6px]"
+          />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/kenji-standing.png"
