@@ -225,7 +225,10 @@ export default function AboutPage() {
           section's normal single column, per the "Portrait Mode" sketch
           reference; the bold headline and italic serif eyebrow mirror the
           type treatment on yvettehaughton.com. */}
-      <section className="corner-box relative mt-12 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
+      <section
+        id="profile"
+        className="corner-box relative mt-12 scroll-mt-24 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12"
+      >
         <SectionLabel>Profile</SectionLabel>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-[13rem,1fr] sm:items-center sm:gap-10">
