@@ -185,6 +185,10 @@ const ABOUT_CLOUDS = [
   { top: 26, width: 52, duration: 86, delay: -60, opacity: 0.45, color: "#8a8a8a" },
   { top: 9, width: 24, duration: 64, delay: -30, opacity: 0.7, color: "#1a1a1a" },
   { top: 20, width: 34, duration: 70, delay: -12, opacity: 0.5, color: "#6b6b6b" },
+  { top: 1, width: 18, duration: 46, delay: -22, opacity: 0.8, color: "#1a1a1a" },
+  { top: 30, width: 26, duration: 66, delay: -48, opacity: 0.6, color: "#8a8a8a" },
+  { top: 13, width: 40, duration: 92, delay: -70, opacity: 0.4, color: "#6b6b6b" },
+  { top: 38, width: 16, duration: 54, delay: -34, opacity: 0.65, color: "#1a1a1a" },
 ];
 
 function AboutCloud({ top, width, duration, delay, opacity, color }) {
