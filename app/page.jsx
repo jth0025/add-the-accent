@@ -23,10 +23,9 @@ export default function HomePage() {
     <>
       <ListenNowTab />
 
-      {/* Kenji's Quest — a narrow rail directly under the Listen Now
-          tab, left-aligned with it exactly (same left-6 inset the tab
-          uses for its own pl-6, off this same untouched, full-width
-          position — the tab itself isn't moved or resized). Absolutely
+      {/* Kenji's Quest — a narrow rail on the far right, its own third
+          column opposite the Listen Now tab's left rail, with the
+          centered content as the column between them. Absolutely
           positioned so it adds no flow height of its own: this wrapper
           sits between the tab and the centered content below with zero
           height, and the content isn't shifted. xl+ only, where the
@@ -34,7 +33,7 @@ export default function HomePage() {
           below that the same card drops to a normal block at the very
           bottom of the page instead (see the other instance). */}
       <div className="relative">
-        <div className="pointer-events-none absolute left-6 top-0 z-10 hidden w-56 xl:block">
+        <div className="pointer-events-none absolute right-6 top-0 z-10 hidden w-56 xl:block">
           <div className="pointer-events-auto">
             <KenjiQuestPromo />
           </div>
