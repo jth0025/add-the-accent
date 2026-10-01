@@ -1745,15 +1745,65 @@ html.header-raining .header-rain {
 }
 
 /* The JT signature mark stays otherwise invisible (its own <img> is
-   opacity-0) — this sweeping gleam, masked to the mark's exact ink
-   shape, is the only thing that ever reveals it, like a light passing
-   over hidden ink. Slow-moving, but on a short enough cycle that it
-   reads as frequent rather than a rare event. */
-@keyframes jt-glare-sweep {
+   opacity-0) — a slow light beam sweeps across the masked ink shape
+   and fills the letters in behind it as it moves, left to right. It
+   holds fully filled for a beat once the beam clears, then dissolves
+   back to invisible and starts again, so the mark is still only ever
+   shown by the light passing over it, never left sitting visible. */
+@keyframes jt-reveal-fade {
+  0%,
+  68% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.jt-reveal {
+  animation: jt-reveal-fade 8s ease-in-out infinite;
+}
+
+.jt-reveal-link:hover .jt-reveal {
+  animation: none;
+  opacity: 1;
+}
+
+/* The fill itself — a solid wipe clipped to the beam's leading edge,
+   left unclipped (clip-path inset(0 0 0 0)) once the beam has passed. */
+@keyframes jt-reveal-wipe {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  55% {
+    clip-path: inset(0 0% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+.jt-reveal-fill {
+  background: rgba(222, 222, 217, 0.94);
+  clip-path: inset(0 100% 0 0);
+  animation: jt-reveal-wipe 8s ease-in-out infinite;
+}
+
+.jt-reveal-link:hover .jt-reveal-fill {
+  animation: none;
+  clip-path: inset(0 0% 0 0);
+}
+
+/* The beam riding the fill's leading edge, timed to clear the shape
+   at the same 55% mark the wipe finishes at. */
+@keyframes jt-reveal-beam {
   0% {
     background-position: 160% 0;
   }
-  70% {
+  55% {
     background-position: -60% 0;
   }
   100% {
@@ -1761,7 +1811,7 @@ html.header-raining .header-rain {
   }
 }
 
-.jt-glare-sweep {
+.jt-reveal-beam {
   background: linear-gradient(
     100deg,
     transparent 30%,
@@ -1772,19 +1822,36 @@ html.header-raining .header-rain {
   );
   background-size: 250% 100%;
   background-position: 160% 0;
-  animation: jt-glare-sweep 5s ease-in-out infinite;
+  animation: jt-reveal-beam 8s ease-in-out infinite;
+}
+
+.jt-reveal-link:hover .jt-reveal-beam {
+  opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .jt-glare-sweep {
+  .jt-reveal {
     animation: none;
-    background-position: -60% 0;
+    opacity: 1;
+  }
+  .jt-reveal-fill {
+    animation: none;
+    clip-path: inset(0 0% 0 0);
+  }
+  .jt-reveal-beam {
+    animation: none;
+    opacity: 0;
   }
 }
 
-/* A slight halo around the gleam's own reveal — desktop only, paired
-   with .jt-glare-sweep rather than replacing it. */
-.jt-glare-glow {
-  filter: drop-shadow(0 0 5px rgba(225, 225, 220, 0.4))
-    drop-shadow(0 0 11px rgba(210, 210, 205, 0.22));
+/* A plain grounding shadow under the reveal — desktop only — replacing
+   the colored halo it used to carry. On hover it swaps for a constant
+   (non-animating) glow instead, to match the hover-filled state. */
+.jt-reveal-shadow {
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+}
+
+.jt-reveal-link:hover .jt-reveal-shadow {
+  filter: drop-shadow(0 0 6px rgba(225, 225, 220, 0.55))
+    drop-shadow(0 0 14px rgba(210, 210, 205, 0.3));
 }

@@ -37,17 +37,23 @@ export default function HomePage() {
           instead (see the other instance). */}
       <div className="relative">
         <div className="pointer-events-none absolute left-12 top-3 z-10 hidden w-56 xl:block">
-          <div className="pointer-events-auto relative opacity-[0.54]">
-            {/* The mark itself stays invisible — only the light gleam
-                sweeping across it (masked to its exact shape) reveals
-                any of it, rather than showing a static signature.
-                jt-glare-glow adds a slight halo to that reveal, here
-                on desktop only. */}
+          <Link
+            href="/about#profile"
+            aria-label="View JT's profile"
+            className="jt-reveal-link pointer-events-auto relative block cursor-pointer opacity-[0.54]"
+          >
+            {/* The mark itself stays invisible — only the light beam
+                sweeping across it (masked to its exact shape) ever
+                reveals it, filling the letters in as it passes rather
+                than showing a static signature. jt-reveal-shadow adds
+                a plain grounding shadow here, desktop only — it swaps
+                for a constant glow on hover, when the mark is also
+                held fully filled in. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/jt-signature.png" alt="JT" className="w-full opacity-0" />
+            <img src="/jt-signature.png" alt="" className="w-full opacity-0" />
             <div
               aria-hidden="true"
-              className="jt-glare-sweep jt-glare-glow pointer-events-none absolute inset-0"
+              className="jt-reveal jt-reveal-shadow pointer-events-none absolute inset-0"
               style={{
                 WebkitMaskImage: "url(/jt-signature.png)",
                 maskImage: "url(/jt-signature.png)",
@@ -58,8 +64,11 @@ export default function HomePage() {
                 WebkitMaskPosition: "center",
                 maskPosition: "center",
               }}
-            />
-          </div>
+            >
+              <span className="jt-reveal-fill absolute inset-0 block" />
+              <span className="jt-reveal-beam absolute inset-0 block" />
+            </div>
+          </Link>
         </div>
         <div className="pointer-events-none absolute right-6 top-0 z-10 hidden w-56 xl:block">
           <div className="pointer-events-auto">
@@ -144,14 +153,19 @@ export default function HomePage() {
               mt-11 below "This is all a true story," so the gap on
               both sides of the icon row is the same. */}
           <div className="mt-11 flex justify-center md:hidden">
-            <div className="relative w-14">
+            <Link
+              href="/about#profile"
+              aria-label="View JT's profile"
+              className="jt-reveal-link relative block w-14 cursor-pointer"
+            >
               {/* The mark itself stays invisible — only the light
-                  gleam sweeping across it reveals any of it. */}
+                  beam sweeping across it reveals it, filling the
+                  letters in as it passes. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/jt-signature.png" alt="JT" className="w-full opacity-0" />
+              <img src="/jt-signature.png" alt="" className="w-full opacity-0" />
               <div
                 aria-hidden="true"
-                className="jt-glare-sweep absolute inset-0"
+                className="jt-reveal absolute inset-0"
                 style={{
                   WebkitMaskImage: "url(/jt-signature.png)",
                   maskImage: "url(/jt-signature.png)",
@@ -162,8 +176,11 @@ export default function HomePage() {
                   WebkitMaskPosition: "center",
                   maskPosition: "center",
                 }}
-              />
-            </div>
+              >
+                <span className="jt-reveal-fill absolute inset-0 block" />
+                <span className="jt-reveal-beam absolute inset-0 block" />
+              </div>
+            </Link>
           </div>
         </div>
 
