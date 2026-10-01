@@ -37,7 +37,7 @@ export default function HomePage() {
           instead (see the other instance). */}
       <div className="relative">
         <div className="pointer-events-none absolute left-12 top-3 z-10 hidden w-56 xl:block">
-          <div className="pointer-events-auto relative opacity-[0.48]">
+          <div className="pointer-events-auto relative opacity-[0.54]">
             {/* The mark itself stays invisible — only the light gleam
                 sweeping across it (masked to its exact shape) reveals
                 any of it, rather than showing a static signature. */}
