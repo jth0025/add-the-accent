@@ -36,8 +36,8 @@ export default function HomePage() {
           drops to a normal block at the very bottom of the page
           instead (see the other instance). */}
       <div className="relative">
-        <div className="pointer-events-none absolute left-10 top-3 z-10 hidden w-56 xl:block">
-          <div className="pointer-events-auto relative opacity-60">
+        <div className="pointer-events-none absolute left-12 top-3 z-10 hidden w-56 xl:block">
+          <div className="pointer-events-auto relative opacity-[0.48]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/jt-signature.png" alt="JT" className="w-full" />
             <div
@@ -132,11 +132,13 @@ export default function HomePage() {
           </div>
 
           {/* JT's signature mark — phone widths only, sitting just
-              below the track (and its sticky note) with even space
-              around it. Absolutely positioned against this whole
-              block, so it adds no flow height of its own and doesn't
-              shift anything below it. */}
-          <div className="pointer-events-none absolute inset-x-0 top-full mt-5 flex justify-center md:hidden">
+              below the track (and its sticky note). In normal flow
+              now (not absolutely positioned) so the icon row below
+              actually makes room for it instead of risking an
+              overlap; its own mt-11 here matches the icon row's
+              mt-11 below "This is all a true story," so the gap on
+              both sides of the icon row is the same. */}
+          <div className="mt-11 flex justify-center md:hidden">
             <div className="relative w-14">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/jt-signature.png" alt="JT" className="w-full" />
@@ -158,7 +160,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="mt-12 flex items-center justify-center gap-5 text-white/95 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.3))]">
+        <div className="mt-11 flex items-center justify-center gap-5 text-white/95 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.3))] md:mt-12">
           {/* The #urban-sketch roughen filter lives in app/layout.jsx. */}
           {/* Camera → Instagram */}
           <a
