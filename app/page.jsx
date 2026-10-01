@@ -38,8 +38,11 @@ export default function HomePage() {
       <div className="relative">
         <div className="pointer-events-none absolute left-12 top-3 z-10 hidden w-56 xl:block">
           <div className="pointer-events-auto relative opacity-[0.48]">
+            {/* The mark itself stays invisible — only the light gleam
+                sweeping across it (masked to its exact shape) reveals
+                any of it, rather than showing a static signature. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/jt-signature.png" alt="JT" className="w-full" />
+            <img src="/jt-signature.png" alt="JT" className="w-full opacity-0" />
             <div
               aria-hidden="true"
               className="jt-glare-sweep pointer-events-none absolute inset-0"
@@ -140,8 +143,10 @@ export default function HomePage() {
               both sides of the icon row is the same. */}
           <div className="mt-11 flex justify-center md:hidden">
             <div className="relative w-14">
+              {/* The mark itself stays invisible — only the light
+                  gleam sweeping across it reveals any of it. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/jt-signature.png" alt="JT" className="w-full" />
+              <img src="/jt-signature.png" alt="JT" className="w-full opacity-0" />
               <div
                 aria-hidden="true"
                 className="jt-glare-sweep absolute inset-0"
