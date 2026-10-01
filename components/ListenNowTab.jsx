@@ -29,7 +29,7 @@ export default function ListenNowTab() {
           where this wouldn't read the same way). */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-2 top-1/2 z-20 block w-14 -translate-y-1/2 sm:hidden"
+        className="pointer-events-none absolute left-4 top-1/2 z-20 block w-14 -translate-y-1/2 sm:hidden"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/jt-signature.png" alt="" className="w-full" />

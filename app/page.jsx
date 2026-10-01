@@ -36,7 +36,7 @@ export default function HomePage() {
           drops to a normal block at the very bottom of the page
           instead (see the other instance). */}
       <div className="relative">
-        <div className="pointer-events-none absolute left-6 top-0 z-10 hidden w-56 xl:block">
+        <div className="pointer-events-none absolute left-8 top-3 z-10 hidden w-56 xl:block">
           <div className="pointer-events-auto relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/jt-signature.png" alt="JT" className="w-full" />
