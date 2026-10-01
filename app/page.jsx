@@ -23,16 +23,39 @@ export default function HomePage() {
     <>
       <ListenNowTab />
 
-      {/* Kenji's Quest — a narrow rail on the far right, its own third
-          column opposite the Listen Now tab's left rail, with the
-          centered content as the column between them. Absolutely
-          positioned so it adds no flow height of its own: this wrapper
-          sits between the tab and the centered content below with zero
-          height, and the content isn't shifted. xl+ only, where the
-          margin beside the centered column has real, unclipped room;
-          below that the same card drops to a normal block at the very
-          bottom of the page instead (see the other instance). */}
+      {/* Two rails flanking the centered column, both absolutely
+          positioned so neither adds any flow height of its own — this
+          wrapper sits between the tab and the centered content below
+          with zero height, and the content isn't shifted. xl+ only,
+          where the margins beside the centered column have real,
+          unclipped room. JT's own signature stands alone on the left,
+          directly under the Listen Now tab (column one); Kenji's
+          Quest keeps its rail on the far right (column three). Below
+          xl, the JT mark only shows in miniature beside the Listen
+          Now tab (see ListenNowTab.jsx), and the Kenji's Quest card
+          drops to a normal block at the very bottom of the page
+          instead (see the other instance). */}
       <div className="relative">
+        <div className="pointer-events-none absolute left-6 top-0 z-10 hidden w-56 xl:block">
+          <div className="pointer-events-auto relative">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/jt-signature.png" alt="JT" className="w-full" />
+            <div
+              aria-hidden="true"
+              className="jt-glare-sweep pointer-events-none absolute inset-0"
+              style={{
+                WebkitMaskImage: "url(/jt-signature.png)",
+                maskImage: "url(/jt-signature.png)",
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+              }}
+            />
+          </div>
+        </div>
         <div className="pointer-events-none absolute right-6 top-0 z-10 hidden w-56 xl:block">
           <div className="pointer-events-auto">
             <KenjiQuestPromo />

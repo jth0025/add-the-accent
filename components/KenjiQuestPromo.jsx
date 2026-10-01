@@ -36,17 +36,6 @@ export default function KenjiQuestPromo() {
         </span>
       </Link>
       <div className="paper-notebook border-t border-ink/15 bg-white px-3 py-2.5 text-center">
-        {/* JT's own signature mark — a personal touch on the card now
-            that it's moved to its own rail on the right. Desktop only
-            (this same component also renders as a plain block at the
-            bottom of the page on mobile, which stays exactly as it
-            was). */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/jt-signature.png"
-          alt="JT"
-          className="mx-auto hidden w-32 xl:block"
-        />
         <span className="badge-glow block font-mono text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#af691e]">
           Coming Soon
         </span>

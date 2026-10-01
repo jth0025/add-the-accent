@@ -1743,3 +1743,43 @@ html.header-raining .header-rain {
     animation: none;
   }
 }
+
+/* A slow, consistent light glare across the JT signature mark —
+   masked to the mark's own ink so it never spills onto the
+   transparent background around it. The mark is solid black, so this
+   uses screen (not overlay) blend: overlay can't brighten black at
+   all, screen reliably does. */
+@keyframes jt-glare-sweep {
+  0% {
+    background-position: 160% 0;
+  }
+  35% {
+    background-position: -60% 0;
+  }
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+.jt-glare-sweep {
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.95) 48%,
+    rgba(255, 244, 214, 1) 50%,
+    rgba(255, 255, 255, 0.95) 52%,
+    transparent 70%
+  );
+  background-size: 250% 100%;
+  background-position: 160% 0;
+  mix-blend-mode: screen;
+  animation: jt-glare-sweep 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jt-glare-sweep {
+    animation: none;
+    background-position: -60% 0;
+    opacity: 0;
+  }
+}
