@@ -42,18 +42,15 @@ export default function HomePage() {
             aria-label="View JT's profile"
             className="jt-reveal-link pointer-events-auto relative block cursor-pointer opacity-[0.54]"
           >
-            {/* The mark itself stays invisible — only the light beam
-                sweeping across it (masked to its exact shape) ever
-                reveals it, filling the letters in as it passes rather
-                than showing a static signature. jt-reveal-shadow adds
-                a plain grounding shadow here, desktop only — it swaps
-                for a constant glow on hover, when the mark is also
-                held fully filled in. */}
+            {/* The mark's own img never fills in — a soft constant
+                shadow behind it hints at the shape at all times, and
+                a slow silver gleam sweeps across on top of that. On
+                hover the sweep stops and holds a steady glow instead. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/jt-signature.png" alt="" className="w-full opacity-0" />
             <div
               aria-hidden="true"
-              className="jt-reveal jt-reveal-shadow pointer-events-none absolute inset-0"
+              className="jt-mark pointer-events-none absolute inset-0"
               style={{
                 WebkitMaskImage: "url(/jt-signature.png)",
                 maskImage: "url(/jt-signature.png)",
@@ -65,8 +62,8 @@ export default function HomePage() {
                 maskPosition: "center",
               }}
             >
-              <span className="jt-reveal-fill absolute inset-0 block" />
-              <span className="jt-reveal-beam absolute inset-0 block" />
+              <span className="jt-mark-shadow absolute inset-0 block" />
+              <span className="jt-mark-gleam absolute inset-0 block" />
             </div>
           </Link>
         </div>
@@ -158,14 +155,14 @@ export default function HomePage() {
               aria-label="View JT's profile"
               className="jt-reveal-link relative block w-14 cursor-pointer"
             >
-              {/* The mark itself stays invisible — only the light
-                  beam sweeping across it reveals it, filling the
-                  letters in as it passes. */}
+              {/* The mark's own img never fills in — a soft constant
+                  shadow behind it hints at the shape, and a slow
+                  silver gleam sweeps across on top of that. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/jt-signature.png" alt="" className="w-full opacity-0" />
               <div
                 aria-hidden="true"
-                className="jt-reveal absolute inset-0"
+                className="jt-mark absolute inset-0"
                 style={{
                   WebkitMaskImage: "url(/jt-signature.png)",
                   maskImage: "url(/jt-signature.png)",
@@ -177,8 +174,8 @@ export default function HomePage() {
                   maskPosition: "center",
                 }}
               >
-                <span className="jt-reveal-fill absolute inset-0 block" />
-                <span className="jt-reveal-beam absolute inset-0 block" />
+                <span className="jt-mark-shadow absolute inset-0 block" />
+                <span className="jt-mark-gleam absolute inset-0 block" />
               </div>
             </Link>
           </div>
