@@ -1797,3 +1797,135 @@ html.header-raining .header-rain {
     opacity: 0;
   }
 }
+
+/* ---- Scoped push: CSS the /kenji-quest promo page depends on ---- */
+/* The Path box's paper art (.paper-fold-thirds's own third layer)
+   doesn't fill its own canvas edge to edge, so at mobile widths it
+   reads narrower than the card around it — scaled up here just on
+   small screens to close that gap. */
+@media (max-width: 639px) {
+  .qi-path-paper-wide {
+    background-size: auto, auto, 145% auto;
+  }
+}
+
+.title-glow-light {
+  text-shadow:
+    0 0 1px rgba(255, 244, 214, 0.6),
+    0 0 14px rgba(255, 214, 130, 0.55),
+    0 0 32px rgba(255, 196, 110, 0.4),
+    0 0 64px rgba(255, 180, 90, 0.25);
+}
+
+/* A slow color drift through the butterfly's own glow — gold to a
+   pale blue-white to a soft lavender and back — periodic, not jarring.
+   Drives currentColor, so it recolors the wing fills wherever it's
+   applied. */
+@keyframes butterfly-color-cycle {
+  0%,
+  100% {
+    color: #f6d999;
+  }
+  33% {
+    color: #9fd8ff;
+  }
+  66% {
+    color: #e2b8ff;
+  }
+}
+
+.butterfly-color-cycle {
+  animation: butterfly-color-cycle 10s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .butterfly-color-cycle {
+    animation: none;
+  }
+}
+
+/* A slow, consistent light glare that keeps sweeping across the
+   title mark on the menu screen after it drops in — a quick pass,
+   then a long hold off-frame before it repeats, so it reads as
+   "consistent" without being busy. Starts once .qi-drop-in settles. */
+@keyframes qi-title-glare-sweep {
+  0% {
+    background-position: 160% 0;
+  }
+  35% {
+    background-position: -60% 0;
+  }
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+.qi-title-glare-sweep {
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.85) 48%,
+    rgba(255, 244, 214, 0.95) 50%,
+    rgba(255, 255, 255, 0.85) 52%,
+    transparent 70%
+  );
+  background-size: 250% 100%;
+  background-position: 160% 0;
+  mix-blend-mode: overlay;
+  animation: qi-title-glare-sweep 6s ease-in-out 8.1s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-title-glare-sweep {
+    animation: none;
+    background-position: -60% 0;
+  }
+}
+
+/* A flickering torch flame — irregular scale/rotation jitter, not a
+   clean loop, so a pair of torches never sync into a metronome. */
+.qi-torch-flame {
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(
+    circle at 50% 70%,
+    #fff6d0 0%,
+    #ffcf6b 35%,
+    #ff8a2b 65%,
+    #e8501f 100%
+  );
+  box-shadow:
+    0 0 12px 4px rgba(255, 140, 40, 0.55),
+    0 0 24px 10px rgba(255, 100, 20, 0.3);
+  transform-origin: 50% 90%;
+  animation: qi-torch-flicker 2.2s ease-in-out infinite;
+}
+
+@keyframes qi-torch-flicker {
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1) rotate(0deg);
+    opacity: 0.95;
+  }
+  20% {
+    transform: scaleY(1.08) scaleX(0.94) rotate(-3deg);
+    opacity: 1;
+  }
+  45% {
+    transform: scaleY(0.92) scaleX(1.05) rotate(2deg);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scaleY(1.05) scaleX(0.97) rotate(-2deg);
+    opacity: 1;
+  }
+  85% {
+    transform: scaleY(0.96) scaleX(1.02) rotate(1deg);
+    opacity: 0.95;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-torch-flame {
+    animation: none;
+  }
+}

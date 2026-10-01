@@ -114,11 +114,26 @@ export default function KenjiGuide() {
             className="smoke-in absolute bottom-[calc(100%-6px)] right-6 z-10 h-[8.1rem] w-[3.5rem] sm:bottom-[calc(100%-16px)] sm:right-9 sm:h-[13.1rem] sm:w-[4.5rem]"
           >
             <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
+              {/* A warm backlight behind him, same glow image and
+                  screen-blend trick as the header logo's night-mode
+                  backlight — clipped at his feet (the box's own top
+                  edge) so it never bleeds down into the dialog below,
+                  and tied to the same smoke-in/out as his form since
+                  it lives inside this same wrapper. */}
+              <span className="pointer-events-none absolute inset-0 z-0 [clip-path:inset(-100vh_-100vw_0_-100vw)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo-backlight.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute left-1/2 top-1/2 w-[210%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
+                />
+              </span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/kenji-standing.png"
                 alt=""
-                className="h-full w-auto max-w-none object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
+                className="relative z-10 h-full w-auto max-w-none object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
               />
             </div>
           </div>
