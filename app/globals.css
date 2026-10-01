@@ -1781,3 +1781,10 @@ html.header-raining .header-rain {
     background-position: -60% 0;
   }
 }
+
+/* A slight halo around the gleam's own reveal — desktop only, paired
+   with .jt-glare-sweep rather than replacing it. */
+.jt-glare-glow {
+  filter: drop-shadow(0 0 5px rgba(225, 225, 220, 0.4))
+    drop-shadow(0 0 11px rgba(210, 210, 205, 0.22));
+}

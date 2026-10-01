@@ -40,12 +40,14 @@ export default function HomePage() {
           <div className="pointer-events-auto relative opacity-[0.54]">
             {/* The mark itself stays invisible — only the light gleam
                 sweeping across it (masked to its exact shape) reveals
-                any of it, rather than showing a static signature. */}
+                any of it, rather than showing a static signature.
+                jt-glare-glow adds a slight halo to that reveal, here
+                on desktop only. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/jt-signature.png" alt="JT" className="w-full opacity-0" />
             <div
               aria-hidden="true"
-              className="jt-glare-sweep pointer-events-none absolute inset-0"
+              className="jt-glare-sweep jt-glare-glow pointer-events-none absolute inset-0"
               style={{
                 WebkitMaskImage: "url(/jt-signature.png)",
                 maskImage: "url(/jt-signature.png)",
