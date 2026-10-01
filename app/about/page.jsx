@@ -173,6 +173,75 @@ const NOTES = [
   { text: "Not more noise. More you.", color: "#ddd6fe", rotate: -4 },
 ];
 
+// Small sketch clouds drifting behind the fence logo — the same puff
+// shape, drift mechanic (.header-cloud / cloud-drift), and mostly-
+// black-with-a-couple-grey palette as the header's own clouds, just
+// slower and confined to this card's own paper (see the overflow-
+// hidden sky layer below) instead of the header's full viewport.
+const ABOUT_CLOUDS = [
+  { top: 4, width: 48, duration: 58, delay: -6, opacity: 0.85, color: "#1a1a1a" },
+  { top: 34, width: 30, duration: 74, delay: -40, opacity: 0.55, color: "#6b6b6b" },
+  { top: 16, width: 20, duration: 50, delay: -18, opacity: 0.75, color: "#1a1a1a" },
+  { top: 26, width: 52, duration: 86, delay: -60, opacity: 0.45, color: "#8a8a8a" },
+  { top: 9, width: 24, duration: 64, delay: -30, opacity: 0.7, color: "#1a1a1a" },
+  { top: 20, width: 34, duration: 70, delay: -12, opacity: 0.5, color: "#6b6b6b" },
+];
+
+function AboutCloud({ top, width, duration, delay, opacity, color }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 64 34"
+      className="header-cloud"
+      style={{
+        top: `${top}%`,
+        width: `${width}px`,
+        opacity,
+        animationDuration: `${duration}s`,
+        animationDelay: `${delay}s`,
+      }}
+    >
+      <rect x="10" y="24" width="44" height="10" rx="5" fill={color} />
+      <ellipse cx="20" cy="24" rx="14" ry="10" fill={color} />
+      <ellipse cx="34" cy="18" rx="16" ry="13" fill={color} />
+      <ellipse cx="48" cy="24" rx="12" ry="9" fill={color} />
+    </svg>
+  );
+}
+
+// A couple of birds sharing the clouds' sky — same drift mechanic, a
+// plain double-arc silhouette, moving noticeably quicker than the
+// slow-drifting clouds around them.
+const ABOUT_BIRDS = [
+  { top: 12, width: 20, duration: 16, delay: -3, opacity: 0.6 },
+  { top: 22, width: 15, duration: 13, delay: -9, opacity: 0.5 },
+];
+
+function AboutBird({ top, width, duration, delay, opacity }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 32 20"
+      className="header-cloud"
+      style={{
+        top: `${top}%`,
+        width: `${width}px`,
+        opacity,
+        animationDuration: `${duration}s`,
+        animationDelay: `${delay}s`,
+      }}
+    >
+      <path
+        d="M2 15 Q9 4 16 12 Q23 4 30 15"
+        fill="none"
+        stroke="#1a1a1a"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 function SectionLabel({ children, tone = "text-accent", rule = "bg-accent/40" }) {
   return (
     <div
@@ -193,30 +262,53 @@ export default function AboutPage() {
     <div className="mx-auto max-w-3xl px-6 py-16">
       {/* Hero */}
       <section className="paper-fold-thirds corner-box relative rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12">
-        {/* Pinned to the card's own top-left corner, like it's holding
-            the whole box shut, rather than just resting on the art. */}
-        <PaperClip position="-top-4 left-14 rotate-[7deg]" />
-        <SectionLabel>About</SectionLabel>
+        {/* The clouds' and birds' sky — confined to this card's own
+            paper (overflow-hidden, matching the card's own rounded
+            corners) rather than free to drift past it. Sits behind
+            everything else in the card, which is why the rest of the
+            card's content is wrapped in its own z-10 layer below. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-xl"
+        >
+          {ABOUT_CLOUDS.map((cloud, i) => (
+            <AboutCloud key={i} {...cloud} />
+          ))}
+          {ABOUT_BIRDS.map((bird, i) => (
+            <AboutBird key={i} {...bird} />
+          ))}
+        </div>
 
-        {/* Title logo for this block: the wooden "AA" fence with the
-            character standing on the second A. Replaces the wordmark. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/fence-logo.png"
-          alt="Add the Accent — the character standing on a weathered wooden fence built into a double-A, rooted in soil with sprouting leaves"
-          className="mx-auto mt-6 w-[21rem] max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.22)] sm:mt-8 sm:w-[26rem]"
-        />
+        <div className="relative z-10">
+          {/* Pinned to the card's own top-left corner, like it's
+              holding the whole box shut, rather than just resting on
+              the art. */}
+          <PaperClip position="-top-4 left-14 rotate-[7deg]" />
+          <SectionLabel>About</SectionLabel>
 
-        <p className="mx-auto mt-6 max-w-xl pl-2 pr-6 text-center font-serif text-2xl italic leading-snug text-ink sm:pl-0 sm:pr-8 sm:text-3xl">
-          &ldquo;Your perspective is the masterpiece. Everything else is the
-          medium.&rdquo;
-        </p>
-        <p className="mx-auto mt-6 max-w-xl pl-2 pr-6 text-center text-sm text-stone sm:pl-0 sm:pr-8">
-          A multidisciplinary creative studio, umbrella brand, and philosophy
-          built around the power of individual perspective. Through design,
-          writing, photography, film, and apparel, the goal is the same
-          every time: bring the difference to the surface and give it form.
-        </p>
+          {/* Title logo for this block: the wooden "AA" fence with the
+              character standing on the second A. Replaces the
+              wordmark. The sky layer's clouds and birds drift behind
+              it. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/fence-logo.png"
+            alt="Add the Accent — the character standing on a weathered wooden fence built into a double-A, rooted in soil with sprouting leaves"
+            className="relative mx-auto mt-6 w-[21rem] max-w-full drop-shadow-[0_10px_16px_rgba(0,0,0,0.22)] sm:mt-8 sm:w-[26rem]"
+          />
+
+          <p className="mx-auto mt-6 max-w-xl pl-2 pr-6 text-center font-serif text-2xl italic leading-snug text-ink sm:pl-0 sm:pr-8 sm:text-3xl">
+            &ldquo;Your perspective is the masterpiece. Everything else is
+            the medium.&rdquo;
+          </p>
+          <p className="mx-auto mt-6 max-w-xl pl-2 pr-6 text-center text-sm text-stone sm:pl-0 sm:pr-8">
+            A multidisciplinary creative studio, umbrella brand, and
+            philosophy built around the power of individual perspective.
+            Through design, writing, photography, film, and apparel, the
+            goal is the same every time: bring the difference to the
+            surface and give it form.
+          </p>
+        </div>
       </section>
 
       {/* Profile — an editorial bio card: portrait, headline, quick facts,
