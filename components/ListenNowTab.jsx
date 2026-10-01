@@ -24,29 +24,6 @@
 export default function ListenNowTab() {
   return (
     <div className="listen-now-drop relative z-10 flex justify-center [clip-path:inset(0_-100vw_-100vw_-100vw)] sm:justify-start sm:pl-6">
-      {/* JT's signature mark — left of the tab, phone widths only (the
-          tab itself moves to a left-aligned desktop layout at sm:
-          where this wouldn't read the same way). */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-4 top-1/2 z-20 block w-14 -translate-y-1/2 sm:hidden"
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/jt-signature.png" alt="" className="w-full" />
-        <div
-          className="jt-glare-sweep absolute inset-0"
-          style={{
-            WebkitMaskImage: "url(/jt-signature.png)",
-            maskImage: "url(/jt-signature.png)",
-            WebkitMaskSize: "contain",
-            maskSize: "contain",
-            WebkitMaskRepeat: "no-repeat",
-            maskRepeat: "no-repeat",
-            WebkitMaskPosition: "center",
-            maskPosition: "center",
-          }}
-        />
-      </div>
       <a
         href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
         target="_blank"

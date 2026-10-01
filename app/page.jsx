@@ -36,8 +36,8 @@ export default function HomePage() {
           drops to a normal block at the very bottom of the page
           instead (see the other instance). */}
       <div className="relative">
-        <div className="pointer-events-none absolute left-8 top-3 z-10 hidden w-56 xl:block">
-          <div className="pointer-events-auto relative">
+        <div className="pointer-events-none absolute left-10 top-3 z-10 hidden w-56 xl:block">
+          <div className="pointer-events-auto relative opacity-60">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/jt-signature.png" alt="JT" className="w-full" />
             <div
@@ -128,6 +128,32 @@ export default function HomePage() {
               <span className="font-hand text-[16px] font-semibold leading-[1.15] text-[#4b3f24]">
                 a brief intro from yours truly!
               </span>
+            </div>
+          </div>
+
+          {/* JT's signature mark — phone widths only, sitting just
+              below the track (and its sticky note) with even space
+              around it. Absolutely positioned against this whole
+              block, so it adds no flow height of its own and doesn't
+              shift anything below it. */}
+          <div className="pointer-events-none absolute inset-x-0 top-full mt-5 flex justify-center md:hidden">
+            <div className="relative w-14">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/jt-signature.png" alt="JT" className="w-full" />
+              <div
+                aria-hidden="true"
+                className="jt-glare-sweep absolute inset-0"
+                style={{
+                  WebkitMaskImage: "url(/jt-signature.png)",
+                  maskImage: "url(/jt-signature.png)",
+                  WebkitMaskSize: "contain",
+                  maskSize: "contain",
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                  maskPosition: "center",
+                }}
+              />
             </div>
           </div>
         </div>
