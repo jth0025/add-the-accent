@@ -90,13 +90,14 @@ export default function KenjiQuestPage() {
           Coming soon to Add the Accent.
         </p>
 
-        <Link
-          href="/kenji-quest/play"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-white shadow-lg transition-transform hover:scale-[1.03]"
-        >
-          Play the Opening
-          <span aria-hidden="true">&rarr;</span>
-        </Link>
+        {/* No play link yet — the game itself stays unreachable from
+            the live site until the paywall in front of it is built.
+            This reads as informational, not actionable (outline, no
+            hover, not a link), unlike the accent-filled buttons
+            elsewhere on this page. */}
+        <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-white/80">
+          Still in Development
+        </span>
 
         <div className="relative mx-auto mt-8 w-48 sm:w-56">
           {/* A warm backlight glowing behind Kenji instead of a ground
