@@ -66,12 +66,23 @@ export default function DesignGallery() {
             />
           </span>
           <span>= Commissioned piece</span>
+          <span className="commission-legend relative ml-3 block h-8 w-8 shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/design/photo-commission-badge.png"
+              alt=""
+              className="h-full w-full object-contain"
+            />
+          </span>
+          <span>= Photo commission</span>
         </div>
       </div>
 
       <div className="columns-2 gap-5 sm:columns-3">
         {visiblePieces.map((piece, i) => {
-          const isCommission = tagsOf(piece.alt).includes("commission");
+          const pieceTags = tagsOf(piece.alt);
+          const isCommission = pieceTags.includes("commission");
+          const isPhotoCommission = pieceTags.includes("photocommission");
           return (
             <button
               key={piece.src}
@@ -103,6 +114,14 @@ export default function DesignGallery() {
                   src="/design/commission-badge.png"
                   alt="Commissioned piece"
                   className="pointer-events-none absolute -left-2 -top-2 z-10 h-12 w-12 drop-shadow-md sm:h-14 sm:w-14"
+                />
+              )}
+              {isPhotoCommission && !isCommission && (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src="/design/photo-commission-badge.png"
+                  alt="Photo commission"
+                  className="pointer-events-none absolute -left-1.5 -top-1.5 z-10 h-8 w-8 drop-shadow-md sm:h-9 sm:w-9"
                 />
               )}
             </button>
