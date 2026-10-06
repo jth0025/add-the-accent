@@ -7,9 +7,8 @@ import {
   CATEGORIES,
   inCategory,
   labelOf,
-  mediumOf,
   tagsForCategory,
-  titleOf,
+  captionOf,
 } from "@/lib/designCategories";
 
 function shuffle(arr) {
@@ -190,7 +189,7 @@ export default function DesignGallery() {
           const tags = tagsOf(piece.alt);
           const isCommission = tags.includes("commission");
           const isPhotoCommission = tags.includes("photocommission");
-          const title = titleOf(piece.alt);
+          const { title, shortMedium } = captionOf(piece);
           const matted = i % 5 === 2;
           return (
             <button
@@ -249,7 +248,7 @@ export default function DesignGallery() {
                   )}
                 </span>
                 <span className="hidden shrink-0 sm:inline">
-                  {mediumOf(piece.alt).split(",")[0]}
+                  {shortMedium}
                 </span>
               </span>
             </button>

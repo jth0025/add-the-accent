@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import DesignPlacard from "@/components/DesignPlacard";
-import { mediumOf, titleOf } from "@/lib/designCategories";
+import { captionOf } from "@/lib/designCategories";
 import { EDITORIAL } from "@/lib/designEditorial";
 import { PIECES } from "@/lib/designPieces";
 
@@ -33,6 +33,7 @@ const LEAN = {
 
 function Plate({ piece, id, n, ratio, className = "", onOpen }) {
   const lean = LEAN[id];
+  const { title, shortMedium } = captionOf(piece);
   return (
     <figure className={`[perspective:1100px] ${className}`}>
       <div
@@ -46,7 +47,7 @@ function Plate({ piece, id, n, ratio, className = "", onOpen }) {
         <button
           type="button"
           onClick={() => onOpen(piece)}
-          aria-label={`Enlarge: ${titleOf(piece.alt) || piece.alt}`}
+          aria-label={`Enlarge: ${title || piece.alt}`}
           className="group relative block w-full cursor-zoom-in overflow-hidden bg-black"
           style={{ aspectRatio: ratio }}
         >
@@ -68,14 +69,14 @@ function Plate({ piece, id, n, ratio, className = "", onOpen }) {
       <figcaption className="mt-4 flex items-baseline justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#3a352b]">
         <span>
           N&deg; {String(n).padStart(2, "0")}
-          {titleOf(piece.alt) && (
+          {title && (
             <span className="ml-2 normal-case italic tracking-normal">
-              {titleOf(piece.alt)}
+              {title}
             </span>
           )}
         </span>
         <span className="hidden text-right sm:inline">
-          {mediumOf(piece.alt).split(",")[0]}
+          {shortMedium}
         </span>
       </figcaption>
     </figure>

@@ -1,13 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { tagsOf } from "@/lib/designPieces";
-import {
-  isCommissioned,
-  labelOf,
-  mediumOf,
-  titleOf,
-} from "@/lib/designCategories";
+import { captionOf, labelOf } from "@/lib/designCategories";
 
 // Full-size view for a Museum piece: the work hangs in a mat and a dark
 // frame, with a small museum placard beneath it — title, maker, medium and
@@ -24,8 +18,7 @@ export default function DesignPlacard({ piece, onClose }) {
 
   if (!piece) return null;
 
-  const title = titleOf(piece.alt);
-  const tags = tagsOf(piece.alt).filter((t) => t.length > 0);
+  const { title, artist, medium, note, tags } = captionOf(piece);
 
   return (
     <div
@@ -68,13 +61,15 @@ export default function DesignPlacard({ piece, onClose }) {
           <div className="font-playfair text-[17px] font-bold italic leading-tight">
             {title || "Untitled"}
           </div>
-          <div className="mt-0.5 font-serif text-[13px]">J.T. Harris</div>
+          {artist && (
+            <div className="mt-0.5 font-serif text-[13px]">{artist}</div>
+          )}
           <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[#6b5f45]">
-            {mediumOf(piece.alt)}
+            {medium}
           </div>
-          {isCommissioned(piece.alt) && (
+          {note && (
             <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[#8a6a14]">
-              Commissioned work
+              {note}
             </div>
           )}
           {tags.length > 0 && (
