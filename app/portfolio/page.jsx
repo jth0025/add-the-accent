@@ -167,9 +167,17 @@ export default function PortfolioIndex() {
           <PortfolioGalleries />
           <Link
             href="/design"
-            className="mt-4 inline-block font-mono text-xs uppercase tracking-widest text-accent hover:underline"
+            className="group mt-6 inline-flex items-center gap-2.5 font-mono text-xs font-bold uppercase tracking-widest text-ink"
           >
-            See the full gallery &rarr;
+            <span className="underline-offset-4 group-hover:underline">
+              Back door to the <em className="font-extrabold italic">museum</em>
+            </span>
+            <span
+              aria-hidden="true"
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#4a0f16] text-[#f0d8b0] shadow-[0_2px_5px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all duration-200 group-hover:translate-x-0.5 group-hover:bg-[#5c141d]"
+            >
+              &rarr;
+            </span>
           </Link>
         </div>
 

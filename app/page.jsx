@@ -149,11 +149,11 @@ export default function HomePage() {
               overlap; its own mt-11 here matches the icon row's
               mt-11 below "This is all a true story," so the gap on
               both sides of the icon row is the same. */}
-          <div className="mt-11 flex justify-center md:hidden">
+          <div className="mt-7 flex justify-center md:hidden">
             <Link
               href="/about#profile"
               aria-label="View JT's profile"
-              className="jt-reveal-link relative block w-14 cursor-pointer"
+              className="jt-reveal-link relative block w-28 cursor-pointer"
             >
               {/* The mark's own img never fills in — a soft constant
                   shadow behind it hints at the shape, and a slow
@@ -181,7 +181,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="mt-11 flex items-center justify-center gap-5 text-white/95 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.3))] md:mt-12">
+        <div className="mt-7 flex items-center justify-center gap-5 text-white/95 [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.3))] md:mt-12">
           {/* The #urban-sketch roughen filter lives in app/layout.jsx. */}
           {/* Camera → Instagram */}
           <a
@@ -501,6 +501,17 @@ export default function HomePage() {
       )}
 
       {journal.length > 0 && (
+        <>
+        {/* A line pulled from the journal, set between the two sections. */}
+        <figure className="mb-12 mt-2 text-center">
+          <blockquote className="font-playfair text-3xl font-bold italic leading-tight tracking-tight text-ink sm:text-4xl">
+            &ldquo;&hellip;clean the room.&rdquo;
+          </blockquote>
+          <figcaption className="mt-2 font-mono text-xs uppercase tracking-[0.3em] text-ink/70">
+            &mdash; JT
+          </figcaption>
+        </figure>
+
         <section className="paper-crinkled corner-box relative mb-16 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-[#4a5714]">
             <span>Section 02</span>
@@ -541,6 +552,7 @@ export default function HomePage() {
             ))}
           </ul>
         </section>
+        </>
       )}
 
       {/* Kenji's Quest again — the same card, as a normal block at the

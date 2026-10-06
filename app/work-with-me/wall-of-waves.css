@@ -1,25 +1,38 @@
-/* "The Wall of Waves" — solid black lettering that catches a pale-blue
-   gleam as it sweeps across (same sweep timing as .gleam-gold). */
+/* "The Wall of Waves" — solid black lettering with soft pale-blue light
+   rolling across it. The light is a repeating tile that drifts at one
+   steady pace and loops seamlessly, so there is always a little blue
+   moving through the letters rather than a single sweep and a pause. */
 .gleam-waves {
   background-image: linear-gradient(
     100deg,
     #0b0b0d 0%,
-    #0b0b0d 30%,
-    #1d3347 40%,
-    #8cc9f2 46%,
+    #0b0b0d 18%,
+    #162838 30%,
+    #5f9fcb 40%,
+    #bfe3fa 46%,
     #e4f5ff 50%,
-    #8cc9f2 54%,
-    #1d3347 60%,
-    #0b0b0d 70%,
+    #bfe3fa 54%,
+    #5f9fcb 60%,
+    #162838 70%,
+    #0b0b0d 82%,
     #0b0b0d 100%
   );
-  background-size: 240% 100%;
-  background-position: 135% 0;
-  background-repeat: repeat;
+  background-size: 300px 100%;
+  background-position: 0 0;
+  background-repeat: repeat-x;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: gleam-natural-sweep 6s ease-in-out infinite;
+  animation: waves-drift 12s linear infinite;
+}
+
+@keyframes waves-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 300px 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

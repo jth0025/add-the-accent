@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import JournalEntryCard from "@/components/JournalEntryCard";
+import InterludeFlower from "@/components/InterludeFlower";
 
 const FILTERS = [
   { id: "selected", label: "Selected" },
@@ -69,6 +70,7 @@ export default function JournalPicksFilter({
           <div className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-ink">
             <span className="h-px w-8 bg-accent/40" />
             <span>An Interlude</span>
+            <InterludeFlower className="-ml-1 self-end" />
           </div>
           <JournalEntryCard entry={interlude} />
         </div>
