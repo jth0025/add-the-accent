@@ -359,7 +359,7 @@ export default function RootLayout({ children }) {
                 </Link>
 
                 <Link href="/design" className="relative hover:text-accent">
-                  <span className="absolute -top-2 left-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
+                  <span className="absolute -top-[11px] left-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
                     the
                   </span>
                   Museum
@@ -476,7 +476,7 @@ export default function RootLayout({ children }) {
               Portfolio
             </Link>
             <Link href="/design" className="relative hover:text-accent">
-              <span className="absolute -top-2 left-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
+              <span className="absolute -top-[11px] left-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
                 the
               </span>
               Museum

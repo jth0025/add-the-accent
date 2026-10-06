@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 // background does. Each speck has its own position, rhythm and phase, and
 // the brightest few catch a tiny four-point glint. Holds still for people
 // who ask for reduced motion.
-export default function GoldSparkle({ count = 110 }) {
+export default function GoldSparkle({ count = 230 }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function GoldSparkle({ count = 110 }) {
 
     const seed = () => {
       const n = Math.round((count * (w * h)) / (1440 * 900));
-      specks = Array.from({ length: Math.max(40, Math.min(n, 220)) }, () => ({
+      specks = Array.from({ length: Math.max(80, Math.min(n, 420)) }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
         r: 0.5 + Math.random() * 1.1,
@@ -32,7 +32,7 @@ export default function GoldSparkle({ count = 110 }) {
         speed: (Math.PI * 2) / (2500 + Math.random() * 5500),
         phase: Math.random() * Math.PI * 2,
         // most specks stay dim; a few get brighter and a glint
-        peak: Math.random() < 0.12 ? 0.55 : 0.12 + Math.random() * 0.22,
+        peak: Math.random() < 0.16 ? 0.6 : 0.14 + Math.random() * 0.26,
       }));
     };
 
