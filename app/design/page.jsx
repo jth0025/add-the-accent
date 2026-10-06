@@ -36,7 +36,7 @@ export default function DesignPage() {
                 <img
                   src="/design/jt-signature-mark.png"
                   alt="J.T. signature"
-                  className="pointer-events-none absolute left-[56%] top-[75.5%] w-[15%] rotate-[6deg] opacity-40 mix-blend-multiply"
+                  className="pointer-events-none absolute left-[58.5%] top-[78.6%] w-[13.5%] rotate-[12deg] opacity-40 mix-blend-multiply"
                 />
               </div>
               <h1 className="normal-case leading-[0.95] tracking-tighter text-ink md:absolute md:left-[40.8%] md:top-[25.5%] md:w-[26.6%] md:-translate-y-1/2 md:text-left md:[container-type:inline-size]">
