@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import CaptionTitle from "@/components/CaptionTitle";
 import DesignPlacard from "@/components/DesignPlacard";
 import { captionOf } from "@/lib/designCategories";
 import { EDITORIAL } from "@/lib/designEditorial";
@@ -33,7 +34,8 @@ const LEAN = {
 
 function Plate({ piece, id, n, ratio, className = "", onOpen }) {
   const lean = LEAN[id];
-  const { title, shortMedium } = captionOf(piece);
+  const cap = captionOf(piece);
+  const { title, shortMedium } = cap;
   return (
     <figure className={`[perspective:1100px] ${className}`}>
       <div
@@ -71,7 +73,7 @@ function Plate({ piece, id, n, ratio, className = "", onOpen }) {
           N&deg; {String(n).padStart(2, "0")}
           {title && (
             <span className="ml-2 normal-case italic tracking-normal">
-              {title}
+              <CaptionTitle c={cap} numberClass="text-[0.85em]" />
             </span>
           )}
         </span>

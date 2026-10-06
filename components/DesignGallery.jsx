@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import CaptionTitle from "@/components/CaptionTitle";
 import DesignPlacard from "@/components/DesignPlacard";
 import { PIECES, tagsOf } from "@/lib/designPieces";
 import {
@@ -189,7 +190,8 @@ export default function DesignGallery() {
           const tags = tagsOf(piece.alt);
           const isCommission = tags.includes("commission");
           const isPhotoCommission = tags.includes("photocommission");
-          const { title, shortMedium } = captionOf(piece);
+          const cap = captionOf(piece);
+          const { title, shortMedium } = cap;
           const matted = i % 5 === 2;
           return (
             <button
@@ -243,7 +245,7 @@ export default function DesignGallery() {
                   N&deg; {String(i + 1).padStart(2, "0")}
                   {title && (
                     <span className="ml-2 normal-case italic tracking-normal">
-                      {title}
+                      <CaptionTitle c={cap} numberClass="text-[0.85em]" />
                     </span>
                   )}
                 </span>

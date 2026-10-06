@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import CaptionTitle from "@/components/CaptionTitle";
 import { captionOf, labelOf } from "@/lib/designCategories";
 
 // Full-size view for a Museum piece: the work hangs in a mat and a dark
@@ -18,7 +19,8 @@ export default function DesignPlacard({ piece, onClose }) {
 
   if (!piece) return null;
 
-  const { title, artist, medium, note, tags } = captionOf(piece);
+  const cap = captionOf(piece);
+  const { title, artist, medium, note, tags } = cap;
 
   return (
     <div
@@ -59,7 +61,11 @@ export default function DesignPlacard({ piece, onClose }) {
         {/* The placard — hung low and to the right, like a wall label. */}
         <figcaption className="ml-auto w-full max-w-[19rem] border border-[#cfc6ad] bg-[#efe9da] px-4 py-3 text-left text-[#26211a] shadow-[0_8px_20px_rgba(0,0,0,0.4)]">
           <div className="font-playfair text-[17px] font-bold italic leading-tight">
-            {title || "Untitled"}
+            {title ? (
+              <CaptionTitle c={cap} numberClass="text-[10px]" subtitleClass="text-[14px]" />
+            ) : (
+              "Untitled"
+            )}
           </div>
           {artist && (
             <div className="mt-0.5 font-serif text-[13px]">{artist}</div>
