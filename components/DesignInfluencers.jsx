@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { influencersOfTheWeek } from "@/lib/influencers";
+import InfluencerFlowers from "@/components/InfluencerFlowers";
 
 const initialsOf = (name) =>
   name
@@ -17,7 +18,7 @@ const hasImage = (image) =>
 function Portrait({ person }) {
   const photo = hasImage(person.image);
   return (
-    <figure className="w-[44%] max-w-[15rem]">
+    <figure className="min-w-0 max-w-[15rem] flex-1">
       {/* Frame → mat → portrait, the same hang as the gallery placard. */}
       <div className="bg-gradient-to-br from-[#4a3720] via-[#20160b] to-[#46341d] p-[6px] shadow-[0_8px_16px_rgba(0,0,0,0.4),0_0_0_1px_rgba(201,162,74,0.35)] sm:p-[9px]">
         <div className="bg-[#f4f0e6] p-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.22),inset_0_0_0_1px_rgba(0,0,0,0.1)] sm:p-4">
@@ -87,10 +88,10 @@ export default function DesignInfluencers() {
         <span aria-hidden="true" className="h-px w-8 bg-accent/50 sm:w-12" />
       </p>
 
-      <div className="mt-8 flex items-start justify-center gap-4 sm:gap-10">
+      <InfluencerFlowers>
         <Portrait person={first} />
         <Portrait person={second} />
-      </div>
+      </InfluencerFlowers>
     </section>
   );
 }
