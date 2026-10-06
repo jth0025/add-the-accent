@@ -39,7 +39,7 @@ const CSS = `
   .loop-flower .sway { animation: fl-sway 7s ease-in-out infinite alternate; transform-box: view-box; transform-origin: 20px 58px; }
   /* One direction is the whole growth, bottom up (stem, leaves, bud,
      then petals opening outward) with a short rest at each end; the
-     "alternate" direction plays it backwards — petals close, bud
+     alternate direction plays it backwards — petals close, bud
      shrinks, leaves draw in and the stem sinks back to the ground —
      and then it starts again, forever, at the same pace. */
   @keyframes fl-stem { 0%, 6% { stroke-dashoffset: 40; } 48%, 100% { stroke-dashoffset: 0; } }
@@ -146,7 +146,7 @@ export default function InfluencerFlowers({ children }) {
   }, []);
 
   const slot = (side) => (
-    <div className="w-9 shrink-0 self-end pb-1 sm:w-14">
+    <div className="w-9 shrink-0 self-center sm:w-14">
       {flowers && <LoopFlower v={flowers[side].v} dur={flowers[side].dur} />}
     </div>
   );

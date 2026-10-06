@@ -75,16 +75,16 @@ export default function DesignInfluencers() {
   const [first, second] = influencersOfTheWeek();
   return (
     <section
-      aria-label="Influencers of history"
+      aria-label="Historical influencers of the week"
       className="mx-auto mb-16 text-center"
     >
-      <h2 className="font-playfair text-[1.65rem] font-bold italic leading-tight tracking-tight text-ink min-[400px]:text-3xl sm:text-4xl md:text-5xl">
+      <h2 className="font-playfair text-[1.4rem] font-bold italic leading-tight tracking-tight text-ink min-[400px]:text-2xl sm:text-3xl md:text-4xl">
         Men and women creating in{" "}
         <span className="gold-foil not-italic">purpose</span>.
       </h2>
       <p className="mt-3 flex items-center justify-center gap-3 font-mono text-[11px] uppercase tracking-[0.4em] text-[#3b3f44] sm:text-xs">
         <span aria-hidden="true" className="h-px w-8 bg-accent/50 sm:w-12" />
-        <span className="pl-[0.4em]">Influencers of History</span>
+        <span className="pl-[0.4em]">Historical Influencers of the Week</span>
         <span aria-hidden="true" className="h-px w-8 bg-accent/50 sm:w-12" />
       </p>
 
@@ -92,6 +92,31 @@ export default function DesignInfluencers() {
         <Portrait person={first} />
         <Portrait person={second} />
       </InfluencerFlowers>
+
+      {/* A velvet-rope barrier standing on the "floor" beneath the two
+          frames, narrower than the pair, with a close contact shadow
+          under each of its three bases. */}
+      <div className="relative mx-auto mt-7 w-[8.5rem] sm:w-[10.5rem]">
+        {[
+          { left: "15%", bottom: "12%", w: "52%" },
+          { left: "85%", bottom: "12%", w: "52%" },
+          { left: "50%", bottom: "0%", w: "62%" },
+        ].map((sh) => (
+          <span
+            key={sh.left}
+            aria-hidden="true"
+            className="pointer-events-none absolute z-0 h-[6%] -translate-x-1/2 translate-y-[28%] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.72)_0%,rgba(0,0,0,0.42)_38%,rgba(0,0,0,0)_74%)]"
+            style={{ left: sh.left, bottom: sh.bottom, width: sh.w }}
+          />
+        ))}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/design/velvet-rope.png"
+          alt="Gold stanchions with a red velvet rope"
+          loading="lazy"
+          className="relative z-10 block w-full"
+        />
+      </div>
     </section>
   );
 }

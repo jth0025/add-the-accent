@@ -240,18 +240,21 @@ export default function DesignGallery() {
                   className="pointer-events-none absolute -left-1.5 -top-1.5 z-10 h-8 w-8 drop-shadow-md sm:h-9 sm:w-9"
                 />
               )}
-              <span className="mt-2 flex items-baseline justify-between gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink">
-                <span className="truncate">
-                  N&deg; {String(i + 1).padStart(2, "0")}
-                  {title && (
-                    <span className="ml-2 normal-case italic tracking-normal">
-                      <CaptionTitle c={cap} numberClass="text-[0.85em]" />
-                    </span>
-                  )}
+              {/* Caption: the number and medium on one line, the title
+                  (with its number and subtitle) on a new line under it,
+                  free to wrap so it never runs into anything. */}
+              <span className="mt-2 block text-ink">
+                <span className="flex items-baseline justify-between gap-2 font-mono text-[10px] uppercase tracking-[0.18em]">
+                  <span>N&deg; {String(i + 1).padStart(2, "0")}</span>
+                  <span className="hidden min-w-0 text-right sm:inline">
+                    {shortMedium}
+                  </span>
                 </span>
-                <span className="hidden shrink-0 sm:inline">
-                  {shortMedium}
-                </span>
+                {title && (
+                  <span className="mt-1 block break-words font-mono text-[11px] normal-case italic leading-snug tracking-normal">
+                    <CaptionTitle c={cap} numberClass="text-[0.85em]" />
+                  </span>
+                )}
               </span>
             </button>
           );

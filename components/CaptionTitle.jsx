@@ -23,6 +23,13 @@ export default function CaptionTitle({ c, numberClass = "", subtitleClass = "" }
           <span className={`font-serif font-light not-italic ${subtitleClass}`}>
             {c.subtitle}
           </span>
+          {c.subtitleNumber && (
+            <span
+              className={`ml-1.5 font-mono font-semibold uppercase not-italic tracking-[0.14em] ${numberClass}`}
+            >
+              N&deg; {c.subtitleNumber}
+            </span>
+          )}
         </>
       )}
     </>

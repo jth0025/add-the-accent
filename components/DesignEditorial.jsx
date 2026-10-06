@@ -68,18 +68,18 @@ function Plate({ piece, id, n, ratio, className = "", onOpen }) {
           <span className="bronze-glare" aria-hidden="true" />
         </button>
       </div>
-      <figcaption className="mt-4 flex items-baseline justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#3a352b]">
-        <span>
-          N&deg; {String(n).padStart(2, "0")}
-          {title && (
-            <span className="ml-2 normal-case italic tracking-normal">
-              <CaptionTitle c={cap} numberClass="text-[0.85em]" />
-            </span>
-          )}
+      <figcaption className="mt-4 text-[#3a352b]">
+        <span className="flex items-baseline justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.2em]">
+          <span>N&deg; {String(n).padStart(2, "0")}</span>
+          <span className="hidden min-w-0 text-right sm:inline">
+            {shortMedium}
+          </span>
         </span>
-        <span className="hidden text-right sm:inline">
-          {shortMedium}
-        </span>
+        {title && (
+          <span className="mt-1 block break-words font-mono text-[11px] normal-case italic leading-snug tracking-normal">
+            <CaptionTitle c={cap} numberClass="text-[0.85em]" />
+          </span>
+        )}
       </figcaption>
     </figure>
   );
