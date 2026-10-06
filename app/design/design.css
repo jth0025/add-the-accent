@@ -1,0 +1,67 @@
+/* Museum page — the plaster wall and floor the "Selected plates" canvases
+   lean against. Kept beside the page rather than in globals.css. */
+
+.gallery-wall {
+  background-color: #dcd8cd;
+  background-image:
+    radial-gradient(ellipse 70% 38% at 50% 0%, rgba(255, 255, 255, 0.6), transparent 70%),
+    radial-gradient(ellipse 90% 40% at 50% 100%, rgba(60, 50, 34, 0.16), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.25 0 0 0 0 0.22 0 0 0 0 0.16 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: auto, auto, 220px 220px;
+}
+
+.gallery-floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  /* soft shadow where the wall meets the baseboard, then the baseboard,
+     then the floor itself */
+  background:
+    linear-gradient(to bottom, transparent 0, rgba(40, 32, 20, 0.14) 0, transparent 8px) top / 100% 8px no-repeat,
+    linear-gradient(
+      to bottom,
+      #efebe1 0,
+      #efebe1 17px,
+      #b9b2a1 17px,
+      #b9b2a1 18px,
+      #8a7a63 18px,
+      #6d5e4a 56px
+    );
+  box-shadow: 0 -10px 18px -6px rgba(40, 32, 20, 0.2);
+}
+
+/* The index card attached under the Museum's title box: warm card stock
+   with a little grain, and a lined, handwritten-style line of copy whose
+   rules are drawn on the text's own box so each line of writing sits on
+   one. */
+.museum-card {
+  background-color: #efe8d6;
+  background-image:
+    linear-gradient(to bottom, rgba(26, 26, 26, 0.18), transparent 7px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.28 0 0 0 0 0.18 0 0 0 0.14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 200px 200px;
+  border-top: 1px dashed rgba(26, 26, 26, 0.3);
+}
+
+.museum-card-text {
+  --lh: 2.25rem;
+  line-height: var(--lh);
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--lh) - 3px),
+    rgba(72, 104, 150, 0.32) calc(var(--lh) - 3px),
+    rgba(72, 104, 150, 0.32) calc(var(--lh) - 2px),
+    transparent calc(var(--lh) - 2px)
+  );
+  background-size: 100% var(--lh);
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .museum-card-text {
+    --lh: 2.6rem;
+  }
+}

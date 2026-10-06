@@ -1,38 +1,57 @@
+import DesignEditorial from "@/components/DesignEditorial";
 import DesignGallery from "@/components/DesignGallery";
+import "./design.css";
 
 export const metadata = { title: "Design — Add the Accent" };
 
 export default function DesignPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
-      <section className="paper-notebook corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 text-center sm:px-10 sm:py-12">
-        <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
-          <span className="h-px w-8 bg-accent/40" />
-          <span>Design</span>
-          <span className="h-px w-8 bg-accent/40" />
-        </div>
-        <h1 className="mt-3 font-display text-3xl uppercase tracking-tight text-ink sm:text-4xl">
-          Graphic Design
-        </h1>
-        <div className="mt-3 flex items-center justify-center gap-4">
-          <img
-            src="/icons/icon-spaceship.png"
-            alt=""
-            className="h-9 w-auto sm:h-11"
-          />
-          <img
-            src="/icons/icon-thunderstorm-cloud.png"
-            alt=""
-            className="h-9 w-auto sm:h-11"
-          />
-        </div>
-        <p className="mx-auto mt-4 max-w-xl text-stone">
-          Composite work, album art, and one-off visual ideas — click any
-          piece to see it full size.
-        </p>
-      </section>
+    <div className="overflow-x-clip pb-4">
+      <div className="mx-auto max-w-[1240px] px-3 pt-16 sm:px-5">
+        {/* The art box and the index card beneath it share one outline, so
+            the card reads as the box's own lower tab. */}
+        <section className="corner-box rounded-xl border border-ink/15 bg-card">
+          <div className="paper-notebook rounded-t-xl px-3 pb-4 pt-8 text-center sm:px-6 sm:pt-9">
+            <div className="flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-accent sm:text-xs sm:tracking-[0.28em]">
+              <span className="hidden h-px w-8 bg-accent/40 sm:block" />
+              <span>Design &middot; Photography &middot; Motion</span>
+              <span className="hidden h-px w-8 bg-accent/40 sm:block" />
+            </div>
 
-      <div className="mt-10">
+            {/* The title is set into the picture itself, level with the
+                figure's head and centred over the tallest pedestal (on
+                phones, where that is too small to read, it sits above the
+                picture instead). */}
+            <div className="relative mt-5 flex flex-col-reverse gap-5 md:block">
+              <img
+                src="/design/hero-pillars.jpg"
+                alt="A small wooden figure with a raised fist stands on the left of three concrete pedestals in a gallery niche"
+                className="block w-full rounded-sm"
+              />
+              <h1 className="normal-case leading-[0.95] tracking-tighter text-ink md:absolute md:left-[40.8%] md:top-[19.5%] md:w-[26.6%] md:-translate-y-1/2 md:text-left md:[container-type:inline-size]">
+                <span className="block font-playfair text-[1.65rem] font-bold not-italic min-[400px]:text-3xl sm:text-5xl md:text-[10cqw]">
+                  Different <span className="gold-foil">mediums</span>.
+                </span>
+                <span className="relative left-[0.55em] block font-playfair text-[1.65rem] font-bold not-italic min-[400px]:text-3xl sm:text-5xl md:text-[10cqw]">
+                  Same <span className="gold-foil">signature</span>.
+                </span>
+              </h1>
+            </div>
+          </div>
+
+          <div className="museum-card rounded-b-xl px-5 py-6 sm:px-10 sm:py-7">
+            <p className="museum-card-text mx-auto max-w-3xl font-hand text-[1.5rem] text-[#2b2a26] sm:text-[2.1rem]">
+              An evolving collection of graphic design, photography, motion,
+              experiments, commissions, and things that didn&rsquo;t fit neatly
+              anywhere else.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <DesignEditorial />
+
+      <div className="mx-auto mt-16 max-w-6xl px-6">
         <DesignGallery />
       </div>
 
