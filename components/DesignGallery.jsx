@@ -79,11 +79,11 @@ export default function DesignGallery() {
           collection scrolls beneath it. The pseudo-element paints the bar's
           backing edge to edge. */}
       <div className="relative isolate z-30 border-b border-ink/25 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-[#96958d]/95 before:backdrop-blur-md md:sticky md:top-0">
-        <div className="flex items-end justify-between gap-6">
+        <div className="relative flex items-end">
           <div
             role="tablist"
             aria-label="Medium"
-            className="-mx-6 flex flex-1 scroll-px-6 snap-x gap-7 overflow-x-auto whitespace-nowrap px-6 pt-4 [scrollbar-width:none] md:mx-0 md:gap-10 md:px-0 [&::-webkit-scrollbar]:hidden"
+            className="-mx-6 flex flex-1 scroll-px-6 snap-x justify-start gap-7 overflow-x-auto whitespace-nowrap px-6 pt-4 [scrollbar-width:none] md:mx-0 md:justify-center md:gap-10 md:px-0 [&::-webkit-scrollbar]:hidden"
           >
             {CATEGORIES.map((c) => {
               const active = cat === c.key;
@@ -108,7 +108,7 @@ export default function DesignGallery() {
               );
             })}
           </div>
-          <span className="hidden pb-3 font-mono text-[11px] uppercase tracking-widest text-ink/70 sm:block">
+          <span className="absolute bottom-3 right-0 hidden font-mono text-[11px] uppercase tracking-widest text-ink/70 lg:block">
             {visiblePieces.length} {visiblePieces.length === 1 ? "work" : "works"}
           </span>
         </div>
@@ -121,7 +121,7 @@ export default function DesignGallery() {
           }`}
         >
           <div className="overflow-hidden">
-            <div className="mb-3 mt-1 flex items-center gap-2 overflow-x-auto rounded-md border border-ink/15 bg-ink/[0.07] px-3 py-2 [scrollbar-width:none] md:flex-wrap [&::-webkit-scrollbar]:hidden">
+            <div className="mb-3 mt-1 flex items-center gap-2 overflow-x-auto rounded-md border border-ink/15 bg-ink/[0.07] px-3 py-2 [scrollbar-width:none] md:flex-wrap md:justify-center [&::-webkit-scrollbar]:hidden">
               <button
                 type="button"
                 onClick={() => setTag(null)}

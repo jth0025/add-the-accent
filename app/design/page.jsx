@@ -1,5 +1,6 @@
 import DesignEditorial from "@/components/DesignEditorial";
 import DesignGallery from "@/components/DesignGallery";
+import GoldSparkle from "@/components/GoldSparkle";
 import "./design.css";
 
 export const metadata = { title: "Design — Add the Accent" };
@@ -7,6 +8,7 @@ export const metadata = { title: "Design — Add the Accent" };
 export default function DesignPage() {
   return (
     <div className="overflow-x-clip pb-4">
+      <GoldSparkle />
       <div className="mx-auto max-w-[1240px] px-3 pt-16 sm:px-5">
         {/* The art box and the index card beneath it share one outline, so
             the card reads as the box's own lower tab. */}
@@ -23,12 +25,21 @@ export default function DesignPage() {
                 phones, where that is too small to read, it sits above the
                 picture instead). */}
             <div className="relative mt-5 flex flex-col-reverse gap-5 md:block">
-              <img
-                src="/design/hero-pillars.jpg"
-                alt="A small wooden figure with a raised fist stands on the left of three concrete pedestals in a gallery niche"
-                className="block w-full rounded-sm"
-              />
-              <h1 className="normal-case leading-[0.95] tracking-tighter text-ink md:absolute md:left-[40.8%] md:top-[19.5%] md:w-[26.6%] md:-translate-y-1/2 md:text-left md:[container-type:inline-size]">
+              <div className="relative">
+                <img
+                  src="/design/hero-pillars.jpg"
+                  alt="A small wooden figure with a raised fist stands on the left of three concrete pedestals in a gallery niche"
+                  className="block w-full rounded-sm"
+                />
+                {/* The J.T. signature, laid across the front pedestal at
+                    the lower right, faint like a stamp on the concrete. */}
+                <img
+                  src="/design/jt-signature-mark.png"
+                  alt="J.T. signature"
+                  className="pointer-events-none absolute left-[56%] top-[75.5%] w-[15%] rotate-[6deg] opacity-40 mix-blend-multiply"
+                />
+              </div>
+              <h1 className="normal-case leading-[0.95] tracking-tighter text-ink md:absolute md:left-[40.8%] md:top-[25.5%] md:w-[26.6%] md:-translate-y-1/2 md:text-left md:[container-type:inline-size]">
                 <span className="block font-playfair text-[1.65rem] font-bold not-italic min-[400px]:text-3xl sm:text-5xl md:text-[10cqw]">
                   Different <span className="gold-foil">mediums</span>.
                 </span>
@@ -41,9 +52,13 @@ export default function DesignPage() {
 
           <div className="museum-card rounded-b-xl px-5 py-6 sm:px-10 sm:py-7">
             <p className="museum-card-text mx-auto max-w-3xl font-hand text-[1.5rem] text-[#2b2a26] sm:text-[2.1rem]">
-              An evolving collection of graphic design, photography, motion,
-              experiments, commissions, and things that didn&rsquo;t fit neatly
-              anywhere else.
+              An evolving collection of{" "}
+              <strong className="font-bold">graphic design</strong>,{" "}
+              <strong className="font-bold">photography</strong>,{" "}
+              <strong className="font-bold">motion</strong>,{" "}
+              <strong className="font-bold">experiments</strong>,{" "}
+              <strong className="font-bold">commissions</strong>, and things
+              that didn&rsquo;t fit neatly anywhere else.
             </p>
           </div>
         </section>

@@ -82,6 +82,95 @@ function Plate({ piece, id, n, ratio, className = "", onOpen }) {
   );
 }
 
+// A brass picture light hung over the "Now showing" label. It lights, and
+// throws a warm cone down onto the wall and the words, while hovered (or
+// focused, or tapped on a touch screen).
+function PictureLight() {
+  const [lit, setLit] = useState(false);
+  return (
+    <button
+      type="button"
+      aria-pressed={lit}
+      aria-label="Picture light"
+      onMouseEnter={() => setLit(true)}
+      onMouseLeave={() => setLit(false)}
+      onFocus={() => setLit(true)}
+      onBlur={() => setLit(false)}
+      onClick={() => setLit((v) => !v)}
+      className="group relative mx-auto flex w-[19rem] max-w-full cursor-pointer flex-col items-center outline-none"
+    >
+      <svg
+        viewBox="0 0 160 46"
+        className="relative z-10 h-12 w-auto drop-shadow-[0_2px_2px_rgba(0,0,0,0.35)]"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="pl-brass" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#f0d58e" />
+            <stop offset="0.35" stopColor="#c79a43" />
+            <stop offset="0.7" stopColor="#8a6420" />
+            <stop offset="1" stopColor="#5d4113" />
+          </linearGradient>
+        </defs>
+        {/* wall plate and arm */}
+        <rect x="70" y="0" width="20" height="5" rx="2" fill="url(#pl-brass)" />
+        <path
+          d="M80 5 V13 M80 13 Q80 19 52 21 M80 13 Q80 19 108 21"
+          stroke="url(#pl-brass)"
+          strokeWidth="3.2"
+          fill="none"
+          strokeLinecap="round"
+        />
+        {/* lamp body */}
+        <rect x="26" y="19" width="108" height="11" rx="5.5" fill="url(#pl-brass)" />
+        <rect x="30" y="21" width="100" height="2" rx="1" fill="#fff3c4" opacity="0.55" />
+        <rect x="20" y="21" width="7" height="7" rx="2.5" fill="#6f4f17" />
+        <rect x="133" y="21" width="7" height="7" rx="2.5" fill="#6f4f17" />
+        {/* bulb glow strip under the shade */}
+        <rect
+          x="34"
+          y="29"
+          width="92"
+          height="3.2"
+          rx="1.6"
+          fill={lit ? "#fff4c8" : "#6d5a2c"}
+          style={{ transition: "fill 0.4s" }}
+        />
+      </svg>
+
+      {/* the cone of light */}
+      <span
+        aria-hidden="true"
+        className={`pointer-events-none absolute left-1/2 top-9 z-0 h-28 w-[26rem] max-w-[120vw] -translate-x-1/2 transition-opacity duration-500 ${
+          lit ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          clipPath: "polygon(24% 0, 76% 0, 100% 100%, 0 100%)",
+          background:
+            "linear-gradient(to bottom, rgba(255,240,180,0.85), rgba(255,236,170,0.28) 55%, rgba(255,236,170,0))",
+          filter: "blur(5px)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, #000 22%, #000 78%, transparent)",
+          maskImage:
+            "linear-gradient(to right, transparent, #000 22%, #000 78%, transparent)",
+        }}
+      />
+
+      <span
+        className={`relative z-10 mt-2 flex items-center justify-center gap-4 font-mono text-[11px] uppercase tracking-[0.3em] transition-all duration-500 ${
+          lit
+            ? "text-[#2a1d05] [text-shadow:0_0_14px_rgba(255,236,170,0.95)]"
+            : "text-[#3a352b]"
+        }`}
+      >
+        <span className="h-px w-12 bg-[#3a352b]/40" />
+        <span>Now showing</span>
+        <span className="h-px w-12 bg-[#3a352b]/40" />
+      </span>
+    </button>
+  );
+}
+
 // A magazine-style spread between the Museum's title box and the filterable
 // collection, hung on a plaster wall above a strip of floor: one long
 // panorama, then four portraits at different widths and heights, and a
@@ -97,11 +186,7 @@ export default function DesignEditorial() {
     >
       <div className="gallery-wall relative overflow-hidden rounded-md border border-ink/30 shadow-[0_10px_26px_rgba(0,0,0,0.18)]">
         <div className="px-5 pb-24 pt-10 sm:px-10 sm:pt-12 lg:px-14">
-          <div className="flex items-center justify-center gap-4 font-mono text-[11px] uppercase tracking-[0.3em] text-[#3a352b]">
-            <span className="h-px w-12 bg-[#3a352b]/40" />
-            <span>Now showing</span>
-            <span className="h-px w-12 bg-[#3a352b]/40" />
-          </div>
+          <PictureLight />
 
           <Plate
             piece={byId.panorama}
@@ -158,7 +243,7 @@ export default function DesignEditorial() {
             />
           </div>
 
-          <p className="mx-auto mt-16 max-w-5xl px-4 text-center [text-wrap:balance] font-playfair text-[2rem] font-bold italic leading-[1.15] tracking-tight text-ink sm:px-14 sm:text-5xl lg:px-24 lg:text-[3.4rem]">
+          <p className="mx-auto mt-16 max-w-6xl px-1 text-center [text-wrap:balance] font-playfair text-[2rem] font-bold italic leading-[1.15] tracking-tight text-ink sm:px-4 sm:text-5xl lg:px-6 lg:text-[3.4rem]">
             &ldquo;What stays with us is rarely the thing itself, but the way we{" "}
             <span className="gold-foil not-italic">saw</span> it.&rdquo;
           </p>
