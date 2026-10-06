@@ -83,7 +83,7 @@ export default function DesignGallery() {
           <div
             role="tablist"
             aria-label="Medium"
-            className="-mx-6 flex flex-1 scroll-px-6 snap-x justify-start gap-7 overflow-x-auto whitespace-nowrap px-6 pt-4 [scrollbar-width:none] md:mx-0 md:justify-center md:gap-10 md:px-0 [&::-webkit-scrollbar]:hidden"
+            className="flex flex-1 justify-between gap-2 whitespace-nowrap pt-4 sm:gap-7 md:justify-center md:gap-10"
           >
             {CATEGORIES.map((c) => {
               const active = cat === c.key;
@@ -94,14 +94,14 @@ export default function DesignGallery() {
                   role="tab"
                   aria-selected={active}
                   onClick={() => pickCategory(c.key)}
-                  className={`snap-start border-b-2 pb-2.5 font-cinema text-lg uppercase tracking-[0.2em] transition sm:text-xl ${
+                  className={`border-b-2 pb-2.5 font-cinema text-[13px] uppercase tracking-[0.08em] transition max-[359px]:text-[11px] max-[359px]:tracking-[0.02em] min-[400px]:text-[15px] min-[400px]:tracking-[0.14em] sm:text-xl sm:tracking-[0.2em] ${
                     active
                       ? "border-accent text-ink"
                       : "border-transparent text-ink/50 hover:text-ink"
                   }`}
                 >
                   {c.label}
-                  <sup className="ml-1.5 font-mono text-[10px] tracking-normal opacity-60">
+                  <sup className="ml-0.5 max-[359px]:hidden font-mono text-[9px] tracking-normal opacity-60 sm:ml-1.5 sm:text-[10px]">
                     {COUNTS[c.key]}
                   </sup>
                 </button>
@@ -121,11 +121,11 @@ export default function DesignGallery() {
           }`}
         >
           <div className="overflow-hidden">
-            <div className="mb-3 mt-1 flex items-center gap-2 overflow-x-auto rounded-md border border-ink/15 bg-ink/[0.07] px-3 py-2 [scrollbar-width:none] md:flex-wrap md:justify-center [&::-webkit-scrollbar]:hidden">
+            <div className="mb-3 mt-1 flex flex-wrap items-center justify-center gap-1.5 rounded-md border border-ink/15 bg-ink/[0.07] px-2 py-2 sm:gap-2 sm:px-3">
               <button
                 type="button"
                 onClick={() => setTag(null)}
-                className={`shrink-0 rounded-full border px-3 py-0.5 font-mono text-[11px] lowercase tracking-wider transition ${
+                className={`rounded-full border px-2.5 py-0.5 font-mono text-[10px] lowercase tracking-wide transition sm:px-3 sm:text-[11px] sm:tracking-wider ${
                   !tag
                     ? "border-ink bg-ink text-[#e7ded2]"
                     : "border-ink/25 text-ink/75 hover:border-ink/60"
@@ -138,7 +138,7 @@ export default function DesignGallery() {
                   key={t}
                   type="button"
                   onClick={() => setTag(tag === t ? null : t)}
-                  className={`shrink-0 rounded-full border px-3 py-0.5 font-mono text-[11px] lowercase tracking-wider transition ${
+                  className={`rounded-full border px-2.5 py-0.5 font-mono text-[10px] lowercase tracking-wide transition sm:px-3 sm:text-[11px] sm:tracking-wider ${
                     tag === t
                       ? "border-ink bg-ink text-[#e7ded2]"
                       : "border-ink/25 text-ink/75 hover:border-ink/60"
