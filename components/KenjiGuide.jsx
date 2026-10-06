@@ -126,7 +126,7 @@ export default function KenjiGuide() {
                   src="/logo-backlight.png"
                   alt=""
                   aria-hidden="true"
-                  className="absolute left-1/2 top-[56%] w-[210%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
+                  className="absolute left-[43%] top-[53%] w-[210%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
                 />
               </span>
               {/* eslint-disable-next-line @next/next/no-img-element */}

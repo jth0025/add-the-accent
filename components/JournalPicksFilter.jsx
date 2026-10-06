@@ -17,7 +17,11 @@ const FILTERS = [
  * untouched until the visitor actually opens the filter) — switching
  * it swaps in every entry from that series or category instead.
  */
-export default function JournalPicksFilter({ selected, allEntries }) {
+export default function JournalPicksFilter({
+  selected,
+  interlude = null,
+  allEntries,
+}) {
   const [filter, setFilter] = useState("selected");
 
   const entries =
@@ -56,6 +60,18 @@ export default function JournalPicksFilter({ selected, allEntries }) {
         <p className="font-mono text-sm text-stone/70">
           Nothing published here yet.
         </p>
+      )}
+
+      {/* The one interlude, set apart under the series picks with its own
+          title. */}
+      {filter === "selected" && interlude && (
+        <div className="mt-8">
+          <div className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-ink">
+            <span className="h-px w-8 bg-accent/40" />
+            <span>An Interlude</span>
+          </div>
+          <JournalEntryCard entry={interlude} />
+        </div>
       )}
     </div>
   );

@@ -61,18 +61,30 @@ export default function AccentNotesSignup() {
       <div className="relative z-10">
         <div className="flex items-center justify-center gap-3 text-accent">
           <span className="h-px w-8 bg-accent/40" />
-          <span className="font-script text-2xl normal-case tracking-normal">
+          <span className="font-hand text-3xl font-bold normal-case tracking-normal">
             Accent Notes
           </span>
           <span className="h-px w-8 bg-accent/40" />
         </div>
-        <p className="mx-auto mt-4 max-w-sm text-stone">
+        <p className="mx-auto mt-4 text-[15px] text-stone sm:whitespace-nowrap">
           A note from the studio when there&rsquo;s something worth sending.
         </p>
-        <p className="mx-auto mt-1 max-w-sm text-stone">
-          New writing, visual experiments, things I&rsquo;m making, things
-          I&rsquo;m thinking about, and occasionally something you can keep.
-        </p>
+        <ul className="mx-auto mt-3 inline-block max-w-sm space-y-1 text-left text-stone">
+          {[
+            "New writing",
+            "Visual experiments",
+            "Things I\u2019m making",
+            "Things I\u2019m thinking about",
+            "And occasionally, something you can keep",
+          ].map((item) => (
+            <li key={item} className="flex gap-2.5">
+              <span aria-hidden="true" className="mt-[0.15em] text-accent">
+                &bull;
+              </span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
 
         {status === "sent" ? (
           <p className="mt-6 font-serif text-lg italic text-ink">

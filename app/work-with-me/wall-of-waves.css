@@ -1,0 +1,33 @@
+/* "The Wall of Waves" — solid black lettering that catches a pale-blue
+   gleam as it sweeps across (same sweep timing as .gleam-gold). */
+.gleam-waves {
+  background-image: linear-gradient(
+    100deg,
+    #0b0b0d 0%,
+    #0b0b0d 30%,
+    #1d3347 40%,
+    #8cc9f2 46%,
+    #e4f5ff 50%,
+    #8cc9f2 54%,
+    #1d3347 60%,
+    #0b0b0d 70%,
+    #0b0b0d 100%
+  );
+  background-size: 240% 100%;
+  background-position: 135% 0;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gleam-natural-sweep 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gleam-waves {
+    animation: none;
+    background: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    color: #0b0b0d;
+  }
+}

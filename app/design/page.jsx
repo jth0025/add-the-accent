@@ -1,9 +1,14 @@
 import DesignEditorial from "@/components/DesignEditorial";
 import DesignGallery from "@/components/DesignGallery";
+import DesignInfluencers from "@/components/DesignInfluencers";
 import GoldSparkle from "@/components/GoldSparkle";
 import "./design.css";
 
 export const metadata = { title: "Design — Add the Accent" };
+
+// Re-render at least every few hours so the weekly influencer pair flips
+// on time even though the rest of the page is static.
+export const revalidate = 21600;
 
 export default function DesignPage() {
   return (
@@ -67,6 +72,7 @@ export default function DesignPage() {
       <DesignEditorial />
 
       <div className="mx-auto mt-16 max-w-6xl px-6">
+        <DesignInfluencers />
         <DesignGallery />
       </div>
 

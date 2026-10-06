@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { getSelectedWork, getAllEntries } from "@/lib/content";
-import CommissionGraphicsGrid from "@/components/CommissionGraphicsGrid";
+import { getPortfolioPicks, getAllEntries } from "@/lib/content";
+import PortfolioGalleries from "@/components/PortfolioGalleries";
 import JournalPicksFilter from "@/components/JournalPicksFilter";
 import PaperClip from "@/components/PaperClip";
 
@@ -51,12 +51,12 @@ const SCATTER = [
 ];
 
 export default function PortfolioIndex() {
-  const work = getSelectedWork();
+  const { series: work, interlude } = getPortfolioPicks();
   const allEntries = getAllEntries("journal");
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
-      <section className="paper-fold-quarters corner-box rounded-xl border border-ink/15 bg-card px-7 py-12 text-center sm:px-10 sm:py-16">
+    <div className="px-6 py-16">
+      <section className="paper-fold-quarters mx-auto max-w-3xl corner-box rounded-xl border border-ink/15 bg-card px-7 py-12 text-center sm:px-10 sm:py-16">
         <PaperClip position="-top-4 left-14 rotate-[7deg]" />
         <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
           <span className="h-px w-8 bg-accent/40" />
@@ -156,15 +156,15 @@ export default function PortfolioIndex() {
         </p>
       </section>
 
-      <div className="mt-10 grid gap-10 md:grid-cols-2">
+      <div className="mx-auto mt-10 grid max-w-5xl gap-10 md:grid-cols-[1.35fr_1fr]">
         <div>
           <div className="group mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
             <span className="h-px w-8 bg-accent/40" />
             <span className="text-ink transition-colors duration-300 group-hover:text-[#d4af37]">
-              Graphic Design
+              Commissioned Work
             </span>
           </div>
-          <CommissionGraphicsGrid />
+          <PortfolioGalleries />
           <Link
             href="/design"
             className="mt-4 inline-block font-mono text-xs uppercase tracking-widest text-accent hover:underline"
@@ -180,7 +180,11 @@ export default function PortfolioIndex() {
               From the Journal
             </span>
           </div>
-          <JournalPicksFilter selected={work} allEntries={allEntries} />
+          <JournalPicksFilter
+            selected={work}
+            interlude={interlude}
+            allEntries={allEntries}
+          />
         </div>
       </div>
     </div>

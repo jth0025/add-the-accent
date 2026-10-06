@@ -7,9 +7,11 @@ import AccentNotesSignup from "@/components/AccentNotesSignup";
 import KenjiGuide from "@/components/KenjiGuide";
 import HeroKenji from "@/components/HeroKenji";
 
+import "./wall-of-waves.css";
+
 export const metadata = { title: "Work With Me — Add the Accent" };
 
-// The Smithsonian teaser below picks a fresh handful of commissioned
+// The Wall of Waves teaser below picks a fresh handful of commissioned
 // pieces on every request rather than baking one static set in at
 // build time.
 export const dynamic = "force-dynamic";
@@ -168,7 +170,7 @@ const STEPS = [
   },
 ];
 
-// The pool the Smithsonian teaser draws its random handful from — every
+// The pool the Wall of Waves teaser draws its random handful from — every
 // #commission-tagged piece in the design library (see CommissionGraphicsGrid
 // for the same filter, used on the portfolio page).
 const COMMISSION_POOL = PIECES.filter((p) => tagsOf(p.alt).includes("commission"));
@@ -464,15 +466,15 @@ export default function WorkWithMePage() {
         </ServiceCTA>
       </section>
 
-      {/* For inspiration, visit the Smithsonian — a playful stand-in
+      {/* For inspiration, visit The Wall of Waves — a playful stand-in
           name for the design gallery, with a fresh random handful of
           commissioned pieces on every visit. */}
       <section id="selected-work" className="mt-14 scroll-mt-24 text-center">
-        <p className="font-mono text-xs uppercase tracking-widest text-accent">
-          For inspiration, visit the
+        <p className="font-mono text-xs uppercase tracking-widest text-[#3b3f44]">
+          For inspiration, visit
         </p>
-        <p className="gleam-gold relative mx-auto mt-1 inline-block font-script text-4xl sm:text-5xl">
-          Smithsonian
+        <p className="gleam-waves relative mx-auto mt-1 inline-block font-script text-4xl sm:text-5xl">
+          The Wall of Waves
           {/* A couple of sketched flourishes either side, plus an
               underline swoop — the "handwritten and underlined for
               emphasis" atmosphere rather than a plain wordmark. */}
@@ -517,6 +519,12 @@ export default function WorkWithMePage() {
               strokeLinecap="round"
             />
           </svg>
+        </p>
+        {/* Editorial subtitle under the title. */}
+        <p className="mt-4 flex items-center justify-center gap-3 font-mono text-[11px] uppercase tracking-[0.45em] text-stone sm:text-xs">
+          <span aria-hidden="true" className="h-px w-8 bg-accent/50 sm:w-12" />
+          <span className="pl-[0.45em]">Exhibit</span>
+          <span aria-hidden="true" className="h-px w-8 bg-accent/50 sm:w-12" />
         </p>
 
         <p className="mx-auto mt-5 max-w-md text-stone">
