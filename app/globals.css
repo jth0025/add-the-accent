@@ -261,6 +261,16 @@ body {
   background-position: 0 0, 0 0, top center;
 }
 
+/* The Path box's paper art (.paper-fold-thirds's own third layer)
+   doesn't fill its own canvas edge to edge, so at mobile widths it
+   reads narrower than the card around it — scaled up here just on
+   small screens to close that gap. */
+@media (max-width: 639px) {
+  .qi-path-paper-wide {
+    background-size: auto, auto, 145% auto;
+  }
+}
+
 .paper-newspaper {
   background-image: radial-gradient(rgba(26, 26, 26, 0.12) 1px, transparent 1.3px),
     radial-gradient(rgba(26, 26, 26, 0.07) 1px, transparent 1.3px);
@@ -1075,6 +1085,18 @@ html.header-raining .header-rain {
     0 0 80px rgba(255, 180, 90, 0.3);
 }
 
+/* A glow for thin (font-light) display text — the offset drop-shadow
+   layer in .title-glow reads as a bolder ghost line underneath thin
+   strokes at large sizes, so this keeps only symmetric, centered
+   blur with no offset silhouette to double the letterforms. */
+.title-glow-light {
+  text-shadow:
+    0 0 1px rgba(255, 244, 214, 0.6),
+    0 0 14px rgba(255, 214, 130, 0.55),
+    0 0 32px rgba(255, 196, 110, 0.4),
+    0 0 64px rgba(255, 180, 90, 0.25);
+}
+
 /* A warm, pulsing glow for small badge/eyebrow text — "Coming Soon"
    labels that need to feel lit, not just colored. */
 .badge-glow {
@@ -1723,23 +1745,942 @@ html.header-raining .header-rain {
     drop-shadow(0 0 10px rgba(255, 224, 160, 0.4));
 }
 
+/* Irregular on purpose — real wingbeats aren't a clean sine wave.
+   Bursts of quick flaps, then a held-open pause, at uneven intervals,
+   so the loop doesn't read as a metronome. */
 @keyframes butterfly-wing-flap {
   0%,
   100% {
     transform: scaleX(1);
   }
-  50% {
+  5% {
+    transform: scaleX(0.32);
+  }
+  10% {
+    transform: scaleX(1);
+  }
+  14% {
+    transform: scaleX(0.4);
+  }
+  19% {
+    transform: scaleX(1);
+  }
+  38% {
+    transform: scaleX(1);
+  }
+  44% {
     transform: scaleX(0.3);
+  }
+  48% {
+    transform: scaleX(1);
+  }
+  52% {
+    transform: scaleX(0.35);
+  }
+  57% {
+    transform: scaleX(1);
+  }
+  79% {
+    transform: scaleX(1);
+  }
+  84% {
+    transform: scaleX(0.32);
+  }
+  89% {
+    transform: scaleX(1);
+  }
+  93% {
+    transform: scaleX(0.42);
+  }
+  97% {
+    transform: scaleX(1);
   }
 }
 
 .butterfly-wing {
-  animation: butterfly-wing-flap 0.5s ease-in-out infinite;
-  transform-origin: 16px 16px;
+  animation: butterfly-wing-flap 2.6s ease-in-out infinite;
+  transform-origin: 15px 16px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .butterfly-wing {
+    animation: none;
+  }
+}
+
+/* A slow color drift through the butterfly's own glow — gold to a
+   pale blue-white to a soft lavender and back — periodic, not jarring.
+   Drives currentColor, so it recolors the wing fills wherever it's
+   applied. */
+@keyframes butterfly-color-cycle {
+  0%,
+  100% {
+    color: #f6d999;
+  }
+  33% {
+    color: #9fd8ff;
+  }
+  66% {
+    color: #e2b8ff;
+  }
+}
+
+.butterfly-color-cycle {
+  animation: butterfly-color-cycle 10s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .butterfly-color-cycle {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   Kenji's Quest — the playable intro (components/kenji-game).
+   Scoped under .qi-* so it can't leak into the rest of the site.
+   ============================================================ */
+
+.qi-root {
+  --qi-ink: #0b0c0e;
+  --qi-gold: #d6a64b;
+  --qi-ivory: #f1e6cf;
+  --qi-jungle: #173b2a;
+  --qi-kosei: #4b2e6f;
+  --qi-water: #1c6f8a;
+  --qi-iron: #3b3b3a;
+  background: var(--qi-ink);
+  color: var(--qi-ivory);
+}
+
+/* Breath — a slow, ambient scale/opacity pulse used for the opening
+   black screen and for anything that should feel like it's alive
+   rather than static (the idle butterfly, the title's glow). */
+@keyframes qi-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.qi-breathe {
+  animation: qi-breathe 3.6s ease-in-out infinite;
+}
+
+/* The idle light: fades in and flares once as it appears, then
+   settles into an irregular, quietly randomized glare rather than a
+   perfectly even pulse. */
+@keyframes qi-light-ignite-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.7);
+  }
+  75% {
+    opacity: 0.85;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes qi-light-glare {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  9% {
+    filter: brightness(1.6);
+  }
+  14% {
+    filter: brightness(1);
+  }
+  44% {
+    filter: brightness(1.8);
+  }
+  49% {
+    filter: brightness(1);
+  }
+  71% {
+    filter: brightness(1.3);
+  }
+  76% {
+    filter: brightness(1);
+  }
+  88% {
+    filter: brightness(1.5);
+  }
+  93% {
+    filter: brightness(1);
+  }
+}
+
+.qi-light-ignite {
+  animation:
+    qi-light-ignite-in 1.6s cubic-bezier(0.16, 1, 0.3, 1) both,
+    qi-light-glare 7s ease-in-out 1.6s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-light-ignite {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* The instant the light is touched, it flares and then dissolves
+   like smoke — brightening and blurring as it scales up and drifts
+   away, rather than a sharp flash cut. */
+@keyframes qi-smoke-dissolve {
+  0% {
+    filter: brightness(1) blur(0px);
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  30% {
+    filter: brightness(2.2) blur(2px);
+    transform: scale(1.5) translateY(-6px);
+    opacity: 0.95;
+  }
+  100% {
+    filter: brightness(1.4) blur(16px);
+    transform: scale(2.6) translateY(-32px);
+    opacity: 0;
+  }
+}
+
+.qi-smoke-dissolve {
+  animation: qi-smoke-dissolve 0.85s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-smoke-dissolve {
+    animation: qi-smoke-dissolve 0.25s ease-out both;
+  }
+}
+
+/* The question beat materializing as if out of that same smoke —
+   starts soft and blurred, sharpens into focus as it settles, timed
+   to overlap the tail of the dissolve above. */
+@keyframes qi-smoke-materialize {
+  0% {
+    opacity: 0;
+    filter: blur(18px);
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+}
+
+.qi-smoke-materialize {
+  animation: qi-smoke-materialize 1.5s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-smoke-materialize {
+    animation: qi-smoke-materialize 0.3s ease-out both;
+  }
+}
+
+/* A slow drift for the idle butterfly before it's drawn toward the
+   pointer — small, gentle, never mascot-like. */
+@keyframes qi-drift {
+  0% {
+    transform: translate(0, 0) rotate(-4deg);
+  }
+  50% {
+    transform: translate(6px, -10px) rotate(5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(-4deg);
+  }
+}
+
+.qi-drift {
+  animation: qi-drift 5s ease-in-out infinite;
+}
+
+/* Fade used for every state transition — simple, ceremonial, never a
+   hard cut except where the brief reserves cuts for danger. */
+.qi-fade-enter {
+  animation: qi-fade-in 1.4s ease-out both;
+}
+
+@keyframes qi-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.qi-fade-slow-enter {
+  animation: qi-fade-in 2.6s ease-out both;
+}
+
+/* The reach montage — each frame gets a very slow Ken Burns drift so
+   the seven locations read as one continuous remembered passage
+   instead of seven static cards. */
+@keyframes qi-montage-pan {
+  0% {
+    transform: scale(1.06) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.16) translate(-1.5%, -1%);
+  }
+}
+
+.qi-montage-pan {
+  animation: qi-montage-pan 6.5s ease-out both;
+}
+
+/* Intro shots — each stage plays a close-up that slowly pushes in,
+   then its full-body shot that drifts in more gently. */
+@keyframes qi-intro-close {
+  0% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1.12);
+  }
+}
+
+.qi-intro-close {
+  animation: qi-intro-close 5s ease-out both;
+}
+
+@keyframes qi-intro-full {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.07) translate(0, -0.6%);
+  }
+}
+
+.qi-intro-full {
+  animation: qi-intro-full 7s ease-out both;
+}
+
+/* The intro's finale: white floods the last shot, then drains away
+   into black. */
+@keyframes qi-white-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.qi-white-in {
+  animation: qi-white-in 1.8s ease-in both;
+}
+
+@keyframes qi-white-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.qi-white-out {
+  animation: qi-white-out 2s ease-in-out both;
+}
+
+/* A restrained shimmer for the gold title mark — a single soft sweep,
+   not a looping glossy logo animation. */
+@keyframes qi-mark-sweep {
+  0% {
+    background-position: 160% 0;
+  }
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+.qi-mark-sweep {
+  background-image: linear-gradient(
+    100deg,
+    var(--qi-gold) 0%,
+    var(--qi-gold) 42%,
+    #fff3c4 50%,
+    var(--qi-gold) 58%,
+    var(--qi-gold) 100%
+  );
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: qi-mark-sweep 2.8s ease-out 0.3s both;
+}
+
+.qi-panel {
+  background: linear-gradient(
+    160deg,
+    rgba(23, 59, 42, 0.92) 0%,
+    rgba(11, 12, 14, 0.94) 70%
+  );
+  border: 1px solid rgba(214, 166, 75, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-breathe,
+  .qi-drift,
+  .qi-montage-pan,
+  .qi-intro-close,
+  .qi-intro-full,
+  .qi-white-in,
+  .qi-white-out,
+  .qi-mark-sweep {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .qi-fade-enter,
+  .qi-fade-slow-enter {
+    animation-duration: 0.2s !important;
+  }
+}
+
+/* The item legend — a light sweep across a card on hover (collected
+   or not, as an affordance), same mechanic as the site's other
+   gold-sweep hovers, scoped separately so it stays self-contained. */
+.qi-item-gleam {
+  position: relative;
+  overflow: hidden;
+}
+
+.qi-item-gleam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 35%,
+    rgba(255, 250, 222, 0.85) 50%,
+    rgba(255, 255, 255, 0.08) 65%,
+    transparent 100%
+  );
+  transform: translateX(-160%) rotate(12deg);
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.qi-item-gleam:hover::after,
+.qi-item-gleam:focus-visible::after {
+  transform: translateX(160%) rotate(12deg);
+}
+
+/* A steady warm glow for a collected item — distinct from the hover
+   gleam above, which fires regardless of collected state. */
+.qi-item-glow {
+  filter: drop-shadow(0 0 8px rgba(214, 166, 75, 0.65))
+    drop-shadow(0 0 18px rgba(214, 166, 75, 0.35));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-item-gleam::after {
+    transition: none;
+  }
+}
+
+/* The cover art on the loading beat — grows in to fill most of the
+   screen rather than sitting there small, then holds. */
+@keyframes qi-cover-grow {
+  0% {
+    transform: scale(0.32);
+    opacity: 0.5;
+  }
+  65% {
+    transform: scale(1.015);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.qi-cover-grow {
+  animation: qi-cover-grow 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-cover-grow {
+    animation: none;
+  }
+}
+
+/* Same grow-in as the cover art, but timed to the full 5s a stage's
+   key art holds the screen — it grows in, sits, then fades away
+   rather than being cut off hard when the next beat starts. */
+@keyframes qi-cover-grow-fade {
+  0% {
+    transform: scale(0.32);
+    opacity: 0.5;
+  }
+  18% {
+    transform: scale(1.015);
+    opacity: 1;
+  }
+  22% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  86% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.qi-cover-grow-fade {
+  animation: qi-cover-grow-fade 5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-cover-grow-fade {
+    animation: none;
+  }
+}
+
+/* The loading screen as a whole (cover art + "entering the reach"
+   label) — fades in quickly, holds for the full 5s beat, then fades
+   out together so the next screen never cuts in hard. */
+@keyframes qi-loading-fade {
+  0% {
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.qi-loading-fade {
+  animation: qi-loading-fade 5s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-loading-fade {
+    animation: none;
+  }
+}
+
+/* The menu's staged reveal, in order: solid black, the butterfly's
+   own light fades in alone, the backlight fades in behind Kenji
+   (revealing him as a silhouette), Kenji resolves into full color,
+   then the title drops down from above and the menu rises up from
+   below — each waiting its turn via animation-delay. */
+@keyframes qi-menu-butterfly-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.qi-menu-butterfly-fade {
+  animation: qi-menu-butterfly-fade 1.3s ease-out 0.4s both;
+}
+
+@keyframes qi-kenji-reveal {
+  0% {
+    filter: brightness(0) saturate(0);
+    opacity: 0;
+  }
+  27% {
+    /* His shape is fully present but still pure black — a silhouette,
+       established in the same 1.4s beat as the backlight and ground
+       shadow fading in around him. */
+    filter: brightness(0) saturate(0);
+    opacity: 1;
+  }
+  100% {
+    filter: brightness(1) saturate(1);
+    opacity: 1;
+  }
+}
+
+.qi-kenji-reveal {
+  animation: qi-kenji-reveal 5.2s ease-out 1.8s both;
+}
+
+/* The jungle-gradient background — stays completely black through
+   the butterfly and silhouette beats, then fades in as Kenji resolves
+   toward full color. */
+@keyframes qi-bg-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.qi-bg-fade {
+  animation: qi-bg-fade 4.5s ease-out 1.8s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-bg-fade {
+    animation: none;
+  }
+}
+
+/* Shared by the backlight glow and the ground shadow — both fade in
+   together, in the same beat as Kenji's silhouette becoming visible. */
+@keyframes qi-backlight-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.qi-backlight-fade {
+  animation: qi-backlight-fade 1.4s ease-out 1.8s both;
+}
+
+@keyframes qi-drop-in {
+  0% {
+    transform: translateY(-36px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.qi-drop-in {
+  animation: qi-drop-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 7.2s both;
+}
+
+/* A slow, consistent light glare that keeps sweeping across the
+   title mark on the menu screen after it drops in — a quick pass,
+   then a long hold off-frame before it repeats, so it reads as
+   "consistent" without being busy. Starts once .qi-drop-in settles. */
+@keyframes qi-title-glare-sweep {
+  0% {
+    background-position: 160% 0;
+  }
+  35% {
+    background-position: -60% 0;
+  }
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+.qi-title-glare-sweep {
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.85) 48%,
+    rgba(255, 244, 214, 0.95) 50%,
+    rgba(255, 255, 255, 0.85) 52%,
+    transparent 70%
+  );
+  background-size: 250% 100%;
+  background-position: 160% 0;
+  mix-blend-mode: overlay;
+  animation: qi-title-glare-sweep 6s ease-in-out 8.1s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-title-glare-sweep {
+    animation: none;
+    background-position: -60% 0;
+  }
+}
+
+@keyframes qi-rise-in {
+  0% {
+    transform: translateY(36px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* "Coming Soon" label on the greyed-out main menu: a warm gold glow that
+   swells and settles on a slow, endless loop. */
+@keyframes qi-coming-soon-pulse {
+  0%,
+  100% {
+    opacity: 0.78;
+    text-shadow:
+      0 0 4px rgba(214, 166, 75, 0.45),
+      0 0 10px rgba(214, 166, 75, 0.25);
+  }
+  50% {
+    opacity: 1;
+    text-shadow:
+      0 0 8px rgba(255, 228, 160, 1),
+      0 0 22px rgba(214, 166, 75, 0.85),
+      0 0 46px rgba(214, 166, 75, 0.5);
+  }
+}
+
+.qi-coming-soon {
+  animation: qi-coming-soon-pulse 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-coming-soon {
+    animation: none;
+    text-shadow: 0 0 10px rgba(214, 166, 75, 0.7);
+  }
+}
+
+.qi-rise-in {
+  animation: qi-rise-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 7.7s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-menu-butterfly-fade,
+  .qi-kenji-reveal,
+  .qi-backlight-fade,
+  .qi-drop-in,
+  .qi-rise-in {
+    animation: none;
+    transform: none;
+    opacity: 1;
+    filter: none;
+  }
+}
+
+/* The one stage that's actually next on the Path — a slow pulsing
+   ring so it reads as "you are here" against the completed and
+   locked stages around it. */
+@keyframes qi-current-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(214, 166, 75, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(214, 166, 75, 0);
+  }
+}
+
+.qi-current-pulse {
+  animation: qi-current-pulse 2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-current-pulse {
+    animation: none;
+    box-shadow: 0 0 0 4px rgba(214, 166, 75, 0.4);
+  }
+}
+
+/* The glow halo marking the current stage's location on the reach
+   map, echoing .qi-current-pulse's "you are here" treatment. */
+.qi-map-halo {
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 224, 160, 0.75) 0%,
+    rgba(214, 166, 75, 0.4) 40%,
+    transparent 70%
+  );
+  box-shadow:
+    0 0 24px 10px rgba(214, 166, 75, 0.55),
+    0 0 50px 22px rgba(214, 166, 75, 0.28);
+  animation: qi-map-halo-pulse 2.6s ease-in-out infinite;
+}
+
+/* A crisp expanding ring on top of the soft glow — the map art
+   already has plenty of gold, so the halo needs a sharper marker to
+   actually read as an added "you are here," not just more glow. */
+.qi-map-halo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 3px solid #fff8ec;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.8);
+  animation: qi-map-halo-ring 2.6s ease-out infinite;
+}
+
+/* A small bright core at the center — a distinct "you are here" dot,
+   readable even against the map's own warm gold tones. */
+.qi-map-halo::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 22%;
+  height: 22%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: #fffaf0;
+  box-shadow: 0 0 10px 3px rgba(255, 250, 240, 0.9);
+}
+
+@keyframes qi-map-halo-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes qi-map-halo-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.95;
+  }
+  55% {
+    transform: scale(1.4);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-map-halo {
+    animation: none;
+    opacity: 0.9;
+  }
+  .qi-map-halo::after {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* Hides the native scrollbar on horizontally-scrolling rows that now
+   have their own bamboo arrow buttons — the row still scrolls by
+   touch/trackpad, it just isn't relying on a visible browser bar. */
+.qi-scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.qi-scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* A round, brown bamboo-textured arrow button for stepping a
+   horizontal row left/right — banded "nodes" over a warm wood
+   gradient, in place of a plain scrollbar. */
+.qi-bamboo-arrow {
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #f4e8ce;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.2) 0px,
+      rgba(0, 0, 0, 0.2) 3px,
+      transparent 3px,
+      transparent 15px
+    ),
+    linear-gradient(160deg, #ad7c44 0%, #7f5227 45%, #5c3a1a 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.4);
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.qi-bamboo-arrow:hover {
+  filter: brightness(1.12);
+  transform: scale(1.05);
+}
+
+.qi-bamboo-arrow:active {
+  transform: scale(0.95);
+}
+
+/* A flickering torch flame — irregular scale/rotation jitter, not a
+   clean loop, so a pair of torches never sync into a metronome. */
+.qi-torch-flame {
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(
+    circle at 50% 70%,
+    #fff6d0 0%,
+    #ffcf6b 35%,
+    #ff8a2b 65%,
+    #e8501f 100%
+  );
+  box-shadow:
+    0 0 12px 4px rgba(255, 140, 40, 0.55),
+    0 0 24px 10px rgba(255, 100, 20, 0.3);
+  transform-origin: 50% 90%;
+  animation: qi-torch-flicker 2.2s ease-in-out infinite;
+}
+
+@keyframes qi-torch-flicker {
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1) rotate(0deg);
+    opacity: 0.95;
+  }
+  20% {
+    transform: scaleY(1.08) scaleX(0.94) rotate(-3deg);
+    opacity: 1;
+  }
+  45% {
+    transform: scaleY(0.92) scaleX(1.05) rotate(2deg);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scaleY(1.05) scaleX(0.97) rotate(-2deg);
+    opacity: 1;
+  }
+  85% {
+    transform: scaleY(0.96) scaleX(1.02) rotate(1deg);
+    opacity: 0.95;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-torch-flame {
     animation: none;
   }
 }
@@ -1795,137 +2736,5 @@ html.header-raining .header-rain {
   .jt-mark-gleam {
     animation: none;
     opacity: 0;
-  }
-}
-
-/* ---- Scoped push: CSS the /kenji-quest promo page depends on ---- */
-/* The Path box's paper art (.paper-fold-thirds's own third layer)
-   doesn't fill its own canvas edge to edge, so at mobile widths it
-   reads narrower than the card around it — scaled up here just on
-   small screens to close that gap. */
-@media (max-width: 639px) {
-  .qi-path-paper-wide {
-    background-size: auto, auto, 145% auto;
-  }
-}
-
-.title-glow-light {
-  text-shadow:
-    0 0 1px rgba(255, 244, 214, 0.6),
-    0 0 14px rgba(255, 214, 130, 0.55),
-    0 0 32px rgba(255, 196, 110, 0.4),
-    0 0 64px rgba(255, 180, 90, 0.25);
-}
-
-/* A slow color drift through the butterfly's own glow — gold to a
-   pale blue-white to a soft lavender and back — periodic, not jarring.
-   Drives currentColor, so it recolors the wing fills wherever it's
-   applied. */
-@keyframes butterfly-color-cycle {
-  0%,
-  100% {
-    color: #f6d999;
-  }
-  33% {
-    color: #9fd8ff;
-  }
-  66% {
-    color: #e2b8ff;
-  }
-}
-
-.butterfly-color-cycle {
-  animation: butterfly-color-cycle 10s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .butterfly-color-cycle {
-    animation: none;
-  }
-}
-
-/* A slow, consistent light glare that keeps sweeping across the
-   title mark on the menu screen after it drops in — a quick pass,
-   then a long hold off-frame before it repeats, so it reads as
-   "consistent" without being busy. Starts once .qi-drop-in settles. */
-@keyframes qi-title-glare-sweep {
-  0% {
-    background-position: 160% 0;
-  }
-  35% {
-    background-position: -60% 0;
-  }
-  100% {
-    background-position: -60% 0;
-  }
-}
-
-.qi-title-glare-sweep {
-  background: linear-gradient(
-    100deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.85) 48%,
-    rgba(255, 244, 214, 0.95) 50%,
-    rgba(255, 255, 255, 0.85) 52%,
-    transparent 70%
-  );
-  background-size: 250% 100%;
-  background-position: 160% 0;
-  mix-blend-mode: overlay;
-  animation: qi-title-glare-sweep 6s ease-in-out 8.1s infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .qi-title-glare-sweep {
-    animation: none;
-    background-position: -60% 0;
-  }
-}
-
-/* A flickering torch flame — irregular scale/rotation jitter, not a
-   clean loop, so a pair of torches never sync into a metronome. */
-.qi-torch-flame {
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  background: radial-gradient(
-    circle at 50% 70%,
-    #fff6d0 0%,
-    #ffcf6b 35%,
-    #ff8a2b 65%,
-    #e8501f 100%
-  );
-  box-shadow:
-    0 0 12px 4px rgba(255, 140, 40, 0.55),
-    0 0 24px 10px rgba(255, 100, 20, 0.3);
-  transform-origin: 50% 90%;
-  animation: qi-torch-flicker 2.2s ease-in-out infinite;
-}
-
-@keyframes qi-torch-flicker {
-  0%,
-  100% {
-    transform: scaleY(1) scaleX(1) rotate(0deg);
-    opacity: 0.95;
-  }
-  20% {
-    transform: scaleY(1.08) scaleX(0.94) rotate(-3deg);
-    opacity: 1;
-  }
-  45% {
-    transform: scaleY(0.92) scaleX(1.05) rotate(2deg);
-    opacity: 0.9;
-  }
-  70% {
-    transform: scaleY(1.05) scaleX(0.97) rotate(-2deg);
-    opacity: 1;
-  }
-  85% {
-    transform: scaleY(0.96) scaleX(1.02) rotate(1deg);
-    opacity: 0.95;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .qi-torch-flame {
-    animation: none;
   }
 }
