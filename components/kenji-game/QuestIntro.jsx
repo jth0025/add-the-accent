@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import IntroSequence from "./IntroSequence";
 
 // The seven sacred stages — canon titles only (never "Day 1-7" as
 // in-world language; that's production/UI shorthand, per brief). Each
@@ -14,8 +15,6 @@ const STAGES = [
     title: "The Inheritance",
     place: "The Empty Room",
     img: "/kenji-game/montage/day1-inheritance.jpg",
-    introClose: "/kenji-game/intro/d1-close.webp",
-    introFull: "/kenji-game/intro/d1-full.webp",
     full: "/kenji-game/day1-inheritance.jpg",
     badge: "/kenji-game/badges/day1.webp",
     body: "A ruined room, dust, and one beam of window light — until it catches an old blade and a fragment of scroll waiting exactly where they shouldn't be.",
@@ -26,8 +25,6 @@ const STAGES = [
     title: "The Warden City",
     place: "Kosei",
     img: "/kenji-game/montage/day2-warden-city.jpg",
-    introClose: "/kenji-game/intro/d2-close.webp",
-    introFull: "/kenji-game/intro/d2-full.webp",
     full: "/kenji-game/day2-warden-city.jpg",
     badge: "/kenji-game/badges/day2.webp",
     body: "A guarded city of bridges and terraces, where Kenji's name and his fallen house earn him more questions than welcome.",
@@ -38,8 +35,6 @@ const STAGES = [
     title: "The Ancient Grove",
     place: "The Naming Grove",
     img: "/kenji-game/montage/day3-ancient-grove.jpg",
-    introClose: "/kenji-game/intro/d3-close.webp",
-    introFull: "/kenji-game/intro/d3-full.webp",
     full: "/kenji-game/day3-ancient-grove.jpg",
     badge: "/kenji-game/badges/day3.webp",
     body: "A sacred forest of carved trees and ritual sound, where a flute and an old family rhythm are the only keys that fit.",
@@ -50,8 +45,6 @@ const STAGES = [
     title: "Nest Cliffs",
     place: "The Mirror Tower",
     img: "/kenji-game/montage/day4-nest-cliffs.jpg",
-    introClose: "/kenji-game/intro/d4-close.webp",
-    introFull: "/kenji-game/intro/d4-full.webp",
     full: "/kenji-game/day4-nest-cliffs.jpg",
     badge: "/kenji-game/badges/day4.webp",
     body: "High winds, nesting birds, and a mirrored tower where an inherited blade turns out to catch more than light.",
@@ -62,8 +55,6 @@ const STAGES = [
     title: "Wall of Waves",
     place: "The Hidden Water Gate",
     img: "/kenji-game/montage/day5-wall-of-waves.jpg",
-    introClose: "/kenji-game/intro/d5-close.webp",
-    introFull: "/kenji-game/intro/d5-full.webp",
     full: "/kenji-game/day5-wall-of-waves.jpg",
     badge: "/kenji-game/badges/day5.webp",
     body: "A concealed wall found only by those paying attention, and a cave behind the falling water where something ancient stirs and is never fully seen.",
@@ -74,8 +65,6 @@ const STAGES = [
     title: "Broken Passage",
     place: "The Fractured Bridge",
     img: "/kenji-game/montage/day6-broken-passage.jpg",
-    introClose: "/kenji-game/intro/d6-close.webp",
-    introFull: "/kenji-game/intro/d6-full.webp",
     full: "/kenji-game/day6-broken-passage.jpg",
     badge: "/kenji-game/badges/day6.webp",
     body: "A road broken under gathering gloom, where the figures who have been watching Kenji's journey finally stop watching.",
@@ -86,20 +75,11 @@ const STAGES = [
     title: "First Light",
     place: "The Door of Light",
     img: "/kenji-game/montage/day7-first-light.jpg",
-    introClose: "/kenji-game/intro/d7-close.webp",
-    introFull: "/kenji-game/intro/d7-full.webp",
     full: "/kenji-game/day7-first-light.jpg",
     badge: "/kenji-game/badges/day7.webp",
     body: "A jungle sanctuary built around a narrow, luminous door — the destination named by the scroll, and the last question Kenji has to answer.",
   },
 ];
-
-// The intro montage plays each stage as two shots: a close-up first,
-// then the full-body version of the same scene.
-const INTRO_SHOTS = STAGES.flatMap((s) => [
-  { src: s.introClose, kind: "close" },
-  { src: s.introFull, kind: "full" },
-]);
 
 const PROGRESS_KEY = "kenji-quest-completed-days";
 
@@ -369,7 +349,7 @@ function HubTabs({ active, onSelect }) {
 }
 
 export default function QuestIntro() {
-  const [phase, setPhase] = useState("boot"); // boot -> idle -> title -> question -> montage -> kenji -> menu -> lore | day1
+  const [phase, setPhase] = useState("boot"); // boot -> idle -> montage (the written opening) -> menu -> lore | day1
   const [reducedMotion, setReducedMotion] = useState(false);
   // On the live site the game stops at this menu: every item is greyed
   // out ("Coming Soon") except Replay Intro. Local development keeps the
@@ -378,10 +358,6 @@ export default function QuestIntro() {
   const [menuOnly, setMenuOnly] = useState(
     process.env.NODE_ENV === "production",
   );
-  const [montageIndex, setMontageIndex] = useState(0);
-  // 0 = shots playing, 1 = fading to white, 2 = white fading to black, 3 = holding black
-  const [montageEnd, setMontageEnd] = useState(0);
-  const [questionLine, setQuestionLine] = useState(0);
   const [butterflyPos, setButterflyPos] = useState({ x: 50, y: 46 });
   const [riddleValue, setRiddleValue] = useState("");
   const [riddleSolved, setRiddleSolved] = useState(false);
@@ -504,12 +480,6 @@ export default function QuestIntro() {
 
   // Auto-advance timers per phase.
   useEffect(() => {
-    if (phase === "question") {
-      if (questionLine === 0) {
-        const t = setTimeout(() => setQuestionLine(1), reducedMotion ? 700 : 3200);
-        return () => clearTimeout(t);
-      }
-    }
     // Entering a stage: its key art full-screen, then a moment with
     // Kenji, both held at least 5 seconds, before the stage itself.
     if (phase === "dayArt") {
@@ -521,48 +491,7 @@ export default function QuestIntro() {
       const t = setTimeout(() => setPhase(next), reducedMotion ? 1200 : 5000);
       return () => clearTimeout(t);
     }
-  }, [phase, questionLine, dayIntroIndex, reducedMotion]);
-
-  // The reach montage: each stage plays a close-up, then its full-body
-  // shot. After the last full-body shot (First Light) the screen goes
-  // to white, fades to black, holds there a couple of seconds, and only
-  // then resolves into the menu — whose own staged reveal (butterfly,
-  // backlight, Kenji, title, menu) starts from that black.
-  useEffect(() => {
-    if (phase !== "montage") return;
-    const lastShot = INTRO_SHOTS.length - 1;
-    let ms;
-    let next;
-    if (montageEnd === 0) {
-      if (montageIndex >= lastShot) {
-        ms = reducedMotion ? 600 : 3800;
-        next = () => setMontageEnd(1);
-      } else {
-        const isClose = INTRO_SHOTS[montageIndex].kind === "close";
-        ms = reducedMotion ? 500 : isClose ? 2600 : 3400;
-        next = () => setMontageIndex((i) => i + 1);
-      }
-    } else if (montageEnd === 1) {
-      ms = reducedMotion ? 300 : 1900;
-      next = () => setMontageEnd(2);
-    } else if (montageEnd === 2) {
-      ms = reducedMotion ? 300 : 2100;
-      next = () => setMontageEnd(3);
-    } else {
-      ms = reducedMotion ? 400 : 2200;
-      next = goMenu;
-    }
-    const t = setTimeout(next, ms);
-    return () => clearTimeout(t);
-  }, [phase, montageIndex, montageEnd, reducedMotion]);
-
-  // Warm the intro art so each shot is ready when its turn comes.
-  useEffect(() => {
-    INTRO_SHOTS.forEach((shot) => {
-      const img = new window.Image();
-      img.src = shot.src;
-    });
-  }, []);
+  }, [phase, dayIntroIndex, reducedMotion]);
 
   // Idle: the light fades in and flares first; "touch the light" only
   // appears once it's had a moment to be seen. Resets clean every time
@@ -583,10 +512,10 @@ export default function QuestIntro() {
 
   const handleTouchLight = () => {
     setIdleIgniting(true);
-    // Cuts to the question beat while the light is still dissolving
-    // into smoke — the two overlap, so the words feel like they're
-    // forming out of it rather than replacing it on a hard cut.
-    window.setTimeout(() => setPhase("question"), reducedMotion ? 150 : 550);
+    // The written opening begins while the light is still dissolving
+    // into smoke — its first still fades up out of black as the light
+    // goes, rather than replacing it on a hard cut.
+    window.setTimeout(() => setPhase("montage"), reducedMotion ? 150 : 550);
   };
 
   // Idle: the butterfly drifts toward the pointer.
@@ -615,21 +544,18 @@ export default function QuestIntro() {
     };
   }, [phase]);
 
-  // Global Enter/Space to advance the two waiting beats.
+  // Global Enter/Space to touch the light.
   useEffect(() => {
     const onKey = (e) => {
       if (e.key !== "Enter" && e.key !== " ") return;
       if (phase === "idle") {
         e.preventDefault();
         handleTouchLight();
-      } else if (phase === "question" && questionLine >= 1) {
-        e.preventDefault();
-        setPhase("montage");
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [phase, questionLine]);
+  }, [phase]);
 
   const handleRiddleSubmit = (e) => {
     e.preventDefault();
@@ -664,7 +590,7 @@ export default function QuestIntro() {
     }
   };
 
-  const showSkip = ["idle", "question", "montage"].includes(phase);
+  const showSkip = ["idle", "montage"].includes(phase);
 
   if (phase === "boot" && !loadingTarget) {
     return <div className="qi-root fixed inset-0 z-50" />;
@@ -724,77 +650,9 @@ export default function QuestIntro() {
         </button>
       )}
 
-      {/* ---------------- QUESTION: two story lines ---------------- */}
-      {phase === "question" && (
-        <div
-          className="qi-smoke-materialize absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
-          role="button"
-          tabIndex={0}
-          onClick={() => questionLine >= 1 && setPhase("montage")}
-        >
-          <p className="max-w-lg font-serif text-xl italic leading-relaxed text-[var(--qi-ivory)] sm:text-2xl">
-            He went looking for the home that was taken.
-          </p>
-          {questionLine >= 1 && (
-            <p className="qi-fade-enter mt-6 max-w-lg font-serif text-xl italic leading-relaxed text-[var(--qi-gold)] sm:text-2xl">
-              The road would ask a different question.
-            </p>
-          )}
-          {questionLine >= 1 && (
-            <span className="qi-fade-enter mt-10 font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--qi-ivory)]/40">
-              tap to continue
-            </span>
-          )}
-        </div>
-      )}
-
-      {/* ---------------- MONTAGE: the reach ---------------- */}
+      {/* ---------------- THE WRITTEN OPENING: 18 stills ---------------- */}
       {phase === "montage" && (
-        <div className="absolute inset-0 bg-[var(--qi-ink)]">
-          {/* The shot before the current one stays underneath so each
-              new shot crossfades over it instead of dipping to black.
-              Hidden once the finale's white takes over. */}
-          {montageEnd < 2 &&
-            INTRO_SHOTS.map((shot, i) =>
-              i === montageIndex || i === montageIndex - 1 ? (
-                <div
-                  key={i}
-                  className={`absolute inset-0 ${
-                    i === montageIndex ? "qi-fade-enter z-10" : "z-0"
-                  }`}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={shot.src}
-                    alt=""
-                    aria-hidden="true"
-                    className={`h-full w-full object-cover object-center ${
-                      reducedMotion
-                        ? ""
-                        : shot.kind === "close"
-                          ? "qi-intro-close"
-                          : "qi-intro-full"
-                    }`}
-                  />
-                </div>
-              ) : null,
-            )}
-          {montageEnd === 0 && (
-            <div className="pointer-events-none absolute inset-x-0 bottom-3 z-20 text-center sm:bottom-5">
-              <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-[var(--qi-ivory)]/60">
-                the kuroshio reach
-              </span>
-            </div>
-          )}
-          {/* Finale: the last full-body shot floods to white, then the
-              white drains away into black. */}
-          {montageEnd === 1 && (
-            <div className="qi-white-in pointer-events-none absolute inset-0 z-30 bg-white" />
-          )}
-          {montageEnd === 2 && (
-            <div className="qi-white-out pointer-events-none absolute inset-0 z-30 bg-white" />
-          )}
-        </div>
+        <IntroSequence reducedMotion={reducedMotion} onDone={goMenu} />
       )}
 
       {/* ---------------- MENU: Kenji resolves, title drops, menu rises ---------------- */}
@@ -925,9 +783,6 @@ export default function QuestIntro() {
             <button
               type="button"
               onClick={() => {
-                setMontageIndex(0);
-                setMontageEnd(0);
-                setQuestionLine(0);
                 setPhase("idle");
               }}
               className={

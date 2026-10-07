@@ -1,0 +1,220 @@
+/* The written opening — 18 stills, each with two lines of text. Kept
+   out of app/globals.css on purpose (see IntroSequence.jsx). */
+
+.qi-seq {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--qi-ink, #0b0c0e);
+}
+
+.qi-seq-scene {
+  position: absolute;
+  inset: 0;
+}
+
+/* Art and caption are twin boxes covering the same area. Inside each,
+   the "frame" is sized to cover its box at the stills' own 1672:941
+   aspect, so a caption placed in frame coordinates stays glued to the
+   same spot of the picture at any window shape. */
+.qi-seq-art,
+.qi-seq-cap {
+  position: absolute;
+  inset: 0;
+  container-type: size;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.qi-seq-frame {
+  --W: max(100cqw, calc(100cqh * 1.7768));
+  position: absolute;
+  width: var(--W);
+  aspect-ratio: 1672 / 941;
+  left: clamp(
+    calc(100cqw - var(--W)),
+    calc(50cqw - var(--fx, 50) * var(--W) / 100),
+    0px
+  );
+  top: clamp(
+    calc(100cqh - var(--W) / 1.7768),
+    calc(50cqh - var(--fy, 50) * var(--W) / 1.7768 / 100),
+    0px
+  );
+}
+
+.qi-seq-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: var(--zx, 50%) var(--zy, 50%);
+  animation: qi-seq-zoom var(--zoom, 12s) linear both;
+  will-change: transform;
+}
+
+@keyframes qi-seq-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(var(--zs, 1.1));
+  }
+}
+
+/* Scene transitions */
+@keyframes qi-seq-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes qi-seq-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.qi-seq-in {
+  animation: qi-seq-fade-in var(--in, 800ms) ease-in-out var(--in-delay, 0ms)
+    both;
+}
+
+.qi-seq-out {
+  animation: qi-seq-fade-out var(--out, 400ms) ease-in-out both;
+}
+
+/* Captions — same serif italic as the rest of the opening, ivory over
+   gold, with a soft dark halo so they read against any picture. */
+.qi-seq-caption {
+  position: absolute;
+  left: calc(var(--cx) * 1%);
+  top: calc(var(--cy) * 1%);
+  width: calc(var(--cw) * 1%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: clamp(1.1rem, 1.67vw, 1.8rem);
+  line-height: 1.45;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.95),
+    0 0 12px rgba(0, 0, 0, 0.85),
+    0 0 26px rgba(0, 0, 0, 0.6);
+  animation:
+    qi-seq-fade-in 1400ms ease-out var(--td, 1000ms) both,
+    qi-seq-fade-out 700ms ease-in var(--tout, 99999ms) forwards;
+}
+
+.qi-seq-caption--final {
+  animation: qi-seq-fade-in 1600ms ease-out var(--td, 1000ms) both;
+}
+
+.qi-seq-caption::before {
+  content: "";
+  position: absolute;
+  inset: -1.4em -1.8em;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(6, 7, 9, 0.74) 0%,
+    rgba(6, 7, 9, 0.52) 48%,
+    rgba(6, 7, 9, 0) 76%
+  );
+  filter: blur(6px);
+}
+
+.qi-seq-line {
+  margin: 0;
+  text-wrap: balance;
+  color: var(--qi-ivory, #f1e6cf);
+}
+
+.qi-seq-line + .qi-seq-line {
+  margin-top: 0.25em;
+  color: var(--qi-gold, #d6a64b);
+  animation: qi-seq-fade-in 1400ms ease-out var(--l2, 2400ms) both;
+}
+
+/* Finale — white floods the final still and its text together, holds,
+   then drains to black. */
+.qi-seq-white {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  background: #fff;
+  pointer-events: none;
+}
+
+.qi-seq-white--in {
+  animation: qi-seq-fade-in 1200ms ease-in-out both;
+}
+
+.qi-seq-white--hold {
+  opacity: 1;
+}
+
+.qi-seq-white--out {
+  animation: qi-seq-fade-out 900ms ease-in-out both;
+}
+
+/* Narrow or tall windows (phones, portrait): the picture would be
+   cropped too hard for in-picture captions to stay clear of Kenji, so
+   the stills sit above and the words get their own band below. */
+@media (max-aspect-ratio: 3/2) {
+  .qi-seq-art {
+    inset: 0 0 28% 0;
+  }
+
+  .qi-seq-art::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 22%;
+    background: linear-gradient(
+      to top,
+      var(--qi-ink, #0b0c0e),
+      rgba(11, 12, 14, 0)
+    );
+  }
+
+  .qi-seq-cap {
+    inset: auto 0 0 0;
+    height: 28%;
+    container-type: normal;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6%;
+  }
+
+  .qi-seq-cap .qi-seq-frame {
+    position: static;
+    width: 100%;
+    aspect-ratio: auto;
+  }
+
+  .qi-seq-caption {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    transform: none;
+    font-size: clamp(1.05rem, 4.8vw, 1.5rem);
+  }
+
+  .qi-seq-caption::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-seq-img {
+    animation: none;
+  }
+}
