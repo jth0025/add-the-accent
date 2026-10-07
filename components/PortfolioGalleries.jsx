@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useCallback, useEffect, useRef, useState } from "react";
+import DesignPlacard from "@/components/DesignPlacard";
 import { PIECES, tagsOf } from "@/lib/designPieces";
 
 const COMMISSIONS = PIECES.filter((p) => tagsOf(p.alt).includes("commission"));
@@ -13,21 +13,20 @@ const SAMPLE = 6;
 
 const MODES = [
   { id: "both", label: "Both" },
-  { id: "commission", label: "Commissions", count: COMMISSIONS.length },
+  { id: "commission", label: "Design", count: COMMISSIONS.length },
   { id: "photo", label: "Photo", count: PHOTOS.length },
 ];
 
-function Tile({ piece, kind, index, visible }) {
+function Tile({ piece, kind, index, visible, onOpen }) {
   return (
-    <Link
-      href="/design"
-      className={`fade-slide-left group relative mb-3 block w-full overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-xl ${
+    <button
+      type="button"
+      onClick={() => onOpen(piece)}
+      className={`fade-slide-left group relative mb-3 block w-full cursor-zoom-in overflow-hidden rounded-lg text-left shadow-md transition-shadow hover:shadow-xl ${
         visible ? "is-visible" : ""
       }`}
       style={{ transitionDelay: `${Math.min(index * 70, 560)}ms` }}
-      aria-label={`View the ${
-        kind === "photo" ? "photography" : "graphic design"
-      } gallery — ${piece.alt.replace(/#/g, "")}`}
+      aria-label={`Enlarge: ${piece.alt.replace(/#/g, "")}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={piece.src} alt="" className="block w-full" loading="lazy" />
@@ -42,7 +41,7 @@ function Tile({ piece, kind, index, visible }) {
         alt=""
         className="pointer-events-none absolute -left-1.5 -top-1.5 z-10 h-8 w-8 drop-shadow-md sm:h-9 sm:w-9"
       />
-    </Link>
+    </button>
   );
 }
 
@@ -76,6 +75,8 @@ export default function PortfolioGalleries() {
   const ref = useRef(null);
   const [mode, setMode] = useState("both");
   const [visible, setVisible] = useState(false);
+  const [open, setOpen] = useState(null); // the piece shown full size
+  const closeOpen = useCallback(() => setOpen(null), []);
 
   useEffect(() => {
     const el = ref.current;
@@ -145,6 +146,7 @@ export default function PortfolioGalleries() {
                   kind="commission"
                   index={i}
                   visible={visible}
+                  onOpen={setOpen}
                 />
               ))}
             </div>
@@ -157,6 +159,7 @@ export default function PortfolioGalleries() {
                   kind="photo"
                   index={i}
                   visible={visible}
+                  onOpen={setOpen}
                 />
               ))}
             </div>
@@ -170,11 +173,13 @@ export default function PortfolioGalleries() {
                 kind={singleKind}
                 index={i}
                 visible={visible}
+                onOpen={setOpen}
               />
             ))}
           </div>
         )}
       </div>
+      <DesignPlacard piece={open} onClose={closeOpen} />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import DesignInfluencers from "@/components/DesignInfluencers";
 import GoldSparkle from "@/components/GoldSparkle";
 import "./design.css";
 
-export const metadata = { title: "Design — Add the Accent" };
+export const metadata = { title: "The Museum — Add the Accent" };
 
 // Re-render at least every few hours so the weekly influencer pair flips
 // on time even though the rest of the page is static.
@@ -57,7 +57,8 @@ export default function DesignPage() {
 
           <div className="museum-card rounded-b-xl px-5 py-6 sm:px-10 sm:py-7">
             <p className="museum-card-text mx-auto max-w-3xl font-hand text-[1.5rem] text-[#2b2a26] sm:text-[2.1rem]">
-              An evolving collection of{" "}
+              <strong className="font-bold">The Museum</strong> is an evolving
+              collection of{" "}
               <strong className="font-bold">graphic design</strong>,{" "}
               <strong className="font-bold">photography</strong>,{" "}
               <strong className="font-bold">motion</strong>,{" "}
@@ -68,6 +69,11 @@ export default function DesignPage() {
           </div>
         </section>
       </div>
+
+      <p className="mx-auto mt-10 max-w-xl px-6 text-center font-playfair text-lg font-bold italic leading-snug text-[#f1ead9] [text-shadow:0_1px_2px_rgba(0,0,0,0.55)] sm:text-xl">
+        &ldquo;A collection of things seen, imagined, altered, remembered, and
+        made visible.&rdquo;
+      </p>
 
       <DesignEditorial />
 

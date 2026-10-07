@@ -148,11 +148,22 @@ export default function PortfolioIndex() {
           A packed bag, not a finished trip &mdash; a working set of pieces
           pulled from the{" "}
           <Link href="/journal" className="text-accent hover:underline">
-            journal
+            Journal
+          </Link>{" "}
+          and{" "}
+          <Link href="/design" className="text-accent hover:underline">
+            the Museum
           </Link>{" "}
           that best show the range: brand voice, memoir, and story. Start
-          here, then keep reading in the journal if one of these pulls you
-          in.
+          here, then keep reading in the{" "}
+          <Link href="/journal" className="text-accent hover:underline">
+            journal
+          </Link>{" "}
+          if one of these pulls you in or visit{" "}
+          <Link href="/design" className="text-accent hover:underline">
+            the Museum
+          </Link>
+          .
         </p>
       </section>
 

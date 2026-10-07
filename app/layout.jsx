@@ -1,5 +1,6 @@
 import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display, UnifrakturCook, Caveat, Anton, Yuji_Syuku } from "next/font/google";
 import Link from "next/link";
+import NavLink from "@/components/NavLink";
 import "./globals.css";
 import VisitCounter from "@/components/VisitCounter";
 import MusicBar from "@/components/MusicBar";
@@ -350,29 +351,29 @@ export default function RootLayout({ children }) {
                   instead, same pattern the header already used before
                   this item existed. */}
               <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 xl:-mr-[11.25rem] xl:flex xl:gap-3 2xl:-mr-[13.5rem]">
-                <Link href="/" className="hover:text-accent">
+                <NavLink href="/" className="hover:text-accent" activeClassName="text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da]">
                   Home
-                </Link>
+                </NavLink>
 
-                <Link href="/portfolio" className="hover:text-accent">
+                <NavLink href="/portfolio" className="hover:text-accent" activeClassName="text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da]">
                   Portfolio
-                </Link>
+                </NavLink>
 
-                <Link href="/design" className="relative hover:text-accent">
+                <NavLink href="/design" className="relative hover:text-accent" activeClassName="relative text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da]">
                   <span className="absolute -top-[11px] left-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
                     the
                   </span>
                   Museum
-                </Link>
+                </NavLink>
 
-                <Link href="/work-with-me" className="nav-glow">
+                <NavLink href="/work-with-me" className="nav-glow" activeClassName="text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da]">
                   Work With Me
-                </Link>
+                </NavLink>
 
                 <div className="group relative">
-                  <Link href="/journal" className="hover:text-accent">
+                  <NavLink href="/journal" className="hover:text-accent" activeClassName="text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da]">
                     Journal <span aria-hidden="true">▾</span>
-                  </Link>
+                  </NavLink>
                   {/* Wrapper is absolutely positioned flush to the trigger
                       (top-full) and its pt-4 bridges the visual gap so the
                       pointer never crosses dead space on the way to the
@@ -431,9 +432,9 @@ export default function RootLayout({ children }) {
                   </div>
                 </div>
 
-                <Link href="/about" className="hover:text-accent">
+                <NavLink href="/about" className="hover:text-accent" activeClassName="text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da]">
                   About
-                </Link>
+                </NavLink>
               </div>
             </nav>
 
@@ -469,27 +470,27 @@ export default function RootLayout({ children }) {
             aria-label="Primary"
             className="flex flex-wrap justify-center gap-x-7 gap-y-1 border-b-2 border-ink/55 bg-ink px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-white xl:hidden"
           >
-            <Link href="/" className="hover:text-accent">
+            <NavLink href="/" className="hover:text-accent" activeClassName="rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
               Home
-            </Link>
-            <Link href="/portfolio" className="hover:text-accent">
+            </NavLink>
+            <NavLink href="/portfolio" className="hover:text-accent" activeClassName="rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
               Portfolio
-            </Link>
-            <Link href="/design" className="relative hover:text-accent">
+            </NavLink>
+            <NavLink href="/design" className="relative hover:text-accent" activeClassName="relative rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
               <span className="absolute -top-[11px] left-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
                 the
               </span>
               Museum
-            </Link>
-            <Link href="/journal" className="hover:text-accent">
+            </NavLink>
+            <NavLink href="/journal" className="hover:text-accent" activeClassName="rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
               Journal
-            </Link>
-            <Link href="/work-with-me" className="nav-glow">
+            </NavLink>
+            <NavLink href="/work-with-me" className="nav-glow" activeClassName="rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
               Work With Me
-            </Link>
-            <Link href="/about" className="hover:text-accent">
+            </NavLink>
+            <NavLink href="/about" className="hover:text-accent" activeClassName="rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
               About
-            </Link>
+            </NavLink>
           </nav>
 
           <main className="flex-1">{children}</main>

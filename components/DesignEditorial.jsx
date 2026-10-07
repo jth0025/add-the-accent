@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import CaptionTitle from "@/components/CaptionTitle";
 import DesignPlacard from "@/components/DesignPlacard";
 import { captionOf } from "@/lib/designCategories";
@@ -89,11 +89,33 @@ function Plate({ piece, id, n, ratio, className = "", onOpen }) {
 // throws a warm cone down onto the wall and the words, while hovered (or
 // focused, or tapped on a touch screen).
 function PictureLight() {
-  const [lit, setLit] = useState(false);
+  const ref = useRef(null);
+  const [lit, setLit] = useState(false); // hover / focus / tap
+  const [auto, setAuto] = useState(false); // the section has been reached
+  const on = lit || auto;
+
+  // It switches itself on as the Now Showing section scrolls into view.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAuto(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.6 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <button
+      ref={ref}
       type="button"
-      aria-pressed={lit}
+      aria-pressed={on}
       aria-label="Picture light"
       onMouseEnter={() => setLit(true)}
       onMouseLeave={() => setLit(false)}
@@ -136,7 +158,7 @@ function PictureLight() {
           width="92"
           height="3.2"
           rx="1.6"
-          fill={lit ? "#fff4c8" : "#6d5a2c"}
+          fill={on ? "#fff4c8" : "#6d5a2c"}
           style={{ transition: "fill 0.4s" }}
         />
       </svg>
@@ -145,7 +167,7 @@ function PictureLight() {
       <span
         aria-hidden="true"
         className={`pointer-events-none absolute left-1/2 top-9 z-0 h-28 w-[26rem] max-w-[120vw] -translate-x-1/2 transition-opacity duration-500 ${
-          lit ? "opacity-100" : "opacity-0"
+          on ? "opacity-100" : "opacity-0"
         }`}
         style={{
           clipPath: "polygon(24% 0, 76% 0, 100% 100%, 0 100%)",
@@ -161,7 +183,7 @@ function PictureLight() {
 
       <span
         className={`relative z-10 mt-2 flex items-center justify-center gap-4 font-mono text-[11px] uppercase tracking-[0.3em] transition-all duration-500 ${
-          lit
+          on
             ? "text-[#2a1d05] [text-shadow:0_0_14px_rgba(255,236,170,0.95)]"
             : "text-[#3a352b]"
         }`}
@@ -246,9 +268,9 @@ export default function DesignEditorial() {
             />
           </div>
 
-          <p className="mx-auto mt-16 max-w-6xl px-1 text-center [text-wrap:balance] font-playfair text-[2rem] font-bold italic leading-[1.15] tracking-tight text-ink sm:px-4 sm:text-5xl lg:px-6 lg:text-[3.4rem]">
-            &ldquo;What stays with us is rarely the thing itself, but the way we{" "}
-            <span className="gold-foil not-italic">saw</span> it.&rdquo;
+          <p className="mx-auto mt-16 max-w-4xl px-1 text-center [text-wrap:balance] font-playfair text-[1.6rem] font-bold italic leading-[1.15] tracking-tight text-ink sm:px-4 sm:text-4xl lg:px-6 lg:text-[2.6rem]">
+            &ldquo;The eye collects. The hand translates. The work{" "}
+            <span className="gold-foil not-italic">remembers</span>.&rdquo;
           </p>
         </div>
 
