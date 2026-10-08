@@ -2625,56 +2625,100 @@ html.header-raining .header-rain {
   }
 }
 
-/* The JT signature mark's own <img> stays opacity-0, never filled in —
-   what reads it is a soft, constant shadow silhouette behind it (so
-   the shape is always faintly legible) plus a slow silver gleam that
-   sweeps across it on a loop. Hovering holds a steady glow in place
-   of the sweep; clicking opens the About page's Profile section. */
-.jt-mark-shadow {
-  background: rgba(10, 10, 10, 0.45);
-  filter: blur(2.5px);
-  transform: translate(1.5px, 2px);
-}
-
+/* JT's signature mark: shown solid in its own colour, with a silver gleam
+   that sweeps across it at a tilt, then rests between passes. Hovering (or
+   focusing) it lights it like a spotlight — the whole screen dims except a
+   soft pool of light around the mark (the overlay's centre comes from the
+   --jt-* vars SignatureMark.jsx sets). Clicking it puts the light out. */
 @keyframes jt-mark-gleam-sweep {
   0% {
-    background-position: 160% 0;
+    background-position: 170% 0;
   }
-  70% {
-    background-position: -60% 0;
+  45% {
+    background-position: -70% 0;
   }
   100% {
-    background-position: -60% 0;
+    background-position: -70% 0;
   }
 }
 
 .jt-mark-gleam {
   background: linear-gradient(
-    100deg,
-    transparent 30%,
-    rgba(196, 204, 218, 0.8) 48%,
-    rgba(232, 238, 248, 1) 50%,
-    rgba(196, 204, 218, 0.8) 52%,
-    transparent 70%
+    122deg,
+    transparent 22%,
+    rgba(214, 222, 236, 0.75) 42%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(214, 222, 236, 0.75) 58%,
+    transparent 78%
   );
   background-size: 250% 100%;
-  background-position: 160% 0;
-  animation: jt-mark-gleam-sweep 7s ease-in-out infinite;
+  background-position: 170% 0;
+  animation: jt-mark-gleam-sweep 6s ease-in-out infinite;
+}
+
+/* A faint atmospheric grunge settles around the mark — worn wall, no
+   shadow — behind it, never over it. */
+.jt-reveal-link::before {
+  content: "";
+  position: absolute;
+  inset: -38% -16%;
+  z-index: -1;
+  pointer-events: none;
+  background: url("/textures/smudges.webp") 30% 20% / 760px auto;
+  opacity: 0.4;
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    #000 18%,
+    rgba(0, 0, 0, 0.45) 46%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    ellipse at center,
+    #000 18%,
+    rgba(0, 0, 0, 0.45) 46%,
+    transparent 72%
+  );
 }
 
 .jt-reveal-link:hover .jt-mark-gleam {
-  animation: none;
-  opacity: 0;
+  animation-duration: 4s;
 }
 
-.jt-reveal-link:hover .jt-mark {
-  filter: drop-shadow(0 0 6px rgba(210, 218, 232, 0.6))
-    drop-shadow(0 0 14px rgba(190, 200, 218, 0.35));
+html::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  background: radial-gradient(
+    ellipse var(--jt-rx, 160px) var(--jt-ry, 100px) at var(--jt-x, 50%) var(--jt-y, 50%),
+    rgba(255, 238, 200, 0.2) 0%,
+    rgba(0, 0, 0, 0.08) 55%,
+    rgba(0, 0, 0, 0.66) 100%
+  );
+}
+
+html.jt-spot::after {
+  opacity: 1;
+}
+
+/* The signature rises above the dimmer while the spotlight is on. */
+html.jt-spot .jt-rail {
+  z-index: 901;
+}
+
+html.jt-spot .jt-reveal-link {
+  z-index: 901;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .jt-mark-gleam {
     animation: none;
     opacity: 0;
+  }
+  html::after {
+    transition: none;
   }
 }

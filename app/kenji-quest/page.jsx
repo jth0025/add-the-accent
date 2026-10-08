@@ -1,4 +1,6 @@
 import Link from "next/link";
+import SmokeLink from "@/components/SmokeLink";
+import "./kenji-quest.css";
 
 export const metadata = {
   title: "Kenji's Quest: First Light — Add the Accent",
@@ -16,9 +18,23 @@ function SectionLabel({ children }) {
   );
 }
 
+function CornerBlade({ pos, delay }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`kq-corner kq-corner--${pos}`}
+      style={{ "--kq-delay": `${delay}s` }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/kenji-ui/corner-blade.webp" alt="" />
+      <span className="kq-corner-gleam" />
+    </span>
+  );
+}
+
 export default function KenjiQuestPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
+    <div className="relative mx-auto max-w-3xl px-6 py-16">
       <Link
         href="/"
         className="mb-6 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-accent hover:underline"
@@ -28,6 +44,13 @@ export default function KenjiQuestPage() {
 
       {/* Hero */}
       <div className="relative">
+        {/* Gold corner ornaments, tips overhanging the box's corners —
+            siblings of the section so its overflow-hidden never clips
+            them. Each gleams on its own staggered cycle. */}
+        <CornerBlade pos="tl" delay={0} />
+        <CornerBlade pos="tr" delay={1.4} />
+        <CornerBlade pos="br" delay={2.8} />
+        <CornerBlade pos="bl" delay={4.2} />
         {/* Flanking torches — desktop only, sitting just outside the
             box's own edges rather than inset within it. Siblings of
             the section (not children) so the section's own
@@ -35,14 +58,14 @@ export default function KenjiQuestPage() {
             clips them. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -left-10 top-16 z-20 hidden -translate-y-1/2 flex-col items-center md:flex"
+          className="pointer-events-none absolute -left-14 top-40 z-20 hidden -translate-y-1/2 flex-col items-center lg:flex"
         >
           <span className="qi-torch-flame block h-8 w-6" />
           <span className="block h-16 w-2.5 rounded-sm bg-gradient-to-b from-[#6b4a2a] via-[#4a3018] to-[#2c1c0d]" />
         </div>
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-10 top-16 z-20 hidden -translate-y-1/2 flex-col items-center md:flex"
+          className="pointer-events-none absolute -right-14 top-40 z-20 hidden -translate-y-1/2 flex-col items-center lg:flex"
         >
           <span className="qi-torch-flame block h-8 w-6" />
           <span className="block h-16 w-2.5 rounded-sm bg-gradient-to-b from-[#6b4a2a] via-[#4a3018] to-[#2c1c0d]" />
@@ -93,13 +116,15 @@ export default function KenjiQuestPage() {
         {/* The opening — the intro and the main menu. On the live site
             the menu is greyed out ("Coming Soon") apart from Replay
             Intro; the rest of the game is still in development. */}
-        <Link
+        <SmokeLink
           href="/kenji-quest/play"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-white shadow-lg transition-transform hover:scale-[1.03]"
+          aria-label="Play the Opening"
+          className="kq-plaque mt-6"
         >
-          Play the Opening
-          <span aria-hidden="true">&rarr;</span>
-        </Link>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/kenji-ui/enter-plaque.webp" alt="" />
+          <span className="kq-plaque-text">Play the Opening</span>
+        </SmokeLink>
 
         <div className="relative mx-auto mt-8 w-48 sm:w-56">
           {/* A warm backlight glowing behind Kenji instead of a ground
@@ -272,7 +297,24 @@ export default function KenjiQuestPage() {
       </section>
 
       {/* Status / notify */}
-      <section className="paper-fold-quarters corner-box mt-8 rounded-xl border border-ink/15 bg-card px-7 py-10 text-center sm:px-10">
+      <div className="relative mt-8">
+        {/* Two guards stand either side of the box, their feet on the
+            footer's edge (the page's bottom padding is 4rem). Wide
+            screens only — there is no room beside the box below that. */}
+        {[
+          "right-full mr-2 xl:mr-5",
+          "left-full ml-2 xl:ml-5",
+        ].map((side) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={side}
+            src="/kenji-ui/warrior.webp"
+            alt=""
+            aria-hidden="true"
+            className={`pointer-events-none absolute -bottom-16 hidden h-auto w-28 lg:block xl:w-40 ${side}`}
+          />
+        ))}
+      <section className="paper-fold-quarters corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 text-center sm:px-10">
         <SectionLabel>Right Now</SectionLabel>
         <p className="mx-auto mt-4 max-w-md font-playfair text-xl italic text-ink sm:text-2xl">
           The path is still being cleared.
@@ -302,6 +344,7 @@ export default function KenjiQuestPage() {
           .
         </p>
       </section>
+      </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import DesignEditorial from "@/components/DesignEditorial";
 import DesignGallery from "@/components/DesignGallery";
 import DesignInfluencers from "@/components/DesignInfluencers";
 import GoldSparkle from "@/components/GoldSparkle";
+import KoiLayer from "@/components/KoiLayer";
 import "./design.css";
 
 export const metadata = { title: "The Museum — Add the Accent" };
@@ -12,12 +13,13 @@ export const revalidate = 21600;
 
 export default function DesignPage() {
   return (
-    <div className="overflow-x-clip pb-4">
+    <div className="relative overflow-x-clip">
+      <KoiLayer />
       <GoldSparkle />
       <div className="mx-auto max-w-[1240px] px-3 pt-16 sm:px-5">
         {/* The art box and the index card beneath it share one outline, so
             the card reads as the box's own lower tab. */}
-        <section className="corner-box rounded-xl border border-ink/15 bg-card">
+        <section data-koi-avoid className="corner-box rounded-xl border border-ink/15 bg-card">
           <div className="paper-notebook rounded-t-xl px-3 pb-4 pt-8 text-center sm:px-6 sm:pt-9">
             <div className="flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-accent sm:text-xs sm:tracking-[0.28em]">
               <span className="hidden h-px w-8 bg-accent/40 sm:block" />
@@ -92,6 +94,15 @@ export default function DesignPage() {
           More on Instagram &rarr;
         </a>
       </div>
+
+      {/* The statue holding "The Deep End" stands at the very bottom of
+          the page, its base resting directly on the footer's top line. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/design/deep-end-statue.webp"
+        alt="A stone statue of a boy in a cap holding up a sign that reads The Deep End, bubbles rising beside him"
+        className="mx-auto mt-12 block w-44 sm:w-56"
+      />
     </div>
   );
 }

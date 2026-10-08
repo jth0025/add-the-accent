@@ -1,4 +1,5 @@
 import Link from "next/link";
+import "./kenji-quest-promo.css";
 
 /**
  * The teaser/entry point for "Kenji's Quest: First Light" — sized to
@@ -23,7 +24,7 @@ export default function KenjiQuestPromo() {
       <Link
         href="/kenji-quest"
         className="group relative block overflow-hidden"
-        aria-label="Learn more about Kenji's Quest: First Light"
+        aria-label="Enter Kenji's Quest: First Light"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -31,31 +32,32 @@ export default function KenjiQuestPromo() {
           alt="Kenji's Quest: First Light — a lone samurai stands atop a jungle island over dark water, the game's title carved into the rock beneath him"
           className="block h-auto w-full object-contain transition-transform duration-500 group-hover:scale-[1.05]"
         />
-        <span className="pointer-events-none absolute bottom-1.5 right-1.5 rounded-full bg-black/70 px-2 py-0.5 font-mono text-[8px] uppercase tracking-widest text-[#e7ded2] opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
-          Learn more &rarr;
-        </span>
       </Link>
-      <div className="paper-notebook border-t border-ink/15 bg-white px-3 py-2.5 text-center">
-        <span className="badge-glow block font-mono text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#af691e]">
-          Coming Soon
-        </span>
-        <p className="font-cinema text-[9px] uppercase tracking-wide text-ink">
-          Kenji&rsquo;s Quest
-        </p>
-        <p className="title-glow mt-1 rounded-md bg-gradient-to-b from-[#2a3a2c] to-[#14140b] py-1.5 font-athelas text-lg uppercase leading-none tracking-wide text-white">
-          First Light
-        </p>
-        <p className="mx-auto mt-1 font-serif text-[10px] italic leading-snug text-stone">
-          An interactive adventure inspired by Add the Accent.
+      <div className="kq-stone border-t border-black/50 px-3 pb-3.5 pt-3 text-center">
+        {/* The logo carries a slow gold gleam, masked to its own letters. */}
+        <div className="kq-title-wrap">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/kenji-game/title-mark.webp"
+            alt="Kenji's Quest: First Light"
+            className="kq-title"
+          />
+          <span aria-hidden="true" className="kq-title-gleam" />
+        </div>
+        <p className="kq-tagline mx-auto -mt-2 font-serif italic">
+          <span className="block">An interactive adventure</span>
+          <span className="block">Powered by</span>
+          <span className="kq-brand block">Add the Accent</span>
         </p>
         <Link
           href="/kenji-quest"
-          className="group/btn mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 font-mono text-[8px] font-bold uppercase tracking-widest text-white shadow-lg transition-transform hover:scale-[1.03]"
+          aria-label="Enter Kenji's Quest: First Light"
+          className="kq-enter"
+          style={{ containerType: "inline-size" }}
         >
-          Learn More
-          <span aria-hidden="true" className="transition-transform duration-200 group-hover/btn:translate-x-0.5">
-            &rarr;
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/kenji-ui/enter-plaque.webp" alt="" />
+          <span className="kq-enter-text">Enter</span>
         </Link>
       </div>
     </div>

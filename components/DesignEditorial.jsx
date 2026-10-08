@@ -206,6 +206,7 @@ export default function DesignEditorial() {
 
   return (
     <section
+      data-koi-avoid
       className="mx-auto mt-16 max-w-6xl px-4 sm:px-6"
       aria-label="Now showing"
     >

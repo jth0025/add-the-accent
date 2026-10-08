@@ -1,4 +1,4 @@
-import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display, UnifrakturCook, Caveat, Anton, Yuji_Syuku } from "next/font/google";
+import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Playfair_Display, UnifrakturCook, Caveat, Anton, Yuji_Syuku, Yuji_Boku } from "next/font/google";
 import Link from "next/link";
 import NavLink from "@/components/NavLink";
 import "./globals.css";
@@ -98,6 +98,15 @@ const yujiSyuku = Yuji_Syuku({
   display: "swap",
 });
 
+// Rough Japanese brush-stroke face (reads in the Latin alphabet) — the
+// words on Kenji's Quest menu scrolls, like characters inked in one pull.
+const yujiBoku = Yuji_Boku({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-brush",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Add the Accent",
   description:
@@ -169,7 +178,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable} ${playfairDisplay.variable} ${unifrakturCook.variable} ${caveat.variable} ${anton.variable} ${yujiSyuku.variable}`}
+      className={`${fraunces.variable} ${inter.variable} ${archivoBlack.variable} ${plexMono.variable} ${poppins.variable} ${alexBrush.variable} ${playfairDisplay.variable} ${unifrakturCook.variable} ${caveat.variable} ${anton.variable} ${yujiSyuku.variable} ${yujiBoku.variable}`}
     >
       <body className="font-sans antialiased">
         {/* Grunge/distressed-type filter — referenced by `.grunge-text`
@@ -359,7 +368,7 @@ export default function RootLayout({ children }) {
                   Portfolio
                 </NavLink>
 
-                <NavLink href="/design" className="relative hover:text-accent" activeClassName="relative text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da]">
+                <NavLink href="/design" className="relative hover:text-accent" activeClassName="relative text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da,0_-11px_0_3px_#efe9da]">
                   <span className="absolute -top-[11px] left-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
                     the
                   </span>

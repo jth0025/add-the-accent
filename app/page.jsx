@@ -9,6 +9,8 @@ import ListenNowTab from "@/components/ListenNowTab";
 import WordOfTheDay from "@/components/WordOfTheDay";
 import SeriesProgress from "@/components/SeriesProgress";
 import KenjiQuestPromo from "@/components/KenjiQuestPromo";
+import SmudgeLayer from "@/components/SmudgeLayer";
+import SignatureMark from "@/components/SignatureMark";
 
 export default function HomePage() {
   const portfolio = getSelectedWork().slice(0, 3);
@@ -20,7 +22,8 @@ export default function HomePage() {
   const bySeries = (name) => allJournalEntries.filter((e) => e.series === name);
 
   return (
-    <>
+    <div className="relative">
+      <SmudgeLayer variant="home" />
       <ListenNowTab />
 
       {/* Two rails flanking the centered column, both absolutely
@@ -36,36 +39,8 @@ export default function HomePage() {
           drops to a normal block at the very bottom of the page
           instead (see the other instance). */}
       <div className="relative">
-        <div className="pointer-events-none absolute left-12 top-3 z-10 hidden w-56 xl:block">
-          <Link
-            href="/about#profile"
-            aria-label="View JT's profile"
-            className="jt-reveal-link pointer-events-auto relative block cursor-pointer opacity-[0.54]"
-          >
-            {/* The mark's own img never fills in — a soft constant
-                shadow behind it hints at the shape at all times, and
-                a slow silver gleam sweeps across on top of that. On
-                hover the sweep stops and holds a steady glow instead. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/jt-signature.png" alt="" className="w-full opacity-0" />
-            <div
-              aria-hidden="true"
-              className="jt-mark pointer-events-none absolute inset-0"
-              style={{
-                WebkitMaskImage: "url(/jt-signature.png)",
-                maskImage: "url(/jt-signature.png)",
-                WebkitMaskSize: "contain",
-                maskSize: "contain",
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                WebkitMaskPosition: "center",
-                maskPosition: "center",
-              }}
-            >
-              <span className="jt-mark-shadow absolute inset-0 block" />
-              <span className="jt-mark-gleam absolute inset-0 block" />
-            </div>
-          </Link>
+        <div className="jt-rail pointer-events-none absolute left-12 top-3 z-10 hidden w-56 xl:block">
+          <SignatureMark className="pointer-events-auto" />
         </div>
         <div className="pointer-events-none absolute right-6 top-0 z-10 hidden w-56 xl:block">
           <div className="pointer-events-auto">
@@ -76,7 +51,7 @@ export default function HomePage() {
 
       <div className="relative mx-auto max-w-3xl px-6">
 
-        <figure className="mt-4 text-center text-white sm:mt-8">
+        <figure className="mt-2 text-center text-white sm:mt-5 xl:-mt-[2.6rem]">
         <blockquote className="whitespace-nowrap font-serif italic leading-snug text-[min(calc((100vw-3rem)/38),1.2rem)]">
           &ldquo;The goal of an artist is to create the definitive work that
           cannot be surpassed.&rdquo;
@@ -150,34 +125,7 @@ export default function HomePage() {
               mt-11 below "This is all a true story," so the gap on
               both sides of the icon row is the same. */}
           <div className="mt-7 flex justify-center md:hidden">
-            <Link
-              href="/about#profile"
-              aria-label="View JT's profile"
-              className="jt-reveal-link relative block w-28 cursor-pointer"
-            >
-              {/* The mark's own img never fills in — a soft constant
-                  shadow behind it hints at the shape, and a slow
-                  silver gleam sweeps across on top of that. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/jt-signature.png" alt="" className="w-full opacity-0" />
-              <div
-                aria-hidden="true"
-                className="jt-mark absolute inset-0"
-                style={{
-                  WebkitMaskImage: "url(/jt-signature.png)",
-                  maskImage: "url(/jt-signature.png)",
-                  WebkitMaskSize: "contain",
-                  maskSize: "contain",
-                  WebkitMaskRepeat: "no-repeat",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskPosition: "center",
-                  maskPosition: "center",
-                }}
-              >
-                <span className="jt-mark-shadow absolute inset-0 block" />
-                <span className="jt-mark-gleam absolute inset-0 block" />
-              </div>
-            </Link>
+            <SignatureMark className="w-28" />
           </div>
         </div>
 
@@ -196,11 +144,17 @@ export default function HomePage() {
               <circle cx="12" cy="12.75" r="3.3" />
             </svg>
           </a>
-          {/* Pencil */}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" className="icon-hover-pop h-5 w-5 rotate-[4deg] [filter:url(#urban-sketch)]" aria-hidden="true">
-            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z" />
-            <path d="M14 6l3 3" />
-          </svg>
+          {/* Pencil → the Journal */}
+          <Link
+            href="/journal"
+            aria-label="Read the Journal"
+            className="icon-hover-pop inline-block"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 rotate-[4deg] [filter:url(#urban-sketch)]" aria-hidden="true">
+              <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z" />
+              <path d="M14 6l3 3" />
+            </svg>
+          </Link>
           {/* Podcast microphone */}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" className="icon-hover-pop h-5 w-5 -rotate-[3deg] [filter:url(#urban-sketch)]" aria-hidden="true">
             <rect x="9" y="2.5" width="6" height="11" rx="3" />
@@ -513,6 +467,32 @@ export default function HomePage() {
         </figure>
 
         <section className="paper-crinkled corner-box relative mb-16 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+          {/* A yellow pencil, the same length and placement as the pen
+              on Section 01 — set down across this box's top edge. */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-6 -top-3 z-20 sm:inset-x-9"
+          >
+            <svg
+              viewBox="0 0 640 34"
+              preserveAspectRatio="none"
+              className="h-6 w-full drop-shadow-[0_3px_4px_rgba(0,0,0,0.45)]"
+            >
+              <rect x="12" y="11.5" width="34" height="12" rx="5" fill="#e58a96" />
+              <rect x="12" y="11.5" width="34" height="3.5" rx="1.75" fill="#f4b6bd" opacity="0.7" />
+              <rect x="44" y="9.5" width="26" height="16" rx="1.5" fill="#b9bdc2" />
+              <rect x="44" y="9.5" width="26" height="4" rx="1.5" fill="#e4e6e8" opacity="0.8" />
+              <line x1="52" y1="9.5" x2="52" y2="25.5" stroke="#7d8286" strokeWidth="1.2" />
+              <line x1="62" y1="9.5" x2="62" y2="25.5" stroke="#7d8286" strokeWidth="1.2" />
+              <rect x="70" y="10.5" width="470" height="14" rx="2" fill="#e8b631" />
+              <rect x="70" y="10.5" width="470" height="4.5" rx="2" fill="#f6d36a" opacity="0.85" />
+              <rect x="70" y="20.5" width="470" height="4" rx="2" fill="#b98a14" opacity="0.7" />
+              <line x1="70" y1="17.5" x2="540" y2="17.5" stroke="#c99a1a" strokeWidth="0.8" />
+              <polygon points="540,9.5 603,17.5 540,25.5" fill="#efcfa4" stroke="#b58f5f" strokeWidth="0.8" />
+              <polygon points="591,14.2 618,17.5 591,20.8" fill="#2b2b2b" />
+            </svg>
+          </span>
+
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-[#4a5714]">
             <span>Section 02</span>
             <span className="h-px flex-1 bg-[#4a5714]/40" />
@@ -562,6 +542,6 @@ export default function HomePage() {
         <KenjiQuestPromo />
       </div>
       </div>
-    </>
+    </div>
   );
 }

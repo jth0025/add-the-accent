@@ -1,0 +1,147 @@
+/* Homepage Kenji's Quest card — kept out of app/globals.css so these
+   edits ship on their own. */
+
+.kq-stone {
+  background-color: #7d7468;
+  background-image: url("/kenji-ui/stone.webp");
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.45);
+}
+
+.kq-title-wrap {
+  position: relative;
+  margin-top: 0.7rem;
+  width: 94%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.kq-title {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.95))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8))
+    drop-shadow(0 0 9px rgba(0, 0, 0, 0.55));
+}
+
+/* Gold light passing over the logo's letters only (masked to the PNG's
+   own alpha), a quick sweep then a long rest. */
+.kq-title-gleam {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: url("/kenji-game/title-mark.webp");
+  mask-image: url("/kenji-game/title-mark.webp");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  background: linear-gradient(
+    105deg,
+    transparent 36%,
+    rgba(255, 196, 70, 0.7) 45%,
+    rgba(255, 236, 160, 1) 50%,
+    rgba(255, 196, 70, 0.7) 55%,
+    transparent 64%
+  );
+  background-size: 300% 100%;
+  background-position: 130% 0;
+  mix-blend-mode: screen;
+  animation: kq-title-gleam 4.6s ease-in-out infinite;
+}
+
+@keyframes kq-title-gleam {
+  0% {
+    background-position: 130% 0;
+  }
+  45% {
+    background-position: -30% 0;
+  }
+  100% {
+    background-position: -30% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kq-title-gleam {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+.kq-tagline {
+  font-size: 14px;
+  line-height: 1.35;
+  color: #efe4cc;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.95),
+    0 0 8px rgba(0, 0, 0, 0.7);
+}
+
+.kq-enter {
+  position: relative;
+  display: block;
+  width: 78%;
+  max-width: 190px;
+  margin: 0.55rem auto 0;
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.55));
+}
+
+.kq-enter:hover,
+.kq-enter:focus-visible {
+  transform: scale(1.04);
+}
+
+.kq-enter img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.kq-enter-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1%;
+  font-family: var(--font-cinema), serif;
+  font-size: clamp(0.8rem, 3.6cqw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  text-transform: uppercase;
+  color: #3b2410;
+  text-shadow: 0 1px 0 rgba(255, 238, 190, 0.55);
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+.kq-enter:hover .kq-enter-text,
+.kq-enter:focus-visible .kq-enter-text {
+  color: #fff;
+  text-shadow:
+    0 0 4px #fff,
+    0 0 10px rgba(255, 224, 138, 1),
+    0 0 20px rgba(255, 184, 48, 0.95),
+    0 0 34px rgba(255, 150, 20, 0.8),
+    0 1px 1px rgba(60, 30, 5, 0.9),
+    0 -1px 1px rgba(60, 30, 5, 0.55);
+}
+
+.kq-brand {
+  white-space: nowrap;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.18em;
+  letter-spacing: 0.01em;
+  color: #ffd98a;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.95),
+    0 0 8px rgba(0, 0, 0, 0.7),
+    0 0 12px rgba(255, 190, 80, 0.35);
+}

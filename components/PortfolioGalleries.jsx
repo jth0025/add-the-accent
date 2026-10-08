@@ -109,10 +109,11 @@ export default function PortfolioGalleries() {
 
   return (
     <div>
+      <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2">
       <div
         role="group"
         aria-label="Which gallery"
-        className="mb-4 inline-flex overflow-hidden rounded-full border border-ink/20 bg-card font-mono text-[11px] uppercase tracking-widest"
+        className="inline-flex overflow-hidden rounded-full border border-ink/20 bg-card font-mono text-[11px] uppercase tracking-widest"
       >
         {MODES.map((m) => (
           <button
@@ -132,6 +133,20 @@ export default function PortfolioGalleries() {
             ) : null}
           </button>
         ))}
+      </div>
+      {/* Three handshakes in a row beside the toggle, small enough to
+          sit in the space the toggle's row already has. */}
+      <div aria-hidden="true" className="flex items-center gap-1.5">
+        {[1, 2, 3].map((n) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={n}
+            src={`/handshake-${n}.webp`}
+            alt=""
+            className="h-7 w-auto sm:h-8"
+          />
+        ))}
+      </div>
       </div>
 
       <div ref={ref}>

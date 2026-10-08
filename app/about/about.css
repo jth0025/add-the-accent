@@ -1,0 +1,49 @@
+/* About page extras — kept out of app/globals.css so they ship on their own. */
+
+/* A light gleam across the word "Accent" in the Section 02 title: the
+   word keeps its own amber (#af691e) and a pale band of light passes over
+   its letters every few seconds, then rests. */
+.about-accent-gleam {
+  background-image: linear-gradient(
+    105deg,
+    #af691e 0%,
+    #af691e 38%,
+    #d9954a 44%,
+    #ffe9bd 49%,
+    #ffffff 50.5%,
+    #ffe9bd 52%,
+    #d9954a 56%,
+    #af691e 62%,
+    #af691e 100%
+  );
+  background-size: 260% 100%;
+  background-position: 135% 0;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: about-accent-gleam 7s ease-in-out infinite;
+}
+
+@keyframes about-accent-gleam {
+  0%,
+  45% {
+    background-position: 135% 0;
+  }
+  80% {
+    background-position: -35% 0;
+  }
+  100% {
+    background-position: -35% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-accent-gleam {
+    animation: none;
+    background: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    color: #af691e;
+  }
+}

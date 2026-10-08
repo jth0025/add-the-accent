@@ -192,6 +192,22 @@ export default function WorkWithMePage() {
       {/* Hero — Kenji, guide of the quest, introduces the studio. */}
       <section className="paper-fold-quarters corner-box rounded-xl border border-ink/15 bg-card px-7 py-12 text-center sm:px-10 sm:py-16">
         <PaperClip position="-top-4 left-24 rotate-[7deg]" />
+        {/* A gold butterfly resting on each side of the box, each
+            tilted a quarter of the way outward. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/butterfly-gold.webp"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-5 top-1/2 z-10 w-14 -translate-y-1/2 -rotate-[25deg] drop-shadow-[0_3px_4px_rgba(0,0,0,0.35)] sm:w-20 md:-left-10 md:w-24"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/butterfly-gold.webp"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-5 top-1/2 z-10 w-14 -translate-y-1/2 rotate-[25deg] drop-shadow-[0_3px_4px_rgba(0,0,0,0.35)] sm:w-20 md:-right-10 md:w-24"
+        />
         <SectionLabel>Work With Me</SectionLabel>
 
         {/* The rainforest reference art itself, laid in behind him —

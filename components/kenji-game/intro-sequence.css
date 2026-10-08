@@ -28,19 +28,23 @@
 
 .qi-seq-frame {
   --W: max(100cqw, calc(100cqh * 1.7768));
-  position: absolute;
-  width: var(--W);
-  aspect-ratio: 1672 / 941;
-  left: clamp(
+  /* Where the frame's left / top edge sits in the window (it is cropped
+     to its focal point); captions use these to stay on the screen. */
+  --fl: clamp(
     calc(100cqw - var(--W)),
     calc(50cqw - var(--fx, 50) * var(--W) / 100),
     0px
   );
-  top: clamp(
+  --ft: clamp(
     calc(100cqh - var(--W) / 1.7768),
     calc(50cqh - var(--fy, 50) * var(--W) / 1.7768 / 100),
     0px
   );
+  position: absolute;
+  width: var(--W);
+  aspect-ratio: 1672 / 941;
+  left: var(--fl);
+  top: var(--ft);
 }
 
 .qi-seq-img {
@@ -90,42 +94,60 @@
   animation: qi-seq-fade-out var(--out, 400ms) ease-in-out both;
 }
 
-/* Captions — same serif italic as the rest of the opening, ivory over
-   gold, with a soft dark halo so they read against any picture. */
+/* Captions — trailer-title style: big, upright capitals, wide-set,
+   the first line ivory and the second gold. Same serif family as the
+   rest of the opening. Each letter is blown in on the wind (see
+   IntroSequence.jsx) and blown away again before the next scene. */
 .qi-seq-caption {
   position: absolute;
-  left: calc(var(--cx) * 1%);
-  top: calc(var(--cy) * 1%);
-  width: calc(var(--cw) * 1%);
+  /* Placed at its spot in the picture, but never wider than the screen
+     and never pushed off any edge of it, whatever shape the window is. */
+  --cwpx: min(calc(var(--cw) * var(--W) / 100), 90cqw);
+  width: var(--cwpx);
+  left: clamp(
+    calc(var(--cwpx) / 2 + 5cqw - var(--fl)),
+    calc(var(--cx) * var(--W) / 100),
+    calc(100cqw - var(--cwpx) / 2 - 5cqw - var(--fl))
+  );
+  top: clamp(
+    calc(14cqh - var(--ft)),
+    calc(var(--cy) * var(--W) / 1.7768 / 100),
+    calc(86cqh - var(--ft))
+  );
   transform: translate(-50%, -50%);
   text-align: center;
-  font-size: clamp(1.1rem, 1.67vw, 1.8rem);
-  line-height: 1.45;
+  /* Sized from the stage itself (cqw / cqh), so the words scale with
+     whatever screen — or window — the opening is playing on. */
+  font-size: calc(var(--fsm, 1) * clamp(0.9rem, min(2.9cqw, 5.2cqh), 6rem));
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   text-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.95),
-    0 0 12px rgba(0, 0, 0, 0.85),
-    0 0 26px rgba(0, 0, 0, 0.6);
-  animation:
-    qi-seq-fade-in 1400ms ease-out var(--td, 1000ms) both,
-    qi-seq-fade-out 700ms ease-in var(--tout, 99999ms) forwards;
-}
-
-.qi-seq-caption--final {
-  animation: qi-seq-fade-in 1600ms ease-out var(--td, 1000ms) both;
+    0 2px 3px rgba(0, 0, 0, 0.95),
+    0 0 14px rgba(0, 0, 0, 0.85),
+    0 0 34px rgba(0, 0, 0, 0.6);
 }
 
 .qi-seq-caption::before {
   content: "";
   position: absolute;
-  inset: -1.4em -1.8em;
+  inset: -1.1em -1.6em;
   z-index: -1;
   background: radial-gradient(
     ellipse at center,
-    rgba(6, 7, 9, 0.74) 0%,
-    rgba(6, 7, 9, 0.52) 48%,
-    rgba(6, 7, 9, 0) 76%
+    rgba(6, 7, 9, 0.72) 0%,
+    rgba(6, 7, 9, 0.5) 50%,
+    rgba(6, 7, 9, 0) 78%
   );
-  filter: blur(6px);
+  filter: blur(8px);
+  animation:
+    qi-seq-fade-in 1400ms ease-out var(--td, 1000ms) both,
+    qi-seq-fade-out 800ms ease-in var(--tout, 99999ms) forwards;
+}
+
+.qi-seq-caption--final::before {
+  animation: qi-seq-fade-in 1400ms ease-out var(--td, 1000ms) both;
 }
 
 .qi-seq-line {
@@ -135,9 +157,65 @@
 }
 
 .qi-seq-line + .qi-seq-line {
-  margin-top: 0.25em;
+  margin-top: 0.22em;
   color: var(--qi-gold, #d6a64b);
-  animation: qi-seq-fade-in 1400ms ease-out var(--l2, 2400ms) both;
+  text-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.95),
+    0 0 14px rgba(0, 0, 0, 0.85),
+    0 0 22px rgba(214, 166, 75, 0.35);
+}
+
+.qi-seq-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* The wind: every letter slides in from the right on its own gust —
+   stretched, blurred and slightly tilted — and settles sharp. */
+.qi-seq-ch {
+  display: inline-block;
+  animation:
+    qi-seq-wind-in 1500ms cubic-bezier(0.14, 0.78, 0.26, 1) var(--d, 0ms) both,
+    qi-seq-wind-out 850ms cubic-bezier(0.5, 0, 0.9, 0.4) var(--o, 99999ms)
+      forwards;
+  will-change: transform, opacity, filter;
+}
+
+.qi-seq-caption--final .qi-seq-ch {
+  animation: qi-seq-wind-in 1500ms cubic-bezier(0.14, 0.78, 0.26, 1)
+    var(--d, 0ms) both;
+}
+
+@keyframes qi-seq-wind-in {
+  0% {
+    opacity: 0;
+    transform: translate(var(--x, 90px), var(--y, 0px)) rotate(var(--r, 4deg))
+      scaleX(1.5);
+    filter: blur(14px);
+  }
+  55% {
+    opacity: 0.85;
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scaleX(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes qi-seq-wind-out {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scaleX(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--x, 90px) * -1.4), calc(var(--y, 0px) * -1))
+      rotate(calc(var(--r, 4deg) * -1)) scaleX(1.6);
+    filter: blur(12px);
+  }
 }
 
 /* Finale — white floods the final still and its text together, holds,
@@ -205,7 +283,8 @@
     top: auto;
     width: 100%;
     transform: none;
-    font-size: clamp(1.05rem, 4.8vw, 1.5rem);
+    font-size: clamp(0.9rem, min(4.6vw, 3.1vh), 2.4rem);
+    letter-spacing: 0.1em;
   }
 
   .qi-seq-caption::before {
@@ -215,6 +294,56 @@
 
 @media (prefers-reduced-motion: reduce) {
   .qi-seq-img {
+    animation: none;
+  }
+  .qi-seq-ch {
+    animation: qi-seq-fade-in 400ms ease-out var(--d, 0ms) both;
+  }
+}
+
+/* Skip Intro: it fades back to a low opacity a couple of seconds in so it
+   doesn't compete with the pictures, and comes back to full the moment it
+   is hovered or focused. */
+.qo-plaque.qi-skip {
+  transition:
+    transform 0.2s ease,
+    opacity 0.9s ease,
+    filter 0.2s ease;
+}
+
+.qo-plaque.qi-skip--dim {
+  opacity: 0.28;
+}
+
+.qo-plaque.qi-skip:hover,
+.qo-plaque.qi-skip:focus-visible {
+  opacity: 1;
+  transition:
+    transform 0.2s ease,
+    opacity 0.25s ease,
+    filter 0.2s ease;
+}
+
+/* Arriving from the Kenji's Quest page, which drifts away like smoke:
+   the opening clears into view the same way. (No end fill, so no filter
+   is left on the screen afterwards.) */
+@keyframes qi-smoke-clear {
+  from {
+    opacity: 0;
+    filter: blur(14px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.qi-smoke-in {
+  animation: qi-smoke-clear 1s ease-out backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-smoke-in {
     animation: none;
   }
 }

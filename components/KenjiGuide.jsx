@@ -111,7 +111,7 @@ export default function KenjiGuide() {
               popping in. */}
           <div
             aria-hidden="true"
-            className="smoke-in absolute bottom-[calc(100%-6px)] right-6 z-10 h-[8.1rem] w-[3.5rem] sm:bottom-[calc(100%-16px)] sm:right-9 sm:h-[13.1rem] sm:w-[4.5rem]"
+            className="smoke-in absolute bottom-[calc(100%-6px)] right-6 z-10 h-[8.1rem] w-[3.5rem] sm:bottom-[calc(100%-16px)] sm:right-[3.6rem] sm:h-[13.1rem] sm:w-[4.5rem]"
           >
             <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
               {/* A warm backlight behind him, same glow image and

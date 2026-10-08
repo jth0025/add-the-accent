@@ -1,0 +1,23 @@
+/* The koi lie on the wall itself, in the wall's own colour: above the
+   background, below every piece of content. Clipped to the page so the big
+   ones can bleed off the edges without adding scroll width. Each fades in
+   once it has been fitted into a free spot (see KoiLayer.jsx). */
+.koi-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.koi-fish {
+  position: absolute;
+  max-width: none;
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.koi-fish[data-on] {
+  opacity: 1;
+}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PaperClip from "@/components/PaperClip";
+import "./about.css";
 
 export const metadata = { title: "About — Add the Accent" };
 
@@ -545,7 +546,26 @@ export default function AboutPage() {
       {/* Section 02 — Minimalism vs. Maximalism */}
       <section className="paper-journal corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
         <SectionLabel>Section 02</SectionLabel>
-        <h2 className={headingClass}>Minimalism vs. Maximalism</h2>
+
+        {/* The section's own title, set large and editorial — a heavy
+            Playfair with the middle word swung into italic, a fine
+            double rule beneath like a magazine department head. */}
+        <h2 className="mt-5 text-center font-playfair text-[2.9rem] font-black leading-[0.95] tracking-[-0.03em] text-ink sm:text-[4.6rem]">
+          An <span className="about-accent-gleam font-normal italic text-accent">Accent</span>{" "}
+          Note
+        </h2>
+        <div aria-hidden="true" className="mx-auto mt-5 flex max-w-xs flex-col gap-[3px]">
+          <span className="h-[2px] bg-ink" />
+          <span className="h-px bg-ink/60" />
+        </div>
+
+        {/* The old title, now a deck under it — smaller, still set the
+            same editorial way. */}
+        <p className="mt-6 text-center font-playfair text-[1.65rem] font-bold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[2.45rem]">
+          Minimalism{" "}
+          <span className="font-normal italic text-accent">vs.</span>{" "}
+          Maximalism
+        </p>
 
         {/* reads like a dictionary entry for the title */}
         <p className="mt-2 text-center font-serif text-[13px] italic tracking-[0.35em] text-stone/55">

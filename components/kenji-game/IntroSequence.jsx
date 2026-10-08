@@ -21,14 +21,16 @@ import "./intro-sequence.css";
 const SCENES = [
   {
     src: "s01",
+    fsm: 1,
     lines: ["Before a journey asks where you are going,", "it asks who is walking."],
     tr: { mode: "open", ms: 1000 },
     read: 5000,
     fx: 36, fy: 50, zx: 32, zy: 28, zs: 1.1,
-    cx: 52, cy: 87, cw: 70,
+    cx: 52, cy: 87, cw: 84,
   },
   {
     src: "s02",
+    fsm: 0.95,
     lines: ["He learned to listen", "before he learned to move."],
     tr: { mode: "cross", ms: 800 },
     fx: 42, fy: 50, zx: 44, zy: 46, zs: 1.12,
@@ -36,6 +38,7 @@ const SCENES = [
   },
   {
     src: "s03",
+    fsm: 0.95,
     lines: ["Some things are given to us", "before we understand their weight."],
     tr: { mode: "cross", ms: 600 },
     fx: 48, fy: 50, zx: 44, zy: 52, zs: 1.1,
@@ -43,6 +46,7 @@ const SCENES = [
   },
   {
     src: "s04",
+    fsm: 0.85,
     lines: ["And some doors do not open", "until we are willing to descend."],
     tr: { mode: "dip", out: 220, in: 230, color: "#1a0e05" },
     fx: 42, fy: 50, zx: 40, zy: 50, zs: 1.1,
@@ -50,6 +54,7 @@ const SCENES = [
   },
   {
     src: "s05",
+    fsm: 0.6,
     lines: ["The past does not disappear.", "It waits."],
     tr: { mode: "cross", ms: 600 },
     fx: 50, fy: 50, zx: 50, zy: 35, zs: 1.07,
@@ -57,6 +62,7 @@ const SCENES = [
   },
   {
     src: "s06",
+    fsm: 0.9,
     lines: ["Sometimes in silence.", "Sometimes in shadow."],
     tr: { mode: "cross", ms: 800 },
     fx: 62, fy: 50, zx: 68, zy: 42, zs: 1.1,
@@ -64,6 +70,7 @@ const SCENES = [
   },
   {
     src: "s07",
+    fsm: 0.6,
     lines: ["Beyond home, the world", "does not explain itself."],
     tr: { mode: "dip", out: 600, in: 700, color: "#000" },
     fx: 50, fy: 50, zx: 50, zy: 35, zs: 1.07,
@@ -71,6 +78,7 @@ const SCENES = [
   },
   {
     src: "s08",
+    fsm: 0.8,
     lines: ["It asks for discipline."],
     tr: { mode: "cross", ms: 500 },
     fx: 50, fy: 50, zx: 50, zy: 60, zs: 1.12,
@@ -78,6 +86,7 @@ const SCENES = [
   },
   {
     src: "s09",
+    fsm: 0.6,
     lines: ["It asks what you remember", "when the familiar falls away."],
     tr: { mode: "cross", ms: 500 },
     fx: 50, fy: 50, zx: 50, zy: 35, zs: 1.07,
@@ -85,6 +94,7 @@ const SCENES = [
   },
   {
     src: "s10",
+    fsm: 0.8,
     lines: ["It asks what you believe", "belongs to you."],
     tr: { mode: "cross", ms: 500 },
     fx: 50, fy: 50, zx: 50, zy: 60, zs: 1.12,
@@ -92,6 +102,7 @@ const SCENES = [
   },
   {
     src: "s11",
+    fsm: 0.6,
     lines: ["It lifts you high enough", "to make certainty feel small."],
     tr: { mode: "cross", ms: 400 },
     fx: 50, fy: 50, zx: 50, zy: 35, zs: 1.07,
@@ -99,6 +110,7 @@ const SCENES = [
   },
   {
     src: "s12",
+    fsm: 0.8,
     lines: ["Wonder and danger", "often share the same horizon."],
     tr: { mode: "cross", ms: 500 },
     fx: 50, fy: 50, zx: 50, zy: 60, zs: 1.12,
@@ -106,6 +118,7 @@ const SCENES = [
   },
   {
     src: "s13",
+    fsm: 0.6,
     lines: ["Some powers protect", "because they cannot be possessed."],
     tr: { mode: "cross", ms: 500 },
     fx: 50, fy: 50, zx: 50, zy: 35, zs: 1.07,
@@ -113,6 +126,7 @@ const SCENES = [
   },
   {
     src: "s14",
+    fsm: 0.8,
     lines: ["Some agreements outlive", "those who first made them."],
     tr: { mode: "cross", ms: 600 },
     fx: 50, fy: 50, zx: 50, zy: 60, zs: 1.12,
@@ -120,6 +134,7 @@ const SCENES = [
   },
   {
     src: "s15",
+    fsm: 0.6,
     lines: ["The road will break.", "The choice will remain."],
     tr: { mode: "dip", out: 350, in: 500, color: "#000" },
     fx: 50, fy: 50, zx: 50, zy: 35, zs: 1.07,
@@ -127,6 +142,7 @@ const SCENES = [
   },
   {
     src: "s16",
+    fsm: 0.8,
     lines: ["When no path is left,", "what you carry within becomes the way."],
     tr: { mode: "cross", ms: 500 },
     fx: 50, fy: 50, zx: 45, zy: 55, zs: 1.12,
@@ -134,6 +150,7 @@ const SCENES = [
   },
   {
     src: "s17",
+    fsm: 0.6,
     lines: ["At the edge of what you sought,", "the question changes."],
     tr: { mode: "cross", ms: 800 },
     fx: 50, fy: 50, zx: 50, zy: 35, zs: 1.07,
@@ -141,6 +158,7 @@ const SCENES = [
   },
   {
     src: "s18",
+    fsm: 0.85,
     lines: [
       "First light is not where you return.",
       "It is what you learn to become.",
@@ -148,18 +166,18 @@ const SCENES = [
     tr: { mode: "cross", ms: 800 },
     fx: 50, fy: 50, zx: 50, zy: 55, zs: 1.12,
     cx: 21, cy: 83, cw: 38,
-    read: 7000,
+    read: 6000,
     final: true,
   },
 ];
 
 // Reading time once all of a scene's text is on screen: a short
 // sentence gets a few seconds, a two-line beat a few more.
-const READ_ONE = 3500;
-const READ_TWO = 4000;
-const LINE_FADE = 1400;
-const LINE_GAP = 1400;
-const TEXT_OUT = 900;
+const READ_ONE = 2900;
+const READ_TWO = 3300;
+const LINE_FADE = 2150;
+const LINE_GAP = 1250;
+const TEXT_OUT = 1200;
 
 const transitionMs = (tr) => (tr.mode === "dip" ? tr.out + tr.in : tr.ms);
 
@@ -178,6 +196,47 @@ SCENES.forEach((s, i) => {
   // The picture keeps creeping while the next scene dissolves over it.
   s.zoomMs = s.hold + (next ? next.trans : 1500) + 800;
 });
+
+// Splits a line into words and letters, each letter on its own gust:
+// a slightly different delay, distance, drift and tilt, so the line
+// is swept in (and later swept away) like it's being blown across.
+// The numbers are derived from the letter's position, so server and
+// client render identically.
+function WindText({ text, base, exitAt, reduced }) {
+  const gust = (n, k) => {
+    const v = Math.sin(n * 12.9898 + k * 78.233) * 43758.5453;
+    return v - Math.floor(v);
+  };
+  let n = 0;
+  const words = text.split(" ");
+  return (
+    <>
+      {words.map((word, wi) => (
+        <span key={wi}>
+          <span className="qi-seq-word">
+            {[...word].map((ch) => {
+              const i = n++;
+              const d = base + i * 18 + gust(i, 1) * 220;
+              const style = {
+                "--d": `${reduced ? base : Math.round(d)}ms`,
+                "--o": `${reduced ? 99999 : Math.round(exitAt + i * 12 + gust(i, 2) * 200)}ms`,
+                "--x": `${Math.round(70 + gust(i, 3) * 110)}px`,
+                "--y": `${Math.round((gust(i, 4) - 0.5) * 34)}px`,
+                "--r": `${((gust(i, 5) - 0.5) * 14).toFixed(1)}deg`,
+              };
+              return (
+                <span key={i} className="qi-seq-ch" style={style}>
+                  {ch}
+                </span>
+              );
+            })}
+          </span>
+          {wi < words.length - 1 ? " " : null}
+        </span>
+      ))}
+    </>
+  );
+}
 
 function Scene({ s, role, nextTr, reducedMotion }) {
   const rm = reducedMotion;
@@ -200,18 +259,15 @@ function Scene({ s, role, nextTr, reducedMotion }) {
   }
 
   const textDelay = rm ? 200 : s.textDelay;
+  const exitAt = rm ? 99999 : s.hold - TEXT_OUT;
   const capStyle = {
     "--cx": s.cx,
     "--cy": s.cy,
     "--cw": s.cw,
+    "--fsm": s.fsm,
     "--td": `${textDelay}ms`,
-    "--tout": `${s.hold - TEXT_OUT}ms`,
-    "--l2": `${textDelay + LINE_GAP}ms`,
+    "--tout": `${exitAt}ms`,
   };
-  if (rm) {
-    capStyle["--l2"] = "300ms";
-    capStyle["--tout"] = "99999ms";
-  }
   const frameStyle = { "--fx": s.fx, "--fy": s.fy };
 
   return (
@@ -235,14 +291,19 @@ function Scene({ s, role, nextTr, reducedMotion }) {
       <div className="qi-seq-cap">
         <div className="qi-seq-frame" style={frameStyle}>
           <div
-            className={`qi-seq-caption font-serif italic ${
+            className={`qi-seq-caption font-serif ${
               s.final ? "qi-seq-caption--final" : ""
             }`}
             style={capStyle}
           >
-            {s.lines.map((line) => (
+            {s.lines.map((line, li) => (
               <p key={line} className="qi-seq-line">
-                {line}
+                <WindText
+                  text={line}
+                  base={textDelay + li * (rm ? 300 : LINE_GAP)}
+                  exitAt={exitAt}
+                  reduced={rm}
+                />
               </p>
             ))}
           </div>

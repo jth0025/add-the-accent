@@ -3,6 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import IntroSequence from "./IntroSequence";
+import PlaqueButton from "./PlaqueButton";
+import ScrollButton from "./ScrollButton";
+import SmudgeLayer from "@/components/SmudgeLayer";
+import Ornament from "./Ornament";
+import FitToScreen from "./FitToScreen";
+import "./game-ornaments.css";
 
 // The seven sacred stages — canon titles only (never "Day 1-7" as
 // in-world language; that's production/UI shorthand, per brief). Each
@@ -245,12 +251,12 @@ function MapOverlay({ variant, unlockedCheck, currentDayIndex }) {
 
 // A small flanking torch — wooden handle, flickering flame — used to
 // frame a panel of lore text.
-function Torch({ side }) {
+function Torch({ side, topClass = "top-6" }) {
   const sideClass = side === "left" ? "-left-2 sm:-left-12" : "-right-2 sm:-right-12";
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute top-6 z-20 flex -translate-y-1/2 flex-col items-center ${sideClass}`}
+      className={`pointer-events-none absolute z-20 flex -translate-y-1/2 flex-col items-center ${topClass} ${sideClass}`}
     >
       <span className="qi-torch-flame block h-6 w-5 sm:h-8 sm:w-6" />
       <span className="block h-10 w-2 rounded-sm bg-gradient-to-b from-[#6b4a2a] via-[#4a3018] to-[#2c1c0d] sm:h-16 sm:w-2.5" />
@@ -329,20 +335,17 @@ function HubTabs({ active, onSelect }) {
     { key: "items", label: "The Legend" },
   ];
   return (
-    <div className="mx-auto mb-10 flex w-fit gap-2 rounded-full border border-[var(--qi-gold)]/25 bg-black/30 p-1">
+    <div className="mx-auto mb-10 flex w-fit flex-wrap justify-center gap-2">
       {tabs.map((t) => (
-        <button
+        <PlaqueButton
           key={t.key}
-          type="button"
+          nav
+          size="xs"
+          dim={active !== t.key}
           onClick={() => onSelect(t.key)}
-          className={`rounded-full px-5 py-2 font-mono text-[11px] uppercase tracking-widest transition-colors ${
-            active === t.key
-              ? "bg-[var(--qi-gold)] text-[var(--qi-ink)]"
-              : "text-[var(--qi-ivory)]/60 hover:text-[var(--qi-ivory)]"
-          }`}
         >
           {t.label}
-        </button>
+        </PlaqueButton>
       ))}
     </div>
   );
@@ -592,6 +595,18 @@ export default function QuestIntro() {
 
   const showSkip = ["idle", "montage"].includes(phase);
 
+  // "Skip Intro" fades back to a low opacity a couple of seconds after it
+  // appears; hovering it brings it back to full (see intro-sequence.css).
+  const [skipDim, setSkipDim] = useState(false);
+  useEffect(() => {
+    if (!showSkip) {
+      setSkipDim(false);
+      return undefined;
+    }
+    const t = window.setTimeout(() => setSkipDim(true), 2500);
+    return () => window.clearTimeout(t);
+  }, [showSkip]);
+
   if (phase === "boot" && !loadingTarget) {
     return <div className="qi-root fixed inset-0 z-50" />;
   }
@@ -599,17 +614,20 @@ export default function QuestIntro() {
   return (
     <div
       ref={rootRef}
-      className="qi-root fixed inset-0 z-50 overflow-hidden font-serif"
+      className="qi-root qi-smoke-in fixed inset-0 z-50 overflow-hidden font-serif"
     >
       {loadingTarget && <LoadingScreen />}
       {showSkip && (
-        <button
-          type="button"
+        <PlaqueButton
+          nav
+          size="xs"
           onClick={goMenu}
-          className="absolute right-4 top-4 z-50 rounded-full border border-[var(--qi-gold)]/40 bg-black/40 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-[var(--qi-ivory)]/80 backdrop-blur-sm transition-colors hover:border-[var(--qi-gold)] hover:text-[var(--qi-gold)] sm:right-6 sm:top-6"
+          className={`qi-skip absolute right-3 top-3 z-50 sm:right-5 sm:top-5 ${
+            skipDim ? "qi-skip--dim" : ""
+          }`}
         >
           Skip Intro
-        </button>
+        </PlaqueButton>
       )}
 
       {/* ---------------- IDLE: black / breath ---------------- */}
@@ -658,7 +676,7 @@ export default function QuestIntro() {
       {/* ---------------- MENU: Kenji resolves, title drops, menu rises ---------------- */}
       {phase === "menu" && (
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center gap-4 overflow-y-auto px-6 py-10 text-center"
+          className="absolute inset-0 overflow-hidden text-center"
           style={{ background: "var(--qi-ink)" }}
         >
           {/* The screen starts completely black (just the container
@@ -672,7 +690,13 @@ export default function QuestIntro() {
                 "linear-gradient(160deg, #16241a 0%, #1c2f1e 35%, #2a2312 70%, #1a1409 100%)",
             }}
           />
+          {/* Smudged wall: dark soft marks over the gradient, fading in
+              with it. */}
+          <SmudgeLayer variant="menu" className="qi-bg-fade" />
 
+          {/* Everything on the menu stays in view, whatever the screen:
+              it is scaled down to fit when the window is short or narrow. */}
+          <FitToScreen className="flex w-full max-w-md flex-col items-center gap-4 px-2">
           {/* Title — drops in from above once Kenji has fully resolved,
               the mark itself catching a slow, consistent light glare. */}
           <div className="qi-drop-in relative z-10 w-full max-w-xs sm:max-w-sm">
@@ -738,69 +762,45 @@ export default function QuestIntro() {
             {menuOnly ? (
               <>
                 {["Begin the Quest", "Enter the Lore", "The Legend"].map(
-                  (label, i) => (
-                    <button
-                      key={label}
-                      type="button"
-                      disabled
-                      aria-disabled="true"
-                      className={`cursor-not-allowed rounded-full font-mono uppercase tracking-widest text-white/30 ${
-                        i === 0
-                          ? "bg-white/10 px-8 py-3 text-xs font-bold"
-                          : "border border-white/15 px-6 py-2.5 text-[11px]"
-                      }`}
-                    >
+                  (label) => (
+                    <ScrollButton key={label} disabled>
                       {label}
-                    </button>
+                    </ScrollButton>
                   ),
                 )}
               </>
             ) : (
               <>
-                <button
-                  type="button"
-                  onClick={() => goTo("levels")}
-                  className="rounded-full bg-[var(--qi-gold)] px-8 py-3 font-mono text-xs font-bold uppercase tracking-widest text-[var(--qi-ink)] shadow-lg transition-transform hover:scale-[1.03]"
-                >
+                <ScrollButton big onClick={() => goTo("levels")}>
                   Begin the Quest
-                </button>
-                <button
-                  type="button"
-                  onClick={() => goTo("lore")}
-                  className="rounded-full border border-[var(--qi-gold)]/50 px-6 py-2.5 font-mono text-[11px] uppercase tracking-widest text-[var(--qi-ivory)]/80 transition-colors hover:border-[var(--qi-gold)] hover:text-[var(--qi-gold)]"
-                >
+                </ScrollButton>
+                <ScrollButton onClick={() => goTo("lore")}>
                   Enter the Lore
-                </button>
-                <button
-                  type="button"
-                  onClick={() => goTo("items")}
-                  className="rounded-full border border-[var(--qi-gold)]/50 px-6 py-2.5 font-mono text-[11px] uppercase tracking-widest text-[var(--qi-ivory)]/80 transition-colors hover:border-[var(--qi-gold)] hover:text-[var(--qi-gold)]"
-                >
+                </ScrollButton>
+                <ScrollButton onClick={() => goTo("items")}>
                   The Legend
-                </button>
+                </ScrollButton>
               </>
             )}
-            <button
-              type="button"
+            <ScrollButton
+              dim={!menuOnly}
               onClick={() => {
                 setPhase("idle");
               }}
-              className={
-                menuOnly
-                  ? "mt-1 rounded-full border border-[var(--qi-gold)] px-6 py-2.5 font-mono text-[11px] font-bold uppercase tracking-widest text-[var(--qi-gold)] transition-colors hover:bg-[var(--qi-gold)] hover:text-[var(--qi-ink)]"
-                  : "mt-1 font-mono text-[10px] uppercase tracking-widest text-[var(--qi-ivory)]/40 hover:text-[var(--qi-ivory)]/70"
-              }
             >
               Replay Intro
-            </button>
+            </ScrollButton>
           </div>
+          </FitToScreen>
 
-          <Link
+          <PlaqueButton
+            nav
             href="/kenji-quest"
-            className="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-widest text-[var(--qi-ivory)]/50 hover:text-[var(--qi-gold)] sm:left-6 sm:top-6"
+            size="sm"
+            className="absolute left-3 top-3 sm:left-5 sm:top-5"
           >
             &larr; Add the Accent
-          </Link>
+          </PlaqueButton>
         </div>
       )}
 
@@ -808,45 +808,62 @@ export default function QuestIntro() {
       {phase === "lore" && (
         <div className="qi-fade-enter absolute inset-0 overflow-y-auto px-6 py-16 sm:px-10">
           <div className="mx-auto max-w-3xl">
-            <button
-              type="button"
+            <PlaqueButton
+              nav
+              size="xs"
+              className="mb-8"
               onClick={() => setPhase("menu")}
-              className="mb-8 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-[var(--qi-gold)] hover:underline"
             >
               &larr; Back
-            </button>
+            </PlaqueButton>
 
-            <h2 className="text-center font-cinema text-2xl uppercase tracking-wide text-[var(--qi-ivory)] sm:text-4xl">
-              Lore of the Reach
-            </h2>
-            <span
-              aria-hidden="true"
-              className="mt-2 block text-center font-tribal text-3xl text-black sm:text-4xl"
-              style={{
-                textShadow:
-                  "0 0 6px rgba(241,230,207,0.5), 0 1px 0 rgba(241,230,207,0.25)",
-              }}
-            >
-              伝
-            </span>
+            {/* The title and its symbol sit in front of a copy of the logo
+                backlight rising over a horizon line beneath them, like
+                a sunrise. */}
+            <div className="relative pb-8 pt-12">
+              <div aria-hidden="true" className="qo-sunrise">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo-backlight.png" alt="" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo-backlight.png" alt="" />
+              </div>
+              <h2 className="relative z-10 text-center font-cinema text-2xl uppercase tracking-wide text-[var(--qi-ivory)] sm:text-4xl">
+                Lore of the Reach
+              </h2>
+              <span
+                aria-hidden="true"
+                className="relative z-10 mt-2 block text-center font-tribal text-3xl text-black sm:text-4xl"
+                style={{
+                  textShadow:
+                    "0 0 6px rgba(241,230,207,0.5), 0 1px 0 rgba(241,230,207,0.25)",
+                }}
+              >
+                伝
+              </span>
+            </div>
           </div>
 
           {/* The map, same size as its counterpart on The Path — wide
               enough to actually read the stage markers, so it breaks
               out of the narrower text column above and below it. */}
-          <div className="relative mx-auto mt-8 w-full max-w-6xl overflow-hidden rounded-xl border border-[var(--qi-gold)]/25 shadow-2xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/kenji-game/reach-map-landscape.jpg"
-              alt="A lore map of the Kuroshio Reach, tracing the seven sacred stages from The Inheritance to First Light"
-              className="hidden w-full sm:block"
-            />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/kenji-game/reach-map-portrait.jpg"
-              alt="A lore map of the Kuroshio Reach, tracing the seven sacred stages from The Inheritance to First Light"
-              className="block w-full sm:hidden"
-            />
+          <div className="relative mx-auto mt-8 w-full max-w-6xl">
+            <Ornament src="/kenji-ui/ornament-vertical.webp" className="qo-orn--side qo-orn--side-l" delay={0} />
+            <Ornament src="/kenji-ui/ornament-vertical.webp" className="qo-orn--side qo-orn--side-r" delay={2.7} />
+            <div className="relative w-full overflow-hidden rounded-xl border border-[var(--qi-gold)]/25 shadow-2xl">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/kenji-game/reach-map-landscape.jpg"
+                alt="A lore map of the Kuroshio Reach, tracing the seven sacred stages from The Inheritance to First Light"
+                className="hidden w-full sm:block"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/kenji-game/reach-map-portrait.jpg"
+                alt="A lore map of the Kuroshio Reach, tracing the seven sacred stages from The Inheritance to First Light"
+                className="block w-full sm:hidden"
+              />
+              <span aria-hidden="true" className="qo-map-gleam" />
+            </div>
           </div>
           <p className="mx-auto mt-4 max-w-sm text-center text-xs text-[var(--qi-ivory)]/50">
             Seven sacred stages. Track your progress and choose one on The
@@ -861,8 +878,8 @@ export default function QuestIntro() {
             <div className="relative mx-auto mt-12 max-w-lg">
               {/* Two flaming torches flanking the panel, just outside
                   its edges. */}
-              <Torch side="left" />
-              <Torch side="right" />
+              <Torch side="left" topClass="top-[12rem] sm:top-[14rem]" />
+              <Torch side="right" topClass="top-[12rem] sm:top-[14rem]" />
               <div className="qi-panel rounded-xl p-6 sm:p-8">
                 <p className="text-center font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--qi-gold)]">
                   The Forgotten Samurai
@@ -871,7 +888,7 @@ export default function QuestIntro() {
                 <img
                   src="/kenji-meditating.png"
                   alt="Kenji seated in quiet meditation"
-                  className="float-left mr-4 mt-3 w-28 rounded-lg drop-shadow-[0_8px_12px_rgba(0,0,0,0.4)] sm:w-36"
+                  className="kenji-levitate float-left mr-4 mt-3 w-28 rounded-lg drop-shadow-[0_8px_12px_rgba(0,0,0,0.4)] sm:w-36"
                 />
                 <p className="mt-5 text-sm leading-relaxed text-[var(--qi-ivory)]/85">
                   Before Level One, before the empty room, there was only
@@ -970,13 +987,9 @@ export default function QuestIntro() {
             </div>
 
             <div className="mt-12 flex justify-center gap-3">
-              <button
-                type="button"
-                onClick={() => goTo("levels")}
-                className="rounded-full bg-[var(--qi-gold)] px-8 py-3 font-mono text-xs font-bold uppercase tracking-widest text-[var(--qi-ink)] shadow-lg transition-transform hover:scale-[1.03]"
-              >
+              <PlaqueButton nav size="lg" onClick={() => goTo("levels")}>
                 Begin the Quest
-              </button>
+              </PlaqueButton>
             </div>
           </div>
         </div>
@@ -1012,13 +1025,14 @@ export default function QuestIntro() {
           className="qi-fade-enter absolute inset-0 overflow-y-auto px-6 py-16 sm:px-10"
           style={{ background: "#2a2a2a" }}
         >
-          <button
-            type="button"
-            onClick={() => setPhase("menu")}
-            className="mb-8 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-[var(--qi-gold)] hover:underline"
-          >
-            &larr; Menu
-          </button>
+          <PlaqueButton
+              nav
+              size="xs"
+              className="mb-8"
+              onClick={() => setPhase("menu")}
+            >
+              &larr; Menu
+            </PlaqueButton>
 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -1160,29 +1174,34 @@ export default function QuestIntro() {
           {/* The map again, for reference right below the stages —
               nearly full width, with just enough margin to read as
               framed rather than edge-to-edge. */}
-          <div className="relative mx-auto mt-10 w-full max-w-6xl overflow-hidden rounded-xl border border-[var(--qi-gold)]/25 shadow-2xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/kenji-game/reach-map-landscape.jpg"
-              alt="A lore map of the Kuroshio Reach, tracing the seven sacred stages from The Inheritance to First Light"
-              className="hidden w-full sm:block"
-            />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/kenji-game/reach-map-portrait.jpg"
-              alt="A lore map of the Kuroshio Reach, tracing the seven sacred stages from The Inheritance to First Light"
-              className="block w-full sm:hidden"
-            />
-            <MapOverlay
-              variant="landscape"
-              unlockedCheck={isUnlocked}
-              currentDayIndex={currentDayIndex}
-            />
-            <MapOverlay
-              variant="portrait"
-              unlockedCheck={isUnlocked}
-              currentDayIndex={currentDayIndex}
-            />
+          <div className="relative mx-auto mt-10 w-full max-w-6xl">
+            <Ornament src="/kenji-ui/ornament-vertical.webp" className="qo-orn--side qo-orn--side-l" delay={0} />
+            <Ornament src="/kenji-ui/ornament-vertical.webp" className="qo-orn--side qo-orn--side-r" delay={2.7} />
+            <div className="relative w-full overflow-hidden rounded-xl border border-[var(--qi-gold)]/25 shadow-2xl">
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/kenji-game/reach-map-landscape.jpg"
+                  alt="A lore map of the Kuroshio Reach, tracing the seven sacred stages from The Inheritance to First Light"
+                  className="hidden w-full sm:block"
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/kenji-game/reach-map-portrait.jpg"
+                  alt="A lore map of the Kuroshio Reach, tracing the seven sacred stages from The Inheritance to First Light"
+                  className="block w-full sm:hidden"
+                />
+                <MapOverlay
+                  variant="landscape"
+                  unlockedCheck={isUnlocked}
+                  currentDayIndex={currentDayIndex}
+                />
+                <MapOverlay
+                  variant="portrait"
+                  unlockedCheck={isUnlocked}
+                  currentDayIndex={currentDayIndex}
+                />
+        <span aria-hidden="true" className="qo-map-gleam" />
+            </div>
           </div>
 
           {lockedNotice != null && (
@@ -1217,13 +1236,14 @@ export default function QuestIntro() {
           className="qi-fade-enter absolute inset-0 overflow-y-auto px-6 py-16 sm:px-10"
           style={{ background: "#2a2a2a" }}
         >
-          <button
-            type="button"
+          <PlaqueButton
+            nav
+            size="xs"
+            className="mb-8"
             onClick={() => setPhase("menu")}
-            className="mb-8 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-[var(--qi-gold)] hover:underline"
           >
             &larr; Menu
-          </button>
+          </PlaqueButton>
 
           <h2 className="text-center font-cinema text-2xl uppercase tracking-wide text-[var(--qi-ivory)] sm:text-4xl">
             The Legend
@@ -1244,7 +1264,12 @@ export default function QuestIntro() {
 
           <HubTabs active="items" onSelect={setPhase} />
 
-          <div className="mx-auto grid max-w-2xl grid-cols-2 gap-6 sm:grid-cols-3">
+          <div className="relative mx-auto max-w-2xl px-6 py-6 sm:px-9 sm:py-9">
+            <Ornament src="/kenji-ui/corner-triquetra.webp" className="qo-orn--corner qo-orn--tl" delay={0} />
+            <Ornament src="/kenji-ui/corner-triquetra.webp" className="qo-orn--corner qo-orn--tr" delay={1.4} />
+            <Ornament src="/kenji-ui/corner-triquetra.webp" className="qo-orn--corner qo-orn--br" delay={2.8} />
+            <Ornament src="/kenji-ui/corner-triquetra.webp" className="qo-orn--corner qo-orn--bl" delay={4.2} />
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3">
             {ITEMS.map((item) => {
               const collected = isItemCollected(item);
               return (
@@ -1296,6 +1321,7 @@ export default function QuestIntro() {
               );
             })}
           </div>
+          </div>
         </div>
       )}
 
@@ -1343,13 +1369,14 @@ export default function QuestIntro() {
               className="absolute inset-0 h-full w-full object-cover object-[center_30%]"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--qi-ink)] via-[var(--qi-ink)]/10 to-[var(--qi-ink)]/40" />
-            <button
-              type="button"
+            <PlaqueButton
+              nav
+              size="xs"
+              className="absolute left-3 top-3 z-10 sm:left-5 sm:top-5"
               onClick={() => setPhase("menu")}
-              className="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-widest text-[var(--qi-ivory)]/70 hover:text-[var(--qi-gold)] sm:left-6 sm:top-6"
             >
               &larr; Menu
-            </button>
+            </PlaqueButton>
             <div className="absolute inset-x-0 bottom-0 px-6 pb-8 text-center sm:pb-10">
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--qi-gold)]">
                 I &middot; The Inheritance
@@ -1407,12 +1434,9 @@ export default function QuestIntro() {
                   placeholder="What am I?"
                   className="mx-auto mt-5 block w-full max-w-xs rounded-full border border-[var(--qi-gold)]/40 bg-black/30 px-4 py-2.5 text-center text-sm text-[var(--qi-ivory)] outline-none placeholder:text-[var(--qi-ivory)]/40 focus:border-[var(--qi-gold)]"
                 />
-                <button
-                  type="submit"
-                  className="mx-auto mt-4 block rounded-full bg-[var(--qi-gold)] px-6 py-2 font-mono text-[11px] font-bold uppercase tracking-widest text-[var(--qi-ink)] transition-transform hover:scale-[1.03]"
-                >
+                <PlaqueButton type="submit" size="sm" className="mx-auto mt-4">
                   Answer
-                </button>
+                </PlaqueButton>
                 {riddleHint && (
                   <p className="mt-4 text-xs text-[var(--qi-ivory)]/60">
                     Not quite. Look at what the shaft from above is
@@ -1452,14 +1476,14 @@ export default function QuestIntro() {
                   </strong>{" "}
                   rise out of the mist.
                 </p>
-                <button
-                  type="button"
+                <PlaqueButton
+                  nav
+                  size="xl"
+                  className="mx-auto mt-6"
                   onClick={() => goTo("levels")}
-                  className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-[var(--qi-gold)] px-6 py-2.5 font-mono text-[11px] font-bold uppercase tracking-widest text-[var(--qi-ink)] transition-transform hover:scale-[1.03]"
                 >
-                  Return to the Path
-                  <span aria-hidden="true">&rarr;</span>
-                </button>
+                  Return to the Path &rarr;
+                </PlaqueButton>
               </div>
             )}
           </div>
@@ -1477,13 +1501,14 @@ export default function QuestIntro() {
               className="absolute inset-0 h-full w-full object-cover object-[center_30%]"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--qi-ink)] via-[var(--qi-ink)]/10 to-[var(--qi-ink)]/40" />
-            <button
-              type="button"
+            <PlaqueButton
+              nav
+              size="xs"
+              className="absolute left-3 top-3 z-10 sm:left-5 sm:top-5"
               onClick={() => setPhase("menu")}
-              className="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-widest text-[var(--qi-ivory)]/70 hover:text-[var(--qi-gold)] sm:left-6 sm:top-6"
             >
               &larr; Menu
-            </button>
+            </PlaqueButton>
             <div className="absolute inset-x-0 bottom-0 px-6 pb-8 text-center sm:pb-10">
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--qi-gold)]">
                 II &middot; The Warden City
@@ -1584,12 +1609,9 @@ export default function QuestIntro() {
                   placeholder="What am I?"
                   className="mx-auto mt-5 block w-full max-w-xs rounded-full border border-[var(--qi-gold)]/40 bg-black/30 px-4 py-2.5 text-center text-sm text-[var(--qi-ivory)] outline-none placeholder:text-[var(--qi-ivory)]/40 focus:border-[var(--qi-gold)]"
                 />
-                <button
-                  type="submit"
-                  className="mx-auto mt-4 block rounded-full bg-[var(--qi-gold)] px-6 py-2 font-mono text-[11px] font-bold uppercase tracking-widest text-[var(--qi-ink)] transition-transform hover:scale-[1.03]"
-                >
+                <PlaqueButton type="submit" size="sm" className="mx-auto mt-4">
                   Answer
-                </button>
+                </PlaqueButton>
                 {riddle2Hint && (
                   <p className="mt-4 text-xs text-[var(--qi-ivory)]/60">
                     Not quite. Isao already told you what Kosei really
@@ -1633,14 +1655,14 @@ export default function QuestIntro() {
                   </strong>{" "}
                   is still being built.
                 </p>
-                <button
-                  type="button"
+                <PlaqueButton
+                  nav
+                  size="xl"
+                  className="mx-auto mt-6"
                   onClick={() => goTo("levels")}
-                  className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-[var(--qi-gold)] px-6 py-2.5 font-mono text-[11px] font-bold uppercase tracking-widest text-[var(--qi-ink)] transition-transform hover:scale-[1.03]"
                 >
-                  Return to the Path
-                  <span aria-hidden="true">&rarr;</span>
-                </button>
+                  Return to the Path &rarr;
+                </PlaqueButton>
               </div>
             )}
           </div>

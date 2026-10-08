@@ -1,0 +1,347 @@
+/* Gold ornaments, plaque buttons and the lore sunrise for the game
+   screens. Kept out of app/globals.css so it ships on its own. */
+
+/* ---------- Plaque button ---------- */
+.qo-plaque:not(.absolute) {
+  position: relative;
+}
+
+.qo-plaque {
+  display: block;
+  container-type: inline-size;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.55));
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    filter 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.qo-plaque--xs {
+  width: 210px;
+}
+.qo-plaque--sm {
+  width: 240px;
+}
+.qo-plaque--md {
+  width: 280px;
+}
+.qo-plaque--lg {
+  width: 320px;
+}
+.qo-plaque--xl {
+  width: 370px;
+}
+
+.qo-plaque img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+.qo-plaque:hover,
+.qo-plaque:focus-visible {
+  transform: scale(1.04);
+  outline: none;
+}
+
+.qo-plaque-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1%;
+  font-family: var(--font-cinema), serif;
+  font-size: max(10px, 4.4cqw);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #3b2410;
+  text-shadow: 0 1px 0 rgba(255, 238, 190, 0.55);
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+/* Light that crosses the plaque, only over the gold (masked to its own
+   shape), on buttons that take you to another screen. */
+.qo-plaque-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-mask-image: url("/kenji-ui/enter-plaque.webp");
+  mask-image: url("/kenji-ui/enter-plaque.webp");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 244, 200, 0.7) 48%,
+    rgba(255, 255, 240, 0.95) 50%,
+    rgba(255, 244, 200, 0.7) 52%,
+    transparent 62%
+  );
+  background-size: 300% 100%;
+  background-position: 130% 0;
+  mix-blend-mode: screen;
+}
+
+.qo-plaque--nav:hover .qo-plaque-sheen,
+.qo-plaque--nav:focus-visible .qo-plaque-sheen {
+  opacity: 1;
+  animation: qo-sheen 1.2s ease-out both;
+}
+
+@keyframes qo-sheen {
+  from {
+    background-position: 130% 0;
+  }
+  to {
+    background-position: -30% 0;
+  }
+}
+
+.qo-plaque--nav:hover .qo-plaque-text,
+.qo-plaque--nav:focus-visible .qo-plaque-text {
+  color: #fff;
+  text-shadow:
+    0 0 4px #fff,
+    0 0 10px rgba(255, 224, 138, 1),
+    0 0 20px rgba(255, 184, 48, 0.95),
+    0 0 34px rgba(255, 150, 20, 0.8),
+    0 1px 1px rgba(60, 30, 5, 0.9),
+    0 -1px 1px rgba(60, 30, 5, 0.55);
+}
+
+.qo-plaque--dim {
+  opacity: 0.62;
+  filter: saturate(0.6) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.55));
+}
+
+.qo-plaque:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+  filter: grayscale(1) brightness(0.7) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.55));
+}
+
+.qo-plaque:disabled:hover {
+  transform: none;
+}
+
+/* ---------- Ornaments ---------- */
+.qo-orn {
+  position: absolute;
+  z-index: 25;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.55));
+}
+
+.qo-orn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.qo-orn-gleam {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: var(--orn);
+  mask-image: var(--orn);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  background: linear-gradient(
+    125deg,
+    transparent 38%,
+    rgba(255, 246, 214, 0.55) 46%,
+    rgba(255, 255, 240, 0.95) 50%,
+    rgba(255, 246, 214, 0.55) 54%,
+    transparent 62%
+  );
+  background-size: 320% 100%;
+  background-position: 130% 0;
+  mix-blend-mode: screen;
+  animation: qo-orn-gleam 5.5s ease-in-out infinite;
+  animation-delay: var(--qo-delay, 0s);
+}
+
+@keyframes qo-orn-gleam {
+  0% {
+    background-position: 130% 0;
+  }
+  42% {
+    background-position: -30% 0;
+  }
+  100% {
+    background-position: -30% 0;
+  }
+}
+
+/* Map frame: tall gold ornaments on both sides, standing just outside the
+   map (never over it) and smaller than before. They may reach into the
+   padding around the map. The rule is the same for every map in the game. */
+.qo-orn--side {
+  top: 50%;
+  /* Phones: only the ~24px of padding beside the map to stand in. */
+  height: 52px;
+  aspect-ratio: 420 / 1028;
+}
+.qo-orn--side-l {
+  right: 100%;
+  margin-right: 2px;
+  transform: translateY(-50%);
+}
+.qo-orn--side-r {
+  left: 100%;
+  margin-left: 2px;
+  transform: translateY(-50%);
+}
+@media (min-width: 640px) {
+  .qo-orn--side {
+    height: clamp(110px, 24%, 190px);
+  }
+  .qo-orn--side-l {
+    margin-right: 8px;
+  }
+  .qo-orn--side-r {
+    margin-left: 8px;
+  }
+}
+
+/* Legend corners: four triquetras. */
+.qo-orn--corner {
+  width: clamp(76px, 20vw, 120px);
+  aspect-ratio: 1 / 1;
+}
+.qo-orn--tl {
+  top: -14px;
+  left: -14px;
+}
+.qo-orn--tr {
+  top: -14px;
+  right: -14px;
+  transform: scaleX(-1);
+}
+.qo-orn--bl {
+  bottom: -14px;
+  left: -14px;
+  transform: scaleY(-1);
+}
+.qo-orn--br {
+  bottom: -14px;
+  right: -14px;
+  transform: scale(-1, -1);
+}
+
+/* A soft light that drifts across every map's surface now and then. */
+.qo-map-gleam {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 240, 190, 0.22) 48%,
+    rgba(255, 250, 225, 0.38) 50%,
+    rgba(255, 240, 190, 0.22) 52%,
+    transparent 60%
+  );
+  background-size: 300% 100%;
+  background-position: 130% 0;
+  mix-blend-mode: soft-light;
+  animation: qo-map-gleam 9s ease-in-out infinite;
+}
+
+@keyframes qo-map-gleam {
+  0% {
+    background-position: 130% 0;
+  }
+  40% {
+    background-position: -30% 0;
+  }
+  100% {
+    background-position: -30% 0;
+  }
+}
+
+/* ---------- Lore title sunrise ---------- */
+.qo-sunrise {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(900px, 100%);
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, 50%);
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 43%, transparent 50%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 43%, transparent 50%);
+}
+
+.qo-sunrise img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: sepia(1) saturate(5) hue-rotate(-14deg) brightness(2.6)
+    drop-shadow(0 0 28px rgba(255, 150, 40, 0.9));
+  transform-origin: 50% 100%;
+  animation:
+    qo-sunrise-rise 5.5s cubic-bezier(0.22, 0.8, 0.3, 1) both,
+    qo-sunrise-glow 7s ease-in-out 5.5s infinite;
+}
+
+.qo-sunrise img + img {
+  inset: 18% 18% 0 18%;
+  width: 64%;
+  height: 82%;
+  animation-delay: 0.6s, 6.1s;
+}
+
+@keyframes qo-sunrise-rise {
+  from {
+    opacity: 0;
+    transform: translateY(30%) scale(0.8);
+  }
+  to {
+    opacity: 0.95;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes qo-sunrise-glow {
+  0%,
+  100% {
+    opacity: 0.95;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.78;
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qo-orn-gleam,
+  .qo-map-gleam {
+    animation: none;
+    opacity: 0;
+  }
+  .qo-sunrise img {
+    animation: none;
+    opacity: 0.9;
+  }
+}
