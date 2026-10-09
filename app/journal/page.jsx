@@ -177,7 +177,7 @@ export default function JournalIndex({ searchParams }) {
             src="/journal-art/archive-crate.webp"
             alt="A wooden figure in a cap surfing a crate of records and handwritten pages"
             loading="lazy"
-            className="mx-auto w-48 drop-shadow-[0_14px_16px_rgba(0,0,0,0.4)] sm:mx-0 sm:w-full"
+            className="order-first mx-auto -mb-3 w-60 max-w-full drop-shadow-[0_14px_16px_rgba(0,0,0,0.4)] sm:order-none sm:mx-0 sm:mb-0 sm:w-full"
           />
         </div>
 
