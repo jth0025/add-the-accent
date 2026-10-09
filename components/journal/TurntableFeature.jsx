@@ -50,6 +50,38 @@ export default function TurntableFeature({ entry, allEntries }) {
       <div className="neon-box relative px-5 pb-7 pt-8 sm:pl-12 sm:pr-8 sm:pb-9">
 
       <div className="grid items-center gap-8 sm:grid-cols-[auto,1fr] lg:grid-cols-[auto,1fr,auto] lg:gap-10">
+        {/* Phones: a pen lies flat above the sleeve. */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 190 28"
+          className="-mb-3 mx-auto block h-7 w-[12rem] drop-shadow-[2px_4px_4px_rgba(0,0,0,0.5)] sm:hidden"
+        >
+          <defs>
+            <linearGradient id="pen-body-h" x1="0" x2="1">
+              <stop offset="0" stopColor="#0b1220" />
+              <stop offset="0.35" stopColor="#33466b" />
+              <stop offset="0.6" stopColor="#141d33" />
+              <stop offset="1" stopColor="#070b14" />
+            </linearGradient>
+            <linearGradient id="pen-gold-h" x1="0" x2="1">
+              <stop offset="0" stopColor="#8a6420" />
+              <stop offset="0.45" stopColor="#f3d98b" />
+              <stop offset="1" stopColor="#7a561b" />
+            </linearGradient>
+          </defs>
+          <g transform="translate(190 0) rotate(90)">
+            <rect x="6" y="2" width="16" height="132" rx="8" fill="url(#pen-body-h)" />
+            <rect x="5" y="18" width="18" height="5" rx="2" fill="url(#pen-gold-h)" />
+            <rect x="5" y="26" width="18" height="2.5" rx="1" fill="url(#pen-gold-h)" />
+            <rect x="21" y="8" width="3" height="58" rx="1.5" fill="url(#pen-gold-h)" />
+            <path d="M7 130 H21 L18 150 H10 Z" fill="#101827" />
+            <path d="M10 150 H18 L14 188 Z" fill="url(#pen-gold-h)" />
+            <path d="M14 160 V178" stroke="#5b4313" strokeWidth="1" />
+            <circle cx="14" cy="158" r="1.6" fill="#5b4313" />
+            <rect x="9" y="8" width="2.4" height="116" rx="1.2" fill="#fff" opacity="0.22" />
+          </g>
+        </svg>
+
         {/* Phones: the ESSAY's art is the sleeve, with the record sliding
             out of it. (The series art follows at the bottom.) */}
         {collection && (
