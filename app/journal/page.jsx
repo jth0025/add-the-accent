@@ -8,6 +8,9 @@ import SinglesShelf from "@/components/journal/SinglesShelf";
 import ArchiveList from "@/components/journal/ArchiveList";
 import BackCover from "@/components/journal/BackCover";
 import ArchiveCrate from "@/components/journal/ArchiveCrate";
+import SinglesCarousel from "@/components/journal/SinglesCarousel";
+import { formatDate } from "@/lib/formatDate";
+import { readMinutes } from "@/lib/catalog";
 import HeroGear from "@/components/journal/HeroGear";
 import { getAllEntries } from "@/lib/content";
 import {
@@ -128,11 +131,28 @@ export default function JournalIndex({ searchParams }) {
       <section id="singles" className="mt-20 scroll-mt-24">
         <h2 className={`${sectionHeading} text-center`}>The Singles Collection</h2>
         <p className={`${sectionSub} text-center`}>Short reflections &middot; one side, one sitting</p>
-        <div className="mt-8 grid items-start gap-8 sm:grid-cols-[minmax(0,15rem),1fr] sm:gap-10">
+        {/* Phones: a swipeable scroller, the same kind as Long Plays. */}
+        <div className="mt-8 sm:hidden">
+          <SinglesCarousel
+            cover={singlesCollection.cover}
+            href="/journal?category=Interludes"
+            color={singlesCollection.color}
+            ink={singlesCollection.ink}
+            items={singles.map((e) => ({
+              slug: e.slug,
+              title: e.title,
+              titleHtml: e.titleHtml,
+              catalog: catalogNumber(e, allEntries),
+              dateLabel: formatDate(e.date),
+              minutes: readMinutes(e.content),
+            }))}
+          />
+        </div>
+        <div className="mt-8 hidden items-start gap-8 sm:grid sm:grid-cols-[minmax(0,15rem),1fr] sm:gap-10">
           <Link
             href="/journal?category=Interludes"
             aria-label="The Singles Collection — open the sleeve"
-            className="mx-auto block w-full max-w-[15rem] outline-none sm:-mt-3 sm:mx-0"
+            className="mx-auto hidden w-full max-w-[15rem] outline-none sm:-mt-3 sm:mx-0 sm:block"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
