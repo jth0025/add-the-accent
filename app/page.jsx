@@ -217,7 +217,7 @@ export default function HomePage() {
               form.
             </span>
           </p>
-          <p className="mt-5 text-center font-serif text-lg italic text-white">
+          <p className="mt-8 text-center font-serif text-lg italic text-white sm:whitespace-nowrap sm:text-[1.3rem]">
             &ldquo;It&rsquo;s about finding and leaving the mark only you can make.&rdquo;
           </p>
         </div>

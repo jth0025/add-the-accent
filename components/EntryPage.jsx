@@ -8,9 +8,14 @@ import VoiceClip from "@/components/VoiceClip";
 import { getCoverColor } from "@/lib/seriesColors";
 import { ESSAY_ART } from "@/lib/essayArt";
 import { withDropCap } from "@/lib/dropCap";
+import LinerNotes from "@/components/journal/LinerNotes";
 
 export default function EntryPage({ section, backLabel, entry }) {
-  const isJournal = section === "journal";
+  // Journal essays are set as album liner notes (no cover, no page turns,
+  // no paper texture) — see components/journal/LinerNotes.jsx.
+  if (section === "journal") return <LinerNotes entry={entry} />;
+
+  const isJournal = false;
   const art = ESSAY_ART[entry.slug];
   const bodyHtml = isJournal ? withDropCap(entry.html) : entry.html;
   const tagTextClass = isJournal ? "text-moss" : "text-accent";

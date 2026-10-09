@@ -65,3 +65,48 @@
     --lh: 2.6rem;
   }
 }
+
+/* The picture light over "Now showing" is an old fitting: every so often,
+   once lit, it stutters — a few quick dips of the bulb and the cone of
+   light — before steadying again. */
+@keyframes pl-flicker {
+  0%,
+  84%,
+  100% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.25;
+  }
+  86% {
+    opacity: 1;
+  }
+  87.5% {
+    opacity: 0.4;
+  }
+  88.5% {
+    opacity: 0.95;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  91% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 0.6;
+  }
+  93% {
+    opacity: 1;
+  }
+}
+
+.pl-flicker {
+  animation: pl-flicker 9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-flicker {
+    animation: none;
+  }
+}

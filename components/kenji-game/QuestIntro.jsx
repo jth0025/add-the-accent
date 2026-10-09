@@ -312,7 +312,7 @@ function Butterfly({ className = "", wing = true, style }) {
 // entirely and goes straight to "touch the light."
 function LoadingScreen() {
   return (
-    <div className="qi-loading-fade absolute inset-0 flex flex-col items-center justify-center gap-6 bg-[var(--qi-ink)] p-6">
+    <div className="qi-loading-fade absolute inset-0 z-[200] flex flex-col items-center justify-center gap-6 bg-[var(--qi-ink)] p-6">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/kenji-quest-key-art.jpg"
@@ -696,7 +696,7 @@ export default function QuestIntro() {
 
           {/* Everything on the menu stays in view, whatever the screen:
               it is scaled down to fit when the window is short or narrow. */}
-          <FitToScreen className="flex w-full max-w-md flex-col items-center gap-4 px-2">
+          <FitToScreen className="flex w-full max-w-lg flex-col items-center gap-4 px-2">
           {/* Title — drops in from above once Kenji has fully resolved,
               the mark itself catching a slow, consistent light glare. */}
           <div className="qi-drop-in relative z-10 w-full max-w-xs sm:max-w-sm">
@@ -795,9 +795,9 @@ export default function QuestIntro() {
 
           <PlaqueButton
             nav
-            href="/kenji-quest"
+            href="/"
             size="sm"
-            className="absolute left-3 top-3 sm:left-5 sm:top-5"
+            className="absolute left-3 top-3 z-30 sm:left-5 sm:top-5"
           >
             &larr; Add the Accent
           </PlaqueButton>
@@ -1245,7 +1245,14 @@ export default function QuestIntro() {
             &larr; Menu
           </PlaqueButton>
 
-          <h2 className="text-center font-cinema text-2xl uppercase tracking-wide text-[var(--qi-ivory)] sm:text-4xl">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/kenji-game/poses/stance.webp"
+            alt="Kenji in a low stance, a blade raised and a blade drawn"
+            className="qi-item-glow mx-auto w-28 sm:w-32"
+          />
+
+          <h2 className="mt-2 text-center font-cinema text-2xl uppercase tracking-wide text-[var(--qi-ivory)] sm:text-4xl">
             The Legend
           </h2>
           <span
@@ -1327,7 +1334,7 @@ export default function QuestIntro() {
 
       {/* ---------------- STAGE ENTRY: the day's art, full-screen ---------------- */}
       {phase === "dayArt" && (
-        <div className="qi-fade-enter absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[var(--qi-ink)] p-6">
+        <div className="qi-fade-enter absolute inset-0 z-[100] flex flex-col items-center justify-center gap-4 bg-[var(--qi-ink)] p-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={STAGES[dayIntroIndex].full}
@@ -1340,7 +1347,7 @@ export default function QuestIntro() {
       {/* ---------------- STAGE ENTRY: a moment with Kenji ---------------- */}
       {phase === "dayKenji" && (
         <div
-          className="qi-fade-enter absolute inset-0 flex flex-col items-center justify-center gap-5 p-6"
+          className="qi-fade-enter absolute inset-0 z-[100] flex flex-col items-center justify-center gap-5 p-6"
           style={{
             background:
               "linear-gradient(160deg, #16241a 0%, #1c2f1e 35%, #2a2312 70%, #1a1409 100%)",

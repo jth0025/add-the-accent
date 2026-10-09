@@ -305,14 +305,25 @@ export default function KenjiQuestPage() {
           "right-full mr-2 xl:mr-5",
           "left-full ml-2 xl:ml-5",
         ].map((side) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <div
             key={side}
-            src="/kenji-ui/warrior.webp"
-            alt=""
             aria-hidden="true"
-            className={`pointer-events-none absolute -bottom-16 hidden h-auto w-28 lg:block xl:w-40 ${side}`}
-          />
+            className={`pointer-events-none absolute -bottom-16 hidden w-28 lg:block xl:w-40 ${side}`}
+          >
+            {/* The ground under his feet: a soft, dark pool lying on the
+                footer's edge, with the soles planted in the middle of it. */}
+            <span className="absolute inset-x-[2%] bottom-[-2px] h-3 rounded-[50%] bg-black/75 blur-[3px]" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/kenji-ui/warrior.webp"
+              alt=""
+              className="relative block h-auto w-full"
+              style={{ transform: "translateY(-5px)" }}
+            />
+            {/* A small glint on the spear's tip — both guards catch the
+                light at the same moment. */}
+            <span className="kq-spear-flare" />
+          </div>
         ))}
       <section className="paper-fold-quarters corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 text-center sm:px-10">
         <SectionLabel>Right Now</SectionLabel>

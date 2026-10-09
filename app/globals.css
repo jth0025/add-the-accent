@@ -2625,35 +2625,169 @@ html.header-raining .header-rain {
   }
 }
 
-/* JT's signature mark: shown solid in its own colour, with a silver gleam
-   that sweeps across it at a tilt, then rests between passes. Hovering (or
-   focusing) it lights it like a spotlight — the whole screen dims except a
-   soft pool of light around the mark (the overlay's centre comes from the
-   --jt-* vars SignatureMark.jsx sets). Clicking it puts the light out. */
+/* JT's signature mark: solid black until the light comes. Every so often
+   (rarely) a silver gleam crosses it quickly, left to right at a tilt,
+   and leaves the signature as a lens flare on the tip of the "t". Hovering
+   (or focusing) it lights it like a spotlight — the whole screen dims
+   except a soft pool of light around the mark (the overlay's centre comes
+   from the --jt-* vars SignatureMark.jsx sets). Clicking it puts the light
+   out. */
+.jt-mark-img {
+  filter: brightness(0);
+}
+
+/* One cycle: the sweep takes the first 11% (about 1.2s), then a long rest. */
 @keyframes jt-mark-gleam-sweep {
   0% {
-    background-position: 170% 0;
+    background-position: 105% 0;
   }
-  45% {
-    background-position: -70% 0;
+  11% {
+    background-position: -35% 0;
   }
   100% {
-    background-position: -70% 0;
+    background-position: -35% 0;
   }
 }
 
 .jt-mark-gleam {
+  /* A thin blade of light (about a tenth of the signature's width). */
   background: linear-gradient(
     122deg,
-    transparent 22%,
-    rgba(214, 222, 236, 0.75) 42%,
+    transparent 46.5%,
+    rgba(214, 222, 236, 0.85) 48.8%,
     rgba(255, 255, 255, 1) 50%,
-    rgba(214, 222, 236, 0.75) 58%,
-    transparent 78%
+    rgba(214, 222, 236, 0.85) 51.2%,
+    transparent 53.5%
   );
   background-size: 250% 100%;
-  background-position: 170% 0;
-  animation: jt-mark-gleam-sweep 6s ease-in-out infinite;
+  background-position: 105% 0;
+  animation: jt-mark-gleam-sweep 11s linear infinite;
+}
+
+/* The flare: a small hot core with a thin cross of light, flashing as the
+   gleam's bright edge reaches the tip (about 61% of the way through the
+   sweep) and lingers for about a second and a half before it fades. */
+.jt-flare {
+  position: absolute;
+  left: 97.8%;
+  top: 16.4%;
+  width: 5%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    #fff 0%,
+    rgba(255, 250, 225, 0.95) 12%,
+    rgba(255, 228, 160, 0.4) 30%,
+    transparent 62%
+  );
+  animation: jt-flare-flash 11s linear infinite;
+}
+
+.jt-flare::before,
+.jt-flare::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.jt-flare::before {
+  width: 280%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 244, 210, 0.85) 45%,
+    #fff 50%,
+    rgba(255, 244, 210, 0.85) 55%,
+    transparent
+  );
+}
+
+.jt-flare::after {
+  width: 1px;
+  height: 200%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 244, 210, 0.7) 45%,
+    #fff 50%,
+    rgba(255, 244, 210, 0.7) 55%,
+    transparent
+  );
+}
+
+@keyframes jt-flare-flash {
+  0%,
+  6.4% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  7% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  9.5% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+  20.6%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+/* "who is" up at the top left of the signature and a "?" on its right —
+   they appear only while it is hovered, and go the moment it is clicked. */
+.jt-who,
+.jt-q {
+  position: absolute;
+  pointer-events: none;
+  white-space: nowrap;
+  line-height: 1;
+  color: #f4ead0;
+  opacity: 0;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.jt-who {
+  left: 3%;
+  top: -9%;
+  font-family: var(--font-hand), cursive;
+  font-size: 1.9rem;
+  transform: translateY(8px) rotate(-7deg);
+}
+
+.jt-q {
+  right: -6%;
+  top: 14%;
+  font-family: var(--font-playfair), serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 3.4rem;
+  transform: translateX(-8px) rotate(8deg);
+}
+
+.jt-reveal-link:not(.jt-clicked):hover .jt-who,
+.jt-reveal-link:not(.jt-clicked):hover .jt-q {
+  opacity: 1;
+  transform: none;
+}
+
+.jt-reveal-link:not(.jt-clicked):hover .jt-who {
+  transform: rotate(-7deg);
+}
+
+.jt-reveal-link:not(.jt-clicked):hover .jt-q {
+  transform: rotate(8deg);
+  transition-delay: 0.12s;
 }
 
 /* A faint atmospheric grunge settles around the mark — worn wall, no
@@ -2680,20 +2814,19 @@ html.header-raining .header-rain {
   );
 }
 
-.jt-reveal-link:hover .jt-mark-gleam {
-  animation-duration: 4s;
-}
+
 
 html::after {
   content: "";
   position: fixed;
-  inset: 0;
+  /* Starts below the header, which is the one area that never dims. */
+  inset: var(--jt-top, 0px) 0 0 0;
   z-index: 900;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.45s ease;
   background: radial-gradient(
-    ellipse var(--jt-rx, 160px) var(--jt-ry, 100px) at var(--jt-x, 50%) var(--jt-y, 50%),
+    ellipse var(--jt-rx, 160px) var(--jt-ry, 100px) at var(--jt-x, 50%) calc(var(--jt-y, 50%) - var(--jt-top, 0px)),
     rgba(255, 238, 200, 0.2) 0%,
     rgba(0, 0, 0, 0.08) 55%,
     rgba(0, 0, 0, 0.66) 100%
@@ -2714,7 +2847,8 @@ html.jt-spot .jt-reveal-link {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .jt-mark-gleam {
+  .jt-mark-gleam,
+  .jt-flare {
     animation: none;
     opacity: 0;
   }

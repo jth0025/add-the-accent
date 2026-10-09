@@ -1,0 +1,131 @@
+/* The Journal menu's records: each entry in the dropdown is the side of a
+   record in the bin — the album's own art as the sleeve's spine, a dark
+   wash over it so the words stay legible, and the black edge of the vinyl
+   with its grooves sliding out of the right-hand end. */
+
+.vs-item {
+  position: relative;
+  display: block;
+  height: 3.4rem;
+  margin: 0 0 6px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #15130f;
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.vs-item:last-child {
+  margin-bottom: 0;
+}
+
+.vs-item:hover,
+.vs-item:focus-visible {
+  transform: translateX(3px);
+  box-shadow:
+    0 5px 12px rgba(0, 0, 0, 0.55),
+    0 0 0 1px var(--vs-color, #d3ac52);
+  outline: none;
+}
+
+.vs-art {
+  position: absolute;
+  inset: 0;
+  background-image: var(--vs-art);
+  background-size: cover;
+  background-position: center 38%;
+}
+
+/* Archive: the crate figure, sitting right on a dark ground. */
+.vs-art--figure {
+  background-color: #2a2217;
+  background-size: auto 150%;
+  background-position: 88% 40%;
+  background-repeat: no-repeat;
+}
+
+/* The wash that keeps the title readable over any art. */
+.vs-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(8, 7, 5, 0.9) 0%,
+    rgba(8, 7, 5, 0.78) 45%,
+    rgba(8, 7, 5, 0.3) 78%,
+    rgba(8, 7, 5, 0.1) 100%
+  );
+}
+
+/* A coloured band down the spine, the way a sleeve's edge is printed. */
+.vs-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  width: 5px;
+  background: var(--vs-color, #d3ac52);
+}
+
+.vs-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 3.2rem 0 0.95rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.vs-name {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.vs-sub {
+  margin-top: 2px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 10.5px;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.88);
+  white-space: normal;
+}
+
+/* The vinyl's edge, curving out of the sleeve at the right. */
+.vs-edge {
+  position: absolute;
+  z-index: 2;
+  top: 6%;
+  right: -10px;
+  bottom: 6%;
+  width: 40px;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at 100% 50%, #050505 0 1.3px, #17171a 1.3px 2.6px);
+  box-shadow:
+    inset 6px 0 8px rgba(255, 255, 255, 0.08),
+    -2px 0 6px rgba(0, 0, 0, 0.6);
+}
+
+/* the glint along the groove edge */
+.vs-edge::before {
+  content: "";
+  position: absolute;
+  inset: 8% 38% 8% 8%;
+  border-radius: 50%;
+  border-left: 1.5px solid rgba(255, 255, 255, 0.28);
+}

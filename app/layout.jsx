@@ -2,6 +2,7 @@ import { Fraunces, Inter, Archivo_Black, IBM_Plex_Mono, Poppins, Alex_Brush, Pla
 import Link from "next/link";
 import NavLink from "@/components/NavLink";
 import "./globals.css";
+import "./journal-menu.css";
 import VisitCounter from "@/components/VisitCounter";
 import MusicBar from "@/components/MusicBar";
 import HeaderSky from "@/components/HeaderSky";
@@ -155,22 +156,25 @@ const RAIN_DROPS = [
 // them. Each series carries its own label color (purple / red / bronze gold).
 const JOURNAL_SERIES = [
   {
-    name: "Domain Expansion",
-    sub: "Day One → Day Two",
-    href: "/journal?series=Domain%20Expansion",
-    nameClass: "text-[#7e22ce]",
+    name: "Homebody",
+    sub: "The Difference → Land Man",
+    href: "/journal?series=Homebody",
+    cover: "/journal-art/lp-homebody.webp",
+    color: "#d3ac52",
   },
   {
     name: "Back to Oui",
-    sub: "The Question",
+    sub: "The Question → Lone Star",
     href: "/journal?series=Back%20to%20Oui",
-    nameClass: "text-[#c0202a]",
+    cover: "/journal-art/lp-back-to-oui.webp",
+    color: "#e0555f",
   },
   {
-    name: "Homebody",
-    sub: "The Difference → Away Game",
-    href: "/journal?series=Homebody",
-    nameClass: "text-[#9a7420]",
+    name: "Domain Expansion",
+    sub: "Day One → Day Two",
+    href: "/journal?series=Domain%20Expansion",
+    cover: "/journal-art/lp-domain-expansion.webp",
+    color: "#a855f7",
   },
 ];
 
@@ -387,55 +391,57 @@ export default function RootLayout({ children }) {
                       (top-full) and its pt-4 bridges the visual gap so the
                       pointer never crosses dead space on the way to the
                       items — they stay hoverable and clickable. */}
-                  <div className="invisible absolute left-1/2 top-full z-20 w-60 -translate-x-1/2 pt-4 opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100">
-                    <div className="rounded-lg border border-ink/15 bg-white p-2 text-left normal-case tracking-normal text-ink shadow-xl">
-                      <div className="px-3 pb-1 pt-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
-                        Series
+                  <div className="invisible absolute left-1/2 top-full z-20 w-72 -translate-x-1/2 pt-4 opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100">
+                    <div className="rounded-lg border border-white/15 bg-[#1b1812] p-2.5 text-left normal-case tracking-normal text-white shadow-xl">
+                      <div className="px-1 pb-2 pt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[#ffd98a]">
+                        Long Plays
                       </div>
                       {JOURNAL_SERIES.map((s) => (
                         <Link
                           key={s.name}
                           href={s.href}
-                          className="block rounded-md py-2 pl-[22px] pr-3 hover:bg-accent/10"
+                          className="vs-item"
+                          style={{ "--vs-art": `url(${s.cover})`, "--vs-color": s.color }}
                         >
-                          <span
-                            className={`block font-serif text-[13px] font-bold ${s.nameClass}`}
-                          >
-                            {s.name}
+                          <span className="vs-art" aria-hidden="true" />
+                          <span className="vs-text">
+                            <span className="vs-name">{s.name}</span>
+                            <span className="vs-sub">{s.sub}</span>
                           </span>
-                          <span className="block font-sans text-[10.5px] italic normal-case tracking-wide text-stone">
-                            {s.sub}
-                          </span>
+                          <span className="vs-edge" aria-hidden="true" />
                         </Link>
                       ))}
 
-                      <hr className="my-1.5 border-ink/10" />
-
+                      <div className="px-1 pb-2 pt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#ffd98a]">
+                        Singles
+                      </div>
                       <Link
                         href="/journal?category=Interludes"
-                        className="block rounded-md px-3 py-2 hover:bg-accent/10"
+                        className="vs-item"
+                        style={{ "--vs-art": "url(/journal-art/lp-interludes.webp)", "--vs-color": "#3b63f0" }}
                       >
-                        <span className="block font-serif text-sm font-bold">
-                          Interludes
+                        <span className="vs-art" aria-hidden="true" />
+                        <span className="vs-text">
+                          <span className="vs-name">The Singles Collection</span>
+                          <span className="vs-sub">One side, one sitting</span>
                         </span>
-                        <span className="block max-w-[210px] whitespace-normal font-sans text-[10.5px] italic normal-case leading-snug tracking-wide text-stone">
-                          Short reflections and sparks that surface inside the
-                          series above — not a story of their own.
-                        </span>
+                        <span className="vs-edge" aria-hidden="true" />
                       </Link>
 
-                      <hr className="my-1.5 border-ink/10" />
-
+                      <div className="px-1 pb-2 pt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#ffd98a]">
+                        The record store
+                      </div>
                       <Link
-                        href="/journal"
-                        className="block rounded-md px-3 py-2 hover:bg-accent/10"
+                        href="/journal#archive"
+                        className="vs-item"
+                        style={{ "--vs-art": "url(/journal-art/archive-crate.webp)", "--vs-color": "#c79a43" }}
                       >
-                        <span className="block font-serif text-sm font-bold">
-                          All Entries
+                        <span className="vs-art vs-art--figure" aria-hidden="true" />
+                        <span className="vs-text">
+                          <span className="vs-name">The Archive</span>
+                          <span className="vs-sub">Everything, newest first</span>
                         </span>
-                        <span className="block font-sans text-[10.5px] italic normal-case tracking-wide text-stone">
-                          Everything, newest first
-                        </span>
+                        <span className="vs-edge" aria-hidden="true" />
                       </Link>
                     </div>
                   </div>

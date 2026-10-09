@@ -1,0 +1,868 @@
+/* The Journal as a record store: vinyl, sleeves, the bin, back covers and
+   liner notes. Kept out of app/globals.css so it ships on its own. */
+
+/* ---------- Vinyl ---------- */
+.rec-disc {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 33%, rgba(0, 0, 0, 0.5) 33.4%, transparent 34.5%),
+    repeating-radial-gradient(circle at 50% 50%, #0c0c0d 0 1.4px, #18181a 1.4px 2.8px);
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 2px #050505;
+}
+
+/* The sheen: two soft wedges of light across the grooves. */
+.rec-disc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 25deg,
+    transparent 0 14%,
+    rgba(255, 255, 255, 0.16) 20%,
+    transparent 27%,
+    transparent 64%,
+    rgba(255, 255, 255, 0.12) 70%,
+    transparent 77%
+  );
+  pointer-events: none;
+}
+
+.rec-label {
+  position: absolute;
+  inset: 33%;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Name above the spindle hole, catalog number below it. */
+  justify-content: space-between;
+  padding: 17% 0 15%;
+  text-align: center;
+  line-height: 1.05;
+  color: var(--rec-ink, #1a1206);
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 5%, rgba(0, 0, 0, 0.35) 5.5% 7%, transparent 7.6%),
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.3), transparent 55%),
+    var(--rec-color, #d3ac52);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.rec-label-name {
+  font-family: var(--font-archivo-black), sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(6px, 1.5cqw, 11px);
+  letter-spacing: 0.04em;
+  padding: 0 14%;
+}
+
+.rec-label-cat {
+  margin-top: 2px;
+  font-family: var(--font-plex-mono), monospace;
+  font-size: clamp(5px, 1.05cqw, 8px);
+  letter-spacing: 0.08em;
+}
+
+@keyframes rec-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Sleeve ---------- */
+.rec-sleeve {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #111;
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.45),
+    0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.rec-sleeve img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Edge light, a worn ring where the disc has pressed, and the open side. */
+.rec-sleeve::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18), transparent 3%, transparent 94%, rgba(0, 0, 0, 0.35)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 8%),
+    radial-gradient(circle at 50% 50%, transparent 0 40%, rgba(255, 255, 255, 0.07) 40.3% 41.2%, transparent 41.5%);
+}
+
+/* ---------- Featured release: the sleeve and the disc that slides out ---------- */
+.rec-pull {
+  position: relative;
+  width: min(22rem, 78vw);
+  /* room on the right for the disc to come out */
+  padding-right: 18%;
+  container-type: inline-size;
+}
+
+.rec-pull-stage {
+  position: relative;
+}
+
+.rec-pull .rec-disc-wrap {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 96%;
+  transition: transform 0.7s cubic-bezier(0.3, 0.75, 0.2, 1);
+}
+
+.rec-pull .rec-sleeve {
+  position: relative;
+  z-index: 2;
+}
+
+.rec-pull:hover .rec-disc-wrap,
+.rec-pull:focus-within .rec-disc-wrap {
+  transform: translateX(20%);
+}
+
+/* The turntable turns only while the record is out — the one moment it
+   means anything. */
+.rec-pull:hover .rec-disc,
+.rec-pull:focus-within .rec-disc {
+  animation: rec-spin 9s linear infinite;
+}
+
+/* Touch screens have no hover: the record simply rests part-way out. */
+@media (hover: none) {
+  .rec-pull .rec-disc-wrap {
+    transform: translateX(20%);
+  }
+}
+
+/* ---------- The record bin (Long Plays) ---------- */
+.lp-bin {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.lp-slot {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(11rem, 22vw, 15rem);
+  margin-left: -2.2rem;
+  transition:
+    transform 0.35s cubic-bezier(0.3, 0.75, 0.2, 1),
+    margin 0.35s ease;
+}
+
+.lp-slot:first-child {
+  margin-left: 0;
+}
+
+.lp-slot[data-active="true"] {
+  z-index: 30;
+  transform: translateY(-1rem) scale(1.04);
+}
+
+.lp-slot[data-active="true"] .rec-sleeve {
+  box-shadow:
+    0 22px 38px rgba(0, 0, 0, 0.55),
+    0 4px 8px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- Singles: small paper sleeves with a circular centre label ---------- */
+.sg-sleeve {
+  position: relative;
+  aspect-ratio: 1;
+  background: #e8e0cd;
+  border-radius: 2px;
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 1px 3px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease;
+}
+
+/* A plain fold along the open edge. */
+.sg-sleeve::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.08), transparent 6%, transparent 92%, rgba(0, 0, 0, 0.12));
+  pointer-events: none;
+}
+
+/* The die-cut window: the record's own label shows through it. */
+.sg-window {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 7%, rgba(0, 0, 0, 0.4) 7.5% 9%, transparent 9.6%),
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.35), transparent 55%),
+    var(--rec-color, #3b63f0);
+  box-shadow:
+    inset 0 3px 7px rgba(0, 0, 0, 0.55),
+    0 0 0 3px #e8e0cd,
+    0 0 0 4px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 17% 0 15%;
+  text-align: center;
+  color: var(--rec-ink, #0a1230);
+  overflow: hidden;
+  container-type: inline-size;
+}
+
+.sg-window .rec-label-name {
+  font-size: clamp(7px, 8.5cqw, 12px);
+  padding: 0 18%;
+}
+
+.sg-window .rec-label-cat {
+  font-size: clamp(5px, 5.2cqw, 8px);
+}
+
+a:hover > .sg-sleeve,
+a:focus-visible > .sg-sleeve {
+  transform: translateY(-4px) rotate(-1deg);
+}
+
+/* ---------- Back cover ---------- */
+.bc-sheet {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #0d0d0f;
+  color: #efe9da;
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.55),
+    0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.bc-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.28;
+  filter: blur(2px) saturate(1.15);
+}
+
+.bc-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 8, 10, 0.55), rgba(8, 8, 10, 0.92) 55%, rgba(8, 8, 10, 0.97));
+}
+
+.bc-track {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(239, 233, 218, 0.16);
+  transition: background 0.2s ease;
+}
+
+a.bc-track:hover,
+a.bc-track:focus-visible {
+  background: rgba(239, 233, 218, 0.07);
+  outline: none;
+}
+
+.bc-barcode {
+  height: 2.6rem;
+  width: 8rem;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #111 0 2px,
+      transparent 2px 4px,
+      #111 4px 5px,
+      transparent 5px 8px,
+      #111 8px 11px,
+      transparent 11px 12px
+    ),
+    #f3eee0;
+  border: 4px solid #f3eee0;
+  border-radius: 1px;
+}
+
+/* ---------- The Archive ---------- */
+.ar-row {
+  display: grid;
+  grid-template-columns: 7.2rem 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  transition: background 0.2s ease;
+}
+
+a.ar-row:hover,
+a.ar-row:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+  outline: none;
+}
+
+@media (max-width: 560px) {
+  .ar-row {
+    grid-template-columns: 1fr auto;
+  }
+  .ar-row > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Liner notes: a gatefold spread, creases and all ---------- */
+.ln-spread {
+  position: relative;
+  color: #1a1a1a;
+  box-shadow:
+    0 22px 46px rgba(0, 0, 0, 0.45),
+    0 3px 8px rgba(0, 0, 0, 0.4);
+  perspective: 2400px;
+}
+
+.ln-page {
+  position: relative;
+  background: #f1ecdf;
+}
+
+/* The centre crease: a dark valley with a light ridge beside it, falling
+   away to either side. It stays once the page has opened. */
+.ln-page--left::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 26px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(60, 40, 10, 0.12) 70%, rgba(60, 40, 10, 0.3) 100%);
+}
+
+.ln-page--right::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 34px;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(40, 25, 5, 0.34) 0, rgba(60, 40, 10, 0.12) 14px, transparent 34px),
+    linear-gradient(90deg, transparent 2px, rgba(255, 255, 255, 0.65) 3px, transparent 5px);
+}
+
+.ln-page--right > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Opening an essay: the right-hand page swings out across the crease. */
+.ln-unfold {
+  transform-origin: left center;
+  animation: ln-unfold 1.15s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes ln-unfold {
+  0% {
+    transform: perspective(2200px) rotateY(-97deg);
+    filter: brightness(0.55);
+  }
+  60% {
+    filter: brightness(0.9);
+  }
+  100% {
+    transform: perspective(2200px) rotateY(0deg);
+    filter: brightness(1);
+  }
+}
+
+@media (max-width: 767px) {
+  .ln-unfold {
+    transform-origin: center top;
+    animation-name: ln-unfold-down;
+  }
+  .ln-page--left::after {
+    top: auto;
+    left: 0;
+    width: auto;
+    height: 22px;
+    background: linear-gradient(180deg, transparent, rgba(60, 40, 10, 0.12) 70%, rgba(60, 40, 10, 0.28) 100%);
+  }
+  .ln-page--right::before {
+    right: 0;
+    bottom: auto;
+    width: auto;
+    height: 30px;
+    background:
+      linear-gradient(180deg, rgba(40, 25, 5, 0.3) 0, rgba(60, 40, 10, 0.1) 12px, transparent 30px),
+      linear-gradient(180deg, transparent 2px, rgba(255, 255, 255, 0.65) 3px, transparent 5px);
+  }
+}
+
+@keyframes ln-unfold-down {
+  0% {
+    transform: perspective(2200px) rotateX(80deg);
+    filter: brightness(0.55);
+  }
+  100% {
+    transform: perspective(2200px) rotateX(0deg);
+    filter: brightness(1);
+  }
+}
+
+.ln-prose {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.1875rem;
+  line-height: 1.8;
+  color: #1c1c1a;
+  hyphens: manual;
+}
+
+.ln-prose > * + * {
+  margin-top: 1.1em;
+}
+
+.ln-prose p {
+  text-align: left;
+}
+
+.ln-prose a {
+  color: #8a4b0f;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ln-prose h2,
+.ln-prose h3 {
+  font-family: var(--font-archivo-black), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  margin-top: 2em;
+  border-top: 3px double #1a1a1a;
+  padding-top: 0.6em;
+}
+
+.ln-prose blockquote {
+  margin-left: 0;
+  padding: 0.6em 0 0.6em 1.1em;
+  border-left: 4px solid #1a1a1a;
+  font-style: italic;
+  font-size: 1.15em;
+}
+
+.ln-prose hr {
+  border: 0;
+  border-top: 1px solid rgba(26, 26, 26, 0.4);
+  margin: 2em 0;
+}
+
+.ln-prose ul,
+.ln-prose ol {
+  padding-left: 1.4em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ln-unfold {
+    animation: none;
+  }
+  .rec-pull:hover .rec-disc,
+  .rec-pull:focus-within .rec-disc {
+    animation: none;
+  }
+  .rec-pull .rec-disc-wrap,
+  .lp-slot,
+  .sg-sleeve {
+    transition: none;
+  }
+}
+
+/* ---------- The line box: a blue neon tube with a light that tracks round it ---------- */
+@property --trk {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.neon-box {
+  border-radius: 6px;
+  border: 1.5px solid rgba(110, 195, 255, 0.85);
+  box-shadow:
+    0 0 5px rgba(47, 155, 255, 0.7),
+    0 0 14px rgba(47, 155, 255, 0.45),
+    inset 0 0 10px rgba(47, 155, 255, 0.28);
+}
+
+/* The travelling light: a bright arc on a conic gradient, shown only on the
+   ring of the border (the gradient is masked to a 3px band), once sharp and
+   once blurred for its glow. */
+.neon-box::before,
+.neon-box::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 8px;
+  padding: 3px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--trk),
+    transparent 0 58%,
+    rgba(47, 155, 255, 0.5) 74%,
+    #8fd0ff 88%,
+    #fff 94%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: neon-track 7s linear infinite;
+}
+
+.neon-box::after {
+  filter: blur(7px);
+  opacity: 0.95;
+}
+
+@keyframes neon-track {
+  to {
+    --trk: 360deg;
+  }
+}
+
+/* ---------- NOW PLAYING: the same blue, with the bigger glow ---------- */
+.neon-now {
+  color: #e6f4ff;
+  background: #121a24;
+  border: 1.5px solid #6ec3ff;
+  border-radius: 4px;
+  text-shadow:
+    0 0 3px #fff,
+    0 0 9px #2f9bff,
+    0 0 22px #2f9bff,
+    0 0 42px #1a7dff,
+    0 0 70px #1a7dff;
+  box-shadow:
+    0 0 8px #2f9bff,
+    0 0 22px rgba(47, 155, 255, 0.85),
+    0 0 46px rgba(47, 155, 255, 0.6),
+    0 0 80px rgba(26, 125, 255, 0.4),
+    inset 0 0 10px rgba(47, 155, 255, 0.5);
+  animation: neon-hum 5s ease-in-out infinite;
+}
+
+@keyframes neon-hum {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  46% {
+    filter: brightness(1);
+  }
+  48% {
+    filter: brightness(0.72);
+  }
+  50% {
+    filter: brightness(1.12);
+  }
+  52% {
+    filter: brightness(0.85);
+  }
+  54% {
+    filter: brightness(1);
+  }
+}
+
+/* ---------- The part of a sleeve that isn't out yet ----------
+   Two greyed copies of the art, each faded in along its own soft diagonal
+   at a slightly different angle and place, so the edge between "out" and
+   "forthcoming" blends and wanders instead of cutting straight across. */
+.rec-pending {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.rec-pending img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) brightness(0.55) contrast(0.9);
+}
+
+.rec-pending-a {
+  -webkit-mask-image: linear-gradient(
+    103deg,
+    transparent calc(var(--edge) * 1% - 13%),
+    #000 calc(var(--edge) * 1% + 9%)
+  );
+  mask-image: linear-gradient(
+    103deg,
+    transparent calc(var(--edge) * 1% - 13%),
+    #000 calc(var(--edge) * 1% + 9%)
+  );
+}
+
+.rec-pending-b {
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(
+    113deg,
+    transparent calc(var(--edge) * 1% - 22%),
+    #000 calc(var(--edge) * 1% - 3%)
+  );
+  mask-image: linear-gradient(
+    113deg,
+    transparent calc(var(--edge) * 1% - 22%),
+    #000 calc(var(--edge) * 1% - 3%)
+  );
+}
+
+.rec-pending-label {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}
+
+/* ---------- A small plus in the corner of each paper single ---------- */
+.sg-plus {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  z-index: 2;
+  width: 1.4rem;
+  height: auto;
+  pointer-events: none;
+  /* printed on the paper: no shadow, and the paper's own tone shows
+     through the ink */
+  mix-blend-mode: multiply;
+  opacity: 0.92;
+}
+
+/* ---------- Album titles: a small, dark, close shadow behind them ---------- */
+.album-title {
+  text-shadow:
+    1px 1px 0 rgba(0, 0, 0, 0.75),
+    0 2px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ---------- The Archive: a thin, light gold gleam across the title ----------
+   A very narrow diagonal blade of pale gold light that runs one way across
+   the title and immediately back the other, once per cycle, every cycle. */
+.ar-gleam {
+  background-image: linear-gradient(
+    125deg,
+    #ffffff 0%,
+    #ffffff 49.1%,
+    #f7ecc6 49.6%,
+    #e8cb7c 50%,
+    #f7ecc6 50.4%,
+    #ffffff 50.9%,
+    #ffffff 100%
+  );
+  background-size: 260% 100%;
+  background-position: 135% 0;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: ar-gleam 6s ease-in-out infinite;
+}
+
+@keyframes ar-gleam {
+  0%,
+  100% {
+    background-position: 135% 0;
+  }
+  50% {
+    background-position: -35% 0;
+  }
+}
+
+/* ---------- The featured essay's title: eases into its series' colour on hover ----------
+   One wide gradient (white, then a pale tint of the series colour, the
+   colour itself, a deeper shade and back to a light tint) slid behind the
+   letters: at rest only the white third shows; on hover the window glides
+   across to the coloured third. --ft-color is the series' own colour. */
+.ft-title {
+  --ft-color: #d3ac52;
+  background-image: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 33%,
+    color-mix(in srgb, var(--ft-color) 38%, #fff) 46%,
+    var(--ft-color) 62%,
+    color-mix(in srgb, var(--ft-color) 72%, #000) 80%,
+    color-mix(in srgb, var(--ft-color) 55%, #fff) 100%
+  );
+  background-size: 300% 100%;
+  background-position: 0% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-position 0.9s ease;
+}
+
+.ft-title:hover,
+.ft-title:focus-visible {
+  background-position: 100% 0;
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ft-title {
+    transition: none;
+  }
+}
+
+/* ---------- The essay's art, as a single (right of the featured release) ---------- */
+.sn-single {
+  position: relative;
+  display: block;
+  width: 9.5rem;
+  padding-right: 20%;
+  container-type: inline-size;
+  /* leaning to the right */
+  transform: rotate(8deg);
+  transform-origin: 40% 70%;
+  transition: transform 0.4s ease;
+}
+
+.sn-single:hover,
+.sn-single:focus-visible {
+  transform: rotate(10deg);
+}
+
+/* The insert page, tucked in the sleeve and sliding out of it — smaller
+   than the art. */
+.sn-disc-wrap {
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  width: 84%;
+  transform: translate(16%, -1%) rotate(2.5deg);
+  transition: transform 0.6s cubic-bezier(0.3, 0.75, 0.2, 1);
+}
+
+.sn-single:hover .sn-disc-wrap,
+.sn-single:focus-visible .sn-disc-wrap {
+  transform: translate(28%, -3%) rotate(5deg);
+}
+
+/* A journal page: ruled lines, a red margin, written by hand. */
+.sn-insert {
+  position: relative;
+  display: block;
+  aspect-ratio: 0.82;
+  background:
+    linear-gradient(90deg, transparent 17%, rgba(200, 60, 60, 0.55) 17.2%, rgba(200, 60, 60, 0.55) 18.2%, transparent 18.4%),
+    repeating-linear-gradient(180deg, transparent 0 9.4%, rgba(70, 110, 170, 0.35) 9.4% 10%),
+    #f4efe1;
+  border-radius: 2px;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.4),
+    inset 5px 0 7px -5px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  container-type: inline-size;
+}
+
+/* The writing sits on the ruled lines (one line = one rule = 12.2cqw). */
+.sn-insert-text {
+  position: absolute;
+  top: 1.6cqw;
+  right: 6cqw;
+  bottom: 0;
+  left: 23cqw;
+  overflow: hidden;
+  font-family: var(--font-hand), cursive;
+  font-size: 9.4cqw;
+  line-height: 12.2cqw;
+  color: #243a78;
+  opacity: 0.88;
+  transform: rotate(-0.6deg);
+  transform-origin: left top;
+}
+
+.sn-sleeve {
+  position: relative;
+  z-index: 2;
+  aspect-ratio: 0.82;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #e8e0cd;
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.45),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.sn-sleeve img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- The crate beside the Archive ---------- */
+.cr-card {
+  transition:
+    transform 0.45s cubic-bezier(0.3, 0.75, 0.2, 1),
+    opacity 0.3s ease,
+    filter 0.3s ease;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.4);
+  background: #1a1a1a;
+}
+
+.cr-front {
+  background:
+    repeating-linear-gradient(180deg, transparent 0 22px, rgba(30, 14, 4, 0.55) 22px 24px),
+    linear-gradient(180deg, #8a5d31, #5d3a1a 60%, #4a2e14);
+  border-top: 3px solid #a87846;
+  border-radius: 2px 2px 4px 4px;
+  box-shadow:
+    0 -4px 10px rgba(0, 0, 0, 0.4),
+    inset 0 2px 0 rgba(255, 220, 160, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cr-card,
+  .sn-single,
+  .sn-disc-wrap {
+    transition: none;
+  }
+}

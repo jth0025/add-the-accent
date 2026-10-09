@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import DesignPlacard from "@/components/DesignPlacard";
 import { PIECES, tagsOf } from "@/lib/designPieces";
 
@@ -136,15 +136,28 @@ export default function PortfolioGalleries() {
       </div>
       {/* Three handshakes in a row beside the toggle, small enough to
           sit in the space the toggle's row already has. */}
-      <div aria-hidden="true" className="flex items-center gap-1.5">
+      <div
+        aria-hidden="true"
+        className="flex min-w-[11rem] max-w-sm flex-1 items-center justify-between"
+      >
         {[1, 2, 3].map((n) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={n}
-            src={`/handshake-${n}.webp`}
-            alt=""
-            className="h-7 w-auto sm:h-8"
-          />
+          <Fragment key={n}>
+            {n > 1 && (
+              // The plus from the A+A logo, between each pair.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src="/portfolio-stickers/plus-logo.webp"
+                alt=""
+                className="h-4 w-auto sm:h-5"
+              />
+            )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`/handshake-${n}.webp`}
+              alt=""
+              className="h-7 w-auto sm:h-8"
+            />
+          </Fragment>
         ))}
       </div>
       </div>

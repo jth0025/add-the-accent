@@ -159,6 +159,7 @@ function PictureLight() {
           height="3.2"
           rx="1.6"
           fill={on ? "#fff4c8" : "#6d5a2c"}
+          className={on ? "pl-flicker" : undefined}
           style={{ transition: "fill 0.4s" }}
         />
       </svg>
@@ -167,7 +168,7 @@ function PictureLight() {
       <span
         aria-hidden="true"
         className={`pointer-events-none absolute left-1/2 top-9 z-0 h-28 w-[26rem] max-w-[120vw] -translate-x-1/2 transition-opacity duration-500 ${
-          on ? "opacity-100" : "opacity-0"
+          on ? "pl-flicker opacity-100" : "opacity-0"
         }`}
         style={{
           clipPath: "polygon(24% 0, 76% 0, 100% 100%, 0 100%)",

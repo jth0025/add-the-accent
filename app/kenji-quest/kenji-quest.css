@@ -165,3 +165,87 @@ html.kq-leaving body {
   animation: kq-smoke-away 0.95s ease-in forwards;
   pointer-events: none;
 }
+
+/* A small lens flare on each guard's spear tip (the tip sits at 9% across,
+   at the very top of the figure). Both flash together, once every seven
+   seconds, and fade in about a second. */
+.kq-spear-flare {
+  position: absolute;
+  left: 9.1%;
+  top: 0.8%;
+  width: 9%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    #fff 0%,
+    rgba(255, 250, 225, 0.95) 12%,
+    rgba(255, 228, 160, 0.4) 30%,
+    transparent 62%
+  );
+  animation: kq-spear-flare 7s linear infinite;
+}
+
+.kq-spear-flare::before,
+.kq-spear-flare::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.kq-spear-flare::before {
+  width: 260%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 244, 210, 0.85) 45%,
+    #fff 50%,
+    rgba(255, 244, 210, 0.85) 55%,
+    transparent
+  );
+}
+
+.kq-spear-flare::after {
+  width: 1px;
+  height: 260%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 244, 210, 0.8) 45%,
+    #fff 50%,
+    rgba(255, 244, 210, 0.8) 55%,
+    transparent
+  );
+}
+
+@keyframes kq-spear-flare {
+  0%,
+  38% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  42% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  47% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  54%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kq-spear-flare {
+    animation: none;
+  }
+}

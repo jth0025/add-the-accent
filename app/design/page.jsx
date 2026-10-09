@@ -17,10 +17,9 @@ export default function DesignPage() {
       <KoiLayer />
       <GoldSparkle />
       <div className="mx-auto max-w-[1240px] px-3 pt-16 sm:px-5">
-        {/* The art box and the index card beneath it share one outline, so
-            the card reads as the box's own lower tab. */}
-        <section data-koi-avoid className="corner-box rounded-xl border border-ink/15 bg-card">
-          <div className="paper-notebook rounded-t-xl px-3 pb-4 pt-8 text-center sm:px-6 sm:pt-9">
+        {/* The main art sits straight on the wall — no paper behind it. */}
+        <section data-koi-avoid>
+          <div className="px-3 pb-2 pt-8 text-center sm:px-6 sm:pt-9">
             <div className="flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-accent sm:text-xs sm:tracking-[0.28em]">
               <span className="hidden h-px w-8 bg-accent/40 sm:block" />
               <span>Design &middot; Photography &middot; Motion</span>
@@ -56,25 +55,27 @@ export default function DesignPage() {
               </h1>
             </div>
           </div>
-
-          <div className="museum-card rounded-b-xl px-5 py-6 sm:px-10 sm:py-7">
-            <p className="museum-card-text mx-auto max-w-3xl font-hand text-[1.5rem] text-[#2b2a26] sm:text-[2.1rem]">
-              <strong className="font-bold">The Museum</strong> is an evolving
-              collection of{" "}
-              <strong className="font-bold">graphic design</strong>,{" "}
-              <strong className="font-bold">photography</strong>,{" "}
-              <strong className="font-bold">motion</strong>,{" "}
-              <strong className="font-bold">experiments</strong>,{" "}
-              <strong className="font-bold">commissions</strong>, and things
-              that didn&rsquo;t fit neatly anywhere else.
-            </p>
-          </div>
         </section>
       </div>
 
-      <p className="mx-auto mt-10 max-w-xl px-6 text-center font-playfair text-lg font-bold italic leading-snug text-[#f1ead9] [text-shadow:0_1px_2px_rgba(0,0,0,0.55)] sm:text-xl">
-        &ldquo;A collection of things seen, imagined, altered, remembered, and
-        made visible.&rdquo;
+      <p className="mx-auto mt-9 max-w-2xl px-6 text-center font-playfair text-2xl font-bold italic leading-snug text-[#f1ead9] [text-shadow:0_1px_2px_rgba(0,0,0,0.55)] sm:text-[1.9rem]">
+        &ldquo;The Museum is a collection of things seen, imagined, altered,
+        remembered, and made visible by yours truly.&rdquo;
+        {/* A black sketched heart, hand-drawn (the #urban-sketch roughen
+            filter lives in app/layout.jsx). */}
+        <svg
+          viewBox="0 0 24 24"
+          fill="#000"
+          stroke="#000"
+          strokeWidth="1.9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+          className="ml-2 inline-block h-8 w-8 -rotate-6 align-[-0.4em] [filter:url(#urban-sketch)]"
+        >
+          <path d="M12 20.5C6 16 3 12.7 3 9.1 3 6.4 5 4.5 7.4 4.5c1.8 0 3.4 1 4.6 2.9 1.2-1.9 2.8-2.9 4.6-2.9C19 4.5 21 6.4 21 9.1c0 3.6-3 6.9-9 11.4z" />
+          <path d="M6.6 8.2c.3-1 1.1-1.6 2-1.6" />
+        </svg>
       </p>
 
       <DesignEditorial />

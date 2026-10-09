@@ -72,7 +72,9 @@ export default function WordOfTheDay() {
   return (
     <section className="paper-notebook corner-box relative mt-8 min-h-[184px] rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
       <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-widest text-accent sm:gap-3 sm:text-xs">
-        <span className="whitespace-nowrap">Word of the Day</span>
+        <span className="whitespace-nowrap">
+          <strong className="font-bold">Accent</strong> Word of the Day
+        </span>
         <span className="h-px min-w-[10px] flex-1 bg-accent/40" />
         {dateLabel && (
           <span className="shrink-0 whitespace-nowrap normal-case tracking-normal text-stone/60">

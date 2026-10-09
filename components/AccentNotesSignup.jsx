@@ -1,10 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import "@/app/about/about.css";
 
 // Same Formspree endpoint as the other forms on the site — the hidden
 // _subject field is what tells the notification emails apart.
-const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
+// Signups go to a subscriber list of their own: point
+// NEXT_PUBLIC_SUBSCRIBE_ENDPOINT at a dedicated form (or any list
+// provider's form endpoint) so they never mix with contact / inquiry
+// mail. Until that is set they fall back to the shared form below, where
+// every one still carries list="accent-notes-subscribers" so they can be
+// filtered and exported as the list.
+const FORMSPREE_ENDPOINT =
+  process.env.NEXT_PUBLIC_SUBSCRIBE_ENDPOINT ||
+  process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
 
 /**
  * "Accent Notes" — a one-field email signup, sent only when there's
@@ -33,8 +42,12 @@ export default function AccentNotesSignup() {
         method: "POST",
         headers: { Accept: "application/json" },
         body: new URLSearchParams({
-          email,
-          _subject: "New Accent Notes signup",
+          email: email.trim().toLowerCase(),
+          list: "accent-notes-subscribers",
+          form: "accent-notes-signup",
+          source: window.location.pathname,
+          subscribed_at: new Date().toISOString(),
+          _subject: "New Accent Notes subscriber",
         }),
       });
       if (!res.ok) throw new Error("Formspree request failed");
@@ -45,7 +58,7 @@ export default function AccentNotesSignup() {
   };
 
   return (
-    <section className="paper-notebook corner-box mx-auto mt-10 max-w-xl overflow-hidden rounded-xl border border-ink/15 bg-card px-7 py-9 text-center sm:px-10">
+    <section className="paper-journal corner-box relative mx-auto mt-10 max-w-2xl overflow-hidden rounded-xl border border-ink/15 bg-card px-7 py-9 text-center sm:px-9">
       {/* The mascot, half-cropped, faint in the background on the far
           left — shown whole (not sliced by a narrow crop box) so it
           reads as a watermark bleeding in under the text rather than a
@@ -59,15 +72,32 @@ export default function AccentNotesSignup() {
       />
 
       <div className="relative z-10">
-        <div className="flex items-center justify-center gap-3 text-accent">
+        {/* The same title structure as Section 02 on the About page: a
+            small label, the heavy Playfair title with the middle word in
+            italic (and its gleam), a fine double rule, then a deck. */}
+        <div className="flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-widest text-accent">
           <span className="h-px w-8 bg-accent/40" />
-          <span className="font-hand text-3xl font-bold normal-case tracking-normal">
-            Accent Notes
-          </span>
+          <span>Join the list</span>
           <span className="h-px w-8 bg-accent/40" />
         </div>
-        <p className="mx-auto mt-4 text-[15px] text-stone sm:whitespace-nowrap">
-          A note from the studio when there&rsquo;s something worth sending.
+        <h2 className="mt-5 text-center font-playfair text-[2.9rem] font-black leading-[0.95] tracking-[-0.03em] text-ink sm:text-[4.6rem]">
+          An <span className="about-accent-gleam font-normal italic text-accent">Accent</span>{" "}
+          Note
+        </h2>
+        <div aria-hidden="true" className="mx-auto mt-5 flex max-w-xs flex-col gap-[3px]">
+          <span className="h-[2px] bg-ink" />
+          <span className="h-px bg-ink/60" />
+        </div>
+        <p className="mt-6 text-center font-playfair text-[1.65rem] font-bold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[2.2rem]">
+          Keep up with the{" "}
+          <span className="font-normal italic text-accent">latest</span> drop
+        </p>
+        <p className="mt-2 text-center font-serif text-[13px] italic tracking-[0.35em] text-stone/55">
+          accent notes
+        </p>
+        <p className="mx-auto mt-4 max-w-xl text-center font-serif leading-relaxed text-stone">
+          &mdash; a note from the studio when there&rsquo;s something worth
+          sending.
         </p>
         <ul className="mx-auto mt-3 inline-block max-w-sm space-y-1 text-left text-stone">
           {[
