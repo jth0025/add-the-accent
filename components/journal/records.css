@@ -866,3 +866,16 @@ a.ar-row:focus-visible {
     transition: none;
   }
 }
+
+/* The essay's portrait art as a (square) sleeve: keep the top of it. */
+.rec-sleeve--top img {
+  object-position: 50% 22%;
+}
+
+/* Phones: the essay's art is already the sleeve up top, so the little
+   single (and its insert) stays off. */
+@media (max-width: 639px) {
+  .sn-single {
+    display: none;
+  }
+}

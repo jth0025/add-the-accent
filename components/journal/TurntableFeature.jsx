@@ -50,7 +50,24 @@ export default function TurntableFeature({ entry, allEntries }) {
       <div className="neon-box relative px-5 pb-7 pt-8 sm:pl-12 sm:pr-8 sm:pb-9">
 
       <div className="grid items-center gap-8 sm:grid-cols-[auto,1fr] lg:grid-cols-[auto,1fr,auto] lg:gap-10">
-        <div className="relative mx-auto sm:mx-0">
+        {/* Phones: the ESSAY's art is the sleeve, with the record sliding
+            out of it. (The series art follows at the bottom.) */}
+        {collection && (
+          <Link
+            href={href}
+            aria-label={`Read ${entry.title}`}
+            className="rec-pull group mx-auto block outline-none sm:hidden"
+          >
+            <div className="rec-pull-stage">
+              <div className="rec-disc-wrap">
+                <VinylDisc collection={collection} label={collection.title} catalog={catalog} />
+              </div>
+              <Sleeve collection={{ cover: poster || collection.cover }} className="rec-sleeve--top" />
+            </div>
+          </Link>
+        )}
+
+        <div className="relative mx-auto hidden sm:mx-0 sm:block">
         <Link
           href={href}
           aria-label={`Read ${entry.title}`}
@@ -190,6 +207,33 @@ export default function TurntableFeature({ entry, allEntries }) {
               <img src={poster} alt="" loading="lazy" />
             </div>
           </Link>
+        )}
+
+        {/* Phones: the series art, upright at the bottom — greyed where the
+            long play isn't finished yet, with its progress bar. */}
+        {collection && (
+          <div className="mx-auto w-[min(15rem,72vw)] sm:hidden">
+            <Link href={collection.href} aria-label={`${collection.title} — open the sleeve`} className="block">
+              <Sleeve collection={collection}>
+                {pending > 0 && (
+                  <span
+                    className="rec-pending"
+                    style={{ "--edge": (1 - pending) * 100 }}
+                    title={`${TOTAL_TRACKS - published} of ${TOTAL_TRACKS} tracks forthcoming`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={collection.cover} alt="" className="rec-pending-a" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={collection.cover} alt="" className="rec-pending-b" />
+                    <span className="rec-pending-label">Forthcoming</span>
+                  </span>
+                )}
+              </Sleeve>
+            </Link>
+            {collection.kind === "series" && (
+              <TrackNodes published={published} color={collection.color} className="mt-4" />
+            )}
+          </div>
         )}
       </div>
       </div>
