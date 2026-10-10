@@ -17,10 +17,10 @@ export default function DesignPage() {
     <div className="relative overflow-x-clip">
       <KoiLayer />
       <GoldSparkle />
-      <div className="mx-auto max-w-[1240px] px-3 pt-16 sm:px-5">
+      <div className="mx-auto max-w-[1240px] px-3 pt-3 sm:px-5">
         {/* The main art sits straight on the wall — no paper behind it. */}
         <section data-koi-avoid>
-          <div className="px-3 pb-2 pt-8 text-center sm:px-6 sm:pt-9">
+          <div className="px-3 pb-2 pt-3 text-center sm:px-6 sm:pt-3">
             {/* A picture light hangs over the three words at the very top. */}
             <TitleLight coneHeight="6rem">
               <div className="jl-text flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-accent sm:text-xs sm:tracking-[0.28em]">
