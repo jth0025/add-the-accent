@@ -12,6 +12,7 @@ import SinglesCarousel from "@/components/journal/SinglesCarousel";
 import { formatDate } from "@/lib/formatDate";
 import { readMinutes } from "@/lib/catalog";
 import HeroGear from "@/components/journal/HeroGear";
+import ScrollGradient from "@/components/journal/ScrollGradient";
 import { getAllEntries } from "@/lib/content";
 import {
   COLLECTIONS,
@@ -73,13 +74,14 @@ export default function JournalIndex({ searchParams }) {
   // Set at nearly the Archive's size (a little smaller) and easing into a
   // gradient on hover; the Archive keeps its own gold gleam.
   const secTitle =
-    "sec-title font-display text-[3.4rem] uppercase leading-[0.86] tracking-tighter [filter:drop-shadow(0_2px_3px_rgba(0,0,0,0.5))] sm:text-[5.2rem]";
+    "sec-title font-display text-[min(3.4rem,10.4vw)] uppercase leading-[0.86] tracking-tighter [filter:drop-shadow(0_2px_3px_rgba(0,0,0,0.5))] sm:text-[5.2rem]";
   const sectionSub =
     "mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-white/60";
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
       <h1 className="sr-only">Journal</h1>
+      <ScrollGradient />
 
       {/* The hero, as before. */}
       <section className="paper-fold-thirds corner-box relative mx-auto max-w-3xl rounded-xl border border-ink/15 bg-card px-7 pb-14 pt-10 ![background-size:auto,auto,100%_100%] sm:px-10 sm:py-12 sm:![background-size:auto,auto,100%_auto]">

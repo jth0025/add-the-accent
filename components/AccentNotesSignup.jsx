@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import "@/app/about/about.css";
+import TitleLight from "@/components/journal/TitleLight";
 
 // Same Formspree endpoint as the other forms on the site — the hidden
 // _subject field is what tells the notification emails apart.
@@ -58,7 +59,10 @@ export default function AccentNotesSignup() {
   };
 
   return (
-    <section className="paper-journal corner-box relative mx-auto mt-10 max-w-2xl overflow-hidden rounded-xl border border-ink/15 bg-card px-7 py-9 text-center sm:px-9">
+    // A brass picture light hangs over the box: it comes on when the box is
+    // hovered (and stays on, flickering, on touch screens).
+    <TitleLight over coneHeight="15rem" className="mt-10 !w-full max-w-2xl">
+    <section className="paper-journal corner-box relative mx-auto max-w-2xl overflow-hidden rounded-xl border border-ink/15 bg-card px-7 py-9 text-center sm:px-9">
       {/* The mascot, half-cropped, faint in the background on the far
           left — shown whole (not sliced by a narrow crop box) so it
           reads as a watermark bleeding in under the text rather than a
@@ -164,5 +168,6 @@ export default function AccentNotesSignup() {
         </p>
       </div>
     </section>
+    </TitleLight>
   );
 }

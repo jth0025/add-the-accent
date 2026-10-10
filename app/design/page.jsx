@@ -3,6 +3,7 @@ import DesignGallery from "@/components/DesignGallery";
 import DesignInfluencers from "@/components/DesignInfluencers";
 import GoldSparkle from "@/components/GoldSparkle";
 import KoiLayer from "@/components/KoiLayer";
+import TitleLight from "@/components/journal/TitleLight";
 import "./design.css";
 
 export const metadata = { title: "The Museum — Add the Accent" };
@@ -20,11 +21,14 @@ export default function DesignPage() {
         {/* The main art sits straight on the wall — no paper behind it. */}
         <section data-koi-avoid>
           <div className="px-3 pb-2 pt-8 text-center sm:px-6 sm:pt-9">
-            <div className="flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-accent sm:text-xs sm:tracking-[0.28em]">
-              <span className="hidden h-px w-8 bg-accent/40 sm:block" />
-              <span>Design &middot; Photography &middot; Motion</span>
-              <span className="hidden h-px w-8 bg-accent/40 sm:block" />
-            </div>
+            {/* A picture light hangs over the three words at the very top. */}
+            <TitleLight coneHeight="6rem">
+              <div className="jl-text flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-accent sm:text-xs sm:tracking-[0.28em]">
+                <span className="hidden h-px w-8 bg-accent/40 sm:block" />
+                <span>Design &middot; Photography &middot; Motion</span>
+                <span className="hidden h-px w-8 bg-accent/40 sm:block" />
+              </div>
+            </TitleLight>
 
             {/* The title is set into the picture itself, level with the
                 figure's head and centred over the tallest pedestal (on
