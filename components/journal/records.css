@@ -915,3 +915,47 @@ a.ar-row:focus-visible {
     transition: none;
   }
 }
+
+/* ---------- The Archive: fills with a gradient, slowly, on hover ----------
+   A second copy of the title (a pseudo-element) sits exactly over the first,
+   painted with a gradient; it fades in and slides across over 1.8s on hover,
+   while the thin gold gleam keeps running underneath. */
+.ar-gleam {
+  position: relative;
+}
+
+.ar-gleam::after {
+  content: "The\A Archive";
+  white-space: pre;
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    90deg,
+    #ffe9a8 0%,
+    #f0c25a 22%,
+    #ff9a3c 48%,
+    #f0556b 74%,
+    #c77dff 100%
+  );
+  background-size: 220% 100%;
+  background-position: 0% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 1.8s ease,
+    background-position 1.8s ease;
+}
+
+.ar-gleam:hover::after {
+  opacity: 1;
+  background-position: 100% 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ar-gleam::after {
+    transition: none;
+  }
+}
