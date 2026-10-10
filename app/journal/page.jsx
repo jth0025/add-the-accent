@@ -24,9 +24,6 @@ import {
 
 export const metadata = { title: "Journal — Add the Accent" };
 
-const JOURNAL_PAGE_INTRO =
-  "Before any of this was written, it was played, shot, designed, or filmed. Writing came last — the medium that finally held the others together — and this page is where it keeps going. Think of it as a record store for the written word: every essay should feel like your favorite cut — nostalgic, memorable, kept like a record you never lose, and just as impactful. We are writing toward healing, and the journey runs like your favorite album, track by track: the series are long plays, the shorter pieces are singles, and everything here is meant to be read, not played.";
-
 // The Journal as a record label. The nav dropdown links here with
 // ?series=... or ?category=Interludes: those open the collection as the
 // back of its album. With neither, this is the whole record store —
@@ -105,9 +102,20 @@ export default function JournalIndex({ searchParams }) {
           &ldquo;Write the vision,
           <br className="sm:hidden" /> make it plain.&rdquo;
         </p>
-        <p className="mx-auto mt-4 max-w-xl pl-2 pr-6 text-center text-sm text-stone sm:mt-6 sm:pl-0 sm:pr-8">
-          {JOURNAL_PAGE_INTRO}
-        </p>
+        <div className="mx-auto mt-4 max-w-xl space-y-3 pl-2 pr-6 text-center text-sm text-stone sm:mt-6 sm:pl-0 sm:pr-8">
+          <p>Some things are worth remembering. Others are worth revisiting.</p>
+          <p>
+            Here, thoughts become collections. Stories become records of who
+            we were, what we&rsquo;ve learned, and who we&rsquo;re becoming.
+          </p>
+          <p>
+            Every entry has its own rhythm. Every collection tells a larger
+            story.
+          </p>
+          <p className="font-serif text-base italic text-ink">
+            Flip through. Find something worth keeping.
+          </p>
+        </div>
       </section>
 
       <JournalNav tone="light" className="mt-8 justify-center" />
