@@ -1,0 +1,70 @@
+/* Collectible figures on the home page's left rail: two to a row, each on
+   a soft shadow under its feet. */
+.cl-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 0.5rem;
+  row-gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cl-item {
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.cl-ready .cl-item {
+  opacity: 1;
+}
+
+.cl-stage {
+  position: relative;
+}
+
+/* The figure stands on its own shadow: the soles sit over the middle of
+   the pool, so the feet cover it and it spreads out around them. */
+.cl-figure {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: 50% 95%;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cl-base {
+  position: absolute;
+  z-index: 1;
+  left: 8%;
+  right: 8%;
+  bottom: 0.1rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.62) 0%,
+    rgba(0, 0, 0, 0.5) 45%,
+    rgba(0, 0, 0, 0) 74%
+  );
+  filter: blur(1.5px);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.cl-item:hover .cl-figure {
+  transform: translateY(-4px) scale(1.03);
+}
+
+.cl-item:hover .cl-base {
+  transform: scale(0.9);
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-figure {
+    transition: none;
+  }
+}

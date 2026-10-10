@@ -2790,6 +2790,15 @@ html.header-raining .header-rain {
   transition-delay: 0.12s;
 }
 
+@keyframes jt-grunge-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.4;
+  }
+}
+
 /* A faint atmospheric grunge settles around the mark — worn wall, no
    shadow — behind it, never over it. */
 .jt-reveal-link::before {
@@ -2800,6 +2809,7 @@ html.header-raining .header-rain {
   pointer-events: none;
   background: url("/textures/smudges.webp") 30% 20% / 760px auto;
   opacity: 0.4;
+  animation: jt-grunge-in 6s ease-out 1s both;
   -webkit-mask-image: radial-gradient(
     ellipse at center,
     #000 18%,

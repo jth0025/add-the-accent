@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SmokeLink from "@/components/SmokeLink";
 import "./kenji-quest.css";
+import "@/app/about/about.css";
 
 export const metadata = {
   title: "Kenji's Quest: First Light — Add the Accent",
@@ -277,7 +278,7 @@ export default function KenjiQuestPage() {
         </p>
       </section>
 
-      {/* The path */}
+      {/* The path, and where things stand right now */}
       <section className="paper-fold-thirds qi-path-paper-wide corner-box mt-8 rounded-xl border border-ink/15 bg-card px-7 py-10 text-center sm:px-10">
         <SectionLabel>The Path</SectionLabel>
         <h2 className="mt-3 whitespace-nowrap font-playfair text-[min(calc((100vw-7.5rem)/28),1.5rem)] italic text-ink sm:text-xl">
@@ -294,6 +295,24 @@ export default function KenjiQuestPage() {
           pass. We&rsquo;re saving the details for when you can experience
           them yourself.
         </p>
+        <div className="mx-auto mt-8 max-w-md border-t border-ink/10 pt-8">
+          <SectionLabel>Right Now</SectionLabel>
+          <p className="mx-auto mt-4 max-w-md font-playfair text-xl italic text-ink sm:text-2xl">
+            The path is still being cleared.
+          </p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/quest-path.png"
+            alt="A hand-drawn map of a winding path through jungle island terrain"
+            className="mx-auto mt-6 w-48 drop-shadow-[0_10px_14px_rgba(0,0,0,0.3)] sm:w-56"
+          />
+          <p className="mx-auto mt-6 max-w-md text-stone">
+            <strong className="font-bold italic">Kenji&rsquo;s Quest</strong>:{" "}
+            <strong className="gleam-natural font-bold italic">First Light</strong> is in
+            development &mdash; and it&rsquo;s shaping up to be something
+            worth the wait.
+          </p>
+        </div>
       </section>
 
       {/* Status / notify */}
@@ -326,34 +345,38 @@ export default function KenjiQuestPage() {
           </div>
         ))}
       <section className="paper-fold-quarters corner-box rounded-xl border border-ink/15 bg-card px-7 py-10 text-center sm:px-10">
-        <SectionLabel>Right Now</SectionLabel>
-        <p className="mx-auto mt-4 max-w-md font-playfair text-xl italic text-ink sm:text-2xl">
-          The path is still being cleared.
-        </p>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/quest-path.png"
-          alt="A hand-drawn map of a winding path through jungle island terrain"
-          className="mx-auto mt-6 w-48 drop-shadow-[0_10px_14px_rgba(0,0,0,0.3)] sm:w-56"
-        />
-        <p className="mx-auto mt-6 max-w-md text-stone">
-          <strong className="font-bold italic">Kenji&rsquo;s Quest</strong>:{" "}
-          <strong className="gleam-natural font-bold italic">First Light</strong> is in
-          development &mdash; and it&rsquo;s shaping up to be something
-          worth the wait.
-        </p>
-        <p className="mx-auto mt-3 max-w-md text-stone">
-          <span className="font-script text-lg text-ink">Accent Notes</span>{" "}
-          is where it&rsquo;ll be announced first &mdash; sign up on the{" "}
-          <Link href="/work-with-me" className="text-accent hover:underline">
-            Work With Me
-          </Link>{" "}
-          page, or keep an eye on the{" "}
-          <Link href="/journal" className="text-accent hover:underline">
-            Journal
-          </Link>
-          .
-        </p>
+        {/* A small Accent Note: the same title structure as the signup box
+            (label, heavy Playfair title with the gleaming italic middle
+            word, double rule), scaled down to sit inside this card. */}
+        <div className="mx-auto max-w-md">
+          <div className="flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-widest text-accent">
+            <span className="h-px w-5 bg-accent/40" />
+            <span>Join the list</span>
+            <span className="h-px w-5 bg-accent/40" />
+          </div>
+          <p className="mt-3 font-playfair text-[1.7rem] font-black leading-[0.95] tracking-[-0.03em] text-ink sm:text-[2rem]">
+            An <span className="about-accent-gleam font-normal italic text-accent">Accent</span>{" "}
+            Note
+          </p>
+          <div aria-hidden="true" className="mx-auto mt-3 flex max-w-[7rem] flex-col gap-[2px]">
+            <span className="h-[2px] bg-ink" />
+            <span className="h-px bg-ink/60" />
+          </div>
+          <p className="mt-3 font-playfair text-base font-bold leading-tight tracking-[-0.01em] text-ink">
+            Announced <span className="font-normal italic text-accent">here</span> first
+          </p>
+          <p className="mt-2 text-sm text-stone">
+            Sign up on the{" "}
+            <Link href="/work-with-me" className="text-accent hover:underline">
+              Work With Me
+            </Link>{" "}
+            page, or keep an eye on the{" "}
+            <Link href="/journal" className="text-accent hover:underline">
+              Journal
+            </Link>
+            .
+          </p>
+        </div>
       </section>
       </div>
     </div>

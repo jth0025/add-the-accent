@@ -145,3 +145,80 @@
     0 0 8px rgba(0, 0, 0, 0.7),
     0 0 12px rgba(255, 190, 80, 0.35);
 }
+
+/* "Games": a cinematic poster face in polished gold — bright crown, dark
+   engraved band through the middle, warm lower lip — with a slow glint
+   passing across it now and then. */
+.kq-games {
+  position: relative;
+  margin-top: 0;
+  padding: 0.65rem 0 0.7rem;
+  text-align: center;
+  line-height: 1;
+}
+
+.kq-games-text {
+  display: inline-block;
+  font-family: var(--font-cinema), Impact, sans-serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-transform: uppercase;
+  background-image:
+    linear-gradient(
+      105deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(255, 255, 255, 0.95) 49%,
+      rgba(255, 255, 255, 0.95) 51%,
+      transparent 60%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      #fff3b8 0%,
+      #f6d36a 22%,
+      #c8902a 48%,
+      #7a4d10 52%,
+      #d9a43a 70%,
+      #ffe08a 88%,
+      #b87a1e 100%
+    );
+  background-size: 250% 100%, 100% 100%;
+  background-position: 160% 0, 0 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 10px rgba(255, 190, 70, 0.3));
+  animation: kq-games-glint 7s ease-in-out infinite;
+}
+
+.kq-games-rule {
+  display: block;
+  width: 7rem;
+  height: 2px;
+  margin: 0.55rem auto 0;
+  background: linear-gradient(90deg, transparent, #f1c65a 25%, #fff0b0 50%, #f1c65a 75%, transparent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes kq-games-glint {
+  0%,
+  55% {
+    background-position: 160% 0, 0 0;
+  }
+  85%,
+  100% {
+    background-position: -60% 0, 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kq-games-text {
+    animation: none;
+  }
+}

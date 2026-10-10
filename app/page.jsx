@@ -11,6 +11,7 @@ import SeriesProgress from "@/components/SeriesProgress";
 import KenjiQuestPromo from "@/components/KenjiQuestPromo";
 import SmudgeLayer from "@/components/SmudgeLayer";
 import SignatureMark from "@/components/SignatureMark";
+import Collectibles from "@/components/Collectibles";
 
 export default function HomePage() {
   const portfolio = getSelectedWork().slice(0, 3);
@@ -41,6 +42,12 @@ export default function HomePage() {
       <div className="relative">
         <div className="jt-rail pointer-events-none absolute left-12 top-3 z-10 hidden w-56 xl:block">
           <SignatureMark className="pointer-events-auto" />
+        </div>
+        {/* The collectible identities, under the signature — a separate
+            rail so they dim with the page when the signature's spotlight
+            is on. */}
+        <div className="pointer-events-none absolute left-12 top-[14rem] z-10 hidden w-56 xl:block">
+          <Collectibles className="pointer-events-auto" />
         </div>
         <div className="pointer-events-none absolute right-6 top-0 z-10 hidden w-56 xl:block">
           <div className="pointer-events-auto">
@@ -217,8 +224,11 @@ export default function HomePage() {
               form.
             </span>
           </p>
-          <p className="mt-8 text-center font-serif text-lg italic text-white sm:whitespace-nowrap sm:text-[1.3rem]">
+          <p className="mt-8 text-center font-playfair text-3xl font-bold italic leading-tight tracking-tight text-ink sm:text-4xl">
             &ldquo;It&rsquo;s about finding and leaving the mark only you can make.&rdquo;
+          </p>
+          <p className="mt-2 text-center font-mono text-xs uppercase tracking-[0.3em] text-ink/70">
+            &mdash; JT
           </p>
         </div>
       </HeroCarousel>

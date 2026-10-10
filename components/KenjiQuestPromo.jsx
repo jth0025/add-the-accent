@@ -13,6 +13,12 @@ import "./kenji-quest-promo.css";
  */
 export default function KenjiQuestPromo() {
   return (
+    <div>
+      {/* The shelf this card sits on: the site's games. */}
+      <h2 className="kq-games kq-stone mb-3 rounded-xl border border-black/30 shadow-lg">
+        <span className="kq-games-text">Games</span>
+        <span aria-hidden="true" className="kq-games-rule" />
+      </h2>
     <div
       className="corner-box overflow-hidden rounded-xl border border-black/30 shadow-lg"
       style={{
@@ -60,6 +66,7 @@ export default function KenjiQuestPromo() {
           <span className="kq-enter-text">Enter</span>
         </Link>
       </div>
+    </div>
     </div>
   );
 }
