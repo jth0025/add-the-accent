@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PaperClip from "@/components/PaperClip";
+import { CollectibleDivider } from "@/components/Collectibles";
 import "./about.css";
 
 export const metadata = { title: "About — Add the Accent" };
@@ -267,6 +268,9 @@ export default function AboutPage() {
         </p>
       </section>
 
+      {/* Four of the collectible identities, as a divider. */}
+      <CollectibleDivider />
+
       {/* Profile — an editorial bio card: portrait, headline, quick facts,
           the full story, and a skills grid. The photo-and-headline row
           reads like a magazine spread page, then drops back into the
@@ -275,7 +279,7 @@ export default function AboutPage() {
           type treatment on yvettehaughton.com. */}
       <section
         id="profile"
-        className="corner-box relative mt-12 scroll-mt-24 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12"
+        className="corner-box relative scroll-mt-24 rounded-xl border border-ink/15 bg-card px-7 py-10 sm:px-10 sm:py-12"
       >
         <SectionLabel>Profile</SectionLabel>
 

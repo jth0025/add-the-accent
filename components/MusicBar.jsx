@@ -1,11 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { PLAYLIST } from "@/lib/playlist";
+import { PLAYLIST, STATIONS, pickStation } from "@/lib/playlist";
 import { AUDIOBUS_PLAY, AUDIOBUS_STOP, announcePlay } from "@/lib/audioBus";
 
 const SOURCE_ID = "music";
 const STORE_KEY = "ata-music-track";
+const ORDER_KEY = "ata-music-order"; // { station, order } — this visit's shuffle
 const FADE = 2.5; // crossfade length, seconds
 const QUICK_FADE = 0.8; // manual skip / very short previews
 const MUSIC_LEVEL = 0.07; // barely-there ambient bed, well under everything else
@@ -31,6 +32,7 @@ export default function MusicBar() {
   const els = [useRef(null), useRef(null)];
   const primary = useRef(0); // which <audio> is foreground
   const idxRef = useRef(0);
+  const listRef = useRef(PLAYLIST); // this visit's shuffled tracks
   const fading = useRef(false);
   const wantsToPlay = useRef(true);
   const commitTimer = useRef(null);
@@ -44,13 +46,15 @@ export default function MusicBar() {
   const ambientRef = useRef(null); // { src, gain } — the quiet always-on crackle
 
   const [index, setIndex] = useState(0);
+  const [list, setList] = useState(PLAYLIST);
+  const [stationLabel, setStationLabel] = useState(STATIONS.main.label);
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
 
   const primaryEl = useCallback(() => els[primary.current].current, [els]);
   const otherEl = useCallback(() => els[primary.current ^ 1].current, [els]);
-  const track = PLAYLIST[index] || PLAYLIST[0];
+  const track = list[index] || list[0];
 
   const persist = (i) => {
     try {
@@ -264,12 +268,12 @@ export default function MusicBar() {
 
   const load = (el, i) => {
     if (el) {
-      el.src = PLAYLIST[i].src;
+      el.src = listRef.current[i].src;
       el.load();
     }
   };
 
-  const nextIndex = () => (idxRef.current + 1) % PLAYLIST.length;
+  const nextIndex = () => (idxRef.current + 1) % listRef.current.length;
 
   const crossfade = useCallback(
     (nextIdx, quick = false) => {
@@ -327,10 +331,45 @@ export default function MusicBar() {
 
   // ---- mount: resume position, start playback, gesture fallback ----
   useEffect(() => {
+    // Today's playlist (Met Lofts on Tuesdays and Thursdays), in a random
+    // order that holds for the rest of this visit.
+    const station = pickStation(window.location.search);
+    let order = null;
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(ORDER_KEY) || "null");
+      if (
+        saved &&
+        saved.station === station.key &&
+        Array.isArray(saved.order) &&
+        saved.order.length === station.tracks.length
+      ) {
+        order = saved.order;
+      }
+    } catch {
+      /* ignore */
+    }
+    if (!order) {
+      order = station.tracks.map((_, i) => i);
+      for (let i = order.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      try {
+        sessionStorage.setItem(ORDER_KEY, JSON.stringify({ station: station.key, order }));
+        sessionStorage.removeItem(STORE_KEY);
+      } catch {
+        /* ignore */
+      }
+    }
+    const shuffled = order.map((i) => station.tracks[i]);
+    listRef.current = shuffled;
+    setList(shuffled);
+    setStationLabel(station.label);
+
     let start = 0;
     try {
       const s = parseInt(sessionStorage.getItem(STORE_KEY) || "", 10);
-      if (Number.isInteger(s) && s >= 0 && s < PLAYLIST.length) start = s;
+      if (Number.isInteger(s) && s >= 0 && s < shuffled.length) start = s;
     } catch {
       /* ignore */
     }
@@ -481,7 +520,7 @@ export default function MusicBar() {
       clearTimeout(commitTimer.current);
       fading.current = false;
       setGain(primary.current, MUSIC_LEVEL, 0);
-      crossfade((idxRef.current + 2) % PLAYLIST.length, true);
+      crossfade((idxRef.current + 2) % listRef.current.length, true);
       return;
     }
     if (el === primaryEl()) {
@@ -562,7 +601,7 @@ export default function MusicBar() {
               {track.title}
               <span className="text-white/40"> — {track.artist}</span>
               <span className="text-white/30"> &middot; </span>
-              <span className="text-moss">Green Maize&rsquo;s Station</span>
+              <span className="text-moss">{stationLabel}</span>
             </span>
             <span className="shrink-0 tabular-nums text-white/50">
               {fmt(current)} / {fmt(duration)}

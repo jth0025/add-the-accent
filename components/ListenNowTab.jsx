@@ -1,3 +1,8 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { STATIONS, pickStation } from "@/lib/playlist";
+
 /**
  * A small "tab" hanging directly off the bottom of the Now Playing bar,
  * linking to the Apple Music radio station. Centered under the middle of
@@ -22,10 +27,17 @@
  * and this tab on small screens, so the clip has to hold there too).
  */
 export default function ListenNowTab() {
+  // Green Maize's station by default; on Tuesdays and Thursdays the tab
+  // points at the Met Lofts playlist (the same one the music bar plays).
+  const [station, setStation] = useState(STATIONS.main);
+  useEffect(() => {
+    setStation(pickStation(window.location.search));
+  }, []);
+
   return (
     <div className="listen-now-drop relative z-10 flex justify-center [clip-path:inset(0_-100vw_-100vw_-100vw)] sm:justify-start sm:pl-6">
       <a
-        href="https://music.apple.com/us/station/green-maizes-station/ra.u-4a3a814146791beb1abb70ff757aa95f"
+        href={station.href}
         target="_blank"
         rel="noopener noreferrer"
         className="tab-slow-glow group relative block w-[17rem] -translate-y-1 transition-transform duration-300 sm:-translate-y-1.5 sm:w-[19.5rem]"
@@ -90,10 +102,10 @@ export default function ListenNowTab() {
                 </span>
               </span>
               <span className="font-display text-[13px] uppercase leading-none text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.9)] transition-colors duration-300 group-hover:text-[#3ddc4a] group-hover:[text-shadow:0_0_8px_rgba(61,220,74,0.85),0_0_18px_rgba(61,220,74,0.6)] sm:text-[15px]">
-                Green Maize
+                {station.tabName}
               </span>
               <span className="font-sans text-[7px] font-medium uppercase tracking-wide text-white/80 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)] sm:text-[8px]">
-                radio
+                {station.tabNoun}
               </span>
             </span>
           </div>

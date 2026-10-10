@@ -68,3 +68,169 @@
     transition: none;
   }
 }
+
+/* Section divider: a scroller of the figures, four showing at a time,
+   between two fine lines. */
+.cl-divider {
+  --cl-w: 3.4rem;
+  --cl-gap: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 1.75rem 0 1.5rem;
+}
+
+.cl-divider-line {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(26, 26, 26, 0.3));
+}
+
+.cl-divider-line:last-child {
+  background: linear-gradient(270deg, transparent, rgba(26, 26, 26, 0.3));
+}
+
+.cl-divider-row {
+  display: flex;
+  flex: none;
+  align-items: flex-end;
+  gap: var(--cl-gap);
+  /* Exactly four figures wide. */
+  width: calc(var(--cl-w) * 4 + var(--cl-gap) * 3);
+  margin: 0;
+  padding: 0.6rem 0 0.5rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.cl-divider-row::-webkit-scrollbar {
+  display: none;
+}
+
+.cl-item--sm {
+  flex: none;
+  width: var(--cl-w);
+  scroll-snap-align: start;
+}
+
+/* Chunky gold arcade buttons: they bob, wiggle toward their direction on
+   hover, and squash when pressed. */
+.cl-arrow {
+  flex: none;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 2px solid #5b3a0e;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #ffe9a8 0%, #f0b93f 55%, #c27d12 100%);
+  box-shadow:
+    0 3px 0 #5b3a0e,
+    0 5px 6px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  color: #4a2a05;
+  cursor: pointer;
+  animation: cl-bob 2.6s ease-in-out infinite;
+  transition: transform 0.2s cubic-bezier(0.3, 1.8, 0.5, 1), box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.cl-arrow--next {
+  animation-delay: -1.3s;
+}
+
+.cl-arrow-glyph {
+  display: block;
+  font-family: var(--font-archivo-black), sans-serif;
+  font-size: 1.35rem;
+  line-height: 1;
+  transform: translateY(-0.06em);
+}
+
+.cl-arrow:hover,
+.cl-arrow:focus-visible {
+  animation: none;
+  transform: translateY(-2px) scale(1.18) rotate(var(--cl-tilt, 0deg));
+  filter: brightness(1.08);
+  box-shadow:
+    0 5px 0 #5b3a0e,
+    0 8px 10px rgba(0, 0, 0, 0.35),
+    0 0 12px rgba(255, 200, 80, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+.cl-arrow--prev {
+  --cl-tilt: -10deg;
+}
+
+.cl-arrow--next {
+  --cl-tilt: 10deg;
+}
+
+.cl-arrow:hover .cl-arrow-glyph {
+  animation: cl-nudge-prev 0.5s ease-in-out infinite;
+}
+
+.cl-arrow--next:hover .cl-arrow-glyph {
+  animation-name: cl-nudge-next;
+}
+
+.cl-arrow:active {
+  transform: translateY(2px) scale(0.88);
+  box-shadow:
+    0 1px 0 #5b3a0e,
+    0 2px 3px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes cl-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes cl-nudge-prev {
+  0%,
+  100% {
+    transform: translate(0, -0.06em);
+  }
+  50% {
+    transform: translate(-3px, -0.06em);
+  }
+}
+
+@keyframes cl-nudge-next {
+  0%,
+  100% {
+    transform: translate(0, -0.06em);
+  }
+  50% {
+    transform: translate(3px, -0.06em);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-arrow,
+  .cl-arrow:hover .cl-arrow-glyph {
+    animation: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .cl-arrow {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+
+  .cl-divider {
+    --cl-w: 4.6rem;
+    --cl-gap: 0.75rem;
+    gap: 0.9rem;
+  }
+}
