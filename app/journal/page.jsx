@@ -225,7 +225,7 @@ export default function JournalIndex({ searchParams }) {
 
       {/* Accent Note — keep up with the latest drop */}
       <section id="accent-note" className="mt-20 scroll-mt-24">
-        <AccentNotesSignup />
+        <AccentNotesSignup substack />
       </section>
     </div>
   );

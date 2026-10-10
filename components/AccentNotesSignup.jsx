@@ -21,7 +21,11 @@ const FORMSPREE_ENDPOINT =
  * something worth sending rather than on a manufactured schedule. No
  * name, no preferences, just an address, so signing up costs nothing.
  */
-export default function AccentNotesSignup() {
+// Substack's own signup embed. Pages that pass `substack` get this in
+// place of the Formspree form (the Journal does; Work With Me does not).
+const SUBSTACK_EMBED_URL = "https://addtheaccent.substack.com/embed";
+
+export default function AccentNotesSignup({ substack = false }) {
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
   const [email, setEmail] = useState("");
 
@@ -120,48 +124,64 @@ export default function AccentNotesSignup() {
           ))}
         </ul>
 
-        {status === "sent" ? (
-          <p className="mt-6 font-serif text-lg italic text-ink">
-            You&rsquo;re on the list.
-          </p>
-        ) : (
-          <form
-            onSubmit={handleSubmit}
-            className="mx-auto mt-6 flex max-w-sm flex-col gap-2.5 sm:flex-row"
-          >
-            <label htmlFor="accent-notes-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="accent-notes-email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={status === "sending"}
-              placeholder="you@email.com"
-              className="w-full rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent disabled:opacity-60"
+        {substack ? (
+          <div className="mt-6 flex justify-center">
+            <iframe
+              src={SUBSTACK_EMBED_URL}
+              title="Subscribe to Add the Accent on Substack"
+              width="480"
+              height="320"
+              style={{ border: "1px solid #EEE", background: "white", maxWidth: "100%" }}
+              frameBorder="0"
+              scrolling="no"
             />
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              className="shrink-0 rounded-full bg-accent px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+          </div>
+        ) : (
+          <>
+          {status === "sent" ? (
+            <p className="mt-6 font-serif text-lg italic text-ink">
+              You&rsquo;re on the list.
+            </p>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="mx-auto mt-6 flex max-w-sm flex-col gap-2.5 sm:flex-row"
             >
-              {status === "sending" ? "Adding…" : "Add me →"}
-            </button>
-          </form>
-        )}
-        {status === "error" && (
-          <p className="mt-3 text-sm text-[#c0202a]">
-            Something went wrong — try again, or email{" "}
-            <a
-              href="mailto:info@addtheaccent.com"
-              className="underline underline-offset-2"
-            >
-              info@addtheaccent.com
-            </a>
-            .
-          </p>
+              <label htmlFor="accent-notes-email" className="sr-only">
+                Email address
+              </label>
+              <input
+                id="accent-notes-email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={status === "sending"}
+                placeholder="you@email.com"
+                className="w-full rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm text-ink outline-none placeholder:text-stone/60 focus:border-accent disabled:opacity-60"
+              />
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="shrink-0 rounded-full bg-accent px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+              >
+                {status === "sending" ? "Adding…" : "Add me →"}
+              </button>
+            </form>
+          )}
+          {status === "error" && (
+            <p className="mt-3 text-sm text-[#c0202a]">
+              Something went wrong — try again, or email{" "}
+              <a
+                href="mailto:info@addtheaccent.com"
+                className="underline underline-offset-2"
+              >
+                info@addtheaccent.com
+              </a>
+              .
+            </p>
+          )}
+          </>
         )}
         <p className="mt-4 font-mono text-[10px] uppercase tracking-widest text-stone/60">
           No inbox clutter. Just the accent.
