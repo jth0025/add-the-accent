@@ -111,7 +111,7 @@
   position: relative;
   width: min(22rem, 78vw);
   /* room on the right for the disc to come out */
-  padding-right: 18%;
+  padding-right: 26%;
   container-type: inline-size;
 }
 
@@ -134,7 +134,7 @@
 
 .rec-pull:hover .rec-disc-wrap,
 .rec-pull:focus-within .rec-disc-wrap {
-  transform: translateX(20%);
+  transform: translateX(28%);
 }
 
 /* The turntable turns only while the record is out — the one moment it
@@ -147,7 +147,7 @@
 /* Touch screens have no hover: the record simply rests part-way out. */
 @media (hover: none) {
   .rec-pull .rec-disc-wrap {
-    transform: translateX(20%);
+    transform: translateX(24%);
   }
 }
 
@@ -877,5 +877,41 @@ a.ar-row:focus-visible {
 @media (max-width: 639px) {
   .sn-single {
     display: none;
+  }
+}
+
+/* ---------- Section titles: eases into a gradient, slowly, once hovered ----------
+   Same idea as the featured title, only slower: a wide gradient (white, a
+   pale tint, the section's colour, a deeper shade) slid behind the letters. */
+.sec-title {
+  --sec-color: #d3ac52;
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 33%,
+    color-mix(in srgb, var(--sec-color) 38%, #fff) 46%,
+    var(--sec-color) 62%,
+    color-mix(in srgb, var(--sec-color) 72%, #000) 80%,
+    color-mix(in srgb, var(--sec-color) 55%, #fff) 100%
+  );
+  background-size: 300% 100%;
+  background-position: 0% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-position 1.8s ease;
+}
+
+.sec-title:hover {
+  background-position: 100% 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sec-title {
+    transition: none;
   }
 }

@@ -39,7 +39,7 @@ export default function SinglesCarousel({ cover, href, color, ink, items }) {
         tabIndex={0}
       >
         <div className="w-[72%] max-w-[18rem] shrink-0 snap-center">
-          <Link href={href} aria-label="The Singles Collection — open the sleeve" className="block">
+          <Link href={href} aria-hidden="true" tabIndex={-1} className="block">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={cover}
@@ -56,9 +56,10 @@ export default function SinglesCarousel({ cover, href, color, ink, items }) {
           </p>
           <Link
             href={href}
+            aria-label="Explore Collection: The Singles Collection"
             className="mt-3 inline-block rounded-full border border-white/40 px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-widest text-white"
           >
-            Open Sleeve &rarr;
+            Explore Collection &rarr;
           </Link>
         </div>
 

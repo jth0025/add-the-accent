@@ -64,7 +64,10 @@ export default function BackCover({ collection, entries, allEntries }) {
                   className="mt-4"
                 />
               )}
-              <p className="mt-5 max-w-lg font-serif text-lg italic leading-snug text-white/85">
+              <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
+                The thesis
+              </p>
+              <p className="mt-2 max-w-lg font-serif text-lg italic leading-snug text-white/85">
                 {collection.blurb}
               </p>
             </div>

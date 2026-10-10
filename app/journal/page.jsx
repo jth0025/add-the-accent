@@ -24,7 +24,7 @@ import {
 export const metadata = { title: "Journal — Add the Accent" };
 
 const JOURNAL_PAGE_INTRO =
-  "Before any of this was written, it was played, shot, designed, or filmed. Writing came last — the medium that finally held the others together — and this page is where it keeps going. Think of it as a record store for the written word: the series are long plays, the short pieces are singles, and everything here is meant to be read, not played.";
+  "Before any of this was written, it was played, shot, designed, or filmed. Writing came last — the medium that finally held the others together — and this page is where it keeps going. Think of it as a record store for the written word: every essay should feel like your favorite cut — nostalgic, memorable, kept like a record you never lose, and just as impactful. We are writing toward healing, and the journey runs like your favorite album, track by track: the series are long plays, the shorter pieces are singles, and everything here is meant to be read, not played.";
 
 // The Journal as a record label. The nav dropdown links here with
 // ?series=... or ?category=Interludes: those open the collection as the
@@ -70,8 +70,10 @@ export default function JournalIndex({ searchParams }) {
     catalog: catalogNumber(e, allEntries),
   }));
 
-  const sectionHeading =
-    "font-display text-2xl uppercase tracking-tight text-white sm:text-3xl [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]";
+  // Set at nearly the Archive's size (a little smaller) and easing into a
+  // gradient on hover; the Archive keeps its own gold gleam.
+  const secTitle =
+    "sec-title font-display text-[3.4rem] uppercase leading-[0.86] tracking-tighter [filter:drop-shadow(0_2px_3px_rgba(0,0,0,0.5))] sm:text-[5.2rem]";
   const sectionSub =
     "mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-white/60";
 
@@ -110,7 +112,7 @@ export default function JournalIndex({ searchParams }) {
 
       {/* The Turntable — the Featured Release */}
       <section id="turntable" className="mt-14 scroll-mt-24">
-        <h2 className={`${sectionHeading} text-center`}>The Turntable</h2>
+        <h2 className={`${secTitle} text-center`} style={{ "--sec-color": "#4fb4ff" }}>The Turntable</h2>
         <p className={`${sectionSub} text-center`}>Featured Release</p>
         <div className="mt-8">
           <TurntableFeature entry={featured} allEntries={allEntries} />
@@ -119,7 +121,7 @@ export default function JournalIndex({ searchParams }) {
 
       {/* Long Plays — the series */}
       <section id="long-plays" className="mt-20 scroll-mt-24">
-        <h2 className={`${sectionHeading} text-center`}>Long Plays</h2>
+        <h2 className={`${secTitle} text-center`} style={{ "--sec-color": "#d3ac52" }}>Long Plays</h2>
         <p className={`${sectionSub} text-center`}>A literary album collection</p>
         <div className="mt-6">
           <LongPlays collections={longPlays} />
@@ -129,7 +131,7 @@ export default function JournalIndex({ searchParams }) {
       {/* The shorter essays: small paper sleeves, with the collection's
           cover standing beside them */}
       <section id="singles" className="mt-20 scroll-mt-24">
-        <h2 className={`${sectionHeading} text-center`}>The Singles Collection</h2>
+        <h2 className={`${secTitle} text-center`} style={{ "--sec-color": "#6f8cff" }}>The Singles Collection</h2>
         <p className={`${sectionSub} text-center`}>Short reflections &middot; one side, one sitting</p>
         {/* Phones: a swipeable scroller, the same kind as Long Plays. */}
         <div className="mt-8 sm:hidden">
@@ -151,13 +153,14 @@ export default function JournalIndex({ searchParams }) {
         <div className="mt-8 hidden items-start gap-8 sm:grid sm:grid-cols-[minmax(0,15rem),1fr] sm:gap-10">
           <Link
             href="/journal?category=Interludes"
-            aria-label="The Singles Collection — open the sleeve"
+            aria-hidden="true"
+            tabIndex={-1}
             className="mx-auto hidden w-full max-w-[15rem] outline-none sm:-mt-3 sm:mx-0 sm:block"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={singlesCollection.cover}
-              alt="The Singles Collection — a man in a white shirt, eyes closed, loose pages drifting past a blue wall"
+              alt=""
               loading="lazy"
               className="block aspect-square w-full rounded-[3px] object-cover shadow-[0_16px_30px_rgba(0,0,0,0.5)]"
             />
@@ -166,6 +169,7 @@ export default function JournalIndex({ searchParams }) {
             <SinglesShelf entries={singles} allEntries={allEntries} />
             <Link
               href="/journal?category=Interludes"
+              aria-label="Explore Collection: The Singles Collection"
               className="mt-8 inline-block font-mono text-xs font-bold uppercase tracking-widest text-white/80 hover:text-accent"
             >
               Explore Collection &rarr;

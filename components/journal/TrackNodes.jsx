@@ -12,6 +12,7 @@ export default function TrackNodes({
   color = "#d3ac52",
   className = "",
   showNote = false,
+  compact = false,
 }) {
   const count = Math.min(published, total);
   const complete = count >= total;
@@ -19,8 +20,8 @@ export default function TrackNodes({
     <div
       className={className}
       role="img"
-      aria-label={`${count} of ${total} tracks published${
-        complete ? ", album complete" : ", album unpublished until all seven are out"
+      aria-label={`${count} of ${total} essays available${
+        complete ? ", collection complete" : ", collection in progress"
       }`}
     >
       <div
@@ -30,7 +31,7 @@ export default function TrackNodes({
         }`}
       >
         {complete ? (
-          <span>Album complete</span>
+          <span>Collection complete</span>
         ) : (
           <>
             <span>In progress</span>
@@ -49,12 +50,12 @@ export default function TrackNodes({
             <span key={i} className="flex items-center">
               {i > 0 && (
                 <span
-                  className="h-[2px] w-4 sm:w-6"
+                  className={`h-[2px] ${compact ? "w-2.5" : "w-4 sm:w-6"}`}
                   style={{ background: i < count ? color : "rgba(255,255,255,0.18)" }}
                 />
               )}
               <span
-                className="block h-3.5 w-3.5 rounded-full border-2"
+                className={`block rounded-full border-2 ${compact ? "h-3 w-3" : "h-3.5 w-3.5"}`}
                 style={
                   out
                     ? { background: color, borderColor: color }
@@ -66,11 +67,11 @@ export default function TrackNodes({
         })}
       </div>
       <p aria-hidden="true" className="mt-2 font-mono text-xs uppercase tracking-widest text-white/80">
-        {count} of {total} tracks
+        {count} of {total} essays
       </p>
       {showNote && !complete && (
         <p aria-hidden="true" className="mt-1 max-w-xs text-[12px] italic text-white/55">
-          The album is unpublished until all seven tracks are out; the rest are forthcoming.
+          The collection is in progress; {count} of {total} essays available.
         </p>
       )}
     </div>

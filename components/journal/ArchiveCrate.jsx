@@ -6,25 +6,30 @@ import { useRef, useState } from "react";
 /**
  * The essays' art stacked in a crate beside the Archive. The front card
  * is a link to its essay; the others peek out behind it — click one to
- * bring it forward, use the arrows, swipe, press ← →, or hit Shuffle to
- * mix the crate. (Browsing never depends on this: every essay is also in
- * the plain list next to it.)
+ * bring it forward, use the arrows, swipe, or press ← →.
+ *
+ * Shuffle picks one published essay at random, brings it to the front and
+ * says so ("Shuffle picked"), with a plain Read button. (Browsing never
+ * depends on this: every essay is also in the list next to it.)
  */
 export default function ArchiveCrate({ items }) {
-  const [order, setOrder] = useState(items);
   const [front, setFront] = useState(0);
+  const [picked, setPicked] = useState(false); // the front card came from Shuffle
   const startX = useRef(null);
+  const order = items;
   const n = order.length;
 
-  const go = (d) => setFront((f) => (f + d + n) % n);
+  const go = (d) => {
+    setPicked(false);
+    setFront((f) => (f + d + n) % n);
+  };
+  // A random essay, never the one already in front.
   const shuffle = () => {
-    const a = [...order];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    setOrder(a);
-    setFront(0);
+    if (n < 2) return;
+    let j = Math.floor(Math.random() * (n - 1));
+    if (j >= front) j += 1;
+    setFront(j);
+    setPicked(true);
   };
 
   const onKey = (e) => {
@@ -70,11 +75,12 @@ export default function ArchiveCrate({ items }) {
               onClick={(e) => {
                 if (!isFront) {
                   e.preventDefault();
+                  setPicked(false);
                   setFront(i);
                 }
               }}
-              aria-label={isFront ? `Read ${it.title}` : `Bring forward: ${it.title}`}
-              tabIndex={isFront ? 0 : -1}
+              aria-hidden="true"
+              tabIndex={-1}
               className="cr-card absolute left-0 top-0 block w-[78%] overflow-hidden rounded-[3px] outline-none"
               style={{
                 zIndex: 10 - off,
@@ -104,9 +110,10 @@ export default function ArchiveCrate({ items }) {
         <button
           type="button"
           onClick={shuffle}
+          aria-label="Shuffle: pick a random essay"
           className="rounded-full border border-white/40 px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-widest text-white hover:border-accent hover:text-accent"
         >
-          Shuffle
+          Shuffle pick
         </button>
         <button
           type="button"
@@ -117,14 +124,22 @@ export default function ArchiveCrate({ items }) {
           &rsaquo;
         </button>
       </div>
-      <p className="mt-3 text-center" aria-live="polite">
-        <Link href={current.href} className="font-serif text-lg italic leading-tight text-white hover:text-accent">
-          {current.title}
-        </Link>
-        <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-widest text-white/55">
+      {/* What is in front, and — after Shuffle — that it was picked. */}
+      <div className="mt-4 text-center" aria-live="polite">
+        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#ffd98a]">
+          {picked ? "Shuffle picked" : "In the crate"}
+        </p>
+        <p className="mt-1 font-serif text-lg italic leading-tight text-white">{current.title}</p>
+        <p className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-white/55">
           {current.catalog}
-        </span>
-      </p>
+        </p>
+        <Link
+          href={current.href}
+          className="mt-3 inline-block rounded-full bg-accent px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90"
+        >
+          Read &rarr;
+        </Link>
+      </div>
     </div>
   );
 }

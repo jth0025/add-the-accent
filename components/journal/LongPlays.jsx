@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { TOTAL_TRACKS } from "@/lib/catalog";
 import { Sleeve } from "./Record";
-import TrackArt from "./TrackArt";
 import TrackNodes from "./TrackNodes";
 
 /**
@@ -50,7 +48,7 @@ export default function LongPlays({ collections }) {
               data-active={i === active}
               onMouseEnter={() => setActive(i)}
               onFocus={() => setActive(i)}
-              aria-label={`${c.title} — open the sleeve`}
+              aria-label={`Explore Collection: ${c.title}`}
               style={{ zIndex: i === active ? 30 : collections.length - i }}
             >
               <Sleeve collection={c} />
@@ -58,66 +56,33 @@ export default function LongPlays({ collections }) {
           ))}
         </div>
 
-        <div className="mt-8 grid gap-8 border-t border-white/15 pt-6 text-white lg:grid-cols-[1fr,1fr]">
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/55">
-              Volume {String(current.volume).padStart(2, "0")}
-            </p>
-            <h3 className="album-title mt-2 font-display text-3xl uppercase tracking-tight" style={{ color: current.color }}>
-              {current.title}
-            </h3>
-            <TrackNodes
-              published={current.entries.length}
-              color={current.color}
-              showNote
-              className="mt-4"
-            />
-            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/75">
-              {current.blurb}
-            </p>
-            <Link
-              href={current.href}
-              className="mt-5 inline-block rounded-full border border-white/40 px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest transition-colors hover:border-accent hover:text-accent"
-            >
-              Explore Collection &rarr;
-            </Link>
-          </div>
-          <ol className="font-serif">
-            {Array.from({ length: TOTAL_TRACKS }, (_, i) => {
-              const e = current.entries.find((x) => x.part === i + 1);
-              const n = String(i + 1).padStart(2, "0");
-              return e ? (
-                <li key={n}>
-                  <Link
-                    href={`/journal/${e.slug}`}
-                    className="flex items-center gap-3 border-b border-white/15 py-2 text-white/90 hover:text-accent"
-                  >
-                    <span className="w-6 font-mono text-xs text-white/50">{n}</span>
-                    <TrackArt entry={e} size={34} />
-                    <span className="flex-1 text-lg leading-tight">
-                      {e.titleHtml ? (
-                        <span dangerouslySetInnerHTML={{ __html: e.titleHtml }} />
-                      ) : (
-                        e.title
-                      )}
-                    </span>
-                    <span className="font-mono text-[11px] uppercase tracking-widest text-white/50">
-                      Read
-                    </span>
-                  </Link>
-                </li>
-              ) : (
-                <li
-                  key={n}
-                  className="flex items-center gap-3 border-b border-white/10 py-2 text-white/35"
-                >
-                  <span className="w-6 font-mono text-xs">{n}</span>
-                  <TrackArt forthcoming size={34} />
-                  <span className="flex-1 text-base italic">Forthcoming</span>
-                </li>
-              );
-            })}
-          </ol>
+        {/* The selected collection: its volume, title, progress and thesis.
+            The full tracklist lives only in the opened collection. */}
+        <div className="mx-auto mt-8 max-w-xl border-t border-white/15 pt-6 text-center text-white">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/55">
+            Volume {String(current.volume).padStart(2, "0")}
+          </p>
+          <h3 className="album-title mt-2 font-display text-3xl uppercase tracking-tight" style={{ color: current.color }}>
+            {current.title}
+          </h3>
+          <TrackNodes
+            published={current.entries.length}
+            color={current.color}
+            showNote
+            className="mt-4 flex flex-col items-center"
+          />
+          <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-white/75">
+            {current.blurb}
+          </p>
+          {/* The sleeve above is this collection's accessible link. */}
+          <Link
+            href={current.href}
+            aria-hidden="true"
+            tabIndex={-1}
+            className="mt-5 inline-block rounded-full border border-white/40 px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest transition-colors hover:border-accent hover:text-accent"
+          >
+            Explore Collection &rarr;
+          </Link>
         </div>
       </div>
 
@@ -133,7 +98,7 @@ export default function LongPlays({ collections }) {
         >
           {collections.map((c) => (
             <div key={c.key} className="w-[72%] max-w-[18rem] shrink-0 snap-center">
-              <Link href={c.href} aria-label={`${c.title} — open the sleeve`} className="block">
+              <Link href={c.href} aria-hidden="true" tabIndex={-1} className="block">
                 <Sleeve collection={c} />
               </Link>
               <h3 className="album-title mt-3 font-display text-xl uppercase tracking-tight" style={{ color: c.color }}>
@@ -142,9 +107,10 @@ export default function LongPlays({ collections }) {
               <TrackNodes published={c.entries.length} color={c.color} className="mt-3" />
               <Link
                 href={c.href}
+                aria-label={`Explore Collection: ${c.title}`}
                 className="mt-3 inline-block rounded-full border border-white/40 px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-widest text-white"
               >
-                Open Sleeve &rarr;
+                Explore Collection &rarr;
               </Link>
             </div>
           ))}
