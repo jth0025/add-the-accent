@@ -31,10 +31,10 @@ export default function DesignPage() {
             </TitleLight>
 
             {/* The title is set into the picture itself, level with the
-                figure's head and centred over the tallest pedestal (on
-                phones, where that is too small to read, it sits above the
-                picture instead). */}
-            <div className="relative mt-5 flex flex-col-reverse gap-5 md:block">
+                figure's head and centred over the tallest pedestal. On
+                phones the same spot, just a wider box so the type stays
+                readable (it is sized from the box's own width). */}
+            <div className="relative mt-5">
               <div className="relative">
                 <img
                   src="/design/hero-pillars.jpg"
@@ -49,11 +49,11 @@ export default function DesignPage() {
                   className="pointer-events-none absolute left-[58.5%] top-[78.6%] w-[13.5%] rotate-[12deg] opacity-40 mix-blend-multiply"
                 />
               </div>
-              <h1 className="normal-case leading-[0.95] tracking-tighter text-ink md:absolute md:left-[40.8%] md:top-[25.5%] md:w-[26.6%] md:-translate-y-1/2 md:text-left md:[container-type:inline-size]">
-                <span className="block font-playfair text-[1.65rem] font-bold not-italic min-[400px]:text-3xl sm:text-5xl md:text-[10cqw]">
+              <h1 className="absolute left-[40.8%] top-[25.5%] w-[46%] -translate-y-1/2 normal-case leading-[0.95] tracking-tighter text-left text-ink [container-type:inline-size] md:w-[26.6%]">
+                <span className="block font-playfair text-[10cqw] font-bold not-italic">
                   Different <span className="gold-foil">mediums</span>.
                 </span>
-                <span className="relative left-[0.55em] block font-playfair text-[1.65rem] font-bold not-italic min-[400px]:text-3xl sm:text-5xl md:text-[10cqw]">
+                <span className="relative left-[0.55em] block font-playfair text-[10cqw] font-bold not-italic">
                   Same <span className="gold-foil">signature</span>.
                 </span>
               </h1>
