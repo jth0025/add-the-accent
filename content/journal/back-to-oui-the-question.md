@@ -10,7 +10,7 @@ cover: "/back-to-oui-cover.jpg"
 
 Eight-year-olds are learning, fast, how the world actually works — socially, emotionally, logically. They're on the move. They can follow more complicated rules, understand cause and effect, hold two ideas against each other and feel the difference. They have a sound sense of fairness, even before they have the words for it.
 
-The first trauma I can remember happened when I was eight. It wasn't fair. What I remember first isn't a sentence or a face — it's a color. Purple. Not the glorious kind, not royal, not anything I'd been taught to reach for. I knew purple the way a kid knows any color: background noise, one more hue in a pile of toys on the floor. But that night it wasn't background. It was a foreshadowing, dark enough to fill the hallway and then the living room.
+The first trauma I can remember happened when I was eight. It wasn't fair. What I remember first isn't a sentence or a face — it's a color. Purple. Not the glorious kind, not royal, not anything I'd been taught to reach for. I knew purple the way a kid knows any color: background noise, one more hue in a pile of toys on the floor. But that early morning it wasn't background. It was a foreshadowing, dark enough to fill the hallway and then the living room.
 
 Then a gold stroke broke through the doorway. My dad, back from some chore outside. Relief found me instantly. The purple didn't leave — it just made room for him.
 
