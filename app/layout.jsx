@@ -266,7 +266,13 @@ export default function RootLayout({ children }) {
           </defs>
         </svg>
         <div className="flex min-h-screen flex-col">
-          <header className="relative border-b-2 border-ink/55">
+          {/* z-[45] lifts the header (and the Journal dropdown inside it)
+              over every in-page layer (z-40 and below) while full-screen
+              overlays and modals (z-50 and up) still cover it. While the
+              Journal dropdown is open it rises further, over the floating
+              Kenji guide (z-[250]) too, so the menu is always the front
+              layer. */}
+          <header className="relative z-[45] border-b-2 border-ink/55 has-[.group:hover]:z-[260]">
             <HeaderSky />
             <div
               className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
