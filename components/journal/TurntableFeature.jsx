@@ -165,8 +165,8 @@ export default function TurntableFeature({ entry, allEntries }) {
           </div>
 
           {/* The collection's art: small, upright, greyed over what isn't
-              out yet (blended along a soft, slightly uneven diagonal), its
-              progress under it. */}
+              out yet (cut off along a drawn, glitching seam so it reads as
+              still loading), its progress under it. */}
           {collection && (
             <div className="mx-auto w-[min(15rem,72vw)] sm:col-span-2 sm:w-44 lg:col-span-1 lg:mx-0 lg:w-40">
               <Link href={collection.href} aria-hidden="true" tabIndex={-1} className="block">
@@ -176,7 +176,9 @@ export default function TurntableFeature({ entry, allEntries }) {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={collection.cover} alt="" className="rec-pending-a" />
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={collection.cover} alt="" className="rec-pending-b" />
+                      <img src={collection.cover} alt="" className="rec-pending-glitch" />
+                      <span className="rec-pending-scan" />
+                      <span className="rec-pending-seam" />
                     </span>
                   )}
                 </Sleeve>

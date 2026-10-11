@@ -16,6 +16,8 @@ export const FIGURES = [
   { src: "/collectibles/trumpeter.webp", alt: "A carved wooden figure in a backwards cap holding a trumpet" },
   { src: "/collectibles/listener.webp", alt: "A carved wooden figure in headphones holding a cassette player" },
   { src: "/collectibles/saiyan.webp", alt: "A carved wooden figure of an anime martial artist in an orange gi" },
+  { src: "/collectibles/drum-major.webp", alt: "A carved wooden figure in a black marching-band uniform with a tall plume, a silver visor and a trumpet" },
+  { src: "/collectibles/homebody.webp", alt: "A carved wooden figure in a flower-patch cap, cream tee and sneakers, hands in his pockets" },
 ];
 
 /**

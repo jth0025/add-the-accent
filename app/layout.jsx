@@ -157,7 +157,7 @@ const RAIN_DROPS = [
 const JOURNAL_SERIES = [
   {
     name: "Homebody",
-    sub: "The Difference → Land Man",
+    sub: "The Difference → The Blocked Writer",
     href: "/journal?series=Homebody",
     cover: "/journal-art/lp-homebody.webp",
     color: "#d3ac52",
