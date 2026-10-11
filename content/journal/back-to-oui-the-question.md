@@ -12,7 +12,7 @@ Eight-year-olds are learning, fast, how the world actually works — socially, e
 
 The first trauma I can remember happened when I was eight. It wasn't fair. What I remember first isn't a sentence or a face — it's a color. Purple. Not the glorious kind, not royal, not anything I'd been taught to reach for. I knew purple the way a kid knows any color: background noise, one more hue in a pile of toys on the floor. But that early morning it wasn't background. It was a foreshadowing, dark enough to fill the hallway and then the living room.
 
-Then a gold stroke broke through the doorway. My dad, back from some chore outside. Relief found me instantly. The purple didn't leave — it just made room for him.
+Then suddenly, a gold streak broke through the doorway. My dad, back from some chore outside. Relief found me instantly. The purple didn't leave — it just made room for him.
 
 I don't remember every word we said to each other. But I remember what came next.
 
