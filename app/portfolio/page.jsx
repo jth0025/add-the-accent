@@ -96,12 +96,19 @@ export default function PortfolioIndex() {
 
           {/* Mascot + suitcase, anchored to the bottom of the scene. */}
           <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo-man.png"
-              alt="The Add the Accent character, packed and ready to travel"
-              className="h-40 w-auto sm:h-48"
-            />
+            {/* The soft shadow on the ground under his feet. */}
+            <span className="relative block">
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-[-14%] bottom-[-4px] h-3.5 rounded-[50%] bg-black/45 blur-[5px]"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo-man-suit.webp"
+                alt="The Add the Accent character, packed and ready to travel"
+                className="relative h-40 w-auto sm:h-48"
+              />
+            </span>
             <svg
               viewBox="0 0 104 96"
               className="-ml-4 h-14 w-auto sm:-ml-5 sm:h-16"

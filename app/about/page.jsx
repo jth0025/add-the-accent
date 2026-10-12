@@ -5,7 +5,7 @@ import "./about.css";
 
 export const metadata = { title: "About — Add the Accent" };
 
-// Rewritten as profound, centered lines for Section 02.
+// Rewritten as profound, centered lines for Section 03.
 const PRINCIPLES = [
   "What you have lived becomes how you look.",
   "Your taste is memory, quietly choosing.",
@@ -529,10 +529,35 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* In JT's own words */}
+      <section className="paper-notebook corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
+        <SectionLabel tone="text-moss" rule="bg-moss/40">
+          Section 01
+        </SectionLabel>
+        <h2 className={headingClass}>How I&rsquo;d Explain It</h2>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/about-podium.webp"
+          alt="A carved wooden figure in a cap and sneakers standing behind a podium crowded with microphones"
+          width={640}
+          height={960}
+          className="mx-auto mt-6 block w-[min(56%,13.6rem)] [filter:drop-shadow(0_8px_10px_rgba(0,0,0,0.35))] sm:w-[14.4rem]"
+          loading="lazy"
+        />
+        <p className="mx-auto mt-5 max-w-xl text-center font-serif text-lg italic leading-relaxed text-ink">
+          &ldquo;For me, the accent is that part of you that nobody else can
+          duplicate. It&rsquo;s your taste, your story, your eye, your
+          voice. So Add the Accent became the umbrella for everything I
+          create, whether that&rsquo;s design, photography, writing, film, or
+          apparel. The medium can change, but the point of view is still
+          mine.&rdquo;
+        </p>
+      </section>
+
       {/* The core idea */}
       <section className="paper-newspaper corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
         <SectionLabel tone="text-moss" rule="bg-moss/40">
-          Section 01
+          Section 02
         </SectionLabel>
         <h2 className={headingClass}>The Core Idea</h2>
         <p className="mx-auto mt-5 max-w-xl text-center text-stone">
@@ -547,9 +572,9 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* Section 02 — Minimalism vs. Maximalism */}
+      {/* Section 03 — Minimalism vs. Maximalism */}
       <section className="paper-journal corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
-        <SectionLabel>Section 02</SectionLabel>
+        <SectionLabel>Section 03</SectionLabel>
 
         {/* The section's own title, set large and editorial — a heavy
             Playfair with the middle word swung into italic, a fine
@@ -650,7 +675,7 @@ export default function AboutPage() {
         }}
       >
         <SectionLabel tone="text-[#e7ded2]/80" rule="bg-[#e7ded2]/30">
-          Section 03
+          Section 04
         </SectionLabel>
         <h2 className="mt-3 text-center font-display text-2xl uppercase tracking-tight text-white sm:text-3xl">
           The Guiding Principle
@@ -798,31 +823,6 @@ export default function AboutPage() {
             ),
           )}
         </div>
-      </section>
-
-      {/* In JT's own words */}
-      <section className="paper-notebook corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
-        <SectionLabel tone="text-moss" rule="bg-moss/40">
-          Section 04
-        </SectionLabel>
-        <h2 className={headingClass}>How I&rsquo;d Explain It</h2>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/about-podium.webp"
-          alt="A carved wooden figure in a cap and sneakers standing behind a podium crowded with microphones"
-          width={640}
-          height={960}
-          className="mx-auto mt-6 block w-[min(56%,13.6rem)] [filter:drop-shadow(0_8px_10px_rgba(0,0,0,0.35))] sm:w-[14.4rem]"
-          loading="lazy"
-        />
-        <p className="mx-auto mt-5 max-w-xl text-center font-serif text-lg italic leading-relaxed text-ink">
-          &ldquo;For me, the accent is that part of you that nobody else can
-          duplicate. It&rsquo;s your taste, your story, your eye, your
-          voice. So Add the Accent became the umbrella for everything I
-          create, whether that&rsquo;s design, photography, writing, film, or
-          apparel. The medium can change, but the point of view is still
-          mine.&rdquo;
-        </p>
       </section>
 
       {/* Sticky-note taglines — hand-scrawled and pasted at the bottom */}

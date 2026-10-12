@@ -143,12 +143,12 @@ export default function PortfolioGalleries() {
         {[1, 2, 3].map((n) => (
           <Fragment key={n}>
             {n > 1 && (
-              // The plus from the A+A logo, between each pair.
+              // The orange plus between each pair.
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src="/portfolio-stickers/plus-logo.webp"
+                src="/portfolio-stickers/plus-orange.webp"
                 alt=""
-                className="h-4 w-auto sm:h-5"
+                className="h-5 w-auto drop-shadow-[0_2px_3px_rgba(0,0,0,0.25)] sm:h-6"
               />
             )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
