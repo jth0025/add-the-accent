@@ -42,7 +42,7 @@ export default function SignatureMark({ className = "" }) {
 
   return (
     <Link
-      href="/about#profile"
+      href="/about#collectibles"
       aria-label="View JT's profile"
       onMouseEnter={lightUp}
       onMouseLeave={leave}

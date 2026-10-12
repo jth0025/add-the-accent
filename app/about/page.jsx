@@ -269,7 +269,7 @@ export default function AboutPage() {
       </section>
 
       {/* Four of the collectible identities, as a divider. */}
-      <CollectibleDivider />
+      <CollectibleDivider id="collectibles" />
 
       {/* Profile — an editorial bio card: portrait, headline, quick facts,
           the full story, and a skills grid. The photo-and-headline row
@@ -661,26 +661,110 @@ export default function AboutPage() {
           doors.&rdquo;
         </p>
 
-        <svg
-          viewBox="0 0 120 176"
-          className="mx-auto mt-6 h-36 w-auto text-[#e7ded2] sm:h-40"
+        {/* Three doors to enter through: a plain one, one standing open with
+            light pouring out, and a panelled one. */}
+        <div
+          className="mx-auto mt-6 flex items-end justify-center gap-3 text-[#e7ded2] sm:gap-7"
           aria-hidden="true"
         >
-          <ellipse cx="60" cy="168" rx="33" ry="5" fill="#000" opacity="0.3" />
-          <g
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="[filter:url(#urban-sketch)]"
-          >
-            <rect x="24" y="8" width="72" height="152" rx="3" />
-            <rect x="34" y="20" width="52" height="52" rx="2" />
-            <rect x="34" y="84" width="52" height="60" rx="2" />
-            <circle cx="82" cy="90" r="3.4" />
-          </g>
-        </svg>
+          <svg viewBox="0 0 120 176" className="h-32 w-auto sm:h-40">
+            <ellipse cx="60" cy="168" rx="33" ry="5" fill="#000" opacity="0.3" />
+            <g
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="[filter:url(#urban-sketch)]"
+            >
+              <rect x="24" y="8" width="72" height="152" rx="3" />
+              <rect x="34" y="20" width="52" height="52" rx="2" />
+              <rect x="34" y="84" width="52" height="60" rx="2" />
+              <circle cx="82" cy="90" r="3.4" />
+            </g>
+          </svg>
+
+          {/* The open door: the room beyond glows, the door leaf swings
+              back on its hinge, and light spills across the floor. */}
+          <svg viewBox="-22 -8 168 190" className="h-32 w-auto overflow-visible sm:h-40">
+            <defs>
+              <radialGradient id="door-halo" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stopColor="#ffe7a8" stopOpacity="0.5" />
+                <stop offset="0.5" stopColor="#ffcf72" stopOpacity="0.16" />
+                <stop offset="1" stopColor="#ffcf72" stopOpacity="0" />
+              </radialGradient>
+              <linearGradient id="door-room" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#fff6d6" />
+                <stop offset="0.6" stopColor="#ffd77a" />
+                <stop offset="1" stopColor="#f2a93b" />
+              </linearGradient>
+              <linearGradient id="door-spill" x1="0.5" y1="0" x2="0.5" y2="1">
+                <stop offset="0" stopColor="#ffe7a8" stopOpacity="0.85" />
+                <stop offset="1" stopColor="#ffd77a" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <ellipse cx="62" cy="168" rx="40" ry="5" fill="#000" opacity="0.3" />
+            {/* the glow in the air around the doorway */}
+            <ellipse cx="60" cy="84" rx="92" ry="104" fill="url(#door-halo)" />
+            {/* light across the floor */}
+            <polygon points="30,160 96,160 140,182 -10,182" fill="url(#door-spill)" />
+            {/* the lit room */}
+            <rect x="24" y="8" width="72" height="152" rx="3" fill="url(#door-room)" />
+            <g
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="[filter:url(#urban-sketch)]"
+            >
+              {/* frame */}
+              <rect x="24" y="8" width="72" height="152" rx="3" />
+              {/* the door leaf, swung open toward us */}
+              <polygon
+                points="24,8 4,20 4,150 24,160"
+                fill="#6b4028"
+                fillOpacity="0.9"
+              />
+              <polyline points="9,34 9,66 19,64 19,30" strokeWidth="2" />
+              <polyline points="9,84 9,138 19,142 19,90" strokeWidth="2" />
+              <circle cx="9" cy="100" r="2.4" strokeWidth="2" />
+            </g>
+            {/* rays slipping past the frame */}
+            <g
+              stroke="#ffe7a8"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              opacity="0.75"
+              className="[filter:url(#urban-sketch)]"
+            >
+              <line x1="102" y1="28" x2="128" y2="18" />
+              <line x1="104" y1="64" x2="134" y2="62" />
+              <line x1="102" y1="100" x2="130" y2="110" />
+              <line x1="98" y1="4" x2="112" y2="-6" />
+            </g>
+          </svg>
+
+          <svg viewBox="0 0 120 176" className="h-32 w-auto sm:h-40">
+            <ellipse cx="60" cy="168" rx="33" ry="5" fill="#000" opacity="0.3" />
+            <g
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="[filter:url(#urban-sketch)]"
+            >
+              <rect x="24" y="8" width="72" height="152" rx="3" />
+              <rect x="33" y="18" width="25" height="40" rx="2" />
+              <rect x="62" y="18" width="25" height="40" rx="2" />
+              <rect x="33" y="66" width="25" height="40" rx="2" />
+              <rect x="62" y="66" width="25" height="40" rx="2" />
+              <rect x="33" y="114" width="54" height="32" rx="2" />
+              <circle cx="38" cy="92" r="3.4" />
+            </g>
+          </svg>
+        </div>
 
         <p className="mx-auto mt-6 max-w-xl text-center text-[#e7ded2]/90">
           That distinction gives Add the Accent enough room to grow without
@@ -722,6 +806,15 @@ export default function AboutPage() {
           Section 04
         </SectionLabel>
         <h2 className={headingClass}>How I&rsquo;d Explain It</h2>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/about-podium.webp"
+          alt="A carved wooden figure in a cap and sneakers standing behind a podium crowded with microphones"
+          width={640}
+          height={960}
+          className="mx-auto mt-6 block w-[min(56%,13.6rem)] [filter:drop-shadow(0_8px_10px_rgba(0,0,0,0.35))] sm:w-[14.4rem]"
+          loading="lazy"
+        />
         <p className="mx-auto mt-5 max-w-xl text-center font-serif text-lg italic leading-relaxed text-ink">
           &ldquo;For me, the accent is that part of you that nobody else can
           duplicate. It&rsquo;s your taste, your story, your eye, your

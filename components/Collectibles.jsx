@@ -65,7 +65,7 @@ export default function Collectibles({ className = "" }) {
  * use the arrows (one figure per press, wrapping round at the ends). Shown at every width;
  * hidden until the shuffle has run so the server's order never flashes.
  */
-export function CollectibleDivider({ className = "" }) {
+export function CollectibleDivider({ className = "", id }) {
   const [order, setOrder] = useState(null);
   const rail = useRef(null);
 
@@ -95,7 +95,7 @@ export function CollectibleDivider({ className = "" }) {
   };
 
   return (
-    <div className={`cl-divider ${order ? "cl-ready" : ""} ${className}`}>
+    <div id={id} className={`cl-divider scroll-mt-0 ${order ? "cl-ready" : ""} ${className}`}>
       <span aria-hidden="true" className="cl-divider-line" />
       <button type="button" onClick={() => step(-1)} aria-label="Previous figure" className="cl-arrow cl-arrow--prev">
         <span aria-hidden="true" className="cl-arrow-glyph">&lsaquo;</span>
