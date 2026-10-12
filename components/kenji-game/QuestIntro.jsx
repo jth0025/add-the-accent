@@ -10,23 +10,26 @@ import Ornament from "./Ornament";
 import FitToScreen from "./FitToScreen";
 import useImmersive from "./useImmersive";
 import "./game-ornaments.css";
+import "./menu-forest.css";
 
 // "← Add the Accent" on the main menu: shown at full strength, then
-// slowly dimmed so it stays out of the way; hover or focus brings it back.
-function BackToSite({ hidden = false, touch = false }) {
+// slowly dimmed (never hidden) so it stays out of the way, like Skip Intro
+// in the opening. Hover or focus brings it back; on touch screens a tap on
+// the screen (`lit`) does the same for a few seconds.
+function BackToSite({ lit = false, className = "" }) {
   const [dim, setDim] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setDim(true), 2500);
+    // Stays at full strength through the whole title animation (the forest
+    // and rays settle around 13s in), then dims.
+    const t = setTimeout(() => setDim(true), 13500);
     return () => clearTimeout(t);
   }, []);
   return (
     <PlaqueButton
       nav
       href="/"
-      size="xs"
-      className={`qo-plaque--back relative z-30 ${dim && !touch ? "is-dim" : ""} ${
-        hidden ? "qi-hud-hidden" : ""
-      }`}
+      size="sm"
+      className={`qo-plaque--back z-30 ${dim && !lit ? "is-dim" : ""} ${className}`}
     >
       &larr; Add the Accent
     </PlaqueButton>
@@ -729,7 +732,9 @@ export default function QuestIntro() {
           <div className="flex flex-col items-center gap-4">
           {/* Way back to the site, set above the title. It dims slowly
               once it has been seen, and comes back to full on hover. */}
-          <BackToSite hidden={!hudVisible} touch={touch} />
+          <div className={touch ? "" : "lg:hidden"}>
+            <BackToSite lit={touch && hudVisible} />
+          </div>
 
           {/* Title — drops in from above once Kenji has fully resolved,
               the mark itself catching a slow, consistent light glare. */}
@@ -761,14 +766,33 @@ export default function QuestIntro() {
               (revealing his silhouette), then he resolves into full
               color, before the title and menu follow. A ground shadow
               grounds him instead of him floating. */}
-          <div className="relative z-10 my-2 w-40 sm:w-48">
+          <div className="relative z-10 mb-2 mt-12 w-40 sm:mt-16 sm:w-48">
             <span className="pointer-events-none absolute inset-0 z-0 [clip-path:inset(-100vh_-100vw_0_-100vw)]">
+              {/* Paper-cut forest — the last layer in from the smoke, and
+                  as it arrives the backlight fades away. It is as tall as
+                  Kenji and stands a quarter of that height above him, so he
+                  steps out of its lower edge. */}
+              <span className="qi-forest absolute bottom-[27%] left-1/2 block aspect-[199/351] h-full -translate-x-1/2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/kenji-game/menu-forest.webp"
+                  alt=""
+                  className="block h-full w-full"
+                />
+                {/* Sun rays — an overlay on the picture only (under
+                    Kenji, not over his ground or the menu). */}
+                <span aria-hidden="true" className="qi-rays-box">
+                  <span className="qi-rays qi-rays--a" />
+                  <span className="qi-rays qi-rays--b" />
+                  <span className="qi-rays qi-rays--c" />
+                </span>
+              </span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/logo-backlight.png"
                 alt=""
                 aria-hidden="true"
-                className="qi-backlight-fade absolute left-1/2 top-1/2 w-[170%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
+                className="qi-backlight-gone absolute left-1/2 top-1/2 w-[170%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
               />
             </span>
             <div
@@ -829,6 +853,14 @@ export default function QuestIntro() {
             </ScrollButton>
           </div>
           </FitToScreen>
+
+          {/* On a desktop screen the way back sits in the far left corner
+              instead, so the title and picture can rise. */}
+          {!touch && (
+            <div className="absolute left-5 top-5 z-30 hidden lg:block">
+              <BackToSite />
+            </div>
+          )}
 
           {/* Full-screen toggle — touch screens only, and only while the
               buttons are showing (a tap on the screen brings them back). */}

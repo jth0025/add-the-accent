@@ -1,0 +1,333 @@
+/* The paper-cut forest behind Kenji on the main menu. It is the last thing
+   to arrive: after the title and menu are in, it clears in out of the smoke
+   (blurred and transparent, sharpening as it settles). */
+@keyframes qi-forest-in {
+  from {
+    opacity: 0;
+    filter: blur(16px);
+    transform: translateX(-50%) scale(1.06);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.qi-forest {
+  animation: qi-forest-in 3.6s ease-out 8.8s both;
+}
+
+/* The backlight arrives with Kenji as before, then fades out for good as
+   the forest comes in. (The second animation has no backwards fill, so it
+   leaves the first alone until it starts.) */
+@keyframes qi-backlight-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.qi-backlight-gone {
+  animation:
+    qi-backlight-fade 1.4s ease-out 1.8s both,
+    qi-backlight-out 3.6s ease-out 8.8s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-forest {
+    animation: none;
+    opacity: 1;
+  }
+  .qi-backlight-gone {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Light rays fanning out from the sun in the forest picture. They are an
+   overlay on that picture only: cut to its shape, over the trees but under
+   Kenji, never over the ground he stands on or the menu. Three sets of
+   beams sway and flicker out of step with each other, so the light flutters
+   the way real rays do through leaves. */
+.qi-rays-box {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-mask-image: url("/kenji-game/menu-forest.webp");
+  mask-image: url("/kenji-game/menu-forest.webp");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: qi-rays-in 3.6s ease-out 9.4s both;
+}
+
+@keyframes qi-rays-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Each set of beams starts at the sun (a bit above the picture's middle)
+   and is long enough to reach every corner of the picture. */
+.qi-rays {
+  position: absolute;
+  left: 50%;
+  top: 26%;
+  width: 420%;
+  aspect-ratio: 1;
+  margin-left: -210%;
+  translate: 0 -50%;
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 6%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.25) 100%);
+  mask-image: radial-gradient(circle closest-side, #000 6%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+.qi-rays--a {
+  background: conic-gradient(from 0deg,
+    rgba(255, 232, 160, 0) -6.0deg,
+    rgba(255, 238, 175, 0.56) -2.6deg,
+    rgba(255, 232, 160, 0) 0.8deg,
+    rgba(255, 232, 160, 0) 11.7deg,
+    rgba(255, 238, 175, 0.8) 15.1deg,
+    rgba(255, 232, 160, 0) 18.4deg,
+    rgba(255, 232, 160, 0) 32.6deg,
+    rgba(255, 238, 175, 0.95) 34.0deg,
+    rgba(255, 232, 160, 0) 35.3deg,
+    rgba(255, 232, 160, 0) 41.9deg,
+    rgba(255, 238, 175, 0.8) 44.2deg,
+    rgba(255, 232, 160, 0) 46.6deg,
+    rgba(255, 232, 160, 0) 64.6deg,
+    rgba(255, 238, 175, 0.95) 66.0deg,
+    rgba(255, 232, 160, 0) 67.3deg,
+    rgba(255, 232, 160, 0) 78.1deg,
+    rgba(255, 238, 175, 0.8) 81.5deg,
+    rgba(255, 232, 160, 0) 84.9deg,
+    rgba(255, 232, 160, 0) 95.8deg,
+    rgba(255, 238, 175, 0.56) 97.2deg,
+    rgba(255, 232, 160, 0) 98.5deg,
+    rgba(255, 232, 160, 0) 112.5deg,
+    rgba(255, 238, 175, 0.8) 115.9deg,
+    rgba(255, 232, 160, 0) 119.3deg,
+    rgba(255, 232, 160, 0) 129.9deg,
+    rgba(255, 238, 175, 0.56) 133.3deg,
+    rgba(255, 232, 160, 0) 136.7deg,
+    rgba(255, 232, 160, 0) 140.5deg,
+    rgba(255, 238, 175, 0.56) 143.9deg,
+    rgba(255, 232, 160, 0) 147.2deg,
+    rgba(255, 232, 160, 0) 160.3deg,
+    rgba(255, 238, 175, 0.8) 161.6deg,
+    rgba(255, 232, 160, 0) 163.0deg,
+    rgba(255, 232, 160, 0) 176.4deg,
+    rgba(255, 238, 175, 0.8) 179.7deg,
+    rgba(255, 232, 160, 0) 183.1deg,
+    rgba(255, 232, 160, 0) 196.1deg,
+    rgba(255, 238, 175, 0.8) 198.5deg,
+    rgba(255, 232, 160, 0) 200.9deg,
+    rgba(255, 232, 160, 0) 211.6deg,
+    rgba(255, 238, 175, 0.8) 215.0deg,
+    rgba(255, 232, 160, 0) 218.4deg,
+    rgba(255, 232, 160, 0) 232.4deg,
+    rgba(255, 238, 175, 0.8) 233.7deg,
+    rgba(255, 232, 160, 0) 235.1deg,
+    rgba(255, 232, 160, 0) 240.1deg,
+    rgba(255, 238, 175, 0.8) 241.4deg,
+    rgba(255, 232, 160, 0) 242.8deg,
+    rgba(255, 232, 160, 0) 255.6deg,
+    rgba(255, 238, 175, 0.8) 259.0deg,
+    rgba(255, 232, 160, 0) 262.4deg,
+    rgba(255, 232, 160, 0) 278.6deg,
+    rgba(255, 238, 175, 0.8) 281.0deg,
+    rgba(255, 232, 160, 0) 283.3deg,
+    rgba(255, 232, 160, 0) 292.3deg,
+    rgba(255, 238, 175, 0.95) 294.6deg,
+    rgba(255, 232, 160, 0) 297.0deg,
+    rgba(255, 232, 160, 0) 306.0deg,
+    rgba(255, 238, 175, 0.8) 309.4deg,
+    rgba(255, 232, 160, 0) 312.8deg,
+    rgba(255, 232, 160, 0) 325.8deg,
+    rgba(255, 238, 175, 0.95) 328.1deg,
+    rgba(255, 232, 160, 0) 330.5deg,
+    rgba(255, 232, 160, 0) 346.4deg,
+    rgba(255, 238, 175, 0.8) 347.8deg,
+    rgba(255, 232, 160, 0) 349.1deg);
+  animation:
+    qi-rays-sway-a 9s ease-in-out infinite alternate,
+    qi-rays-flicker-a 4.7s ease-in-out infinite;
+}
+
+.qi-rays--b {
+  background: conic-gradient(from 0deg,
+    rgba(255, 232, 160, 0) -4.4deg,
+    rgba(255, 238, 175, 0.48) -2.7deg,
+    rgba(255, 232, 160, 0) -1.0deg,
+    rgba(255, 232, 160, 0) 15.9deg,
+    rgba(255, 238, 175, 0.48) 16.9deg,
+    rgba(255, 232, 160, 0) 17.9deg,
+    rgba(255, 232, 160, 0) 33.7deg,
+    rgba(255, 238, 175, 0.48) 36.4deg,
+    rgba(255, 232, 160, 0) 39.1deg,
+    rgba(255, 232, 160, 0) 58.0deg,
+    rgba(255, 238, 175, 0.72) 59.0deg,
+    rgba(255, 232, 160, 0) 60.0deg,
+    rgba(255, 232, 160, 0) 78.2deg,
+    rgba(255, 238, 175, 0.72) 79.9deg,
+    rgba(255, 232, 160, 0) 81.6deg,
+    rgba(255, 232, 160, 0) 99.0deg,
+    rgba(255, 238, 175, 0.48) 100.7deg,
+    rgba(255, 232, 160, 0) 102.4deg,
+    rgba(255, 232, 160, 0) 118.8deg,
+    rgba(255, 238, 175, 0.95) 119.9deg,
+    rgba(255, 232, 160, 0) 120.9deg,
+    rgba(255, 232, 160, 0) 136.0deg,
+    rgba(255, 238, 175, 0.72) 137.7deg,
+    rgba(255, 232, 160, 0) 139.4deg,
+    rgba(255, 232, 160, 0) 162.3deg,
+    rgba(255, 238, 175, 0.95) 164.0deg,
+    rgba(255, 232, 160, 0) 165.7deg,
+    rgba(255, 232, 160, 0) 174.4deg,
+    rgba(255, 238, 175, 0.48) 176.1deg,
+    rgba(255, 232, 160, 0) 177.8deg,
+    rgba(255, 232, 160, 0) 203.9deg,
+    rgba(255, 238, 175, 0.72) 204.9deg,
+    rgba(255, 232, 160, 0) 205.9deg,
+    rgba(255, 232, 160, 0) 219.5deg,
+    rgba(255, 238, 175, 0.48) 221.2deg,
+    rgba(255, 232, 160, 0) 222.9deg,
+    rgba(255, 232, 160, 0) 239.9deg,
+    rgba(255, 238, 175, 0.48) 241.6deg,
+    rgba(255, 232, 160, 0) 243.3deg,
+    rgba(255, 232, 160, 0) 260.2deg,
+    rgba(255, 238, 175, 0.95) 261.9deg,
+    rgba(255, 232, 160, 0) 263.6deg,
+    rgba(255, 232, 160, 0) 279.2deg,
+    rgba(255, 238, 175, 0.95) 280.2deg,
+    rgba(255, 232, 160, 0) 281.2deg,
+    rgba(255, 232, 160, 0) 300.4deg,
+    rgba(255, 238, 175, 0.48) 303.1deg,
+    rgba(255, 232, 160, 0) 305.8deg,
+    rgba(255, 232, 160, 0) 319.4deg,
+    rgba(255, 238, 175, 0.72) 320.4deg,
+    rgba(255, 232, 160, 0) 321.4deg,
+    rgba(255, 232, 160, 0) 341.0deg,
+    rgba(255, 238, 175, 0.95) 342.0deg,
+    rgba(255, 232, 160, 0) 343.0deg);
+  animation:
+    qi-rays-sway-b 12s ease-in-out infinite alternate,
+    qi-rays-flicker-b 6.1s ease-in-out infinite;
+}
+
+.qi-rays--c {
+  background: conic-gradient(from 0deg,
+    rgba(255, 232, 160, 0) -12.8deg,
+    rgba(255, 238, 175, 0.42) -3.4deg,
+    rgba(255, 232, 160, 0) 6.1deg,
+    rgba(255, 232, 160, 0) 24.6deg,
+    rgba(255, 238, 175, 0.29) 31.3deg,
+    rgba(255, 232, 160, 0) 38.1deg,
+    rgba(255, 232, 160, 0) 58.1deg,
+    rgba(255, 238, 175, 0.51) 64.9deg,
+    rgba(255, 232, 160, 0) 71.6deg,
+    rgba(255, 232, 160, 0) 77.4deg,
+    rgba(255, 238, 175, 0.29) 86.8deg,
+    rgba(255, 232, 160, 0) 96.3deg,
+    rgba(255, 232, 160, 0) 118.2deg,
+    rgba(255, 238, 175, 0.42) 122.9deg,
+    rgba(255, 232, 160, 0) 127.6deg,
+    rgba(255, 232, 160, 0) 147.6deg,
+    rgba(255, 238, 175, 0.29) 154.3deg,
+    rgba(255, 232, 160, 0) 161.1deg,
+    rgba(255, 232, 160, 0) 171.7deg,
+    rgba(255, 238, 175, 0.29) 176.4deg,
+    rgba(255, 232, 160, 0) 181.2deg,
+    rgba(255, 232, 160, 0) 205.2deg,
+    rgba(255, 238, 175, 0.51) 211.9deg,
+    rgba(255, 232, 160, 0) 218.7deg,
+    rgba(255, 232, 160, 0) 236.0deg,
+    rgba(255, 238, 175, 0.51) 242.7deg,
+    rgba(255, 232, 160, 0) 249.5deg,
+    rgba(255, 232, 160, 0) 262.7deg,
+    rgba(255, 238, 175, 0.51) 269.4deg,
+    rgba(255, 232, 160, 0) 276.2deg,
+    rgba(255, 232, 160, 0) 295.3deg,
+    rgba(255, 238, 175, 0.51) 300.0deg,
+    rgba(255, 232, 160, 0) 304.7deg,
+    rgba(255, 232, 160, 0) 327.8deg,
+    rgba(255, 238, 175, 0.29) 334.5deg,
+    rgba(255, 232, 160, 0) 341.3deg);
+  animation:
+    qi-rays-sway-a 15s ease-in-out infinite alternate-reverse,
+    qi-rays-flicker-c 8.3s ease-in-out infinite;
+}
+
+@keyframes qi-rays-sway-a {
+  from {
+    rotate: -4deg;
+  }
+  to {
+    rotate: 5deg;
+  }
+}
+
+@keyframes qi-rays-sway-b {
+  from {
+    rotate: 6deg;
+  }
+  to {
+    rotate: -3deg;
+  }
+}
+
+@keyframes qi-rays-flicker-a {
+  0%, 100% { opacity: 0.85; }
+  14% { opacity: 0.45; }
+  31% { opacity: 1; }
+  47% { opacity: 0.6; }
+  68% { opacity: 0.95; }
+  83% { opacity: 0.5; }
+}
+
+@keyframes qi-rays-flicker-b {
+  0%, 100% { opacity: 0.55; }
+  22% { opacity: 1; }
+  38% { opacity: 0.4; }
+  57% { opacity: 0.9; }
+  76% { opacity: 0.5; }
+  90% { opacity: 0.85; }
+}
+
+@keyframes qi-rays-flicker-c {
+  0%, 100% { opacity: 0.7; }
+  25% { opacity: 0.35; }
+  50% { opacity: 1; }
+  75% { opacity: 0.5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-rays--a,
+  .qi-rays--b,
+  .qi-rays--c {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+/* The butterfly on the title screen keeps cycling its colours (gold, blue,
+   violet) while it fades in. Its fade-in rule would otherwise replace the
+   colour cycle, since both set `animation`. */
+.qi-menu-butterfly-fade.butterfly-color-cycle {
+  animation:
+    qi-menu-butterfly-fade 1.3s ease-out 0.4s both,
+    butterfly-color-cycle 10s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qi-menu-butterfly-fade.butterfly-color-cycle {
+    animation: qi-menu-butterfly-fade 1.3s ease-out 0.4s both;
+  }
+}

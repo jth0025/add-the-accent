@@ -137,13 +137,14 @@
 /* The main-menu way back: fades down slowly, returns to full on hover,
    focus or press. */
 .qo-plaque--back {
+  width: 260px;
   transition:
     transform 0.2s ease,
     opacity 0.3s ease,
     filter 0.2s ease;
 }
 .qo-plaque--back.is-dim {
-  opacity: 0.35;
+  opacity: 0.3;
   transition:
     transform 0.2s ease,
     opacity 4s ease-in-out,
@@ -158,18 +159,12 @@
     opacity 0.3s ease,
     filter 0.2s ease;
 }
-@media (max-width: 639px) {
-  .qo-plaque--back {
-    width: 180px;
-  }
-}
 
 .qo-plaque--fs {
   width: 170px;
 }
 
 /* Buttons that tuck away on touch screens until the screen is tapped. */
-.qo-plaque--back.qi-hud-hidden,
 .qo-plaque.qi-hud-hidden {
   opacity: 0;
   pointer-events: none;
