@@ -8,7 +8,30 @@ import ScrollButton from "./ScrollButton";
 import SmudgeLayer from "@/components/SmudgeLayer";
 import Ornament from "./Ornament";
 import FitToScreen from "./FitToScreen";
+import useImmersive from "./useImmersive";
 import "./game-ornaments.css";
+
+// "← Add the Accent" on the main menu: shown at full strength, then
+// slowly dimmed so it stays out of the way; hover or focus brings it back.
+function BackToSite({ hidden = false, touch = false }) {
+  const [dim, setDim] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setDim(true), 2500);
+    return () => clearTimeout(t);
+  }, []);
+  return (
+    <PlaqueButton
+      nav
+      href="/"
+      size="xs"
+      className={`qo-plaque--back relative z-30 ${dim && !touch ? "is-dim" : ""} ${
+        hidden ? "qi-hud-hidden" : ""
+      }`}
+    >
+      &larr; Add the Accent
+    </PlaqueButton>
+  );
+}
 
 // The seven sacred stages — canon titles only (never "Day 1-7" as
 // in-world language; that's production/UI shorthand, per brief). Each
@@ -352,6 +375,8 @@ function HubTabs({ active, onSelect }) {
 }
 
 export default function QuestIntro() {
+  const { touch, hudVisible, fullscreen, canFullscreen, onTap, enterFullscreen, exitFullscreen } =
+    useImmersive();
   const [phase, setPhase] = useState("boot"); // boot -> idle -> montage (the written opening) -> menu -> lore | day1
   const [reducedMotion, setReducedMotion] = useState(false);
   // On the live site the game stops at this menu: every item is greyed
@@ -614,6 +639,7 @@ export default function QuestIntro() {
   return (
     <div
       ref={rootRef}
+      onPointerUpCapture={onTap}
       className="qi-root qi-smoke-in fixed inset-0 z-50 overflow-hidden font-serif"
     >
       {loadingTarget && <LoadingScreen />}
@@ -696,7 +722,15 @@ export default function QuestIntro() {
 
           {/* Everything on the menu stays in view, whatever the screen:
               it is scaled down to fit when the window is short or narrow. */}
-          <FitToScreen className="flex w-full max-w-lg flex-col items-center gap-4 px-2">
+          <FitToScreen
+            reserveY={48}
+            className={`flex w-full max-w-lg flex-col items-center gap-4 px-2 [@media(orientation:landscape)_and_(max-height:520px)]:max-w-3xl [@media(orientation:landscape)_and_(max-height:520px)]:flex-row [@media(orientation:landscape)_and_(max-height:520px)]:gap-10`}
+          >
+          <div className="flex flex-col items-center gap-4">
+          {/* Way back to the site, set above the title. It dims slowly
+              once it has been seen, and comes back to full on hover. */}
+          <BackToSite hidden={!hudVisible} touch={touch} />
+
           {/* Title — drops in from above once Kenji has fully resolved,
               the mark itself catching a slow, consistent light glare. */}
           <div className="qi-drop-in relative z-10 w-full max-w-xs sm:max-w-sm">
@@ -752,7 +786,10 @@ export default function QuestIntro() {
             />
           </div>
 
-          {/* Menu — rises in from below, under Kenji. */}
+          </div>
+
+          {/* Menu — rises in from below, under Kenji (beside him when a
+              phone is held sideways). */}
           <div className="qi-rise-in relative z-10 flex flex-col items-center gap-3">
             {menuOnly && (
               <p className="qi-coming-soon mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-[var(--qi-gold)] sm:text-xs">
@@ -793,14 +830,21 @@ export default function QuestIntro() {
           </div>
           </FitToScreen>
 
-          <PlaqueButton
-            nav
-            href="/"
-            size="sm"
-            className="absolute left-3 top-3 z-30 sm:left-5 sm:top-5"
-          >
-            &larr; Add the Accent
-          </PlaqueButton>
+          {/* Full-screen toggle — touch screens only, and only while the
+              buttons are showing (a tap on the screen brings them back). */}
+          {canFullscreen && (
+            <PlaqueButton
+              nav
+              size="xs"
+              onClick={fullscreen ? exitFullscreen : enterFullscreen}
+              className={`qo-plaque--fs absolute right-3 top-3 z-30 ${
+                hudVisible ? "" : "qi-hud-hidden"
+              }`}
+            >
+              {fullscreen ? "Exit Full Screen" : "Full Screen"}
+            </PlaqueButton>
+          )}
+
         </div>
       )}
 

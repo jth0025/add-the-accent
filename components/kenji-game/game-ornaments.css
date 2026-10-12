@@ -134,6 +134,51 @@
   filter: saturate(0.6) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.55));
 }
 
+/* The main-menu way back: fades down slowly, returns to full on hover,
+   focus or press. */
+.qo-plaque--back {
+  transition:
+    transform 0.2s ease,
+    opacity 0.3s ease,
+    filter 0.2s ease;
+}
+.qo-plaque--back.is-dim {
+  opacity: 0.35;
+  transition:
+    transform 0.2s ease,
+    opacity 4s ease-in-out,
+    filter 0.2s ease;
+}
+.qo-plaque--back.is-dim:hover,
+.qo-plaque--back.is-dim:focus-visible,
+.qo-plaque--back.is-dim:active {
+  opacity: 1;
+  transition:
+    transform 0.2s ease,
+    opacity 0.3s ease,
+    filter 0.2s ease;
+}
+@media (max-width: 639px) {
+  .qo-plaque--back {
+    width: 180px;
+  }
+}
+
+.qo-plaque--fs {
+  width: 170px;
+}
+
+/* Buttons that tuck away on touch screens until the screen is tapped. */
+.qo-plaque--back.qi-hud-hidden,
+.qo-plaque.qi-hud-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.2s ease,
+    opacity 0.5s ease,
+    filter 0.2s ease;
+}
+
 .qo-plaque:disabled {
   cursor: not-allowed;
   opacity: 0.4;
