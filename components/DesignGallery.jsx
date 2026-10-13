@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import CaptionTitle from "@/components/CaptionTitle";
 import DesignPlacard from "@/components/DesignPlacard";
 import { PIECES, tagsOf } from "@/lib/designPieces";
+import { EDITORIAL } from "@/lib/designEditorial";
 import {
   CATEGORIES,
   inCategory,
@@ -21,14 +22,19 @@ function shuffle(arr) {
   return result;
 }
 
+// The "Now showing" feature art that isn't also in the collection. It stays
+// up in the spread on the unfiltered page; once a medium or tag is picked it
+// joins the results below, so every piece can be found by its tags.
+const FEATURED_ONLY = EDITORIAL.filter((e) => !PIECES.some((p) => p.src === e.src));
+const EVERYTHING = [...PIECES, ...FEATURED_ONLY];
 const COUNTS = Object.fromEntries(
   CATEGORIES.map((c) => [
     c.key,
-    PIECES.filter((p) => inCategory(tagsOf(p.alt), c.key)).length,
+    EVERYTHING.filter((p) => inCategory(tagsOf(p.alt), c.key)).length,
   ]),
 );
 const SUB_TAGS = Object.fromEntries(
-  CATEGORIES.map((c) => [c.key, tagsForCategory(PIECES, c.key)]),
+  CATEGORIES.map((c) => [c.key, tagsForCategory(EVERYTHING, c.key)]),
 );
 
 export default function DesignGallery() {
@@ -62,14 +68,13 @@ export default function DesignGallery() {
     setTag(null);
   };
 
-  const visiblePieces = useMemo(
-    () =>
-      pieces.filter((p) => {
-        const tags = tagsOf(p.alt);
-        return inCategory(tags, cat) && (!tag || tags.includes(tag));
-      }),
-    [pieces, cat, tag],
-  );
+  const visiblePieces = useMemo(() => {
+    const pool = cat === "all" && !tag ? pieces : [...pieces, ...FEATURED_ONLY];
+    return pool.filter((p) => {
+      const tags = tagsOf(p.alt);
+      return inCategory(tags, cat) && (!tag || tags.includes(tag));
+    });
+  }, [pieces, cat, tag]);
 
   const subTags = SUB_TAGS[cat] || [];
 
