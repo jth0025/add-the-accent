@@ -242,6 +242,24 @@
   transition: transform 0.3s ease;
 }
 
+/* A single with its own jacket art: the art fills the sleeve, the die-cut
+   window still shows the record label. */
+.sg-sleeve--art {
+  background-color: #e8e0cd;
+  background-size: cover;
+  background-position: center;
+}
+
+/* On jacket art the die-cut circle is black and its wording white, so it
+   reads against any art. */
+.sg-sleeve--art .sg-window {
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 7%, rgba(255, 255, 255, 0.25) 7.5% 9%, transparent 9.6%),
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.12), transparent 55%),
+    #0a0a0a;
+  color: #fff;
+}
+
 /* A plain fold along the open edge. */
 .sg-sleeve::before {
   content: "";
@@ -823,6 +841,20 @@ a.ar-row:focus-visible {
      through the ink */
   mix-blend-mode: multiply;
   opacity: 0.92;
+}
+
+/* On jacket art the plus is printed in the art's own colour: no blending. */
+.sg-plus--tone {
+  /* The art's colour (set inline) with a light-to-dark wash over it, so the
+     plus keeps its shape against the art behind it. */
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(0, 0, 0, 0.4)) !important;
+  background-blend-mode: normal;
+  aspect-ratio: 216 / 220;
+  height: auto;
+  mix-blend-mode: normal;
+  opacity: 1;
+  -webkit-mask: url(/journal-art/plus-orange.webp) center / contain no-repeat;
+  mask: url(/journal-art/plus-orange.webp) center / contain no-repeat;
 }
 
 /* ---------- Album titles: a small, dark, close shadow behind them ---------- */

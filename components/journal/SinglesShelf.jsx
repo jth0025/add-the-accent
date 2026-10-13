@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/formatDate";
-import { catalogNumber, getCollectionByKey, readMinutes } from "@/lib/catalog";
+import { catalogNumber, getCollectionByKey, readMinutes, sleeveArt, sleeveTone } from "@/lib/catalog";
 
 /**
  * The shorter essays don't need a full album: each is a small paper
@@ -14,15 +14,25 @@ export default function SinglesShelf({ entries, allEntries }) {
     <ul className="grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3">
       {entries.map((entry) => {
         const catalog = catalogNumber(entry, allEntries);
+        const art = sleeveArt(entry);
+        const tone = sleeveTone(entry);
         return (
           <li key={entry.slug}>
             <Link href={`/journal/${entry.slug}`} className="group block outline-none">
               <div
-                className="sg-sleeve"
-                style={{ "--rec-color": col.color, "--rec-ink": col.ink }}
+                className={`sg-sleeve${art ? " sg-sleeve--art" : ""}`}
+                style={{
+                  "--rec-color": col.color,
+                  "--rec-ink": col.ink,
+                  ...(art ? { backgroundImage: `url(${art})` } : {}),
+                }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/journal-art/plus-orange.webp" alt="" aria-hidden="true" className="sg-plus" />
+                {art ? (
+                  <span aria-hidden="true" className="sg-plus sg-plus--tone" style={{ background: tone }} />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src="/journal-art/plus-orange.webp" alt="" aria-hidden="true" className="sg-plus" />
+                )}
                 <div className="sg-window" aria-hidden="true">
                   <span className="rec-label-name">{entry.title}</span>
                   <span className="rec-label-cat">{catalog}</span>

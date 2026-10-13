@@ -1,9 +1,9 @@
-import { trackArt } from "@/lib/catalog";
+import { sleeveArt, trackArt } from "@/lib/catalog";
 
 // A small square piece of track art beside an essay's title, so every
 // track reads as a record at a glance. `forthcoming` draws the empty
 // slot of a track that isn't out yet.
-export default function TrackArt({ entry, size = 40, forthcoming = false, className = "" }) {
+export default function TrackArt({ entry, size = 40, forthcoming = false, sleeves = false, className = "" }) {
   const box = { width: size, height: size };
   if (forthcoming || !entry) {
     return (
@@ -17,7 +17,7 @@ export default function TrackArt({ entry, size = 40, forthcoming = false, classN
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={trackArt(entry)}
+      src={(sleeves && sleeveArt(entry)) || trackArt(entry)}
       alt=""
       aria-hidden="true"
       loading="lazy"

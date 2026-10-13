@@ -2626,7 +2626,7 @@ html.header-raining .header-rain {
 }
 
 /* JT's signature mark: solid black until the light comes. Every so often
-   (rarely) a silver gleam crosses it quickly, left to right at a tilt,
+   (rarely) a gold gleam crosses it quickly, left to right at a tilt,
    and leaves the signature as a lens flare on the tip of the "t". Hovering
    (or focusing) it lights it like a spotlight — the whole screen dims
    except a soft pool of light around the mark (the overlay's centre comes
@@ -2654,9 +2654,9 @@ html.header-raining .header-rain {
   background: linear-gradient(
     122deg,
     transparent 46.5%,
-    rgba(214, 222, 236, 0.85) 48.8%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(214, 222, 236, 0.85) 51.2%,
+    rgba(212, 160, 52, 0.9) 48.8%,
+    rgba(255, 215, 110, 1) 50%,
+    rgba(212, 160, 52, 0.9) 51.2%,
     transparent 53.5%
   );
   background-size: 250% 100%;
@@ -2678,9 +2678,9 @@ html.header-raining .header-rain {
   pointer-events: none;
   background: radial-gradient(
     circle,
-    #fff 0%,
-    rgba(255, 250, 225, 0.95) 12%,
-    rgba(255, 228, 160, 0.4) 30%,
+    #fff3c4 0%,
+    rgba(255, 224, 130, 0.95) 12%,
+    rgba(232, 176, 64, 0.45) 30%,
     transparent 62%
   );
   animation: jt-flare-flash 11s linear infinite;
@@ -2701,9 +2701,9 @@ html.header-raining .header-rain {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 244, 210, 0.85) 45%,
-    #fff 50%,
-    rgba(255, 244, 210, 0.85) 55%,
+    rgba(240, 190, 80, 0.85) 45%,
+    #ffe9a8 50%,
+    rgba(240, 190, 80, 0.85) 55%,
     transparent
   );
 }
@@ -2714,9 +2714,9 @@ html.header-raining .header-rain {
   background: linear-gradient(
     180deg,
     transparent,
-    rgba(255, 244, 210, 0.7) 45%,
-    #fff 50%,
-    rgba(255, 244, 210, 0.7) 55%,
+    rgba(240, 190, 80, 0.7) 45%,
+    #ffe9a8 50%,
+    rgba(240, 190, 80, 0.7) 55%,
     transparent
   );
 }

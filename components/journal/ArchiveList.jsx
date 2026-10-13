@@ -20,7 +20,7 @@ export default function ArchiveList({ entries }) {
                 {catalogNumber(entry, entries)}
               </span>
               <span className="flex min-w-0 items-center gap-3">
-                <TrackArt entry={entry} size={44} />
+                <TrackArt entry={entry} size={44} sleeves />
                 <span className="min-w-0">
                 <span className="block font-serif text-lg leading-tight">
                   {entry.titleHtml ? (

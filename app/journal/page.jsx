@@ -19,6 +19,8 @@ import {
   catalogNumber,
   getCollectionByKey,
   posterArt,
+  sleeveArt,
+  sleeveTone,
   trackArt,
 } from "@/lib/catalog";
 
@@ -64,7 +66,7 @@ export default function JournalIndex({ searchParams }) {
     slug: e.slug,
     title: e.title,
     href: `/journal/${e.slug}`,
-    src: posterArt(e) || trackArt(e),
+    src: posterArt(e) || sleeveArt(e) || trackArt(e),
     catalog: catalogNumber(e, allEntries),
   }));
 
@@ -154,6 +156,8 @@ export default function JournalIndex({ searchParams }) {
               slug: e.slug,
               title: e.title,
               titleHtml: e.titleHtml,
+              sleeve: sleeveArt(e),
+              tone: sleeveTone(e),
               catalog: catalogNumber(e, allEntries),
               dateLabel: formatDate(e.date),
               minutes: readMinutes(e.content),

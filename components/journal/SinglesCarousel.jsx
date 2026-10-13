@@ -66,9 +66,20 @@ export default function SinglesCarousel({ cover, href, color, ink, items }) {
         {items.map((it) => (
           <div key={it.slug} className="w-[72%] max-w-[18rem] shrink-0 snap-center">
             <Link href={`/journal/${it.slug}`} className="group block outline-none">
-              <div className="sg-sleeve" style={{ "--rec-color": color, "--rec-ink": ink }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/journal-art/plus-orange.webp" alt="" aria-hidden="true" className="sg-plus" />
+              <div
+                className={`sg-sleeve${it.sleeve ? " sg-sleeve--art" : ""}`}
+                style={{
+                  "--rec-color": color,
+                  "--rec-ink": ink,
+                  ...(it.sleeve ? { backgroundImage: `url(${it.sleeve})` } : {}),
+                }}
+              >
+                {it.sleeve ? (
+                  <span aria-hidden="true" className="sg-plus sg-plus--tone" style={{ background: it.tone }} />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src="/journal-art/plus-orange.webp" alt="" aria-hidden="true" className="sg-plus" />
+                )}
                 <div className="sg-window" aria-hidden="true">
                   <span className="rec-label-name">{it.title}</span>
                   <span className="rec-label-cat">{it.catalog}</span>
