@@ -9,6 +9,8 @@ import SmudgeLayer from "@/components/SmudgeLayer";
 import Ornament from "./Ornament";
 import FitToScreen from "./FitToScreen";
 import useImmersive from "./useImmersive";
+import Day1 from "./Day1";
+import { DAY1_ITEMS, itemById, legendState } from "@/lib/kenjiJourney";
 import "./game-ornaments.css";
 import "./menu-forest.css";
 
@@ -120,52 +122,53 @@ const PROGRESS_KEY = "kenji-quest-completed-days";
 const KANJI_NUMERALS = ["一", "二", "三", "四", "五", "六", "七"];
 
 // The Legend — what Kenji carries, and what the road still owes him.
-// Only the hat starts with him. Everything else — including the
-// butterfly — is found once Day 1 is complete, except the satchel and
-// the emblem, which stay a mystery until a later stage unlocks them.
+// Only the hat starts with him. Day One fills in the rest as it is
+// played (see lib/kenjiJourney.js): items appear when Kenji finds them,
+// and each one's rule changes as it is found, packed, carried or left
+// behind. The emblem stays a mystery until a later stage unlocks it.
 const ITEMS = [
   {
     key: "hat",
     name: "The Straw Hat",
     img: "/kenji-game/items/hat.webp",
     body: "Worn in towns, pushed back in the wild — part of the kit from the very first step.",
-    startsCollected: true,
+    rule: "Comes off for a bow, and goes back on after.",
   },
   {
     key: "satchel",
     name: "The Satchel",
     img: "/kenji-game/items/satchel.webp",
     body: "Patched, well-traveled, and never quite empty.",
-    requiresDay: null,
-  },
-  {
-    key: "butterfly",
-    name: "The Butterfly",
-    img: "/kenji-game/items/butterfly.webp",
-    body: "Small, luminous, and never far. A guide, not a pet.",
-    requiresDay: 1,
+    rule: "Six slots. The scroll takes one for good; the rest are Kenji's to choose.",
   },
   {
     key: "hikariwake",
     name: "Hikariwake",
     img: "/kenji-game/items/hikariwake.webp",
     body: "Kenji's father's blade — older than the katana, and almost always sheathed.",
-    requiresDay: 1,
+    rule: "Hardly dulls. Emichō's light now lives in the steel. Tied to light, truth, and inheritance.",
   },
   {
-    key: "scroll",
-    name: "The Scroll",
-    img: "/kenji-game/items/scroll.webp",
-    body: "Fragmented, and still unfolding.",
-    requiresDay: 1,
+    key: "butterfly",
+    name: "Emichō",
+    img: "/kenji-game/items/butterfly.webp",
+    body: "Small, luminous, and never far. A guide, not a pet.",
+    rule: "Her light now lives in the steel of Hikariwake, and she guides from the blade.",
   },
   {
     key: "emblem",
     name: "The Emblem",
     img: "/kenji-game/items/emblem.webp",
     body: "A leaf-marked medallion, unlike House Mizuhara's reed and ripples — older, and not yet explained.",
-    requiresDay: null,
   },
+  // Day One's inheritance, in the order the room and the altar give it up.
+  ...DAY1_ITEMS.map((it) => ({
+    key: it.id,
+    name: it.name,
+    img: it.img,
+    body: it.desc,
+    day1: true,
+  })),
 ];
 
 // The gate scene at Kosei — Warden Isao stops Kenji before the
@@ -382,17 +385,11 @@ export default function QuestIntro() {
     useImmersive();
   const [phase, setPhase] = useState("boot"); // boot -> idle -> montage (the written opening) -> menu -> lore | day1
   const [reducedMotion, setReducedMotion] = useState(false);
-  // On the live site the game stops at this menu: every item is greyed
-  // out ("Coming Soon") except Replay Intro. Local development keeps the
-  // whole game playable; add ?menuonly to the URL there to preview the
-  // live behavior.
-  const [menuOnly, setMenuOnly] = useState(
-    process.env.NODE_ENV === "production",
-  );
+  // The menu is fully open: Day One plays all the way through, and Day
+  // Two shows "Coming Soon". Add ?menuonly to the URL to preview the
+  // earlier greyed-out menu.
+  const [menuOnly, setMenuOnly] = useState(false);
   const [butterflyPos, setButterflyPos] = useState({ x: 50, y: 46 });
-  const [riddleValue, setRiddleValue] = useState("");
-  const [riddleSolved, setRiddleSolved] = useState(false);
-  const [riddleHint, setRiddleHint] = useState(false);
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [riddle2Value, setRiddle2Value] = useState("");
   const [riddle2Solved, setRiddle2Solved] = useState(false);
@@ -426,7 +423,6 @@ export default function QuestIntro() {
         window.localStorage.getItem(PROGRESS_KEY) || "[]",
       );
       if (Array.isArray(saved)) setCompletedDays(saved);
-      if (saved.includes(1)) setRiddleSolved(true);
       if (saved.includes(2)) setRiddle2Solved(true);
     } catch {
       // Ignore malformed/unavailable storage — progress just starts fresh.
@@ -477,12 +473,16 @@ export default function QuestIntro() {
     (_, i) => isUnlocked(i) && !completedDays.includes(i + 1),
   );
 
-  const isItemCollected = (item) =>
-    item.startsCollected ||
-    (item.requiresDay != null && completedDays.includes(item.requiresDay));
+  // The Legend reads Day One's save each time it opens, so what Kenji
+  // has found, packed, carried or left shows up the moment he returns.
+  const [legend, setLegend] = useState({});
+  useEffect(() => {
+    if (phase === "items") setLegend(legendState(completedDays));
+  }, [phase, completedDays]);
+  const isItemCollected = (item) => !!legend[item.key]?.collected;
 
-  // Days One and Two are playable; the rest are still in development.
-  const BUILT_DAYS = [0, 1];
+  // Only Day One is playable; Day Two shows "Coming Soon" and the rest are in development.
+  const BUILT_DAYS = [0];
 
   const selectDay = (dayIndex) => {
     if (BUILT_DAYS.includes(dayIndex) && isUnlocked(dayIndex)) {
@@ -514,7 +514,11 @@ export default function QuestIntro() {
     // Entering a stage: its key art full-screen, then a moment with
     // Kenji, both held at least 5 seconds, before the stage itself.
     if (phase === "dayArt") {
-      const t = setTimeout(() => setPhase("dayKenji"), reducedMotion ? 1200 : 5000);
+      // Day One has its own opening shot (Kenji on the steps, before he
+      // holds a blade), so it skips the generic "moment with Kenji", whose
+      // pose already carries swords.
+      const after = dayIntroIndex === 0 ? "day1" : "dayKenji";
+      const t = setTimeout(() => setPhase(after), reducedMotion ? 1200 : 5000);
       return () => clearTimeout(t);
     }
     if (phase === "dayKenji") {
@@ -587,17 +591,6 @@ export default function QuestIntro() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [phase]);
-
-  const handleRiddleSubmit = (e) => {
-    e.preventDefault();
-    const normalized = riddleValue.trim().toLowerCase();
-    if (normalized === "light" || normalized === "the light") {
-      setRiddleSolved(true);
-      markDayComplete(1);
-    } else {
-      setRiddleHint(true);
-    }
-  };
 
   // Day Two resets its dialogue every time it's (re)entered, so
   // returning to an already-solved gate scene still plays it — the
@@ -1205,7 +1198,7 @@ export default function QuestIntro() {
                       )}
                       {current && (
                         <span className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--qi-gold)]">
-                          Up Next
+                          {BUILT_DAYS.includes(i) ? "Up Next" : "Coming Soon"}
                         </span>
                       )}
                       {unlocked && (
@@ -1298,7 +1291,7 @@ export default function QuestIntro() {
               />
               <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--qi-gold)]">
                 {isUnlocked(lockedNotice)
-                  ? `${STAGES[lockedNotice].day} is still being built — check back soon.`
+                  ? `${STAGES[lockedNotice].day} is coming soon.`
                   : `Complete ${STAGES[lockedNotice - 1].day} first to reach ${STAGES[lockedNotice].day}.`}
               </p>
             </div>
@@ -1352,58 +1345,103 @@ export default function QuestIntro() {
             <Ornament src="/kenji-ui/corner-triquetra.webp" className="qo-orn--corner qo-orn--tr" delay={1.4} />
             <Ornament src="/kenji-ui/corner-triquetra.webp" className="qo-orn--corner qo-orn--br" delay={2.8} />
             <Ornament src="/kenji-ui/corner-triquetra.webp" className="qo-orn--corner qo-orn--bl" delay={4.2} />
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3">
-            {ITEMS.map((item) => {
-              const collected = isItemCollected(item);
-              return (
-                <div
-                  key={item.key}
-                  className="flex flex-col items-center text-center"
-                >
-                  <div
-                    className="qi-item-gleam qi-panel flex aspect-square w-full items-center justify-center rounded-xl p-5"
-                    tabIndex={0}
-                    role="img"
-                    aria-label={
-                      collected
-                        ? item.name
-                        : `${item.name} — not yet found`
+          {[
+            { label: null, items: ITEMS.filter((i) => !i.day1) },
+            { label: "Day One \u00b7 The Inheritance", items: ITEMS.filter((i) => i.day1) },
+          ].map((group) => (
+            <div key={group.label || "road"} className={group.label ? "mt-10" : ""}>
+              {group.label && (
+                <p className="mb-5 flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--qi-gold)]">
+                  <span className="h-px w-8 bg-[var(--qi-gold)]/40" />
+                  {group.label}
+                  <span className="h-px w-8 bg-[var(--qi-gold)]/40" />
+                </p>
+              )}
+              <div className="grid grid-cols-2 gap-6 sm:grid-cols-3">
+                {group.items.map((item) => {
+                  const collected = isItemCollected(item);
+                  const status = legend[item.key]?.status;
+                  const def = item.day1 ? itemById(item.key) : null;
+                  // The rule changes as the item moves: a hint while it is
+                  // only found, the payoff once packed or carried, the
+                  // cost once it is left on the altar.
+                  let ruleLabel = null;
+                  let ruleText = item.rule || null;
+                  let ruleTone = "text-[var(--qi-ivory)]/60";
+                  if (def) {
+                    if (status === "carried" || status === "packed") {
+                      ruleLabel = status === "carried" ? "Carried" : "Packed";
+                      ruleText = def.help;
+                      ruleTone = "text-[var(--qi-gold)]";
+                    } else if (status === "left") {
+                      ruleLabel = "Left in the shrine";
+                      ruleText = def.cost;
+                      ruleTone = "text-[#d98a7a]";
+                    } else {
+                      ruleLabel = status === "altar" ? "On the altar" : "Found";
+                      ruleText = def.omen;
                     }
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.img}
-                      alt=""
-                      className={`h-full w-full object-contain transition-[filter,opacity] duration-300 ${
-                        collected
-                          ? "qi-item-glow opacity-100"
-                          : "opacity-30 grayscale"
-                      }`}
-                    />
-                  </div>
-                  {!collected && (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src="/kenji-game/lock.png"
-                      alt=""
-                      aria-hidden="true"
-                      className="-mt-1 w-6 opacity-80"
-                    />
-                  )}
-                  {collected && (
-                    <>
-                      <p className="mt-3 font-cinema text-xs uppercase tracking-wide text-[var(--qi-ivory)] sm:text-sm">
-                        {item.name}
-                      </p>
-                      <p className="mt-1 max-w-[10rem] text-[11px] text-[var(--qi-ivory)]/50">
-                        {item.body}
-                      </p>
-                    </>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                  } else if (status) {
+                    ruleLabel = { carried: "Carried", packed: "Packed", found: "Found" }[status] || null;
+                  }
+                  return (
+                    <div key={item.key} className="flex flex-col items-center text-center">
+                      <div
+                        className={`qi-item-gleam qi-panel flex aspect-square w-full items-center justify-center rounded-xl p-5 ${
+                          status === "left" ? "opacity-75" : ""
+                        }`}
+                        tabIndex={0}
+                        role="img"
+                        aria-label={collected ? item.name : `${item.name} — not yet found`}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={item.img}
+                          alt=""
+                          className={`h-full w-full object-contain transition-[filter,opacity] duration-300 ${
+                            collected
+                              ? status === "left"
+                                ? "opacity-70 grayscale-[55%]"
+                                : "qi-item-glow opacity-100"
+                              : "opacity-30 grayscale"
+                          }`}
+                        />
+                      </div>
+                      {!collected && (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img
+                          src="/kenji-game/lock.png"
+                          alt=""
+                          aria-hidden="true"
+                          className="-mt-1 w-6 opacity-80"
+                        />
+                      )}
+                      {collected && (
+                        <>
+                          <p className="mt-3 font-cinema text-xs uppercase tracking-wide text-[var(--qi-ivory)] sm:text-sm">
+                            {item.name}
+                          </p>
+                          <p className="mt-1 max-w-[11rem] text-[11px] text-[var(--qi-ivory)]/50">
+                            {item.body}
+                          </p>
+                          {ruleText && (
+                            <p className={`qi-fade-enter mt-2 max-w-[11rem] text-[11px] leading-snug ${ruleTone}`}>
+                              {ruleLabel && (
+                                <span className="mb-0.5 block font-mono text-[9px] font-bold uppercase tracking-[0.2em]">
+                                  {ruleLabel}
+                                </span>
+                              )}
+                              {ruleText}
+                            </p>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
           </div>
         </div>
       )}
@@ -1443,134 +1481,12 @@ export default function QuestIntro() {
 
       {/* ---------------- DAY 1: THE INHERITANCE ---------------- */}
       {phase === "day1" && (
-        <div className="qi-fade-enter absolute inset-0 overflow-y-auto">
-          <div className="relative min-h-[50vh] w-full sm:min-h-[60vh]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={STAGES[0].full}
-              alt="Kenji stepping into a ruined, water-filled chamber lit by a single shaft of light"
-              className="absolute inset-0 h-full w-full object-cover object-[center_30%]"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--qi-ink)] via-[var(--qi-ink)]/10 to-[var(--qi-ink)]/40" />
-            <PlaqueButton
-              nav
-              size="xs"
-              className="absolute left-3 top-3 z-10 sm:left-5 sm:top-5"
-              onClick={() => setPhase("menu")}
-            >
-              &larr; Menu
-            </PlaqueButton>
-            <div className="absolute inset-x-0 bottom-0 px-6 pb-8 text-center sm:pb-10">
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--qi-gold)]">
-                I &middot; The Inheritance
-              </p>
-              <h2 className="mt-2 font-cinema text-2xl uppercase tracking-wide text-[var(--qi-ivory)] sm:text-4xl">
-                The Empty Room
-              </h2>
-              <span
-                aria-hidden="true"
-                className="mt-1 block text-center font-tribal text-2xl text-[var(--qi-gold)] sm:text-3xl"
-                style={{
-                  textShadow:
-                    "0 2px 8px rgba(0,0,0,0.85), 0 0 16px rgba(214,166,75,0.4)",
-                }}
-              >
-                継
-              </span>
-            </div>
-          </div>
-
-          <div className="mx-auto max-w-2xl px-6 py-10 sm:py-14">
-            <p className="font-serif italic leading-relaxed text-[var(--qi-ivory)]/90">
-              The door gives easier than it should. Inside: still water
-              over old stone, two silent statues, and one shaft of
-              light falling exactly where nothing should still be
-              standing. Something in the room has been waiting for
-              someone who knows how to look.
-            </p>
-
-            {!riddleSolved ? (
-              <form
-                onSubmit={handleRiddleSubmit}
-                className="qi-panel mt-8 rounded-xl p-6 text-center sm:p-8"
-              >
-                <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--qi-gold)]">
-                  The First Riddle
-                </p>
-                <p className="mx-auto mt-3 max-w-sm font-serif italic leading-relaxed text-[var(--qi-ivory)]">
-                  &ldquo;I am not lit, yet I show the way. I am not
-                  spoken, yet I am understood. Stay still long enough,
-                  and I will find you.&rdquo;
-                </p>
-                <label htmlFor="qi-riddle" className="sr-only">
-                  Your answer
-                </label>
-                <input
-                  id="qi-riddle"
-                  type="text"
-                  autoFocus
-                  value={riddleValue}
-                  onChange={(e) => {
-                    setRiddleValue(e.target.value);
-                    if (riddleHint) setRiddleHint(false);
-                  }}
-                  placeholder="What am I?"
-                  className="mx-auto mt-5 block w-full max-w-xs rounded-full border border-[var(--qi-gold)]/40 bg-black/30 px-4 py-2.5 text-center text-sm text-[var(--qi-ivory)] outline-none placeholder:text-[var(--qi-ivory)]/40 focus:border-[var(--qi-gold)]"
-                />
-                <PlaqueButton type="submit" size="sm" className="mx-auto mt-4">
-                  Answer
-                </PlaqueButton>
-                {riddleHint && (
-                  <p className="mt-4 text-xs text-[var(--qi-ivory)]/60">
-                    Not quite. Look at what the shaft from above is
-                    doing to the room, not what&rsquo;s said aloud.
-                  </p>
-                )}
-              </form>
-            ) : (
-              <div className="qi-fade-enter qi-panel mt-8 rounded-xl p-6 text-center sm:p-8">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/kenji-game/poses/round-complete.webp"
-                  alt="Kenji, head bowed, hands pressed together in quiet acknowledgment"
-                  className="qi-item-glow mx-auto w-32 sm:w-40"
-                />
-                {STAGES[dayIntroIndex + 1] && (
-                  <p className="mt-2 font-serif text-xs italic text-[var(--qi-ivory)]/50">
-                    Days pass on the road to{" "}
-                    {STAGES[dayIntroIndex + 1].title}&hellip;
-                  </p>
-                )}
-                <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-[var(--qi-gold)]">
-                  Light
-                </p>
-                <p className="mx-auto mt-3 max-w-md font-serif italic leading-relaxed text-[var(--qi-ivory)]">
-                  The circle in the floor answers before Kenji touches
-                  it. Where the shaft lands, an old blade waits, and
-                  beside it, a fragment of scroll &mdash; the first
-                  piece of an inheritance he didn&rsquo;t know he was
-                  owed.
-                </p>
-                <p className="mx-auto mt-4 max-w-md text-sm text-[var(--qi-ivory)]/70">
-                  <strong className="font-bold italic">Hikariwake</strong>{" "}
-                  is his now, sheathed, waiting. Ahead, the bridges of{" "}
-                  <strong className="font-bold italic">
-                    The Warden City
-                  </strong>{" "}
-                  rise out of the mist.
-                </p>
-                <PlaqueButton
-                  nav
-                  size="xl"
-                  className="mx-auto mt-6"
-                  onClick={() => goTo("levels")}
-                >
-                  Return to the Path &rarr;
-                </PlaqueButton>
-              </div>
-            )}
-          </div>
-        </div>
+        <Day1
+          reducedMotion={reducedMotion}
+          onMenu={() => setPhase("menu")}
+          onComplete={() => markDayComplete(1)}
+          onPath={() => goTo("levels")}
+        />
       )}
 
       {/* ---------------- DAY 2: THE WARDEN CITY ---------------- */}
