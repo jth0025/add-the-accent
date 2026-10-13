@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { STATIONS, pickStation } from "@/lib/playlist";
+import { STATIONS } from "@/lib/playlist";
 
 /**
  * A small "tab" hanging directly off the bottom of the Now Playing bar,
@@ -27,12 +26,8 @@ import { STATIONS, pickStation } from "@/lib/playlist";
  * and this tab on small screens, so the clip has to hold there too).
  */
 export default function ListenNowTab() {
-  // Green Maize's station by default; on Tuesdays and Thursdays the tab
-  // points at the Met Lofts playlist (the same one the music bar plays).
-  const [station, setStation] = useState(STATIONS.main);
-  useEffect(() => {
-    setStation(pickStation(window.location.search));
-  }, []);
+  // Always Green Maize's station.
+  const station = STATIONS.main;
 
   return (
     <div className="listen-now-drop relative z-10 flex justify-center [clip-path:inset(0_-100vw_-100vw_-100vw)] sm:justify-start sm:pl-6">

@@ -331,9 +331,9 @@ export default function MusicBar() {
 
   // ---- mount: resume position, start playback, gesture fallback ----
   useEffect(() => {
-    // Today's playlist (Met Lofts on Tuesdays and Thursdays), in a random
-    // order that holds for the rest of this visit.
-    const station = pickStation(window.location.search);
+    // The "Add the Accent" playlist, in a random order that holds for the
+    // rest of this visit.
+    const station = pickStation();
     let order = null;
     try {
       const saved = JSON.parse(sessionStorage.getItem(ORDER_KEY) || "null");
