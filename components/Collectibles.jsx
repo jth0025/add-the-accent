@@ -175,15 +175,33 @@ export function CollectibleDivider({ className = "", id }) {
         <span aria-hidden="true" className="cl-arrow-glyph">&lsaquo;</span>
       </button>
       <ul ref={rail} className="cl-divider-row" aria-label="The many identities">
-        {list.map((f) => (
-          <li key={f.src} className="cl-item cl-item--sm">
+        {list.map((f) => {
+          const story = storyFor(f.src);
+          const figure = (
             <div className="cl-stage">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={f.src} alt={f.alt} width="320" height="480" className="cl-figure" draggable="false" />
               <span aria-hidden="true" className="cl-base" />
             </div>
-          </li>
-        ))}
+          );
+          return (
+            <li key={f.src} className="cl-item cl-item--sm">
+              {story ? (
+                // Each figure opens its collector's card.
+                <Link
+                  href={`/journal/collectibles/${story.id}`}
+                  draggable="false"
+                  aria-label={`${story.identity}, collector\u2019s card ${story.number}`}
+                  className="block outline-none focus-visible:rounded-md focus-visible:ring-2 focus-visible:ring-[#f0d58e]"
+                >
+                  {figure}
+                </Link>
+              ) : (
+                figure
+              )}
+            </li>
+          );
+        })}
       </ul>
       <button type="button" onClick={() => step(1)} aria-label="Next figure" className="cl-arrow cl-arrow--next">
         <span aria-hidden="true" className="cl-arrow-glyph">&rsaquo;</span>

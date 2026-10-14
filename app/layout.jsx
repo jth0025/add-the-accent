@@ -522,7 +522,7 @@ export default function RootLayout({ children }) {
             <NavLink href="/portfolio" className="hover:text-accent" activeClassName="rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
               Portfolio
             </NavLink>
-            <NavLink href="/design" className="relative hover:text-accent" activeClassName="relative rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
+            <NavLink href="/design" className="relative hover:text-accent" activeClassName="relative rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da,0_-11px_0_3px_#efe9da]">
               <span className="absolute -top-[11px] left-0 whitespace-nowrap text-[8px] normal-case tracking-normal">
                 the
               </span>
