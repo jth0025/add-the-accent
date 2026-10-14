@@ -114,7 +114,7 @@ export default function KenjiGuide() {
             className="smoke-in absolute bottom-[calc(100%-6px)] right-6 z-10 h-[8.1rem] w-[3.5rem] sm:bottom-[calc(100%-16px)] sm:right-[3.6rem] sm:h-[13.1rem] sm:w-[4.5rem]"
           >
             <div className="absolute bottom-0 left-1/2 h-full w-fit -translate-x-1/2">
-              {/* A warm backlight behind him, same glow image and
+              {/* A warm backlight behind him, centred low on his body (a little over halfway down), so it rises from around his feet. Same glow image and
                   screen-blend trick as the header logo's night-mode
                   backlight — clipped at his feet (the box's own top
                   edge) so it never bleeds down into the dialog below,
@@ -126,12 +126,12 @@ export default function KenjiGuide() {
                   src="/logo-backlight.png"
                   alt=""
                   aria-hidden="true"
-                  className="absolute left-[43%] top-[53%] w-[210%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
+                  className="absolute left-1/2 top-[69%] w-[230%] max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
                 />
               </span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/kenji-standing.png"
+                src="/kenji-bow-full.webp"
                 alt=""
                 className="relative z-10 h-full w-auto max-w-none object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.35)]"
               />
