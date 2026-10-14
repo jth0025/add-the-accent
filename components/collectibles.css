@@ -234,3 +234,155 @@
     gap: 0.9rem;
   }
 }
+
+/* The figure is a button now (so it can be focused and opened from the
+   keyboard), drawn exactly as before. */
+.cl-hit {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: default;
+  outline: none;
+}
+.cl-hit:focus-visible .cl-figure { outline: 2px solid #f0d58e; outline-offset: 3px; border-radius: 6px; }
+
+/* Hovering (or focusing) a figure on the left rail: a small sunrise comes up
+   behind it: a warm glow rises from behind its feet. */
+.cl-grid .cl-stage::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 14%;
+  width: 135%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, 34%) scale(0.5);
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    rgba(255, 238, 176, 0.95) 0%,
+    rgba(255, 196, 96, 0.62) 26%,
+    rgba(255, 146, 54, 0.26) 46%,
+    rgba(255, 120, 40, 0) 68%
+  );
+  transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+.cl-grid .cl-item:hover .cl-stage::before,
+.cl-grid .cl-hit:focus-visible .cl-stage::before {
+  opacity: 1;
+  transform: translate(-50%, 4%) scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cl-grid .cl-stage::before { transition: opacity 0.2s; }
+}
+
+/* ---------- The slider on the main page (phones and tablets) ---------- */
+.cs { margin: 0; }
+.cs-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  text-align: center;
+}
+.cs-head span {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+.cs-head em { font-family: var(--font-playfair), Georgia, serif; font-size: 0.95rem; color: #ffd98a; }
+.cs-wrap { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.6rem; }
+.cs-row {
+  --cs-gap: 0.7rem;
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  align-items: flex-end;
+  gap: var(--cs-gap);
+  margin: 0;
+  padding: 0.9rem 0.2rem 0.7rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.cs-row::-webkit-scrollbar { display: none; }
+.cs-item {
+  flex: none;
+  /* about three and a half across, so there is always one peeking in */
+  width: calc((100% - var(--cs-gap) * 2) / 3.4);
+  min-width: 5.2rem;
+  max-width: 8rem;
+  scroll-snap-align: start;
+}
+.cs-link { position: relative; display: block; text-align: center; text-decoration: none; outline: none; }
+.cs-fig { position: relative; z-index: 2; display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.cs-base {
+  position: absolute;
+  z-index: 1;
+  left: 8%;
+  right: 8%;
+  bottom: 1.15rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 74%);
+  filter: blur(1.5px);
+}
+.cs-name {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.78);
+}
+.cs-link:active .cs-fig,
+.cs-link:focus-visible .cs-fig { transform: translateY(-4px) scale(1.04); }
+.cs-link:focus-visible .cs-name { color: #ffd98a; }
+@media (prefers-reduced-motion: reduce) { .cs-fig { transition: none; } }
+
+/* The sunrise behind a figure: on tap (or hover / focus), the same warm glow
+   the figures on the desktop rail get. */
+.cs-link::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 1.4rem;
+  width: 135%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, 34%) scale(0.5);
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    rgba(255, 238, 176, 0.95) 0%,
+    rgba(255, 196, 96, 0.62) 26%,
+    rgba(255, 146, 54, 0.26) 46%,
+    rgba(255, 120, 40, 0) 68%
+  );
+  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+.cs-link.is-lit::before,
+.cs-link:active::before,
+.cs-link:focus-visible::before {
+  opacity: 1;
+  transform: translate(-50%, 4%) scale(1);
+}
+@media (hover: hover) {
+  .cs-link:hover::before { opacity: 1; transform: translate(-50%, 4%) scale(1); }
+}
+.cs-link.is-lit .cs-fig { transform: translateY(-4px) scale(1.04); }
+@media (prefers-reduced-motion: reduce) { .cs-link::before { transition: opacity 0.2s; } }

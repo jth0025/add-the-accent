@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { CAROUSEL_IMAGES } from "@/lib/carouselImages";
+import "./tv-screen.css";
 
 export default function HeroCarousel({ children }) {
   const heroRef = useRef(null);
@@ -121,7 +122,22 @@ export default function HeroCarousel({ children }) {
           style={{ height: carouselHeight }}
           aria-label="A scrolling selection of Add the Accent design work"
         >
-          <div className="marquee-track flex h-full w-max items-center gap-4 pl-4 pt-2 pb-6">
+          {/* The screen itself: a dark silver-grey glass panel behind the
+              scrolling pictures, a little taller than they are and set
+              inside the TV's bezel, with scanlines, a pixel grid, a soft
+              vignette and a faint reflection. The strip below sits on
+              top of it. (The pictures are centred in the space above the
+              control strip: 8px down from the top, 24px up from the
+              bottom.) */}
+          <div
+            aria-hidden="true"
+            className="tv-screen pointer-events-none absolute inset-x-2.5 z-0 rounded-lg"
+            style={{
+              top: Math.round(carouselHeight / 2 - 8 - frameHeight / 2 - 12),
+              height: frameHeight + 24,
+            }}
+          />
+          <div className="marquee-track relative z-10 flex h-full w-max items-center gap-4 pl-4 pt-2 pb-6">
             {strip.map((img, i) => (
               <button
                 key={`${img.src}-${i}`}

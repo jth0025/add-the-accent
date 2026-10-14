@@ -2,7 +2,7 @@
 
 /**
  * The jump-links that sit at the top of the Journal page — The Turntable,
- * Long Plays, Singles, The Archive, Accent Note — each pointing at its
+ * Long Plays, Singles, The Archive, The Collectibles, Accent Note — each pointing at its
  * section on the unfiltered /journal index. On the index itself they smooth-scroll to
  * the section; from a filtered view they fall back to normal navigation
  * over to /journal and land on the section.
@@ -12,6 +12,7 @@ const LINKS = [
   { label: "Long Plays", id: "long-plays" },
   { label: "Singles", id: "singles" },
   { label: "The Archive", id: "archive" },
+  { label: "The Collectibles", id: "collectibles" },
   { label: "Accent Note", id: "accent-note" },
 ];
 

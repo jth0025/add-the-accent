@@ -1,0 +1,375 @@
+/* The Collectibles: each figure stands inside a gold display box, behind a
+   clear window. Three layers per box: the gold box with its interior (back),
+   the figure, then a layer of glass reflections on top. The art assets live
+   in /public/collectibles/box/ (see docs in lib/collectibles.js). */
+
+.cg-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.2rem 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 640px) {
+  .cg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.6rem 1.4rem; }
+}
+@media (min-width: 1024px) {
+  .cg-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3rem 1.8rem; }
+}
+
+.cg-item { position: relative; display: flex; flex-direction: column; align-items: center; }
+
+/* One box: a button, so it is reachable and operable by keyboard. */
+.cg-box {
+  position: relative;
+  display: block;
+  width: min(100%, 15.5rem);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+.cg-box:focus-visible .cg-frame { outline: 2px solid #f0d58e; outline-offset: 4px; border-radius: 6px; }
+
+.cg-frame {
+  container-type: inline-size;
+  position: relative;
+  display: block;
+  aspect-ratio: 640 / 896;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.38));
+}
+.cg-item:hover .cg-frame,
+.cg-item.is-open .cg-frame,
+.cg-box:focus-visible .cg-frame {
+  transform: translateY(-7px) scale(1.035);
+}
+
+.cg-back,
+.cg-glass {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.cg-glass { pointer-events: none; z-index: 3; }
+
+/* The inside of the box: the figure is cropped to the window's opening so it
+   can never overlap the gold frame. It stands on the floor of the box, turned
+   a little to match the box's perspective. */
+.cg-stage {
+  position: absolute;
+  z-index: 2;
+  left: 15%;
+  width: 74%;
+  top: 16.2%;
+  height: 63.8%;
+  overflow: hidden;
+}
+.cg-floor {
+  position: absolute;
+  left: 50%;
+  bottom: 3%;
+  width: 72%;
+  height: 9%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(40, 22, 4, 0.7) 0%, rgba(40, 22, 4, 0.4) 50%, transparent 76%);
+  filter: blur(2px);
+}
+.cg-fig {
+  position: absolute;
+  left: 50%;
+  bottom: 6.5%;
+  height: calc(95% * var(--s, 1));
+  width: auto;
+  max-width: 100%;
+  transform-origin: 50% 100%;
+  transform: translate(-50%, 0) translate(var(--x, 0%), var(--y, 0%)) perspective(620px) rotateY(var(--turn, 0deg));
+  filter: drop-shadow(5px 5px 4px rgba(50, 28, 4, 0.35));
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* The shadow the box throws on the ground. */
+.cg-ground {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -0.55rem;
+  height: 1.1rem;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0) 72%);
+  filter: blur(3px);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.cg-item:hover .cg-ground,
+.cg-item.is-open .cg-ground { transform: scale(0.88); opacity: 0.7; }
+
+.cg-label {
+  margin: 0.95rem 0 0;
+  text-align: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}
+.cg-label span { color: #ffd98a; margin-right: 0.35em; }
+
+/* ---------- the preview ---------- */
+.cg-scrim { position: fixed; inset: 0; z-index: 55; }
+
+.cg-preview {
+  position: fixed;
+  z-index: 60;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  color: #26211a;
+  background: #efe9da;
+  border: 1px solid #cfc6ad;
+  text-align: left;
+}
+.cg-preview.is-placed { visibility: visible; opacity: 1; transform: none; }
+
+.cg-preview--card {
+  width: min(21rem, calc(100vw - 1.5rem));
+  padding: 1.1rem 1.25rem 1.05rem;
+  border-radius: 3px;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* On touch screens: a thought bubble, with dots floating up to the figure. */
+.cg-preview--bubble {
+  width: min(19rem, calc(100vw - 1.5rem));
+  padding: 1.5rem 1.35rem 1.2rem;
+  border: 2px solid rgba(70, 40, 12, 0.5);
+  border-radius: 34px;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5);
+}
+.cg-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: #efe9da;
+  border: 2px solid rgba(70, 40, 12, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transform: translate(-50%, -50%);
+  animation: cg-bob 2.6s ease-in-out infinite;
+}
+.cg-dot--1 { width: 20px; height: 20px; animation-delay: 0s; }
+.cg-dot--2 { width: 14px; height: 14px; animation-delay: 0.25s; }
+.cg-dot--3 { width: 9px; height: 9px; animation-delay: 0.5s; }
+@keyframes cg-bob {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, calc(-50% - 4px)) scale(1.12); }
+}
+
+.cg-close {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.5rem;
+  width: 44px;
+  height: 44px;
+  font-size: 28px;
+  line-height: 1;
+  color: #4b3f24;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.cg-close:hover { color: #8a5a14; }
+
+.cg-kicker {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6b5f45;
+}
+.cg-preview--bubble .cg-kicker { padding-right: 1.8rem; }
+.cg-title {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-size: 1.32rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.15;
+  color: #1d1810;
+}
+.cg-intro {
+  margin: 0.5rem 0 0;
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #5a4f38;
+}
+.cg-blurb { margin: 0.65rem 0 0; font-size: 0.9rem; line-height: 1.55; color: #2d2719; }
+.cg-themes {
+  margin: 0.7rem 0 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8a6a14;
+}
+.cg-link {
+  display: inline-block;
+  margin-top: 0.85rem;
+  padding: 0.15rem 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8a4d0c;
+  border-bottom: 1px solid rgba(138, 77, 12, 0.5);
+  text-decoration: none;
+}
+.cg-link:hover,
+.cg-link:focus-visible { color: #5e3305; border-bottom-color: #5e3305; outline: none; }
+.cg-soon {
+  margin: 0.85rem 0 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a8068;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-frame,
+  .cg-ground,
+  .cg-preview { transition: none; }
+  .cg-preview { transform: none; }
+  .cg-dot { animation: none; }
+}
+
+.cg-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; margin-top: 0.5rem; }
+.cg-actions .cg-link, .cg-actions .cg-soon { margin-top: 0.3rem; }
+.cg-link--soft { color: #6b5f45; border-bottom-color: rgba(107, 95, 69, 0.45); }
+.cg-preview--bubble { width: min(20rem, calc(100vw - 1.5rem)); }
+
+/* ---------- the light inside the box ---------- */
+/* At rest the inside is dim. When the box is hovered, focused or opened a
+   light comes on at the top and the figure is lit. */
+.cg-dim {
+  position: absolute;
+  z-index: 1;
+  left: 14%;
+  top: 15.5%;
+  width: 76%;
+  height: 66%;
+  background: linear-gradient(to bottom, rgba(10, 6, 0, 0.6) 0%, rgba(10, 6, 0, 0.38) 55%, rgba(10, 6, 0, 0.12) 100%);
+  transition: opacity 0.55s ease;
+  pointer-events: none;
+}
+.cg-lamp {
+  position: absolute;
+  z-index: 2;
+  left: 14%;
+  top: 15.5%;
+  width: 76%;
+  height: 66%;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(ellipse 60% 14% at 50% 0%, rgba(255, 244, 200, 0.95), rgba(255, 220, 140, 0) 100%),
+    radial-gradient(ellipse 75% 95% at 50% 0%, rgba(255, 226, 150, 0.6), rgba(255, 200, 110, 0.18) 55%, rgba(255, 190, 90, 0) 80%);
+  transition: opacity 0.55s ease;
+  pointer-events: none;
+}
+.cg-fig { filter: brightness(0.8) saturate(0.92) drop-shadow(5px 5px 4px rgba(50, 28, 4, 0.35)); transition: filter 0.55s ease; }
+.cg-item:hover .cg-dim, .cg-item.is-open .cg-dim, .cg-box:focus-visible .cg-dim { opacity: 0; }
+.cg-item:hover .cg-lamp, .cg-item.is-open .cg-lamp, .cg-box:focus-visible .cg-lamp { opacity: 1; }
+.cg-item:hover .cg-fig, .cg-item.is-open .cg-fig, .cg-box:focus-visible .cg-fig {
+  filter: brightness(1.08) saturate(1.05) drop-shadow(5px 5px 4px rgba(50, 28, 4, 0.35));
+}
+
+/* The name, engraved into the gold panel along the bottom of the box (it
+   follows the slight rise of the box's front edge), and the ATA plus printed
+   in the right-hand corner. */
+.cg-engrave {
+  position: absolute;
+  z-index: 4;
+  left: 21%;
+  width: 62%;
+  top: 85.6%;
+  height: 8.4%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15em;
+  /* The box's bottom edge rises about 5 degrees to the right: the lettering
+     is sheared to follow it (its upright strokes stay upright, as they do on
+     the box's own vertical edges). */
+  transform: skewY(-5deg) scaleX(0.96);
+  pointer-events: none;
+  text-align: center;
+  white-space: nowrap;
+}
+.cg-engrave b {
+  font-family: var(--font-cinema), "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  font-size: clamp(9px, 6.3cqw, 17px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: #8a6318;
+  /* engraved: a pale lip below the cut, a dark edge above it */
+  text-shadow: 0 1px 0 rgba(255, 238, 178, 0.85), 0 -1px 0 rgba(70, 42, 6, 0.55);
+}
+.cg-engrave i {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-style: normal;
+  font-size: clamp(6px, 3cqw, 8.5px);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #8a6318;
+  text-shadow: 0 1px 0 rgba(255, 238, 178, 0.8), 0 -1px 0 rgba(70, 42, 6, 0.5);
+}
+.cg-mark {
+  position: absolute;
+  z-index: 4;
+  right: 3.4%;
+  bottom: 8%;
+  width: 9.5%;
+  height: auto;
+  transform: skewY(-5deg) scaleX(0.96);
+  mix-blend-mode: multiply;
+  opacity: 0.92;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-dim, .cg-lamp, .cg-fig { transition: none; }
+}
+
+/* The themes sit at the top of the bubble, just above the title. */
+.cg-themes--top { margin: 0.5rem 0 0; }
+.cg-themes--top + .cg-title { margin-top: 0.3rem; }
+
+/* An invisible bridge across the gap between the figure and its bubble, so
+   the pointer can travel from one to the other without the bubble closing. */
+.cg-preview::before {
+  content: "";
+  position: absolute;
+  pointer-events: auto;
+}
+.cg-preview[data-side="right"]::before { right: 100%; width: 56px; top: -28px; bottom: -28px; }
+.cg-preview[data-side="left"]::before { left: 100%; width: 56px; top: -28px; bottom: -28px; }
+.cg-preview[data-side="above"]::before { top: 100%; height: 56px; left: -28px; right: -28px; }
+.cg-preview[data-side="below"]::before { bottom: 100%; height: 56px; left: -28px; right: -28px; }
+
+.cg-bridge { position: absolute; pointer-events: auto; }

@@ -11,7 +11,7 @@ import EntryBadge from "@/components/EntryBadge";
  * (see EntryPage). Shared by the sectioned Journal index and any list
  * that shows journal entries at heading level 3.
  */
-export default function JournalEntryCard({ entry }) {
+export default function JournalEntryCard({ entry, isNew = false }) {
   return (
     <Link
       href={`/journal/${entry.slug}`}
@@ -21,6 +21,11 @@ export default function JournalEntryCard({ entry }) {
         className="book-cover corner-box on-dark relative flex min-h-[220px] items-center justify-center overflow-hidden rounded-xl border border-black/30 py-8 pl-9 pr-6 shadow-lg transition-[transform,box-shadow] duration-500 [transform-origin:left_center] group-hover:[transform:rotateY(-8deg)] group-hover:shadow-2xl sm:pl-11"
         style={{ "--book-color": getCoverColor(entry) }}
       >
+        {isNew && (
+          <span className="absolute right-3 top-3 z-20 -rotate-3 rounded-sm bg-[#e0403f] px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white shadow-[0_2px_6px_rgba(0,0,0,0.45)]">
+            New
+          </span>
+        )}
         <span className="book-spine" aria-hidden="true" />
         <span className="book-pages-edge" aria-hidden="true" />
         <span className="book-pages-edge-top" aria-hidden="true" />

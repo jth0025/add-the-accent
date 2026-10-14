@@ -7,6 +7,7 @@ import LongPlays from "@/components/journal/LongPlays";
 import SinglesShelf from "@/components/journal/SinglesShelf";
 import ArchiveList from "@/components/journal/ArchiveList";
 import BackCover from "@/components/journal/BackCover";
+import CollectibleGallery from "@/components/collectibles/CollectibleGallery";
 import ArchiveCrate from "@/components/journal/ArchiveCrate";
 import SinglesCarousel from "@/components/journal/SinglesCarousel";
 import { formatDate } from "@/lib/formatDate";
@@ -133,7 +134,7 @@ export default function JournalIndex({ searchParams }) {
 
       {/* Long Plays — the series */}
       <section id="long-plays" className="mt-20 scroll-mt-24">
-        <h2 className={`${secTitle} text-center`} style={{ "--sec-color": "#d3ac52" }}>Long Plays</h2>
+        <h2 className={`${secTitle} text-center`} style={{ "--sec-color": "#3fae6b" }}>Long Plays</h2>
         <p className={`${sectionSub} text-center`}>A literary album collection</p>
         <div className="mt-6">
           <LongPlays collections={longPlays} />
@@ -224,6 +225,28 @@ export default function JournalIndex({ searchParams }) {
           <div className="lg:sticky lg:top-6">
             <ArchiveCrate items={crateItems} />
           </div>
+        </div>
+      </section>
+
+      {/* The Collectibles: each version of me in its own display box. */}
+      <section id="collectibles" aria-labelledby="collectibles-title" className="mt-20 scroll-mt-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className={sectionSub}>An exhibition</p>
+          <h2 id="collectibles-title" className={`${secTitle} mt-3 text-white`}>
+            The Collectibles
+          </h2>
+          <p className="mt-3 font-serif text-xl italic text-[#ffd98a] sm:text-2xl">
+            Different forms. One story.
+          </p>
+          <p className="mx-auto mt-5 max-w-xl border-t-2 border-white/60 pt-4 font-serif text-lg italic leading-snug text-white/80">
+            Every passion, profession, obsession, and pursuit leaves something
+            behind. Some become skills. Others become memories. A few become
+            pieces of who we are. This is a collection of those pieces, told
+            through the many versions of me.
+          </p>
+        </div>
+        <div className="mt-10">
+          <CollectibleGallery />
         </div>
       </section>
 

@@ -1,6 +1,10 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { COLLECTIBLES, FIGURE_ALIASES } from "@/lib/collectibles";
+import { Preview } from "@/components/collectibles/CollectiblePreview";
 import "./collectibles.css";
 
 // The identities, two to a shelf. Carved-wood figures with no faces: one
@@ -20,6 +24,65 @@ export const FIGURES = [
   { src: "/collectibles/homebody.webp", alt: "A carved wooden figure in a flower-patch cap, cream tee and sneakers, hands in his pockets" },
 ];
 
+// The story behind each figure (lib/collectibles.js), found from its image.
+const storyFor = (src) => {
+  const slug = src.split("/").pop().replace(".webp", "");
+  const figure = FIGURE_ALIASES[slug] || slug;
+  return COLLECTIBLES.find((c) => c.figure === figure);
+};
+
+// One figure in the left rail. Hovering (or focusing) it opens the same
+// editorial preview the boxed collectibles on the Journal page have.
+function RailItem({ f, open, onOpen, onClose }) {
+  const stageRef = useRef(null);
+  const liRef = useRef(null);
+  const timer = useRef(null);
+  const story = storyFor(f.src);
+  const pid = `cl-preview-${story?.id}`;
+  useEffect(() => () => clearTimeout(timer.current), []);
+  const hold = () => clearTimeout(timer.current);
+  const release = () => {
+    clearTimeout(timer.current);
+    timer.current = setTimeout(onClose, 450);
+  };
+  return (
+    <li
+      ref={liRef}
+      className="cl-item"
+      onMouseEnter={() => {
+        hold();
+        if (story) onOpen();
+      }}
+      onMouseLeave={release}
+      onFocus={() => {
+        hold();
+        if (story) onOpen();
+      }}
+      onBlur={(e) => {
+        if (!liRef.current?.contains(e.relatedTarget)) onClose();
+      }}
+    >
+      <button
+        type="button"
+        className="cl-hit"
+        aria-expanded={open}
+        aria-controls={open ? pid : undefined}
+        aria-label={story ? `${story.identity}, collectible ${story.number}. Show the story preview.` : undefined}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") onClose();
+        }}
+      >
+        <div ref={stageRef} className="cl-stage">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={f.src} alt={f.alt} width="320" height="480" className="cl-figure" />
+          <span aria-hidden="true" className="cl-base" />
+        </div>
+      </button>
+      {open && story && <Preview item={story} anchorRef={stageRef} onClose={onClose} id={pid} />}
+    </li>
+  );
+}
+
 /**
  * A small display of collectible figures — the "multiple identities" —
  * two to a row, each standing on its own shadow. Desktop only (it lives
@@ -29,6 +92,7 @@ export const FIGURES = [
  */
 export default function Collectibles({ className = "" }) {
   const [order, setOrder] = useState(null);
+  const [openSrc, setOpenSrc] = useState(null);
 
   useEffect(() => {
     const a = FIGURES.map((_, i) => i);
@@ -39,6 +103,16 @@ export default function Collectibles({ className = "" }) {
     setOrder(a);
   }, []);
 
+  // Escape puts the open preview away.
+  useEffect(() => {
+    if (!openSrc) return undefined;
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpenSrc(null);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [openSrc]);
+
   const list = (order || FIGURES.map((_, i) => i)).map((i) => FIGURES[i]);
 
   return (
@@ -47,13 +121,13 @@ export default function Collectibles({ className = "" }) {
       aria-label="The many identities"
     >
       {list.map((f) => (
-        <li key={f.src} className="cl-item">
-          <div className="cl-stage">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={f.src} alt={f.alt} width="320" height="480" className="cl-figure" />
-            <span aria-hidden="true" className="cl-base" />
-          </div>
-        </li>
+        <RailItem
+          key={f.src}
+          f={f}
+          open={openSrc === f.src}
+          onOpen={() => setOpenSrc(f.src)}
+          onClose={() => setOpenSrc((cur) => (cur === f.src ? null : cur))}
+        />
       ))}
     </ul>
   );
@@ -116,5 +190,89 @@ export function CollectibleDivider({ className = "", id }) {
       </button>
       <span aria-hidden="true" className="cl-divider-line" />
     </div>
+  );
+}
+
+// The original (smaller) figure image for each collectible: two of them were
+// combined into one collectible, so those two point at the surviving figure.
+const SLIDER_IMAGE = { "trumpeter-green": "trumpeter", "listener-red": "listener" };
+
+/**
+ * The collectibles as a slider for phones and tablets (the left rail only has
+ * room on wide desktops). Swipe it or use the arrows; every figure links to
+ * its collector's card. Shown in order, three or so at a time.
+ */
+export function CollectibleSlider({ className = "" }) {
+  const rail = useRef(null);
+  const router = useRouter();
+  const [lit, setLit] = useState(null);
+  const timer = useRef(null);
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  // Tapping a figure first lights it, with the same sunrise glow the figures
+  // on the desktop rail get on hover, then opens its card a moment later.
+  const open = (e, c) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+    e.preventDefault();
+    setLit(c.id);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => router.push(`/journal/collectibles/${c.id}`), reduce ? 0 : 420);
+  };
+
+  // One figure per press, wrapping round at either end.
+  const step = (dir) => {
+    const el = rail.current;
+    if (!el) return;
+    const first = el.firstElementChild;
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+    const one = (first ? first.getBoundingClientRect().width : el.clientWidth / 3) + gap;
+    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 2;
+    const atStart = el.scrollLeft <= 2;
+    if (dir > 0 && atEnd) el.scrollTo({ left: 0, behavior: "smooth" });
+    else if (dir < 0 && atStart) el.scrollTo({ left: el.scrollWidth, behavior: "smooth" });
+    else el.scrollBy({ left: dir * one, behavior: "smooth" });
+  };
+
+  return (
+    <section className={`cs ${className}`} aria-label="The Collectibles">
+      <div className="cs-head">
+        <span>The Collectibles</span>
+        <em>Different forms. One story.</em>
+      </div>
+      <div className="cs-wrap">
+        <button type="button" onClick={() => step(-1)} aria-label="Previous collectible" className="cl-arrow cl-arrow--prev">
+          <span aria-hidden="true" className="cl-arrow-glyph">&lsaquo;</span>
+        </button>
+        <ul ref={rail} className="cs-row">
+          {COLLECTIBLES.map((c) => (
+            <li key={c.id} className="cs-item">
+              <Link
+                href={`/journal/collectibles/${c.id}`}
+                className={`cs-link${lit === c.id ? " is-lit" : ""}`}
+                onClick={(e) => open(e, c)}
+                aria-label={`${c.identity}, collector\u2019s card ${c.number}`}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/collectibles/${SLIDER_IMAGE[c.figure] || c.figure}.webp`}
+                  alt={c.alt}
+                  width="320"
+                  height="480"
+                  loading="lazy"
+                  draggable="false"
+                  className="cs-fig"
+                />
+                <span aria-hidden="true" className="cs-base" />
+                <span className="cs-name">{c.identity}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <button type="button" onClick={() => step(1)} aria-label="Next collectible" className="cl-arrow cl-arrow--next">
+          <span aria-hidden="true" className="cl-arrow-glyph">&rsaquo;</span>
+        </button>
+      </div>
+    </section>
   );
 }

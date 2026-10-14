@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { getAllEntries, getSelectedWork, formatDate } from "@/lib/content";
+import { getAllEntries } from "@/lib/content";
+import { getHomeVisualWork } from "@/lib/homeVisualWork";
+import { captionOf } from "@/lib/designCategories";
+import AccentNotesSignup from "@/components/AccentNotesSignup";
 import HeroCarousel from "@/components/HeroCarousel";
 import EntryBadge from "@/components/EntryBadge";
-import PaperClip from "@/components/PaperClip";
 import JournalEntryCard from "@/components/JournalEntryCard";
 import VoiceClip from "@/components/VoiceClip";
 import ListenNowTab from "@/components/ListenNowTab";
@@ -11,15 +13,13 @@ import SeriesProgress from "@/components/SeriesProgress";
 import KenjiQuestPromo from "@/components/KenjiQuestPromo";
 import SmudgeLayer from "@/components/SmudgeLayer";
 import SignatureMark from "@/components/SignatureMark";
-import Collectibles from "@/components/Collectibles";
+import Collectibles, { CollectibleSlider } from "@/components/Collectibles";
 
 export default function HomePage() {
-  const portfolio = getSelectedWork().slice(0, 3);
-  const featuredSlugs = new Set(portfolio.map((e) => e.slug));
+  const visualWork = getHomeVisualWork();
   const allJournalEntries = getAllEntries("journal");
-  const journal = allJournalEntries
-    .filter((e) => !featuredSlugs.has(e.slug))
-    .slice(0, 3);
+  // Latest Drops: the three newest essays (newest first).
+  const journal = allJournalEntries.slice(0, 3);
   const bySeries = (name) => allJournalEntries.filter((e) => e.series === name);
 
   return (
@@ -46,7 +46,7 @@ export default function HomePage() {
         {/* The collectible identities, under the signature — a separate
             rail so they dim with the page when the signature's spotlight
             is on. */}
-        <div className="pointer-events-none absolute left-12 top-[14rem] z-10 hidden w-56 xl:block">
+        <div className="pointer-events-none absolute left-12 top-[14rem] z-10 hidden w-56 hover:z-40 focus-within:z-40 xl:block">
           <Collectibles className="pointer-events-auto" />
         </div>
         <div className="pointer-events-none absolute right-6 top-0 z-10 hidden w-56 xl:block">
@@ -233,6 +233,12 @@ export default function HomePage() {
         </div>
       </HeroCarousel>
 
+      {/* The collectibles as a slider on phones and tablets (the left rail
+          above takes over on wide screens). */}
+      <div className="mt-10 xl:hidden">
+        <CollectibleSlider />
+      </div>
+
       <WordOfTheDay />
 
       <div className="mt-10 flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
@@ -368,7 +374,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {portfolio.length > 0 && (
+      {visualWork.length > 0 && (
         <section className="paper-notebook corner-box relative mb-10 rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
           {/* A horizontal pen, stretched to the box's own width, laid
               across the seam where the last feature box ends — half
@@ -397,9 +403,9 @@ export default function HomePage() {
             <span>Section 01</span>
             <span className="h-px flex-1 bg-accent/40" />
           </div>
-          <div className="mt-3 flex items-baseline justify-between gap-4">
+          <div className="mt-3">
             <h2 className="sketch-heading relative -rotate-1 inline-block cursor-default font-hand text-4xl font-bold text-ink sm:text-5xl">
-              Selected Work
+              Visual Work
               <svg
                 aria-hidden="true"
                 viewBox="0 0 100 14"
@@ -417,50 +423,57 @@ export default function HomePage() {
                 />
               </svg>
             </h2>
+            <p className="mt-3 max-w-md text-sm text-stone">
+              Commissioned design and photography, pulled from the Museum.
+            </p>
+          </div>
+          {/* Each piece is a print taped to the notebook page: a paper mount
+              with a thick lower edge, held on by a strip of tape, hung a
+              little crooked. */}
+          <ul className="mt-6 grid grid-cols-2 gap-x-5 gap-y-10 border-t border-ink/10 px-1 pb-2 pt-10 sm:grid-cols-3 sm:gap-x-7">
+            {visualWork.map(({ piece }, i) => {
+              const { title } = captionOf(piece);
+              const tilt = ["-rotate-[1.6deg]", "rotate-[1.2deg]", "-rotate-[0.8deg]", "rotate-[1.7deg]", "-rotate-[1.2deg]", "rotate-[0.9deg]"][i % 6];
+              return (
+                <li key={piece.src} className={`relative ${tilt} transition-transform duration-300 hover:rotate-0`}>
+                  <span
+                    aria-hidden="true"
+                    className={`pointer-events-none absolute -top-2.5 left-1/2 z-20 h-5 w-14 -translate-x-1/2 bg-[#f1e39a]/80 shadow-[0_1px_2px_rgba(0,0,0,0.25)] [clip-path:polygon(2%_8%,98%_0,100%_92%,0_100%)] ${i % 2 === 0 ? "-rotate-[5deg]" : "rotate-[4deg]"}`}
+                  />
+                  <Link
+                    href="/design"
+                    className="group relative block border border-ink/15 bg-[#fbf8ef] p-2 pb-7 shadow-[0_8px_16px_rgba(0,0,0,0.28),0_1px_3px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-1"
+                    aria-label={`${title || "Museum piece"}, in the Museum`}
+                  >
+                    <span className="relative block overflow-hidden bg-ink/10 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.25)]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={piece.src}
+                        alt={piece.alt}
+                        loading="lazy"
+                        className="aspect-[4/5] w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                      />
+                      <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.16),transparent_32%)]" />
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-ink/10 pt-6">
             <Link
-              href="/portfolio"
-              className="shrink-0 font-mono text-xs uppercase tracking-widest text-accent hover:underline"
+              href="/design"
+              className="rounded-full border border-ink bg-ink px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-[#e7ded2] transition-colors hover:border-accent hover:bg-accent hover:text-black"
             >
-              View all
+              View the Museum &rarr;
+            </Link>
+            <Link
+              href="/work-with-me"
+              className="rounded-full border border-ink/50 px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-ink transition-colors hover:border-accent hover:text-accent"
+            >
+              Work with me &rarr;
             </Link>
           </div>
-          <ul className="mt-8 space-y-8 border-t border-ink/10 pt-8">
-            {portfolio.map((entry, i) => (
-              <li key={entry.slug}>
-                <Link
-                  href={`/journal/${entry.slug}`}
-                  className={`note-card corner-box group relative block rounded-md border border-ink/15 px-7 py-6 shadow-md transition-transform duration-200 hover:-translate-y-0.5 sm:px-9 ${
-                    i % 2 === 0 ? "-rotate-[0.4deg]" : "rotate-[0.4deg]"
-                  }`}
-                >
-                  <PaperClip />
-                  <EntryBadge entry={entry} className="block" />
-                  <h3 className="flex items-center gap-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/icons/pencil-icon.png"
-                      alt=""
-                      aria-hidden="true"
-                      className="h-[1em] w-auto shrink-0"
-                    />
-                    {entry.titleHtml ? (
-                      <span dangerouslySetInnerHTML={{ __html: entry.titleHtml }} />
-                    ) : (
-                      <span>{entry.title}</span>
-                    )}
-                  </h3>
-                  {entry.date && (
-                    <p className="mt-1 font-mono text-xs uppercase tracking-wide text-stone/60">
-                      {formatDate(entry.date)}
-                    </p>
-                  )}
-                  {entry.excerpt && (
-                    <p className="mt-2 text-stone">{entry.excerpt}</p>
-                  )}
-                </Link>
-              </li>
-            ))}
-          </ul>
         </section>
       )}
 
@@ -509,7 +522,7 @@ export default function HomePage() {
           </div>
           <div className="mt-3 flex items-baseline justify-between gap-4">
             <h2 className="sketch-heading relative -rotate-1 inline-block cursor-default font-hand text-4xl font-bold text-ink sm:text-5xl">
-              Journal
+              Latest Drops
               <svg
                 aria-hidden="true"
                 viewBox="0 0 100 14"
@@ -535,12 +548,17 @@ export default function HomePage() {
             </Link>
           </div>
           <ul className="mt-8 space-y-8 border-t border-ink/10 pt-8">
-            {journal.map((entry) => (
+            {journal.map((entry, i) => (
               <li key={entry.slug}>
-                <JournalEntryCard entry={entry} />
+                <JournalEntryCard entry={entry} isNew={i === 0} />
               </li>
             ))}
           </ul>
+        </section>
+
+        {/* Another Accent Notes sign-up, right under the latest writing. */}
+        <section id="accent-note" className="mb-16 scroll-mt-24">
+          <AccentNotesSignup substack />
         </section>
         </>
       )}

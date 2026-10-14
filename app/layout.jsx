@@ -358,6 +358,11 @@ export default function RootLayout({ children }) {
                   the logo or the grass. Color tracks --header-fg (set by
                   HeaderSky) so it stays legible against whatever time-of-day
                   sky is currently showing. */}
+              {/* Seven items now ("Games" joined). Between xl and 2xl the gaps
+                  and letter-spacing are tightened to keep the row clear of
+                  the grass; from 2xl it rides further out into the header's
+                  spare room instead. Re-measure both widths if an item is
+                  added. */}
               {/* xl+ only — six items (five plus "Work With Me") need
                   real clearance around the centered grass, more than
                   the max-w-3xl row has room for on its own, so this
@@ -369,7 +374,7 @@ export default function RootLayout({ children }) {
                   falls through to the full-width phone/tablet bar
                   instead, same pattern the header already used before
                   this item existed. */}
-              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-widest text-[var(--header-fg)] transition-colors duration-500 xl:-mr-[11.25rem] xl:flex xl:gap-3 2xl:-mr-[13.5rem]">
+              <div className="hidden pb-1.5 font-mono text-xs font-medium uppercase tracking-wider text-[var(--header-fg)] transition-colors duration-500 xl:-mr-[11.25rem] xl:flex xl:gap-2 2xl:-mr-[15.5rem] 2xl:gap-3 2xl:tracking-widest">
                 <NavLink href="/" className="hover:text-accent" activeClassName="text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da]">
                   Home
                 </NavLink>
@@ -449,9 +454,29 @@ export default function RootLayout({ children }) {
                         </span>
                         <span className="vs-edge" aria-hidden="true" />
                       </Link>
+
+                      <div className="px-1 pb-2 pt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#ffd98a]">
+                        The exhibition
+                      </div>
+                      <Link
+                        href="/journal#collectibles"
+                        className="vs-item"
+                        style={{ "--vs-art": "url(/journal-art/menu-collectibles.webp)", "--vs-color": "#d6a64b" }}
+                      >
+                        <span className="vs-art vs-art--figure" aria-hidden="true" />
+                        <span className="vs-text">
+                          <span className="vs-name">The Collectibles</span>
+                          <span className="vs-sub">Different forms. One story.</span>
+                        </span>
+                        <span className="vs-edge" aria-hidden="true" />
+                      </Link>
                     </div>
                   </div>
                 </div>
+
+                <NavLink href="/kenji-quest" className="hover:text-accent" activeClassName="text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da]">
+                  Games
+                </NavLink>
 
                 <NavLink href="/about" className="hover:text-accent" activeClassName="text-black [html.header-night_&]:rounded-sm [html.header-night_&]:bg-[#efe9da] [html.header-night_&]:shadow-[0_0_0_3px_#efe9da]">
                   About
@@ -508,6 +533,9 @@ export default function RootLayout({ children }) {
             </NavLink>
             <NavLink href="/work-with-me" className="nav-glow" activeClassName="rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
               Work With Me
+            </NavLink>
+            <NavLink href="/kenji-quest" className="hover:text-accent" activeClassName="rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
+              Games
             </NavLink>
             <NavLink href="/about" className="hover:text-accent" activeClassName="rounded-sm bg-[#efe9da] text-black shadow-[0_0_0_3px_#efe9da]">
               About
