@@ -8,7 +8,8 @@
   width: min(460px, calc(100vw - 48px));
   container-type: inline-size;
   height: 62px;
-  margin: 3px 0;
+  /* Centred in whatever holds it, always. */
+  margin: 3px auto;
   padding: 0;
   border: 0;
   background: none;
@@ -18,6 +19,19 @@
 
 .qs--big {
   height: 72px;
+}
+
+/* On a phone the scrolls are a little smaller; the label is sized from the
+   scroll's own width (see .qs-label), so the words keep fitting inside the
+   rolled-up parchment at every width. */
+@media (max-width: 639px) {
+  .qs {
+    width: min(340px, calc(100vw - 80px));
+    height: 54px;
+  }
+  .qs--big {
+    height: 62px;
+  }
 }
 
 .qs--dim {

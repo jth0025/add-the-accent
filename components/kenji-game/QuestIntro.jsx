@@ -18,20 +18,62 @@ import "./menu-forest.css";
 // slowly dimmed (never hidden) so it stays out of the way, like Skip Intro
 // in the opening. Hover or focus brings it back; on touch screens a tap on
 // the screen (`lit`) does the same for a few seconds.
-function BackToSite({ lit = false, className = "" }) {
-  const [dim, setDim] = useState(false);
+//
+// `late` (the phone layout): it stays out of sight while the title and menu
+// animate in, fades in once they have settled, holds a few seconds, then
+// fades down to a very dim trace.
+//
+// It leads back to the page the game was entered from (the Kenji's Quest
+// page), not just the site's front page.
+const BACK_KEY = "kq-entry";
+
+function BackToSite({ lit = false, className = "", late = false }) {
+  const [phase, setPhase] = useState(late ? "wait" : "show"); // wait -> show -> dim
+  const [href, setHref] = useState("/kenji-quest");
   useEffect(() => {
     // Stays at full strength through the whole title animation (the forest
     // and rays settle around 13s in), then dims.
-    const t = setTimeout(() => setDim(true), 13500);
-    return () => clearTimeout(t);
+    const SETTLED = 13500;
+    const timers = [];
+    if (late) {
+      timers.push(setTimeout(() => setPhase("show"), SETTLED));
+      timers.push(setTimeout(() => setPhase("dim"), SETTLED + 4500));
+    } else {
+      timers.push(setTimeout(() => setPhase("dim"), SETTLED));
+    }
+    return () => timers.forEach(clearTimeout);
+  }, [late]);
+  useEffect(() => {
+    // Where the visitor came from: the referring page when it is on this
+    // site (and not the game itself), remembered for reloads; otherwise the
+    // Kenji's Quest page.
+    try {
+      const ref = document.referrer ? new URL(document.referrer) : null;
+      const fromRef =
+        ref && ref.origin === window.location.origin && !ref.pathname.startsWith("/kenji-quest/play")
+          ? ref.pathname + ref.search
+          : null;
+      if (fromRef) {
+        sessionStorage.setItem(BACK_KEY, fromRef);
+        setHref(fromRef);
+      } else {
+        const saved = sessionStorage.getItem(BACK_KEY);
+        if (saved && saved.startsWith("/")) setHref(saved);
+      }
+    } catch {
+      /* keep the default */
+    }
   }, []);
+  const state =
+    phase === "wait" ? "is-wait" : phase === "dim" && !lit ? `is-dim${late ? " is-dim--deep" : ""}` : "";
   return (
     <PlaqueButton
       nav
-      href="/"
+      href={href}
       size="sm"
-      className={`qo-plaque--back z-30 ${dim && !lit ? "is-dim" : ""} ${className}`}
+      className={`qo-plaque--back z-30 ${state} ${className}`}
+      aria-hidden={phase === "wait" ? true : undefined}
+      tabIndex={phase === "wait" ? -1 : undefined}
     >
       &larr; Add the Accent
     </PlaqueButton>
@@ -234,6 +276,8 @@ const MAP_MARKERS = {
 // of wherever the player has actually reached, and a glow halo marks
 // whichever stage is up next. Both are approximate reads of the map
 // image's own marker positions, not a pixel-traced redraw of its path.
+// On the phone (portrait) map only the halo is drawn: the greyed path
+// read as a smudge on the small map.
 function MapOverlay({ variant, unlockedCheck, currentDayIndex }) {
   const points = MAP_MARKERS[variant];
   const current = currentDayIndex >= 0 ? points[currentDayIndex] : null;
@@ -244,6 +288,7 @@ function MapOverlay({ variant, unlockedCheck, currentDayIndex }) {
         variant === "landscape" ? "hidden sm:block" : "block sm:hidden"
       }`}
     >
+      {variant === "landscape" && (
       <svg
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
@@ -268,6 +313,7 @@ function MapOverlay({ variant, unlockedCheck, currentDayIndex }) {
           );
         })}
       </svg>
+      )}
       {current && (
         <span
           className="qi-map-halo absolute h-14 w-14 rounded-full sm:h-16 sm:w-16"
@@ -726,7 +772,7 @@ export default function QuestIntro() {
           {/* Way back to the site, set above the title. It dims slowly
               once it has been seen, and comes back to full on hover. */}
           <div className={touch ? "" : "lg:hidden"}>
-            <BackToSite lit={touch && hudVisible} />
+            <BackToSite late lit={touch && hudVisible} />
           </div>
 
           {/* Title — drops in from above once Kenji has fully resolved,

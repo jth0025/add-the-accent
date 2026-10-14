@@ -51,10 +51,21 @@
   pointer-events: none;
 }
 
-.qo-plaque:hover,
 .qo-plaque:focus-visible {
   transform: scale(1.04);
   outline: none;
+}
+
+/* Hover only counts where there is a real pointer: on a touch screen a
+   tapped button would otherwise stay lit (and unreadable). */
+@media (hover: hover) {
+  .qo-plaque:hover {
+    transform: scale(1.04);
+  }
+}
+
+.qo-plaque:active {
+  transform: scale(1.04);
 }
 
 .qo-plaque-text {
@@ -102,10 +113,19 @@
   mix-blend-mode: screen;
 }
 
-.qo-plaque--nav:hover .qo-plaque-sheen,
+/* The light and glow come on for the press itself (any screen), and for a
+   hover or keyboard focus only on screens that have a pointer. */
+.qo-plaque--nav:active .qo-plaque-sheen,
 .qo-plaque--nav:focus-visible .qo-plaque-sheen {
   opacity: 1;
   animation: qo-sheen 1.2s ease-out both;
+}
+
+@media (hover: hover) {
+  .qo-plaque--nav:hover .qo-plaque-sheen {
+    opacity: 1;
+    animation: qo-sheen 1.2s ease-out both;
+  }
 }
 
 @keyframes qo-sheen {
@@ -117,7 +137,7 @@
   }
 }
 
-.qo-plaque--nav:hover .qo-plaque-text,
+.qo-plaque--nav:active .qo-plaque-text,
 .qo-plaque--nav:focus-visible .qo-plaque-text {
   color: #fff;
   text-shadow:
@@ -129,19 +149,38 @@
     0 -1px 1px rgba(60, 30, 5, 0.55);
 }
 
+@media (hover: hover) {
+  .qo-plaque--nav:hover .qo-plaque-text {
+    color: #fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px rgba(255, 224, 138, 1),
+      0 0 20px rgba(255, 184, 48, 0.95),
+      0 0 34px rgba(255, 150, 20, 0.8),
+      0 1px 1px rgba(60, 30, 5, 0.9),
+      0 -1px 1px rgba(60, 30, 5, 0.55);
+  }
+}
+
 .qo-plaque--dim {
   opacity: 0.62;
   filter: saturate(0.6) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.55));
 }
 
 /* The main-menu way back: fades down slowly, returns to full on hover,
-   focus or press. */
+   focus or press. On the phone layout (`late`) it is held out of sight
+   until the menu has finished animating, fades in, then fades down to a
+   very dim trace. */
 .qo-plaque--back {
   width: 260px;
   transition:
     transform 0.2s ease,
-    opacity 0.3s ease,
+    opacity 1.2s ease,
     filter 0.2s ease;
+}
+.qo-plaque--back.is-wait {
+  opacity: 0;
+  pointer-events: none;
 }
 .qo-plaque--back.is-dim {
   opacity: 0.3;
@@ -150,7 +189,9 @@
     opacity 4s ease-in-out,
     filter 0.2s ease;
 }
-.qo-plaque--back.is-dim:hover,
+.qo-plaque--back.is-dim.is-dim--deep {
+  opacity: 0.12;
+}
 .qo-plaque--back.is-dim:focus-visible,
 .qo-plaque--back.is-dim:active {
   opacity: 1;
@@ -158,6 +199,15 @@
     transform 0.2s ease,
     opacity 0.3s ease,
     filter 0.2s ease;
+}
+@media (hover: hover) {
+  .qo-plaque--back.is-dim:hover {
+    opacity: 1;
+    transition:
+      transform 0.2s ease,
+      opacity 0.3s ease,
+      filter 0.2s ease;
+  }
 }
 
 .qo-plaque--fs {

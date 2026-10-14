@@ -438,6 +438,37 @@
 
 /* ---------- closing shot: lens flare, completion mark, the watcher's line ---------- */
 .d1-shot-fill { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+
+/* The closing picture (1448x1086) is laid out as its own 4:3 box that covers
+   the screen, so it can be panned sideways and the flare can sit on it in
+   percentages. On a portrait screen only a slice of it shows: Kenji, walking
+   away at the right, is brought into view, and when the Vashara watcher
+   (large, at the left) speaks, the shot slides across to him. */
+.d1-finale .d1-shot-img { container-type: size; }
+.d1-pan {
+  --bw: max(100cqw, calc(100cqh * 1.3333));
+  --bh: max(100cqh, calc(100cqw * 0.75));
+  --pan: 0.5;
+  position: absolute;
+  width: var(--bw);
+  height: var(--bh);
+  top: calc((100cqh - var(--bh)) * 0.5);
+  left: calc((100cqw - var(--bw)) * var(--pan));
+  transition: left 2.8s ease-in-out;
+}
+.d1-pan .d1-shot-fill { object-fit: fill; }
+@media (orientation: portrait) {
+  .d1-finale .d1-pan { --pan: 1; }
+  .d1-finale.watch .d1-pan { --pan: 0.04; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .d1-pan { transition: none; }
+}
+
+/* On a phone the Continue plaque is a smaller one. */
+@media (max-width: 640px) {
+  .d1-fin-continue.qo-plaque--xl { width: 176px; }
+}
 .d1-flare { position: absolute; width: 0; height: 0; pointer-events: none; mix-blend-mode: screen; opacity: 0; transition: opacity 2s ease 2.2s; }
 .d1-finale.on .d1-flare { opacity: 1; animation: d1-twinkle 3.6s ease-in-out 3s infinite alternate; }
 .d1-flare::before {

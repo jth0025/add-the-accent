@@ -114,9 +114,9 @@ export const SCRIPTS = {
     { who: "kenji", pose: "travel", thought: true, text: "The summons brought me here. The map takes me further." },
     { who: "kenji", pose: "armedback", thought: true, text: "Inland, then. Toward Kosei, and the Warden’s city." },
     { who: "watcher", sil: true, text: "That wall stood for twenty years. Today it fell." },
-    { who: "watcher", sil: true, text: "And that light on his blade. The old house has chosen someone." },
+    { who: "watcher", sil: true, text: "And that light on his blade. A stranger has discovered something." },
     { who: "watcher", sil: true, if: (st) => !st.packed.includes("letter"), text: "He left the letter on the altar. Careless. Or trusting. Either way, it’s ours now." },
-    { who: "watcher", sil: true, if: (st) => st.packed.includes("letter"), text: "He took the letter. Then sooner or later, he will read it." },
+    { who: "watcher", sil: true, if: (st) => st.packed.includes("letter"), text: "He must have located what Hakari has been seeking, certainly." },
     { who: "watcher", sil: true, text: "Send word to the others. Someone has opened the old house." },
   ],
 };

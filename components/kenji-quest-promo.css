@@ -90,9 +90,17 @@
   filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.55));
 }
 
-.kq-enter:hover,
-.kq-enter:focus-visible {
+.kq-enter:focus-visible,
+.kq-enter:active {
   transform: scale(1.04);
+}
+
+/* Hover only where there is a real pointer (a tapped button on a touch
+   screen would otherwise stay lit and unreadable). */
+@media (hover: hover) {
+  .kq-enter:hover {
+    transform: scale(1.04);
+  }
 }
 
 .kq-enter img {
@@ -121,7 +129,7 @@
     text-shadow 0.25s ease;
 }
 
-.kq-enter:hover .kq-enter-text,
+.kq-enter:active .kq-enter-text,
 .kq-enter:focus-visible .kq-enter-text {
   color: #fff;
   text-shadow:
@@ -131,6 +139,19 @@
     0 0 34px rgba(255, 150, 20, 0.8),
     0 1px 1px rgba(60, 30, 5, 0.9),
     0 -1px 1px rgba(60, 30, 5, 0.55);
+}
+
+@media (hover: hover) {
+  .kq-enter:hover .kq-enter-text {
+    color: #fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px rgba(255, 224, 138, 1),
+      0 0 20px rgba(255, 184, 48, 0.95),
+      0 0 34px rgba(255, 150, 20, 0.8),
+      0 1px 1px rgba(60, 30, 5, 0.9),
+      0 -1px 1px rgba(60, 30, 5, 0.55);
+  }
 }
 
 .kq-brand {

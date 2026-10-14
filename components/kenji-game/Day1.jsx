@@ -26,7 +26,7 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
 /* ------------------------------------------------------------------ */
 /* Dialogue: portraits left and right, thought bubbles, smoky memories */
 /* ------------------------------------------------------------------ */
-function Dialogue({ lines, onDone, reducedMotion }) {
+function Dialogue({ lines, onDone, reducedMotion, onLine }) {
   const [i, setI] = useState(0);
   const [closing, setClosing] = useState(false);
   const [ports, setPorts] = useState({ left: null, right: null });
@@ -51,6 +51,7 @@ function Dialogue({ lines, onDone, reducedMotion }) {
 
   // Stage the portrait for the current line.
   useEffect(() => {
+    if (onLine) onLine(line.who);
     const pose = line.pose || "close";
     const art = cast.art[pose] || cast.art.close;
     const key = cast.name + pose + (line.mem ? "m" : "");
@@ -386,6 +387,7 @@ export default function Day1({ reducedMotion, onMenu, onComplete, onPath }) {
     const t = talkingRef.current;
     talkingRef.current = null;
     setTalking(null);
+    setFinSpeaker(null);
     if (t?.done) t.done();
   }, []);
 
@@ -417,30 +419,9 @@ export default function Day1({ reducedMotion, onMenu, onComplete, onPath }) {
   const [finOn, setFinOn] = useState(false);
   const [finTitled, setFinTitled] = useState(false);
   const [finLeaving, setFinLeaving] = useState(false);
-  const finImgRef = useRef(null);
-  const [flare, setFlare] = useState(null);
-
-  // The hilt of the sword on Kenji's back, in the closing shot (as a share
-  // of the 1448x1086 art). The shot is cover-fitted, so place the flare by
-  // the same maths and keep it there as the window changes.
-  useEffect(() => {
-    if (!finale) return undefined;
-    const el = finImgRef.current;
-    if (!el) return undefined;
-    const place = () => {
-      const cw = el.clientWidth;
-      const ch = el.clientHeight;
-      if (!cw || !ch) return;
-      const sc = Math.max(cw / 1448, ch / 1086);
-      setFlare({
-        x: (cw - 1448 * sc) / 2 + 1448 * sc * 0.876,
-        y: (ch - 1086 * sc) / 2 + 1086 * sc * 0.575,
-      });
-    };
-    place();
-    window.addEventListener("resize", place);
-    return () => window.removeEventListener("resize", place);
-  }, [finale]);
+  // Who is speaking in the closing shot: when the Vashara watcher does, the
+  // picture pans across to him (on a portrait screen, where it is cropped).
+  const [finSpeaker, setFinSpeaker] = useState(null);
 
   const stage = st.stage || 1;
   const solved = sealSolved(st.rot);
@@ -1113,23 +1094,26 @@ export default function Day1({ reducedMotion, onMenu, onComplete, onPath }) {
       {/* ---------------- the leaving: closing shot ---------------- */}
       {finale && (
         <section
-          className={`d1-shot d1-finale${finOn ? " on" : ""}${finTitled ? " titled" : ""}${finLeaving ? " leaving" : ""}`}
+          className={`d1-shot d1-finale${finOn ? " on" : ""}${finTitled ? " titled" : ""}${finLeaving ? " leaving" : ""}${finSpeaker === "watcher" ? " watch" : ""}`}
           aria-label="Day One closing"
         >
-          <div className="d1-shot-img" ref={finImgRef}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="d1-shot-fill"
-              src={ART.closing}
-              alt="At sunset, a Vashara in a red-lined hat watches from the brush as Kenji walks away from the broken shrine"
-            />
-            {flare && (
-              <span className="d1-flare" aria-hidden="true" style={{ left: flare.x, top: flare.y }}>
+          <div className="d1-shot-img">
+            {/* The picture and the lens flare on the hilt of Kenji's sword
+                share one box (the picture's own size), so the flare stays
+                put on the hilt however the shot is cropped or panned. */}
+            <div className="d1-pan">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="d1-shot-fill"
+                src={ART.closing}
+                alt="At sunset, a Vashara in a red-lined hat watches from the brush as Kenji walks away from the broken shrine"
+              />
+              <span className="d1-flare" aria-hidden="true" style={{ left: "87.6%", top: "57.5%" }}>
                 <i />
                 <i />
                 <i />
               </span>
-            )}
+            </div>
           </div>
           <div className="d1-shot-shade" />
           <div className="d1-shot-title">
@@ -1140,7 +1124,7 @@ export default function Day1({ reducedMotion, onMenu, onComplete, onPath }) {
                 完
               </span>
             </div>
-            <PlaqueButton nav size="xl" onClick={finContinue}>
+            <PlaqueButton nav size="xl" className="d1-fin-continue" onClick={finContinue}>
               Continue
             </PlaqueButton>
             <p className="era d1-watch">Someone was watching when the wall came down.</p>
@@ -1157,7 +1141,14 @@ export default function Day1({ reducedMotion, onMenu, onComplete, onPath }) {
         </div>
       )}
 
-      {talking && <Dialogue lines={talking.lines} reducedMotion={RM} onDone={endTalk} />}
+      {talking && (
+        <Dialogue
+          lines={talking.lines}
+          reducedMotion={RM}
+          onDone={endTalk}
+          onLine={finale ? setFinSpeaker : undefined}
+        />
+      )}
     </div>
   );
 }
