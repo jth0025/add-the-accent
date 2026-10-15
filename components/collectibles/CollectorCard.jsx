@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import "./collector-card.css";
+import TvEmbed from "./TvEmbed";
 
 // One collector's card. The front is the player card (figure in the corner,
 // stats, measurements); the back is the scouting report (the story). The card
@@ -109,9 +110,7 @@ export default function CollectorCard({ item, total }) {
               )}
               <div className="cc-back-actions">
                 {item.video && (
-                  <a href={item.video.url} target="_blank" rel="noopener noreferrer" className="cc-btn cc-btn--video">
-                    {item.video.label} <span aria-hidden="true">&#8599;</span>
-                  </a>
+                  <TvEmbed video={item.video} linkClassName="cc-btn cc-btn--video" />
                 )}
                 {published ? (
                   <Link href={item.essayUrl} className="cc-btn">
