@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { announcePlay, announceStop } from "@/lib/audioBus";
 import "./tv-embed.css";
@@ -14,6 +14,126 @@ function videoId(url) {
   } catch {
     return null;
   }
+}
+
+// The YouTube player API, loaded once. Resolves with window.YT.
+let ytApi = null;
+function loadYT() {
+  if (typeof window === "undefined") return Promise.reject();
+  if (window.YT && window.YT.Player) return Promise.resolve(window.YT);
+  if (!ytApi) {
+    ytApi = new Promise((resolve, reject) => {
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => {
+        prev?.();
+        resolve(window.YT);
+      };
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      tag.onerror = () => {
+        ytApi = null;
+        reject();
+      };
+      document.head.appendChild(tag);
+    });
+  }
+  return ytApi;
+}
+
+// The video itself, started the moment the TV is up. Browsers only let a
+// video start with sound after a tap, so it starts muted (always allowed),
+// then asks for sound straight away while the tap that opened the TV still
+// counts. If the browser says no, a "Tap for sound" button turns it on.
+function TvScreen({ id, title }) {
+  const host = useRef(null);
+  const player = useRef(null);
+  const [needsSound, setNeedsSound] = useState(false);
+  const [fallback, setFallback] = useState(false);
+
+  useEffect(() => {
+    let dead = false;
+    const slow = setTimeout(() => !player.current && setFallback(true), 5000);
+    loadYT()
+      .then((YT) => {
+        if (dead || !host.current) return;
+        const el = document.createElement("div");
+        host.current.appendChild(el);
+        player.current = new YT.Player(el, {
+          videoId: id,
+          width: "100%",
+          height: "100%",
+          playerVars: { autoplay: 1, mute: 1, playsinline: 1, rel: 0, modestbranding: 1 },
+          events: {
+            onReady: (e) => {
+              e.target.playVideo();
+              const ua = navigator.userActivation;
+              if (!ua || ua.isActive) {
+                try {
+                  e.target.unMute();
+                  e.target.setVolume(100);
+                } catch {
+                  /* stays muted */
+                }
+              }
+              setTimeout(() => {
+                if (!dead && e.target.isMuted?.()) setNeedsSound(true);
+              }, 1200);
+            },
+            onAutoplayBlocked: (e) => {
+              e.target.mute();
+              e.target.playVideo();
+              setNeedsSound(true);
+            },
+          },
+        });
+      })
+      .catch(() => !dead && setFallback(true));
+    return () => {
+      dead = true;
+      clearTimeout(slow);
+      try {
+        player.current?.destroy();
+      } catch {
+        /* already gone */
+      }
+      player.current = null;
+    };
+  }, [id]);
+
+  if (fallback && !player.current) {
+    return (
+      <iframe
+        className="tvx-frame"
+        src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`}
+        title={title}
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowFullScreen
+      />
+    );
+  }
+  return (
+    <>
+      <span ref={host} className="tvx-host" />
+      {needsSound && (
+        <button
+          type="button"
+          className="tvx-sound"
+          onClick={() => {
+            try {
+              player.current?.unMute();
+              player.current?.setVolume(100);
+              player.current?.playVideo();
+            } catch {
+              /* ignore */
+            }
+            setNeedsSound(false);
+          }}
+        >
+          Tap for sound
+        </button>
+      )}
+    </>
+  );
 }
 
 // A small TV set. The screen is a slot: static and a play mark when idle,
@@ -133,13 +253,7 @@ export default function TvEmbed({ video, linkClassName = "" }) {
           >
             <Tv className="tvx--big" style={place ? { "--tv": `${place.width / 19}px` } : undefined}>
               <span className="tvx-static" />
-              <iframe
-                className="tvx-frame"
-                src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`}
-                title={video.label}
-                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-                allowFullScreen
-              />
+              <TvScreen id={id} title={video.label} />
             </Tv>
             <button type="button" className="tvx-close" onClick={close} aria-label="Turn the TV off">
               &times;
