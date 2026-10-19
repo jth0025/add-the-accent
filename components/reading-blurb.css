@@ -1,0 +1,143 @@
+/* The boy reading on top of the TV: hover him and a hand-drawn cloud (the
+   thought bubble) opens with his note and the book inside it. The cloud is
+   a picture, stretched to fit whatever it holds without bending its edges
+   (a nine-slice border image); its tail points back at him. See
+   ReadingBlurb.jsx. */
+
+.rb [hidden] { display: none !important; }
+
+.rb-boy {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.rb-boy:hover,
+.rb.is-open .rb-boy { transform: translateY(-3px) rotate(-1.5deg); }
+.rb-boy:focus-visible { outline: 2px solid #e2b44f; outline-offset: 4px; border-radius: 12px; }
+.rb-boy img { display: block; -webkit-user-drag: none; user-select: none; }
+
+/* a pair of sparkles round the book in his hands, awake while the cloud is open */
+.rb-spark {
+  position: absolute; width: 10px; height: 10px; opacity: 0; pointer-events: none;
+  background: radial-gradient(circle, #fff6c8 0 25%, rgba(255, 220, 120, 0.9) 26% 40%, transparent 70%);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+.rb-spark--1 { left: 42%; top: 52%; }
+.rb-spark--2 { left: 72%; top: 38%; width: 7px; height: 7px; }
+.rb.is-open .rb-spark { animation: rb-twinkle 1.6s ease-in-out infinite; }
+.rb.is-open .rb-spark--2 { animation-delay: 0.7s; }
+@keyframes rb-twinkle { 0%, 100% { opacity: 0; transform: scale(0.4) rotate(0); } 50% { opacity: 1; transform: scale(1.2) rotate(45deg); } }
+
+/* ---------- the cloud ---------- */
+.rb-spread {
+  /* --s scales the cloud's drawn edge and tail (the picture is 774 x 521:
+     a 90px scalloped, shaded edge, a 128px tail below the body, tail in the
+     bottom-left 240px). */
+  --s: 0.45;
+  position: absolute; z-index: 40;
+  /* above him and to the right, the tail dropping down to his head */
+  left: calc(100% - 1.2rem); bottom: calc(100% + 1.7rem);
+  width: min(44rem, calc(100vw - 14rem));
+  padding: calc(112px * var(--s)) calc(116px * var(--s)) calc(112px * var(--s));
+  color: #26243a; filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.45));
+  transform-origin: 6% 100%;
+  animation: rb-pop 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) both, rb-bob 3.6s ease-in-out 0.7s infinite;
+}
+@keyframes rb-pop { from { opacity: 0; transform: scale(0.5) rotate(-4deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
+@keyframes rb-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+
+/* paper under the drawing, so the hairlines between its nine pieces never
+   show the page behind */
+.rb-spread::before {
+  content: ""; position: absolute; z-index: 0; pointer-events: none;
+  inset: calc(60px * var(--s)); border-radius: 18px; background: #e9e1cd;
+}
+.rb-cloud {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  border: 1px solid transparent;
+  border-image-source: url("/collectibles/thought-cloud.webp");
+  border-image-slice: 90 90 218 240 fill;
+  border-image-width:
+    calc(90px * var(--s)) calc(90px * var(--s)) calc(218px * var(--s)) calc(240px * var(--s));
+  border-image-outset: 0 0 calc(128px * var(--s)) 0;
+  border-image-repeat: stretch;
+}
+
+.rb-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 5rem minmax(0, 1fr); column-gap: 0.9rem; align-items: center;
+}
+
+/* the book (a link) and where to buy it */
+.rb-side { text-align: center; }
+.rb-book {
+  display: block; width: 4.6rem; margin: 0 auto 0.4rem; transform-origin: 50% 100%;
+  animation: rb-sway 3.4s ease-in-out infinite; transition: filter 0.2s;
+}
+.rb-book:hover { filter: brightness(1.08) drop-shadow(0 0 10px rgba(226, 180, 79, 0.85)); }
+.rb-book:focus-visible { outline: 2px solid #7b2410; outline-offset: 4px; border-radius: 6px; }
+.rb-book svg, .rb-cover { display: block; width: 100%; height: auto; filter: drop-shadow(0 6px 5px rgba(60, 35, 10, 0.45)); }
+.rb-cover { border-radius: 3px; box-shadow: 0 0 0 1px rgba(40, 25, 10, 0.5); }
+@keyframes rb-sway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg) translateY(-3px); } }
+.rb-drop { animation: rb-fall 2.6s ease-in infinite; }
+.rb-drop--2 { animation-delay: 0.5s; }
+.rb-drop--3 { animation-delay: 1s; }
+.rb-drop--4 { animation-delay: 1.5s; }
+.rb-drop--5 { animation-delay: 2s; }
+@keyframes rb-fall { 0% { transform: translateY(-14px); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(46px); opacity: 0; } }
+.rb-hill { animation: rb-hillrock 5s ease-in-out infinite alternate; }
+.rb-hill--b { animation-duration: 6.5s; animation-direction: alternate-reverse; }
+@keyframes rb-hillrock { from { transform: translateX(-5px); } to { transform: translateX(5px); } }
+
+.rb-buy { display: flex; flex-direction: column; gap: 0.25rem; }
+.rb-buy a {
+  display: block; padding: 0.25rem 0.15rem; border-radius: 999px; text-decoration: none; text-align: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 6.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap;
+  color: #f6e3a0; background: linear-gradient(180deg, #2f6b4a, #173a2a); border: 1px solid #0f2a1e;
+  box-shadow: 0 2px 0 #0b1f15; transition: transform 0.2s cubic-bezier(0.3, 1.8, 0.5, 1), box-shadow 0.2s;
+}
+.rb-buy a:hover { transform: translateY(-2px) rotate(-1.5deg); box-shadow: 0 4px 0 #0b1f15, 0 0 10px rgba(226, 180, 79, 0.5); color: #fff3c4; }
+.rb-buy a:focus-visible { outline: 2px solid #7b2410; outline-offset: 2px; }
+
+/* his note, in pen: one hand for the paragraph and the quote, an editorial
+   drop cap to start it. */
+.rb-text, .rb-quote {
+  margin: 0; font-family: var(--font-hand), "Caveat", cursive; font-size: 1.6rem; line-height: 1.06; letter-spacing: 0.01em;
+  text-shadow: 0 0 0.6px currentColor; /* a touch of ink bleed */
+}
+.rb-text { color: #23223a; transform: rotate(-0.4deg); }
+.rb-text::first-letter {
+  float: left; margin: 0.04em 0.1em 0 0; padding: 0;
+  font-family: var(--font-playfair), Georgia, serif; font-weight: 800; font-size: 3.1em; line-height: 0.8; color: #2c6b46; text-shadow: none;
+}
+.rb-title { color: #9a6a14; font-weight: 700; }
+.rb-quote { margin-top: 0.4rem; color: #8a2410; transform: rotate(0.3deg); }
+.rb-quote span { white-space: nowrap; }
+
+/* ---------- the cloud opens below him only when there is no way to fit it
+   under the header ---------- */
+.rb[data-side="below"] .rb-spread { bottom: auto; top: calc(100% + 0.4rem); transform-origin: 6% 0; }
+.rb[data-side="below"] .rb-cloud { transform: scaleY(-1); }
+
+/* ---------- phones ---------- */
+@media (max-width: 639px) {
+  .rb-spread {
+    --s: 0.4;
+    left: 1.2rem; bottom: calc(100% + 1.4rem);
+    width: min(23rem, calc(100vw - 1.6rem));
+  }
+  .rb-inner { grid-template-columns: 3.9rem minmax(0, 1fr); column-gap: 0.7rem; }
+  .rb-book { width: 3.9rem; }
+  .rb-text, .rb-quote { font-size: 1.3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-spread { animation: none; }
+  .rb-book, .rb-drop, .rb-hill, .rb-spark, .rb.is-open .rb-spark { animation: none; }
+}

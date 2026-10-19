@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { CAROUSEL_IMAGES } from "@/lib/carouselImages";
+import ReadingBlurb from "./ReadingBlurb";
 import "./tv-screen.css";
 
 export default function HeroCarousel({ children }) {
@@ -55,18 +56,7 @@ export default function HeroCarousel({ children }) {
             lands on the box's top border; translateY shifts him down by
             that same fraction of his own rendered height so his legs and
             sneaker hang over the front of the box regardless of size. */}
-        <div
-          className="pointer-events-none absolute bottom-full -left-9 z-20 w-24 sm:-left-7 sm:w-32"
-          style={{ transform: "translateY(40%)" }}
-          aria-hidden="true"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/mascot-reading.png"
-            alt=""
-            className="w-full [filter:drop-shadow(0_5px_6px_rgba(0,0,0,0.4))]"
-          />
-        </div>
+        <ReadingBlurb />
 
         {/* Real rabbit-ear antenna, standing on top of the box's top-right
             edge. An electric signal crackles between the ears now and

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PaperClip from "@/components/PaperClip";
 import { CollectibleDivider } from "@/components/Collectibles";
+import FramedRoom from "@/components/FramedRoom";
 import "./about.css";
 
 export const metadata = { title: "About — Add the Accent" };
@@ -408,11 +409,35 @@ export default function AboutPage() {
             row next to just the photo. */}
         <div className="mx-auto mt-7 max-w-2xl space-y-5 text-stone rounded-lg border border-ink/10 bg-white px-5 py-6 shadow-sm paper-notebook sm:mx-0 sm:max-w-none sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none">
           <p>
+            {/* The passage's art, set like the plate that opens an essay:
+                upright, in a black mat, floated to
+                the left so the text wraps round it. */}
+            <span className="float-left mb-2 mr-3 mt-1 block w-24 sm:mr-6 sm:w-44">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/about-houston-sun.webp"
+                alt="Orange and gold clouds lit from the right, like a Houston sky at sunset"
+                width={480}
+                height={480}
+                className="block aspect-square w-full bg-black object-cover p-1"
+                loading="lazy"
+              />
+            </span>
+            {/* The big "I", italic, filled with the same art. */}
             <span
-              className="float-left -ml-3 mr-4 -mt-1 font-serif italic text-7xl leading-[0.7] text-ink sm:text-8xl"
+              aria-hidden="true"
+              className="float-left mr-1 mt-0 px-[0.14em] font-playfair text-[5.5rem] font-black italic leading-[0.8] text-transparent drop-shadow-[0_6px_7px_rgba(40,20,5,0.4)] sm:mr-2 sm:text-9xl"
+              style={{
+                backgroundImage: "url(/about-houston-sun.webp)",
+                backgroundSize: "cover",
+                backgroundPosition: "55% 40%",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+              }}
             >
               I
             </span>
+            <span className="sr-only">I</span>{" "}
             am a proud Houston, TX native &mdash; but there was
             always gumbo on the stove. My father may have left the city
             years prior, but he carried New Orleans with him everywhere he
@@ -535,15 +560,23 @@ export default function AboutPage() {
           Section 01
         </SectionLabel>
         <h2 className={headingClass}>How I&rsquo;d Explain It</h2>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/about-podium.webp"
-          alt="A carved wooden figure in a cap and sneakers standing behind a podium crowded with microphones"
-          width={640}
-          height={960}
-          className="mx-auto mt-6 block w-[min(56%,13.6rem)] [filter:drop-shadow(0_8px_10px_rgba(0,0,0,0.35))] sm:w-[14.4rem]"
-          loading="lazy"
-        />
+        {/* The podium stands on its own shadow (a soft dark pool on the
+            floor under its base), not a glow around its outline. */}
+        <div className="relative mx-auto mt-6 w-[min(56%,13.6rem)] sm:w-[14.4rem]">
+          <span
+            aria-hidden="true"
+            className="absolute inset-x-[3%] bottom-[0.6%] h-4 rounded-[50%] bg-black/70 blur-[5px]"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/about-podium.webp"
+            alt="A carved wooden figure in a cap and sneakers standing behind a podium crowded with microphones"
+            width={640}
+            height={960}
+            className="relative block w-full"
+            loading="lazy"
+          />
+        </div>
         <p className="mx-auto mt-5 max-w-xl text-center font-serif text-lg italic leading-relaxed text-ink">
           &ldquo;For me, the accent is that part of you that nobody else can
           duplicate. It&rsquo;s your taste, your story, your eye, your
@@ -554,23 +587,27 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* The core idea */}
-      <section className="paper-newspaper corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">
-        <SectionLabel tone="text-moss" rule="bg-moss/40">
-          Section 02
-        </SectionLabel>
-        <h2 className={headingClass}>The Core Idea</h2>
-        <p className="mx-auto mt-5 max-w-xl text-center text-stone">
+      {/* The core idea: set inside a bright room, the words in its inner box */}
+      <FramedRoom className="mt-10">
+        <div className="flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-widest text-moss sm:gap-3 sm:text-xs">
+          <span className="h-px w-3 bg-moss/40 sm:w-8" />
+          <span className="whitespace-nowrap">Section 02</span>
+          <span className="h-px w-3 bg-moss/40 sm:w-8" />
+        </div>
+        <h2 className="mt-2 text-center font-display text-lg uppercase leading-tight tracking-tight text-ink sm:mt-3 sm:text-3xl">
+          The Core Idea
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-center text-[12.5px] leading-snug text-stone sm:mt-4 sm:text-base sm:leading-normal">
           Creative work is not ultimately about a logo, photograph, article,
           film, garment, or product. Those are the mediums. The real value is
           the perspective behind them. Two people can have access to the same
           camera, software, blank page, room, or opportunity and create
           completely different outcomes.
         </p>
-        <p className="mt-5 text-center font-serif text-xl italic text-ink">
+        <p className="mt-3 text-center font-serif text-base italic text-ink sm:mt-4 sm:text-xl">
           The difference is you.
         </p>
-      </section>
+      </FramedRoom>
 
       {/* Section 03 — Minimalism vs. Maximalism */}
       <section className="paper-journal corner-box mt-10 rounded-xl border border-ink/15 bg-card px-7 py-9 sm:px-9">

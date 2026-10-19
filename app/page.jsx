@@ -185,7 +185,7 @@ export default function HomePage() {
           </a>
         </div>
 
-        <p className="gleam-natural mt-11 font-oldenglish text-xl leading-tight sm:text-2xl">
+        <p className="gleam-natural gleam-natural--often mt-11 font-oldenglish text-xl leading-tight sm:text-2xl">
           This is all a true story.
         </p>
       </figure>

@@ -1,0 +1,78 @@
+/* Shared by Day One and Day Two dialogue (see Dialogue.jsx). Loaded after
+   day1.css, so these refine the portrait rules there:
+   - every portrait slides in from its own edge of the screen and slides
+     back out the same way;
+   - Day Two's cinematic scene pictures, narration, flies and low thoughts. */
+
+/* ---------- portraits slide in and out ---------- */
+.d1-dlg .d1-por:not(.mem) {
+  transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.22, 0.9, 0.3, 1), filter 0.45s ease;
+  z-index: 2;
+}
+.d1-dlg .d1-por:not(.mem).left.out { transform: translateX(-92%); }
+.d1-dlg .d1-por:not(.mem).right.out { transform: translateX(92%); }
+.d1-dlg .d1-por:not(.mem).left.flip.out { transform: scaleX(-1) translateX(92%); }
+.d1-dlg .d1-por:not(.mem).right.flip.out { transform: scaleX(-1) translateX(-92%); }
+.d1-dlg .d1-por.gone { opacity: 0 !important; }
+.d1-dlg.leaving { animation: d1-dlgOut 0.62s ease forwards; }
+.d1-dlg .d1-smoke { z-index: 2; }
+.d1-dlg .d1-box { z-index: 3; }
+
+@media (prefers-reduced-motion: reduce) {
+  .d1-dlg .d1-por { transition: opacity 0.2s ease; }
+  .d1-dlg .d1-por.left.out, .d1-dlg .d1-por.right.out,
+  .d1-dlg .d1-por.left.flip.out, .d1-dlg .d1-por:not(.mem).right.flip.out { transform: none; }
+}
+
+/* ---------- cinematic scene behind the talk ---------- */
+.d1-scene, .d1-scene-sharp {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none;
+  transition: opacity 0.8s ease, filter 0.7s ease, object-position 1s ease;
+}
+.d1-scene { opacity: 0; }
+.d1-scene.on { opacity: 1; }
+.d1-scene-sharp { opacity: 0; }
+.d1-dlg.has-scene { background: #05090f; }
+.d1-dlg.has-scene::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to top, rgba(5, 10, 18, 0.9) 0, rgba(5, 10, 18, 0.35) 32%, rgba(5, 10, 18, 0) 55%);
+}
+.d1-dlg.has-scene.por-dim .d1-scene { filter: brightness(0.42) saturate(0.8); }
+.d1-dlg.focus-k .d1-scene { filter: blur(8px) brightness(0.32) saturate(0.7); }
+.d1-dlg.focus-k .d1-scene-sharp { opacity: 1; }
+
+/* ---------- narration ---------- */
+.d1-text.narr { font-style: italic; text-align: center; color: #3a2512; }
+
+/* ---------- a fly circling the Warden's seat ---------- */
+.d1-fly { position: absolute; z-index: 2; width: 0; height: 0; pointer-events: none; }
+.d1-fly i {
+  position: absolute; left: -6px; top: -4px; width: 11px; height: 8px; border-radius: 50%; background: #16120e;
+  box-shadow: -6px -4px 0 -1px rgba(235, 235, 245, 0.8), 6px -4px 0 -1px rgba(235, 235, 245, 0.8), 0 0 6px rgba(0, 0, 0, 0.6);
+  animation: d1-flyorbit 2.4s linear infinite;
+}
+@keyframes d1-flyorbit {
+  0% { transform: rotate(0deg) translate(48px) rotate(0deg); }
+  25% { transform: rotate(90deg) translate(30px, 8px); }
+  50% { transform: rotate(180deg) translate(52px, -6px); }
+  75% { transform: rotate(270deg) translate(26px); }
+  100% { transform: rotate(360deg) translate(48px); }
+}
+@media (prefers-reduced-motion: reduce) { .d1-fly i { animation: none; left: 30px; } }
+
+/* ---------- thoughts sit low, clear of every character's head ---------- */
+.d1-dlg.low-think .d1-box.think.from-left,
+.d1-dlg.low-think .d1-box.think.from-right {
+  top: auto; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); left: 50%; right: auto; transform: translateX(-50%);
+  width: min(760px, 92vw);
+}
+.d1-dlg.low-think .think.from-left .dots i:nth-child(1) { left: 6%; right: auto; top: -30px; bottom: auto; }
+.d1-dlg.low-think .think.from-left .dots i:nth-child(2) { left: 3%; right: auto; top: -56px; bottom: auto; }
+.d1-dlg.low-think .think.from-left .dots i:nth-child(3) { left: 1%; right: auto; top: -78px; bottom: auto; }
+.d1-dlg.low-think .think.from-right .dots i:nth-child(1) { right: 6%; left: auto; top: -30px; bottom: auto; }
+.d1-dlg.low-think .think.from-right .dots i:nth-child(2) { right: 3%; left: auto; top: -56px; bottom: auto; }
+.d1-dlg.low-think .think.from-right .dots i:nth-child(3) { right: 1%; left: auto; top: -78px; bottom: auto; }
+@media (max-width: 640px) {
+  .d1-dlg.low-think .d1-box.think.from-left,
+  .d1-dlg.low-think .d1-box.think.from-right { left: 50%; right: auto; top: auto; width: 92%; }
+}

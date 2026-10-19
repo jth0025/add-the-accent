@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import PlaqueButton from "./PlaqueButton";
+import Dialogue from "./Dialogue";
 import { ART, CAST, CLUES, FRAGS, POR, SCRIPTS, STEPS } from "./day1-data";
 import {
   DAY1_ITEMS,
@@ -22,159 +23,6 @@ const norm = (v, i) => ((v % SEAL_SEGS[i]) + SEAL_SEGS[i]) % SEAL_SEGS[i];
 const SEAL_STEP = [30, 40, 60];
 const SEAL_OFFSET = [15, 0, 0];
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
-
-/* ------------------------------------------------------------------ */
-/* Dialogue: portraits left and right, thought bubbles, smoky memories */
-/* ------------------------------------------------------------------ */
-function Dialogue({ lines, onDone, reducedMotion, onLine }) {
-  const [i, setI] = useState(0);
-  const [closing, setClosing] = useState(false);
-  const [ports, setPorts] = useState({ left: null, right: null });
-  const portsRef = useRef(ports);
-  const timers = useRef([]);
-  const skipRef = useRef(null);
-  const finished = useRef(false);
-
-  const later = (fn, ms) => {
-    const id = setTimeout(fn, ms);
-    timers.current.push(id);
-  };
-
-  const put = (side, value) => {
-    portsRef.current = { ...portsRef.current, [side]: value };
-    setPorts(portsRef.current);
-  };
-
-  const line = lines[i];
-  const cast = CAST[line.who];
-  const side = cast.side;
-
-  // Stage the portrait for the current line.
-  useEffect(() => {
-    if (onLine) onLine(line.who);
-    const pose = line.pose || "close";
-    const art = cast.art[pose] || cast.art.close;
-    const key = cast.name + pose + (line.mem ? "m" : "");
-    const flip = (side === "right" && art[1] === "r") || (side === "left" && art[1] === "l");
-    const next = { key, src: POR[art[0]], alt: cast.name, flip, mem: !!line.mem, sil: !!line.sil };
-    const cur = portsRef.current[side];
-    if (cur && cur.key === key) {
-      put(side, { ...cur, mem: next.mem, sil: next.sil, out: false });
-    } else if (cur) {
-      put(side, { ...cur, out: true });
-      later(() => put(side, { ...next, out: false }), reducedMotion ? 0 : cur.mem ? 850 : 260);
-    } else {
-      put(side, { ...next, out: true });
-      later(() => put(side, { ...next, out: false }), 30);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [i]);
-
-  const finish = useCallback(() => {
-    if (finished.current) return;
-    finished.current = true;
-    onDone();
-  }, [onDone]);
-
-  const end = () => {
-    if (closing) return;
-    const hasMem = [portsRef.current.left, portsRef.current.right].some((p) => p && p.mem);
-    if (hasMem && !reducedMotion) {
-      setClosing(true);
-      later(finish, 900);
-      return;
-    }
-    finish();
-  };
-  const endRef = useRef(end);
-  endRef.current = end;
-
-  const next = () => {
-    if (i + 1 >= lines.length) end();
-    else setI(i + 1);
-  };
-  const nextRef = useRef(next);
-  nextRef.current = next;
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "Enter" || e.key === " " || e.key === "ArrowRight") {
-        e.preventDefault();
-        nextRef.current();
-      } else if (e.key === "Escape") {
-        endRef.current();
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    skipRef.current?.focus({ preventScroll: true });
-    const ts = timers.current;
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      ts.forEach(clearTimeout);
-    };
-  }, []);
-
-  const activeMemSide = line.mem ? side : null;
-  const renderPor = (s) => {
-    const p = ports[s];
-    // eslint-disable-next-line @next/next/no-img-element
-    if (!p) return <img className={`d1-por ${s}`} alt="" />;
-    const dim = s !== side;
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={p.src}
-        alt={p.alt}
-        className={`d1-por ${s}${p.flip ? " flip" : ""}${p.mem ? " mem" : ""}${p.sil ? " sil" : ""}${
-          p.out ? " out" : " in"
-        }${dim ? " dim" : ""}`}
-      />
-    );
-  };
-
-  return (
-    <div
-      className={`d1-dlg${closing ? " closing" : ""}`}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Story"
-      onClick={(e) => {
-        if (e.target.closest("[data-skip]")) {
-          e.stopPropagation();
-          end();
-          return;
-        }
-        next();
-      }}
-    >
-      {renderPor("left")}
-      {renderPor("right")}
-      <div className={`d1-smoke left${closing ? "" : activeMemSide === "left" ? " on" : ""}`} aria-hidden="true" />
-      <div className={`d1-smoke right${closing ? "" : activeMemSide === "right" ? " on" : ""}`} aria-hidden="true" />
-      <div className={`d1-box${line.thought ? ` think from-${side}` : ""}`}>
-        <span className="dots" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-        </span>
-        <p className="d1-name">
-          {cast.name}
-          {line.mem ? <small>remembered</small> : line.sil ? <small>unseen</small> : line.thought ? <small>thinking</small> : null}
-        </p>
-        <p className={`d1-text${line.thought ? " thought" : ""}`} aria-live="polite">
-          {line.text}
-          {line.gloss && <span className="d1-gloss">{line.gloss}</span>}
-        </p>
-        <div className="d1-ctl">
-          <span>Tap or press Enter</span>
-          <button type="button" data-skip ref={skipRef}>
-            Skip
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /* Altar reveal: dial burns, wall opens, Emichō enters the blade        */
@@ -338,7 +186,7 @@ function AltarReveal({ already, reducedMotion, talk, onTaken, onNext }) {
 /* ------------------------------------------------------------------ */
 /* The level                                                           */
 /* ------------------------------------------------------------------ */
-export default function Day1({ reducedMotion, onMenu, onComplete, onPath }) {
+export default function Day1({ reducedMotion, onMenu, onComplete, onPath, reviewApi }) {
   const RM = reducedMotion;
   const initial = useRef(null);
   if (initial.current === null) initial.current = loadDay1() || freshDay1();
@@ -378,7 +226,7 @@ export default function Day1({ reducedMotion, onMenu, onComplete, onPath }) {
       }
       if (!force) update((s) => ({ ...s, seen: { ...(s.seen || {}), [key]: true } }));
       const lines = SCRIPTS[key].filter((l) => !l.if || l.if(stRef.current));
-      talkingRef.current = { lines, done: done || null };
+      talkingRef.current = { lines, done: done || null, id: Date.now() + Math.random() };
       setTalking(talkingRef.current);
     },
     [update],
@@ -727,6 +575,41 @@ export default function Day1({ reducedMotion, onMenu, onComplete, onPath }) {
     );
   };
 
+  /* ---- review tools (local build only) ---- */
+  useEffect(() => {
+    if (!reviewApi) return undefined;
+    reviewApi.current = {
+      skip() {
+        if (talkingRef.current) {
+          endTalk();
+          return true;
+        }
+        return false;
+      },
+      climb() {
+        if (prelude && climbReady) climb();
+      },
+      finish() {
+        if (finale && finTitled) finContinue();
+      },
+      finale() {
+        leave();
+      },
+      solve() {
+        if (stage === 1) {
+          update({ found: FRAGS.map((f) => f.id) });
+          finishRoom();
+        } else if (stage === 2) {
+          update((s) => ({ ...s, rot: [0, 0, 0] }));
+        }
+      },
+      flute() {},
+    };
+    return () => {
+      reviewApi.current = null;
+    };
+  });
+
   /* ---- header copy per scene ---- */
   const HEAD = {
     1: { kanji: "探", title: "The Empty Room", lede: "The old shrine is quiet. Move the lantern to search the dark and tap what the light reveals. Five fragments are waiting." },
@@ -1010,6 +893,9 @@ export default function Day1({ reducedMotion, onMenu, onComplete, onPath }) {
                 className="qi-item-glow mx-auto w-28 sm:w-36"
               />
               <p className="d1-kicker mt-3 text-center">Stage One complete</p>
+              <span className="d1-kan d1-kan--sm" lang="ja" role="img" aria-label="Complete (kan)">
+                完
+              </span>
               <p className="mt-3 leading-relaxed text-[var(--qi-ivory)]/90">
                 Day One is ended. What was handed down has been received: a blade, a map, a handful of things worth
                 carrying. Kenji steps out of the shrine owning more than he came for, and owing more than he knows.
@@ -1143,6 +1029,9 @@ export default function Day1({ reducedMotion, onMenu, onComplete, onPath }) {
 
       {talking && (
         <Dialogue
+          key={talking.id}
+          cast={CAST}
+          por={POR}
           lines={talking.lines}
           reducedMotion={RM}
           onDone={endTalk}
