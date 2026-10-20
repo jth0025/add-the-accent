@@ -4,7 +4,7 @@ date: "2026-10-11"
 excerpt: "On the writer saved for last — a voice that hides nothing, a 40 in red ink, and two verses that turn the work done alone into the entry fee for a room full of people."
 draft: false
 series: "Homebody"
-part: 4
+part: 6
 ---
 
 Before any of this, I was a musician.

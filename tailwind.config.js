@@ -3,6 +3,8 @@ module.exports = {
   content: [
     "./app/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
+    // lib/ builds some markup too (the essay drop cap in dropCap.js).
+    "./lib/**/*.{js,jsx}",
   ],
   theme: {
     extend: {
