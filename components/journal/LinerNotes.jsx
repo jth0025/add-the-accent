@@ -24,7 +24,7 @@ export default function LinerNotes({ entry }) {
   const catalog = catalogNumber(entry, all);
   const art = ESSAY_ART[entry.slug];
   const bodyHtml = withDropCap(entry.html);
-  const minutes = readMinutes(entry.html);
+  const minutes = readMinutes(entry.html, entry.readTime);
 
   // Neighbours: the run of tracks in the same collection, in play order.
   const run = collection
@@ -150,6 +150,12 @@ export default function LinerNotes({ entry }) {
                   label="The difference is you"
                 />
               </div>
+            </div>
+          )}
+
+          {entry.slug === "creature" && (
+            <div className="mx-auto mb-8 flex max-w-xs justify-center rounded-xl bg-gradient-to-b from-[#141414] to-black px-4 py-5">
+              <VoiceClip src="/audio/creature.mp3" label="Creature" volume={0.8} />
             </div>
           )}
 

@@ -5,6 +5,7 @@ excerpt: "Clean a room when the road is unclear. On homebody as a practice inste
 draft: false
 series: "Homebody"
 part: 4
+readTime: 5
 ---
 
 I used to think being a homebody simply meant staying in. Small life, closed doors, nothing much happening. Just a creature in its safest domain.

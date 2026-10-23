@@ -111,7 +111,7 @@ export default function BackCover({ collection, entries, allEntries }) {
                         </span>
                         <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-widest text-white/50">
                           {catalogNumber(e, allEntries)}
-                          {e.date ? ` · ${formatDate(e.date)}` : ""} · {readMinutes(e.content)} min read
+                          {e.date ? ` · ${formatDate(e.date)}` : ""} · {readMinutes(e.content, e.readTime)} min read
                         </span>
                       </span>
                     </span>

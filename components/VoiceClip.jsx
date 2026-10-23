@@ -22,7 +22,7 @@ function formatTime(seconds) {
  * sound-wave doodle in the corner, tilted a degree off-square so it
  * reads as drawn rather than laid out.
  */
-export default function VoiceClip({ src, label = "Voice note" }) {
+export default function VoiceClip({ src, label = "Voice note", volume = 1 }) {
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -88,6 +88,11 @@ export default function VoiceClip({ src, label = "Voice note" }) {
     const el = audioRef.current;
     if (el && el.readyState >= 1) resolveDuration(el);
   }, [resolveDuration]);
+
+  // Element volume (0–1) — lets a hot recording sit a touch quieter.
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume;
+  }, [volume]);
 
   // Pause when another player (the music strip) takes over.
   useEffect(() => {

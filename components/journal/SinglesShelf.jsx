@@ -47,7 +47,7 @@ export default function SinglesShelf({ entries, allEntries }) {
               </h3>
               <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-white/55">
                 {catalog}
-                {entry.date ? ` · ${formatDate(entry.date)}` : ""} · {readMinutes(entry.content)} min
+                {entry.date ? ` · ${formatDate(entry.date)}` : ""} · {readMinutes(entry.content, entry.readTime)} min
               </p>
               <span className="mt-2 inline-block font-mono text-[11px] font-bold uppercase tracking-widest text-accent">
                 Read &rarr;

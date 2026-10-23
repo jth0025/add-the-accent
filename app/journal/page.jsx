@@ -161,7 +161,7 @@ export default function JournalIndex({ searchParams }) {
               tone: sleeveTone(e),
               catalog: catalogNumber(e, allEntries),
               dateLabel: formatDate(e.date),
-              minutes: readMinutes(e.content),
+              minutes: readMinutes(e.content, e.readTime),
             }))}
           />
         </div>

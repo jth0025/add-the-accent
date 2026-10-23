@@ -136,7 +136,7 @@ export default function TurntableFeature({ entry, allEntries }) {
             </p>
             <p className="mt-2 font-mono text-[11px] uppercase tracking-widest text-white/55">
               {catalog}
-              {entry.date ? ` · ${formatDate(entry.date)}` : ""} · {readMinutes(entry.content)} min read
+              {entry.date ? ` · ${formatDate(entry.date)}` : ""} · {readMinutes(entry.content, entry.readTime)} min read
             </p>
             {entry.excerpt && (
               <p className="mt-4 max-w-md font-serif text-base italic leading-snug text-white/75">
