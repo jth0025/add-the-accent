@@ -95,7 +95,7 @@ export default function LinerNotes({ entry }) {
           <div className="relative mt-6 flex flex-wrap items-center gap-x-5 gap-y-1 border-y border-[#1a1a1a]/70 py-2 pr-10 font-mono text-[11px] uppercase tracking-widest">
             <span>Words &mdash; JT</span>
             {entry.date && <span>{formatDate(entry.date)}</span>}
-            <span>{minutes} min read</span>
+            <span className="text-[#7a4a0c]">{minutes} min read</span>
             <ShareButton title={entry.title} className="right-0 top-1/2 -translate-y-1/2" />
           </div>
 

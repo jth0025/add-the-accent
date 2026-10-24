@@ -1592,6 +1592,43 @@ html.header-raining .header-rain {
   }
 }
 
+/* Series progress HUD — the leading lit cell breathes while a series is
+   still in progress, and a sheen sweeps across the lit run. */
+@keyframes hud-pulse {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.35);
+  }
+}
+
+.hud-pulse {
+  animation: hud-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes hud-sheen {
+  0% {
+    transform: translateX(-120%);
+  }
+  60%,
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+.hud-sheen {
+  animation: hud-sheen 3.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hud-pulse,
+  .hud-sheen {
+    animation: none;
+  }
+}
+
 /* "Work With Me" nav glow — a slow breathing gold glow, always on
    (not just on hover), so the item reads as a standing invitation
    rather than one more plain link. Holds at full brightness while

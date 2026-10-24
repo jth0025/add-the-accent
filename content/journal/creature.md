@@ -1,7 +1,7 @@
 ---
 title: "Creature"
 date: "2026-10-20"
-excerpt: "Clean a room when the road is unclear. On homebody as a practice instead of a place, the question every man dreads, and a door that opens both ways."
+excerpt: "of habit (n.): one who does the same things, the same way, again and again. Clean the room. Build the door. Ask the question. Clean again. Habit keeps it safe…and habit keeps it there."
 draft: false
 series: "Homebody"
 part: 4
