@@ -1,5 +1,6 @@
 import { dbReady, sql, todayLA } from "@/lib/db";
 import { replyOnThreads, recentPosts } from "@/lib/threads";
+import { postTodaysWord } from "@/lib/wordPost";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +27,14 @@ export async function POST(req) {
   if (!authed(req)) return deny();
   if (!dbReady()) return notReady();
   const { action, id, postId } = await req.json();
+
+  if (action === "postWord") {
+    try {
+      return Response.json({ ok: true, ...(await postTodaysWord()) });
+    } catch (e) {
+      return Response.json({ error: `Not posted. Threads said: ${e.message}` }, { status: 502 });
+    }
+  }
 
   if (action === "link") {
     await sql`

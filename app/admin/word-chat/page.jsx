@@ -23,6 +23,7 @@ export default function WordChatAdmin() {
     });
     const json = await res.json();
     if (!res.ok) return setNote(json.error);
+    if (body.action === "postWord") setNote(json.posted ? `Posted today\u2019s word (${json.word}) to Threads.` : "Today\u2019s word already has a post.");
     if (body.action === "approve") setNote(json.postedToThreads ? "Approved and posted to Threads." : "Approved on the site. Link today’s Threads post to also post it there.");
     load();
   }
@@ -47,8 +48,15 @@ export default function WordChatAdmin() {
       <section>
         <h2 className="mb-2 text-lg">Today’s Threads post ({data.date})</h2>
         <p className="mb-3 text-sm text-neutral-600">
-          {data.linkedPostId ? "Linked. Approved sentences will reply under it." : "Pick the post that holds today’s word."}
+          {data.linkedPostId
+            ? "Linked. Approved sentences will reply under it."
+            : "The site posts the word to Threads by itself just after midnight (LA). If it hasn\u2019t yet, post it now, or pick a post you made yourself."}
         </p>
+        {!data.linkedPostId && (
+          <button onClick={() => act({ action: "postWord" })} className="mb-3 rounded bg-black px-3 py-1 text-sm text-white">
+            Post today’s word to Threads now
+          </button>
+        )}
         <ul className="space-y-2">
           {data.posts.map((p) => (
             <li key={p.id} className="flex items-start justify-between gap-3 rounded border p-3 text-sm">
