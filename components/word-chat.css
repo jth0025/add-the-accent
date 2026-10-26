@@ -1,0 +1,348 @@
+/* "Now your turn!" is set in Sephora & Hayden (self-hosted). */
+@font-face {
+  font-family: "SephoraHayden";
+  src: url("/fonts/sephora-hayden/SephoraHayden.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* The sentence wall under the Word of the Day: a wireframe-style window
+   (thin dark outlines, rounded boxes, soft shadows, pale grey pill buttons)
+   that houses the scrolling thread. Type: signature script for the invitation,
+   sketch hand for names and fields, editorial italic for the sentences. */
+
+/* The wrapper holds the window and the illustrations around it. */
+.wc-wrap {
+  position: relative;
+  margin-top: -1px;
+  padding-bottom: 1.6rem;
+}
+.wc-wrap::before,
+.wc-wrap::after {
+  /* faint construction guides with end dots, like the reference */
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(90deg, rgba(26, 26, 26, 0.4) 0 5px, transparent 5px 10px);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  height: 1px;
+}
+.wc-wrap::before { left: -0.9rem; right: 40%; bottom: 7.4rem; opacity: 0.55; }
+.wc-wrap::after { right: -0.9rem; left: 62%; top: 4.2rem; opacity: 0.55; }
+
+.wcd {
+  position: absolute;
+  bottom: 0;
+  height: auto;
+  pointer-events: none;
+  overflow: visible;
+  filter: drop-shadow(0 3px 4px rgba(10, 10, 10, 0.2));
+}
+/* The illustrations stand in the empty strip at the bottom of the window
+   (so they never cover the form) and reach out past its corners. */
+.wcd--left { left: -1.1rem; bottom: 0.9rem; height: 7.4rem; width: auto; }
+.wcd--right { right: -1.1rem; bottom: 0.9rem; height: 7.9rem; width: auto; }
+@media (min-width: 640px) {
+  .wcd--left { left: -4.4rem; bottom: 1.1rem; height: 10.4rem; }
+  .wcd--right { right: -4.4rem; bottom: 1.1rem; height: 11rem; }
+}
+
+.wcd-sway {
+  transform-origin: 0 0;
+  animation: wcd-sway 5.5s ease-in-out infinite alternate;
+}
+@keyframes wcd-sway {
+  from { transform: rotate(-2.2deg); }
+  to { transform: rotate(2.6deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wcd-sway { animation: none; }
+}
+
+.wc {
+  /* the same ink and card colours as the Word of the Day box above */
+  --wc-ink: #1a1a1a;
+  --wc-paper: #c9c7bd;
+  --wc-bubble: #d8d6cd;
+  --wc-grey: rgba(255, 255, 255, 0.38);
+  --wc-grey-2: rgba(255, 255, 255, 0.26);
+  position: relative;
+  overflow: hidden;
+  color: var(--wc-ink);
+  background: var(--wc-paper);
+  border: 1.5px solid var(--wc-ink);
+  border-top: 0;
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 14px 28px -10px rgba(10, 10, 10, 0.35), 0 2px 0 rgba(10, 10, 10, 0.06);
+}
+
+/* The window bar across the top, like the browser frame in the reference. */
+.wc-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 0.9rem;
+  color: #f4f2ec;
+  background: var(--wc-ink);
+}
+.wc-bar i {
+  display: block;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  background: #f4f2ec;
+}
+.wc-bar span {
+  margin-left: auto;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.wc-body {
+  display: grid;
+  gap: 1rem;
+  padding: 1.1rem 1rem 6.4rem;
+  background-image: linear-gradient(rgba(26, 26, 26, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 26, 26, 0.045) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* The card that houses the scroll box. */
+.wc-card {
+  overflow: hidden;
+  background: var(--wc-paper);
+  border: 1.5px solid var(--wc-ink);
+  border-radius: 12px;
+  box-shadow: 0 8px 18px -8px rgba(10, 10, 10, 0.35);
+}
+.wc-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.85rem;
+  color: #f4f2ec;
+  background: var(--wc-ink);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.wc-thread {
+  height: 18rem;
+  overflow-y: auto;
+  padding: 0.9rem 0.85rem 0.4rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(26, 26, 26, 0.5) transparent;
+}
+.wc-empty-note {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-hand), "Bradley Hand", cursive;
+  font-size: 1.25rem;
+  font-style: normal;
+  color: rgba(26, 26, 26, 0.55);
+  transform: rotate(-1.5deg);
+}
+.wc-empty {
+  padding: 3.2rem 1rem;
+  text-align: center;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: rgba(26, 26, 26, 0.65);
+}
+
+.wc-day {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.4rem 0 0.8rem;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.55);
+}
+.wc-day::before,
+.wc-day::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(26, 26, 26, 0.35);
+}
+
+.wc-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 0.95rem;
+}
+.wc-msg--mine {
+  align-items: flex-end;
+}
+.wc-msg:nth-of-type(odd) .wc-bubble { transform: rotate(-0.35deg); }
+.wc-msg:nth-of-type(even) .wc-bubble { transform: rotate(0.35deg); }
+.wc-bubble {
+  max-width: 88%;
+  margin: 0;
+  padding: 0.6rem 0.9rem;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--wc-ink);
+  background: var(--wc-bubble);
+  border: 1.5px solid var(--wc-ink);
+  border-radius: 14px 14px 14px 4px;
+  box-shadow: 0 5px 10px -5px rgba(10, 10, 10, 0.4);
+}
+.wc-msg--mine .wc-bubble {
+  color: #f4f2ec;
+  background: var(--wc-ink);
+  border-radius: 14px 14px 4px 14px;
+}
+.wc-by {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.5rem;
+  margin: 0.3rem 0.25rem 0;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(26, 26, 26, 0.6);
+}
+.wc-by b {
+  font-family: var(--font-hand), "Bradley Hand", cursive;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--wc-ink);
+}
+.wc-by a {
+  text-decoration: none;
+  color: inherit;
+}
+.wc-by a:hover { text-decoration: underline; }
+
+/* ---------- the form ---------- */
+.wc-form {
+  padding: 0.9rem 0.9rem 1rem;
+  background: var(--wc-paper);
+  border: 1.5px solid var(--wc-ink);
+  border-radius: 12px;
+  box-shadow: 0 8px 18px -8px rgba(10, 10, 10, 0.35);
+}
+.wc-title {
+  margin: 0 0 0.6rem;
+  text-align: center;
+  font-family: "SephoraHayden", var(--font-script), cursive;
+  font-size: 2.3rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--wc-ink);
+}
+.wc-title::after {
+  content: "";
+  display: block;
+  width: 7.5rem;
+  height: 10px;
+  margin: 0.15rem auto 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 10'%3E%3Cpath d='M2 6 Q 10 0 18 5 T 34 5 T 50 5 T 66 5 T 82 5 T 98 5 T 118 4' fill='none' stroke='%231a1a1a' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.wc-grid {
+  display: grid;
+  gap: 0.55rem;
+}
+.wc-row {
+  display: flex;
+  gap: 0.55rem;
+}
+.wc-input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-hand), "Bradley Hand", cursive;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--wc-ink);
+  background: var(--wc-grey-2);
+  border: 1.5px solid var(--wc-ink);
+  border-radius: 10px;
+  outline: none;
+}
+.wc-input::placeholder { color: rgba(26, 26, 26, 0.5); }
+.wc-input:focus { background: rgba(255, 255, 255, 0.5); box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.14); }
+
+/* Pale grey pill buttons with a dark outline and a soft drop shadow. */
+.wc-btn {
+  padding: 0.55rem 1.25rem;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wc-ink);
+  cursor: pointer;
+  background: var(--wc-grey);
+  border: 1.5px solid var(--wc-ink);
+  border-radius: 999px;
+  box-shadow: 0 5px 10px -4px rgba(10, 10, 10, 0.45);
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+.wc-btn:hover,
+.wc-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 7px 12px -4px rgba(10, 10, 10, 0.5);
+  transform: translateY(-1px);
+  outline: none;
+}
+.wc-btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+@media (min-width: 640px) {
+  .wc-body { padding-bottom: 9.4rem; }
+}
+.wc-send { display: grid; place-items: center; padding-inline: 1rem; }
+
+.wc-error {
+  margin: 0;
+  font-family: var(--font-hand), cursive;
+  font-size: 1.1rem;
+  color: #9b2c2c;
+}
+
+@media (max-width: 520px) {
+  .wc-btn { letter-spacing: 0.06em; padding-inline: 0.9rem; font-size: 10px; }
+  .wc-row { flex-direction: column; }
+  .wc-row--send { flex-direction: row; }
+  .wc-bubble { max-width: 94%; }
+}
+
+/* An apple sitting on the top edge of the Word of the Day box. */
+.wc-topapple {
+  position: absolute;
+  top: 0;
+  right: 2.2rem;
+  z-index: 3;
+  width: 3.1rem;
+  height: auto;
+  transform: translateY(-91%);
+  pointer-events: none;
+  overflow: visible;
+  filter: drop-shadow(0 2px 2px rgba(10, 10, 10, 0.3));
+}
+@media (min-width: 640px) {
+  .wc-topapple { right: 3.4rem; width: 3.6rem; }
+}
+
+/* The word itself, coloured inside a sentence. */
+.wc-mark {
+  padding: 0 0.04em;
+  font-style: italic;
+  font-weight: 800;
+  background: none;
+}

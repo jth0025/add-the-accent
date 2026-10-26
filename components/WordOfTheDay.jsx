@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import WordChat from "./WordChat";
+import { AppleSolo } from "./WordChatDecor";
 
 // A rotating vocabulary that leans into the site's themes — perspective,
 // selfhood, craft, presence, and becoming. One surfaces each day.
@@ -70,7 +72,9 @@ export default function WordOfTheDay() {
   }, []);
 
   return (
-    <section className="paper-notebook corner-box relative mt-8 min-h-[184px] rounded-xl border border-ink/15 bg-card px-7 py-8 sm:px-9">
+    <div className="relative mt-12">
+    {entry && <AppleSolo className="wc-topapple" />}
+    <section className="paper-notebook corner-box relative min-h-[184px] rounded-t-xl border border-b-0 border-ink/15 bg-card px-7 py-8 sm:px-9">
       <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-widest text-accent sm:gap-3 sm:text-xs">
         <span className="whitespace-nowrap">
           <strong className="font-bold">Accent</strong> Word of the Day
@@ -97,5 +101,11 @@ export default function WordOfTheDay() {
         </div>
       )}
     </section>
+    {entry ? (
+      <WordChat word={entry.word} />
+    ) : (
+      <div className="h-px" aria-hidden="true" />
+    )}
+    </div>
   );
 }
