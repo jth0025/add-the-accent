@@ -209,6 +209,10 @@ export default function WordChat({ word }) {
     </section>
     <PlantLeft />
     <PlantRight />
+    {/* The writer, lying on his stomach under the sentence box, between the
+        plant and the pencils, his elbows just over the bottom edge. */}
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img src="/word-chat/writer.webp" alt="" className="wc-writer" aria-hidden="true" />
     </div>
   );
 }
