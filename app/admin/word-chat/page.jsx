@@ -26,7 +26,7 @@ export default function WordChatAdmin() {
     if (!res.ok) return setNote(json.error);
     if (body.action === "setToken") {
       setShortToken("");
-      setNote(`Saved. The site will keep this token renewed. It runs until ${new Date(json.expiresAt).toLocaleDateString()} and renews itself before then.`);
+      setNote("Saved. The site will keep this token renewed by itself.");
     }
     if (body.action === "postWord") setNote(json.posted ? `Posted today\u2019s word (${json.word}) to Threads.` : "Today\u2019s word already has a post.");
     if (body.action === "approve") setNote(json.postedToThreads ? "Approved and posted to Threads." : "Approved on the site. Link today’s Threads post to also post it there.");
@@ -53,7 +53,7 @@ export default function WordChatAdmin() {
       <section>
         <h2 className="mb-2 text-lg">Threads connection</h2>
         <p className="mb-3 text-sm text-neutral-600">
-          {data.token.source === "saved" && `Connected. The token runs until ${new Date(data.token.expiresAt).toLocaleDateString()} and the site renews it by itself.`}
+          {data.token.source === "saved" && "Connected. The site renews the token by itself."}
           {data.token.source === "expired" && "The saved token has expired. Paste a fresh short-lived token below."}
           {data.token.source === "vercel" && "Using the token from Vercel. Paste a short-lived token below to let the site keep it renewed."}
           {data.token.source === "none" && "No token yet. Paste a short-lived token below."}
