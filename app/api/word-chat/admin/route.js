@@ -1,6 +1,7 @@
 import { dbReady, sql, todayLA } from "@/lib/db";
 import { replyOnThreads, recentPosts } from "@/lib/threads";
 import { postTodaysWord } from "@/lib/wordPost";
+import { exchangeShortToken, tokenStatus } from "@/lib/threadsToken";
 
 export const dynamic = "force-dynamic";
 
@@ -20,13 +21,24 @@ export async function GET(req) {
     select threads_post_id from word_chat_threads_posts where word_date = ${date}`;
   let posts = [];
   try { posts = await recentPosts(); } catch {}
-  return Response.json({ date, pending, linkedPostId: linked?.threads_post_id || null, posts });
+  return Response.json({
+    date, pending, linkedPostId: linked?.threads_post_id || null, posts, token: await tokenStatus(),
+  });
 }
 
 export async function POST(req) {
   if (!authed(req)) return deny();
   if (!dbReady()) return notReady();
-  const { action, id, postId } = await req.json();
+  const { action, id, postId, shortToken } = await req.json();
+
+  if (action === "setToken") {
+    if (!shortToken?.trim()) return Response.json({ error: "Paste a token first." }, { status: 400 });
+    try {
+      return Response.json({ ok: true, expiresAt: await exchangeShortToken(shortToken) });
+    } catch (e) {
+      return Response.json({ error: `Token not saved. Threads said: ${e.message}` }, { status: 502 });
+    }
+  }
 
   if (action === "postWord") {
     try {

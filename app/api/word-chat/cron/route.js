@@ -1,5 +1,6 @@
 import { dbReady } from "@/lib/db";
 import { postTodaysWord } from "@/lib/wordPost";
+import { renewIfDue } from "@/lib/threadsToken";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,8 @@ export async function GET(req) {
   if (!dbReady()) return Response.json({ error: "DATABASE_URL is not set yet." }, { status: 503 });
 
   const dryRun = new URL(req.url).searchParams.get("dry") === "1";
+  // Keep the saved token alive; a failed renewal must not stop the post.
+  if (!dryRun) { try { await renewIfDue(); } catch {} }
   try {
     return Response.json(await postTodaysWord({ dryRun }));
   } catch (e) {

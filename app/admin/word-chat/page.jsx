@@ -7,6 +7,7 @@ export default function WordChatAdmin() {
   const [key, setKey] = useState("");
   const [data, setData] = useState(null);
   const [note, setNote] = useState("");
+  const [shortToken, setShortToken] = useState("");
 
   async function load(k = key) {
     const res = await fetch("/api/word-chat/admin", { headers: { "x-admin-key": k } });
@@ -23,6 +24,10 @@ export default function WordChatAdmin() {
     });
     const json = await res.json();
     if (!res.ok) return setNote(json.error);
+    if (body.action === "setToken") {
+      setShortToken("");
+      setNote(`Saved. The site will keep this token renewed. It runs until ${new Date(json.expiresAt).toLocaleDateString()} and renews itself before then.`);
+    }
     if (body.action === "postWord") setNote(json.posted ? `Posted today\u2019s word (${json.word}) to Threads.` : "Today\u2019s word already has a post.");
     if (body.action === "approve") setNote(json.postedToThreads ? "Approved and posted to Threads." : "Approved on the site. Link today’s Threads post to also post it there.");
     load();
@@ -44,6 +49,24 @@ export default function WordChatAdmin() {
     <main className="mx-auto max-w-2xl space-y-8 p-8">
       <h1 className="text-2xl">Word chat moderation</h1>
       {note && <p className="rounded bg-neutral-100 p-3 text-sm">{note}</p>}
+
+      <section>
+        <h2 className="mb-2 text-lg">Threads connection</h2>
+        <p className="mb-3 text-sm text-neutral-600">
+          {data.token.source === "saved" && `Connected. The token runs until ${new Date(data.token.expiresAt).toLocaleDateString()} and the site renews it by itself.`}
+          {data.token.source === "expired" && "The saved token has expired. Paste a fresh short-lived token below."}
+          {data.token.source === "vercel" && "Using the token from Vercel. Paste a short-lived token below to let the site keep it renewed."}
+          {data.token.source === "none" && "No token yet. Paste a short-lived token below."}
+        </p>
+        <div className="flex gap-2">
+          <input type="password" value={shortToken} onChange={(e) => setShortToken(e.target.value)}
+            placeholder="Short-lived token from Meta" className="w-full rounded border px-3 py-2 text-sm" />
+          <button onClick={() => act({ action: "setToken", shortToken })} disabled={!shortToken.trim()}
+            className="shrink-0 rounded bg-black px-3 py-1 text-sm text-white disabled:opacity-40">
+            Save token
+          </button>
+        </div>
+      </section>
 
       <section>
         <h2 className="mb-2 text-lg">Today’s Threads post ({data.date})</h2>
