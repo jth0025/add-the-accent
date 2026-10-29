@@ -152,6 +152,33 @@ export function CollectibleDivider({ className = "", id }) {
     setOrder(a);
   }, []);
 
+  // Arriving on its anchor (the signature links to /about#collectibles):
+  // the browser jumps before the page has settled, and the layout above
+  // shrinks afterwards, leaving the divider far up off screen. Keep it
+  // pinned to the top of the screen until the page settles, or until the
+  // visitor scrolls on their own.
+  useEffect(() => {
+    if (!id || window.location.hash !== `#${id}`) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    const pin = () => el.scrollIntoView({ block: "start", behavior: "instant" });
+    const ro = new ResizeObserver(pin);
+    const stop = () => {
+      ro.disconnect();
+      window.removeEventListener("load", pin);
+      ["wheel", "touchstart", "keydown", "mousedown"].forEach((t) => window.removeEventListener(t, stop));
+    };
+    pin();
+    ro.observe(document.body);
+    window.addEventListener("load", pin);
+    ["wheel", "touchstart", "keydown", "mousedown"].forEach((t) => window.addEventListener(t, stop, { passive: true }));
+    const done = setTimeout(stop, 2500);
+    return () => {
+      clearTimeout(done);
+      stop();
+    };
+  }, [id]);
+
   const list = (order || FIGURES.map((_, i) => i)).map((i) => FIGURES[i]);
 
   // One figure at a time (wrapping round at either end).
