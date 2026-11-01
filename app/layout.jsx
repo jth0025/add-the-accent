@@ -134,22 +134,48 @@ const HEADER_CLOUDS = [
 
 // Real rain across the header, shown only when it's actually raining in
 // LA right now (html.header-raining, toggled by LATemperature after it
-// checks current precipitation) — plain falling lines, independent of
-// the drifting cloud parade above. Staggered duration/delay so they
-// don't fall in lockstep.
-const RAIN_DROPS = [
-  { left: 4, duration: 0.9, delay: -0.1 },
-  { left: 12, duration: 0.75, delay: -0.5 },
-  { left: 21, duration: 0.85, delay: -0.2 },
-  { left: 30, duration: 0.7, delay: -0.8 },
-  { left: 39, duration: 0.95, delay: -0.4 },
-  { left: 48, duration: 0.8, delay: -0.65 },
-  { left: 57, duration: 0.9, delay: -0.05 },
-  { left: 66, duration: 0.75, delay: -0.35 },
-  { left: 75, duration: 0.85, delay: -0.75 },
-  { left: 84, duration: 0.7, delay: -0.15 },
-  { left: 92, duration: 0.95, delay: -0.55 },
+// checks current precipitation) — independent of the drifting cloud
+// parade above. Five depth layers, far to near: far drops are short,
+// thin, faint, soft-focus and slow; near drops are long, thick, bright
+// and fast, so the sheet reads with real parallax depth. Everything
+// falls on one steep wind slant (see rain-fall in globals.css). A seeded
+// generator keeps the layout identical on server and client (no
+// hydration mismatch) while still looking random.
+const RAIN_LAYERS = [
+  { count: 46, width: 1, height: 7, opacity: 0.2, blur: 0.6, duration: [1.5, 1.9], color: "#b4cadb" },
+  { count: 38, width: 1, height: 10, opacity: 0.32, blur: 0.4, duration: [1.2, 1.5], color: "#a3bfd5" },
+  { count: 28, width: 1, height: 14, opacity: 0.5, blur: 0, duration: [0.9, 1.1], color: "#8fb2cf" },
+  { count: 18, width: 1.5, height: 20, opacity: 0.75, blur: 0, duration: [0.65, 0.8], color: "#7ea6c6" },
+  { count: 8, width: 2, height: 30, opacity: 0.9, blur: 0.7, duration: [0.5, 0.6], color: "#6f9bbf" },
 ];
+
+const RAIN_DROPS = (() => {
+  let seed = 20261031;
+  const rand = () => {
+    seed = (seed * 1664525 + 1013904223) % 4294967296;
+    return seed / 4294967296;
+  };
+  const drops = [];
+  RAIN_LAYERS.forEach((layer, depth) => {
+    for (let i = 0; i < layer.count; i++) {
+      const [min, max] = layer.duration;
+      const duration = +(min + rand() * (max - min)).toFixed(2);
+      drops.push({
+        depth,
+        // Spread past the right edge since drops drift left as they fall.
+        left: +(-5 + ((i + rand()) / layer.count) * 125).toFixed(1),
+        width: layer.width,
+        height: layer.height,
+        opacity: layer.opacity,
+        color: layer.color,
+        blur: layer.blur,
+        duration,
+        delay: -+(rand() * duration).toFixed(2),
+      });
+    }
+  });
+  return drops;
+})();
 
 // Journal dropdown contents — the three ordered series plus the
 // "Interludes" pool of standalone reflections that surface inside all of
@@ -299,7 +325,7 @@ export default function RootLayout({ children }) {
               ))}
 
               {/* Real rain, hidden unless html.header-raining is set (see
-                  globals.css) — plain falling lines across the header. */}
+                  globals.css) — slanted, layered drops across the header. */}
               <div
                 className="header-rain pointer-events-none absolute inset-0"
                 aria-hidden="true"
@@ -307,10 +333,15 @@ export default function RootLayout({ children }) {
                 {RAIN_DROPS.map((drop, i) => (
                   <span
                     key={i}
-                    className="header-rain-drop absolute top-[-12%] block w-px bg-[#7ea6c6]"
+                    className="header-rain-drop absolute top-[-24px] block rounded-full"
                     style={{
                       left: `${drop.left}%`,
-                      height: 14,
+                      width: drop.width,
+                      height: drop.height,
+                      zIndex: drop.depth,
+                      filter: drop.blur ? `blur(${drop.blur}px)` : undefined,
+                      "--drop-opacity": drop.opacity,
+                      background: `linear-gradient(to bottom, transparent, ${drop.color})`,
                       animationDuration: `${drop.duration}s`,
                       animationDelay: `${drop.delay}s`,
                     }}

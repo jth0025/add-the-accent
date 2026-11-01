@@ -872,18 +872,22 @@ html.header-raining .header-rain {
 }
 
 .header-rain-drop {
-  opacity: 0.75;
+  opacity: var(--drop-opacity, 0.75);
   animation-name: rain-fall;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  will-change: transform;
 }
 
+/* Diagonal fall: a steep wind slant — drifts left as it drops, with the
+   streak tilted to match the path (atan(140/240) ≈ 30°). The header
+   clips overflow, so the 240px drop clears it on any header height. */
 @keyframes rain-fall {
   0% {
-    transform: translateY(0);
+    transform: translate(0, 0) rotate(30deg);
   }
   100% {
-    transform: translateY(340%);
+    transform: translate(-140px, 240px) rotate(30deg);
   }
 }
 
@@ -894,7 +898,8 @@ html.header-raining .header-rain {
   }
   .header-rain-drop {
     animation: none;
-    opacity: 0.4;
+    opacity: calc(var(--drop-opacity, 0.75) * 0.5);
+    transform: translateY(40px) rotate(30deg);
   }
 }
 
