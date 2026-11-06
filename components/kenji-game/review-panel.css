@@ -1,0 +1,20 @@
+/* The review tab (local builds only). */
+.rv-panel { position: absolute; left: 0; top: 50%; z-index: 400; transform: translateY(-50%); font: 13px/1.3 system-ui, sans-serif; }
+.rv-tab {
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%); padding: 14px 7px; cursor: pointer;
+  writing-mode: vertical-rl; text-orientation: mixed; letter-spacing: 0.22em; text-transform: uppercase; font-size: 11px; font-weight: 700;
+  color: #fff; background: #b03427; border: 0; border-radius: 0 8px 8px 0; opacity: 0.8;
+}
+.rv-tab:hover { opacity: 1; }
+.rv-panel.open .rv-tab { left: 240px; }
+.rv-drawer {
+  width: 240px; max-height: 82vh; overflow-y: auto; padding: 10px; color: #eee; background: rgba(16, 26, 40, 0.96);
+  border: 1px solid #b03427; border-left: 0; border-radius: 0 10px 10px 0; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+.rv-note { margin: 0 0 6px; font-size: 11px; color: #e8a49b; }
+.rv-h { margin: 10px 0 4px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #e8a49b; }
+.rv-drawer button {
+  display: block; width: 100%; margin: 2px 0; padding: 6px 8px; text-align: left; font-size: 13px; cursor: pointer;
+  color: #eee; background: #1b2a40; border: 1px solid #2c3f5c; border-radius: 4px;
+}
+.rv-drawer button:hover { border-color: #b03427; }

@@ -10,7 +10,14 @@ import Ornament from "./Ornament";
 import FitToScreen from "./FitToScreen";
 import useImmersive from "./useImmersive";
 import Day1 from "./Day1";
-import { DAY1_ITEMS, itemById, legendState } from "@/lib/kenjiJourney";
+import Day2 from "./Day2";
+import Day3 from "./Day3";
+import Day4 from "./Day4";
+import Day5 from "./Day5";
+import Day6 from "./Day6";
+import Day7 from "./Day7";
+import ReviewPanel from "./ReviewPanel";
+import { DAY1_ITEMS, itemById, legendState, openPractice } from "@/lib/kenjiJourney";
 import "./game-ornaments.css";
 import "./menu-forest.css";
 
@@ -101,7 +108,7 @@ const STAGES = [
     title: "The Warden City",
     place: "Kosei",
     img: "/kenji-game/montage/day2-warden-city.jpg",
-    full: "/kenji-game/day2-warden-city.jpg",
+    full: "/kenji-game/day2/kosei-entry.webp",
     badge: "/kenji-game/badges/day2.webp",
     body: "A guarded city of bridges and terraces, where Kenji's name and his fallen house earn him more questions than welcome.",
   },
@@ -128,22 +135,22 @@ const STAGES = [
   {
     n: "V",
     day: "Day Five",
-    title: "Wall of Waves",
-    place: "The Hidden Water Gate",
-    img: "/kenji-game/montage/day5-wall-of-waves.jpg",
-    full: "/kenji-game/day5-wall-of-waves.jpg",
-    badge: "/kenji-game/badges/day5.webp",
-    body: "A concealed wall found only by those paying attention, and a cave behind the falling water where something ancient stirs and is never fully seen.",
-  },
-  {
-    n: "VI",
-    day: "Day Six",
     title: "Broken Passage",
     place: "The Fractured Bridge",
     img: "/kenji-game/montage/day6-broken-passage.jpg",
     full: "/kenji-game/day6-broken-passage.jpg",
-    badge: "/kenji-game/badges/day6.webp",
+    badge: "/kenji-game/badges/day5.webp",
     body: "A road broken under gathering gloom, where the figures who have been watching Kenji's journey finally stop watching.",
+  },
+  {
+    n: "VI",
+    day: "Day Six",
+    title: "Wall of Waves",
+    place: "The Hidden Water Gate",
+    img: "/kenji-game/montage/day5-wall-of-waves.jpg",
+    full: "/kenji-game/day5-wall-of-waves.jpg",
+    badge: "/kenji-game/badges/day6.webp",
+    body: "A concealed wall found only by those paying attention, and a cave behind the falling water where something ancient stirs and is never fully seen.",
   },
   {
     n: "VII",
@@ -156,6 +163,17 @@ const STAGES = [
     body: "A jungle sanctuary built around a narrow, luminous door — the destination named by the scroll, and the last question Kenji has to answer.",
   },
 ];
+
+// What the road screen says on the way to each Day (index = the Day's place
+// on the Path).
+const TRAVEL_LINES = {
+  1: "Four days on the road",
+  2: "Kenji rests on his journey before Day Three begins",
+  3: "Kenji rests on his journey before Day Four begins",
+  4: "Kenji rests on his journey before Day Five begins",
+  5: "Kenji rests on his journey before Day Six begins",
+  6: "Kenji rests on his journey before Day Seven begins",
+};
 
 const PROGRESS_KEY = "kenji-quest-completed-days";
 
@@ -213,37 +231,9 @@ const ITEMS = [
   })),
 ];
 
-// The gate scene at Kosei — Warden Isao stops Kenji before the
-// younger warden waves him through. Canon-safe: names House
-// Mizuhara's decline without explaining it, reiterates Hikariwake is
-// not a katana, and never touches the birth clan.
-const WARDEN_DIALOGUE = [
-  { speaker: "Warden Isao", line: "Stop there. State your business in Kosei." },
-  { speaker: "Kenji", line: "Passing through. I mean no trouble." },
-  {
-    speaker: "Warden Isao",
-    line: "That's old work you're carrying — not a katana, not really. Where does a traveler come by a blade like that?",
-  },
-  { speaker: "Kenji", line: "It was my father's." },
-  { speaker: "Warden Isao", line: "And the house that raised you?" },
-  { speaker: "Kenji", line: "House Mizuhara." },
-  {
-    speaker: "Warden Isao",
-    line: "Mizuhara. Thought that name had gone quiet years ago.",
-  },
-  {
-    speaker: "Younger Warden",
-    line: "Isao. Whatever he's carrying, it isn't ours to weigh.",
-  },
-  {
-    speaker: "Warden Isao",
-    line: "Order is order. Nobody walks my gate without answering for it.",
-  },
-  {
-    speaker: "Warden Isao",
-    line: "Kosei doesn't open for a name. It opens for the ones who've already earned passage without knowing it. Answer me true, and you're through.",
-  },
-];
+// The review tab (jump to any screen, skip, solve) exists in local builds
+// only: it is compiled out of a production build.
+const REVIEW = process.env.NODE_ENV !== "production";
 
 const STORAGE_KEY = "kenji-quest-intro-seen";
 
@@ -431,15 +421,12 @@ export default function QuestIntro() {
     useImmersive();
   const [phase, setPhase] = useState("boot"); // boot -> idle -> montage (the written opening) -> menu -> lore | day1
   const [reducedMotion, setReducedMotion] = useState(false);
-  // The menu is fully open: Day One plays all the way through, and Day
-  // Two shows "Coming Soon". Add ?menuonly to the URL to preview the
-  // earlier greyed-out menu.
+  // The menu is fully open: all seven Days play, each opening once the last
+  // is done. Add ?menuonly to the URL to preview the earlier greyed-out menu.
   const [menuOnly, setMenuOnly] = useState(false);
   const [butterflyPos, setButterflyPos] = useState({ x: 50, y: 46 });
-  const [dialogueIndex, setDialogueIndex] = useState(0);
-  const [riddle2Value, setRiddle2Value] = useState("");
-  const [riddle2Solved, setRiddle2Solved] = useState(false);
-  const [riddle2Hint, setRiddle2Hint] = useState(false);
+  const [reviewKey, setReviewKey] = useState(0);
+  const reviewApi = useRef(null);
   const [completedDays, setCompletedDays] = useState([]);
   const [lockedNotice, setLockedNotice] = useState(null);
   const [loadingTarget, setLoadingTarget] = useState(null);
@@ -469,7 +456,6 @@ export default function QuestIntro() {
         window.localStorage.getItem(PROGRESS_KEY) || "[]",
       );
       if (Array.isArray(saved)) setCompletedDays(saved);
-      if (saved.includes(2)) setRiddle2Solved(true);
     } catch {
       // Ignore malformed/unavailable storage — progress just starts fresh.
     }
@@ -527,8 +513,8 @@ export default function QuestIntro() {
   }, [phase, completedDays]);
   const isItemCollected = (item) => !!legend[item.key]?.collected;
 
-  // Only Day One is playable; Day Two shows "Coming Soon" and the rest are in development.
-  const BUILT_DAYS = [0];
+  // All seven Days are playable. (A Day that is not built shows "Coming Soon".)
+  const BUILT_DAYS = [0, 1, 2, 3, 4, 5, 6];
 
   const selectDay = (dayIndex) => {
     if (BUILT_DAYS.includes(dayIndex) && isUnlocked(dayIndex)) {
@@ -568,7 +554,7 @@ export default function QuestIntro() {
       return () => clearTimeout(t);
     }
     if (phase === "dayKenji") {
-      const next = dayIntroIndex === 1 ? "day2" : "day1";
+      const next = ["day1", "day2", "day3", "day4", "day5", "day6", "day7"][dayIntroIndex] || "levels";
       const t = setTimeout(() => setPhase(next), reducedMotion ? 1200 : 5000);
       return () => clearTimeout(t);
     }
@@ -637,28 +623,6 @@ export default function QuestIntro() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [phase]);
-
-  // Day Two resets its dialogue every time it's (re)entered, so
-  // returning to an already-solved gate scene still plays it — the
-  // riddle form only shows once the last line has been reached.
-  useEffect(() => {
-    if (phase === "day2") setDialogueIndex(0);
-  }, [phase]);
-
-  const advanceDialogue = () => {
-    setDialogueIndex((i) => Math.min(i + 1, WARDEN_DIALOGUE.length));
-  };
-
-  const handleRiddle2Submit = (e) => {
-    e.preventDefault();
-    const normalized = riddle2Value.trim().toLowerCase();
-    if (normalized === "trust") {
-      setRiddle2Solved(true);
-      markDayComplete(2);
-    } else {
-      setRiddle2Hint(true);
-    }
-  };
 
   const showSkip = ["idle", "montage"].includes(phase);
 
@@ -1504,22 +1468,38 @@ export default function QuestIntro() {
         </div>
       )}
 
-      {/* ---------------- STAGE ENTRY: a moment with Kenji ---------------- */}
+      {/* ---------------- ON THE ROAD: Kenji travelling between Days ---------------- */}
       {phase === "dayKenji" && (
         <div
-          className="qi-fade-enter absolute inset-0 z-[100] flex flex-col items-center justify-center gap-5 p-6"
+          className="qi-fade-enter absolute inset-0 z-[100] flex flex-col items-center justify-center gap-4 p-6"
           style={{
             background:
-              "linear-gradient(160deg, #16241a 0%, #1c2f1e 35%, #2a2312 70%, #1a1409 100%)",
+              dayIntroIndex === 1
+                ? "linear-gradient(160deg, #16241a 0%, #1c2f1e 35%, #2a2312 70%, #1a1409 100%)"
+                : "radial-gradient(120% 70% at 50% 62%, #2a1b10 0%, #14100c 55%, #0b0c0e 100%)",
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/kenji-game/poses/set-off.webp"
-            alt="Kenji, ready to enter the stage ahead"
-            className="qi-cover-grow max-h-[65vh] max-w-[80vw] object-contain"
-          />
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--qi-gold)]">
+          {dayIntroIndex === 1 ? (
+            // On the way to Kosei: Kenji, full length, ready for the road.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src="/kenji-standing.png"
+              alt="Kenji, standing ready with a sheathed blade"
+              className="qi-cover-grow max-h-[62vh] max-w-[80vw] object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.6)]"
+            />
+          ) : (
+            // Between the later Days: he rests by a small fire.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src="/kenji-game/travel/kenji-asleep.webp"
+              alt="Kenji asleep by a small fire on the road, hat over his eyes"
+              className="qi-cover-grow max-h-[62vh] max-w-[88vw] object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.6)]"
+            />
+          )}
+          <p className="qi-breathe max-w-xs text-center font-mono text-[10px] uppercase leading-relaxed tracking-[0.35em] text-[var(--qi-gold)]">
+            {TRAVEL_LINES[dayIntroIndex] || "On the road"}
+          </p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--qi-ivory)]/45">
             {STAGES[dayIntroIndex].n} &middot; {STAGES[dayIntroIndex].title}
           </p>
         </div>
@@ -1528,6 +1508,8 @@ export default function QuestIntro() {
       {/* ---------------- DAY 1: THE INHERITANCE ---------------- */}
       {phase === "day1" && (
         <Day1
+          key={reviewKey}
+          reviewApi={reviewApi}
           reducedMotion={reducedMotion}
           onMenu={() => setPhase("menu")}
           onComplete={() => markDayComplete(1)}
@@ -1535,183 +1517,93 @@ export default function QuestIntro() {
         />
       )}
 
-      {/* ---------------- DAY 2: THE WARDEN CITY ---------------- */}
+      {/* ---------------- DAY 2: THE ERA OF PROOF (KOSEI) ---------------- */}
       {phase === "day2" && (
-        <div className="qi-fade-enter absolute inset-0 overflow-y-auto">
-          <div className="relative min-h-[50vh] w-full sm:min-h-[60vh]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={STAGES[1].full}
-              alt="Kenji approaching the guarded bridges of Kosei at dusk"
-              className="absolute inset-0 h-full w-full object-cover object-[center_30%]"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--qi-ink)] via-[var(--qi-ink)]/10 to-[var(--qi-ink)]/40" />
-            <PlaqueButton
-              nav
-              size="xs"
-              className="absolute left-3 top-3 z-10 sm:left-5 sm:top-5"
-              onClick={() => setPhase("menu")}
-            >
-              &larr; Menu
-            </PlaqueButton>
-            <div className="absolute inset-x-0 bottom-0 px-6 pb-8 text-center sm:pb-10">
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--qi-gold)]">
-                II &middot; The Warden City
-              </p>
-              <h2 className="mt-2 font-cinema text-2xl uppercase tracking-wide text-[var(--qi-ivory)] sm:text-4xl">
-                Kosei
-              </h2>
-              <span
-                aria-hidden="true"
-                className="mt-1 block text-center font-tribal text-2xl text-[var(--qi-gold)] sm:text-3xl"
-                style={{
-                  textShadow:
-                    "0 2px 8px rgba(0,0,0,0.85), 0 0 16px rgba(214,166,75,0.4)",
-                }}
-              >
-                守
-              </span>
-            </div>
-          </div>
+        <Day2
+          key={reviewKey}
+          reducedMotion={reducedMotion}
+          reviewApi={reviewApi}
+          onMenu={() => setPhase("menu")}
+          onComplete={() => markDayComplete(2)}
+          onPath={() => goTo("levels")}
+        />
+      )}
 
-          <div className="mx-auto max-w-2xl px-6 py-10 sm:py-14">
-            <p className="font-serif italic leading-relaxed text-[var(--qi-ivory)]/90">
-              The bridges of Kosei rise out of the mist before the city
-              itself does &mdash; terraces stacked in switchbacks,
-              banners the color of dusk hung from every rail. A
-              checkpoint waits at the first crossing, manned by wardens
-              who have clearly done this before.
-            </p>
+      {/* ---------------- DAY 3: THE ERA OF LISTENING (NAOMORI) ---------------- */}
+      {phase === "day3" && (
+        <Day3
+          key={reviewKey}
+          reducedMotion={reducedMotion}
+          reviewApi={reviewApi}
+          onMenu={() => setPhase("menu")}
+          onComplete={() => markDayComplete(3)}
+          onPath={() => goTo("levels")}
+        />
+      )}
 
-            {!riddle2Solved && dialogueIndex < WARDEN_DIALOGUE.length && (
-              <div
-                role="button"
-                tabIndex={0}
-                onClick={advanceDialogue}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    advanceDialogue();
-                  }
-                }}
-                className="qi-panel mt-8 cursor-pointer rounded-xl p-6 text-left sm:p-8"
-              >
-                <p className="mb-4 text-center font-mono text-[10px] uppercase tracking-widest text-[var(--qi-gold)]">
-                  The Gate at Kosei
-                </p>
-                <div className="space-y-3">
-                  {WARDEN_DIALOGUE.slice(0, dialogueIndex + 1).map((d, i) => (
-                    <p
-                      key={i}
-                      className="qi-fade-enter font-serif text-sm leading-relaxed text-[var(--qi-ivory)]/90"
-                    >
-                      <span
-                        className={`font-mono text-[10px] uppercase tracking-widest ${
-                          d.speaker === "Kenji"
-                            ? "text-[var(--qi-ivory)]/60"
-                            : "text-[var(--qi-gold)]"
-                        }`}
-                      >
-                        {d.speaker}
-                      </span>
-                      <br />
-                      {d.line}
-                    </p>
-                  ))}
-                </div>
-                <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--qi-ivory)]/40">
-                  tap to continue
-                </p>
-              </div>
-            )}
+      {/* ---------------- DAY 4: THE ERA OF PERSPECTIVE (THE NEST CLIFFS) ---------------- */}
+      {phase === "day4" && (
+        <Day4
+          key={reviewKey}
+          reducedMotion={reducedMotion}
+          reviewApi={reviewApi}
+          onMenu={() => setPhase("menu")}
+          onComplete={() => markDayComplete(4)}
+          onPath={() => goTo("levels")}
+        />
+      )}
 
-            {!riddle2Solved && dialogueIndex >= WARDEN_DIALOGUE.length && (
-              <form
-                onSubmit={handleRiddle2Submit}
-                className="qi-fade-enter qi-panel mt-8 rounded-xl p-6 text-center sm:p-8"
-              >
-                <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--qi-gold)]">
-                  The Warden&rsquo;s Test
-                </p>
-                <p className="mx-auto mt-3 max-w-sm font-serif italic leading-relaxed text-[var(--qi-ivory)]">
-                  &ldquo;I have no gate to force, no wall to climb. I
-                  open only for those who&rsquo;ve already earned
-                  passage &mdash; without knowing it. What am
-                  I?&rdquo;
-                </p>
-                <label htmlFor="qi-riddle-2" className="sr-only">
-                  Your answer
-                </label>
-                <input
-                  id="qi-riddle-2"
-                  type="text"
-                  autoFocus
-                  value={riddle2Value}
-                  onChange={(e) => {
-                    setRiddle2Value(e.target.value);
-                    if (riddle2Hint) setRiddle2Hint(false);
-                  }}
-                  placeholder="What am I?"
-                  className="mx-auto mt-5 block w-full max-w-xs rounded-full border border-[var(--qi-gold)]/40 bg-black/30 px-4 py-2.5 text-center text-sm text-[var(--qi-ivory)] outline-none placeholder:text-[var(--qi-ivory)]/40 focus:border-[var(--qi-gold)]"
-                />
-                <PlaqueButton type="submit" size="sm" className="mx-auto mt-4">
-                  Answer
-                </PlaqueButton>
-                {riddle2Hint && (
-                  <p className="mt-4 text-xs text-[var(--qi-ivory)]/60">
-                    Not quite. Isao already told you what Kosei really
-                    guards &mdash; listen again to what he said, not
-                    just what he asked.
-                  </p>
-                )}
-              </form>
-            )}
+      {/* ---------------- DAY 5: THE ERA OF CONFRONTATION (THE BROKEN PASSAGE) ---------------- */}
+      {phase === "day5" && (
+        <Day5
+          key={reviewKey}
+          reducedMotion={reducedMotion}
+          reviewApi={reviewApi}
+          onMenu={() => setPhase("menu")}
+          onComplete={() => markDayComplete(5)}
+          onPath={() => goTo("levels")}
+        />
+      )}
 
-            {riddle2Solved && (
-              <div className="qi-fade-enter qi-panel mt-8 rounded-xl p-6 text-center sm:p-8">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/kenji-game/poses/round-complete.webp"
-                  alt="Kenji, head bowed, hands pressed together in quiet acknowledgment"
-                  className="qi-item-glow mx-auto w-32 sm:w-40"
-                />
-                {STAGES[dayIntroIndex + 1] && (
-                  <p className="mt-2 font-serif text-xs italic text-[var(--qi-ivory)]/50">
-                    Days pass on the road to{" "}
-                    {STAGES[dayIntroIndex + 1].title}&hellip;
-                  </p>
-                )}
-                <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-[var(--qi-gold)]">
-                  Trust
-                </p>
-                <p className="mx-auto mt-3 max-w-md font-serif italic leading-relaxed text-[var(--qi-ivory)]">
-                  Isao studies him a moment longer, then steps aside
-                  without another word. The younger warden&rsquo;s nod
-                  is smaller, but it&rsquo;s there. The gate opens onto
-                  bridges and banners, and for the first time since
-                  House Mizuhara, someone has looked at Kenji and seen
-                  more than a name.
-                </p>
-                <p className="mx-auto mt-4 max-w-md text-sm text-[var(--qi-ivory)]/70">
-                  The scroll is no lighter for it, but it feels
-                  &mdash; for a moment &mdash; less alone. The road to{" "}
-                  <strong className="font-bold italic">
-                    The Ancient Grove
-                  </strong>{" "}
-                  is still being built.
-                </p>
-                <PlaqueButton
-                  nav
-                  size="xl"
-                  className="mx-auto mt-6"
-                  onClick={() => goTo("levels")}
-                >
-                  Return to the Path &rarr;
-                </PlaqueButton>
-              </div>
-            )}
-          </div>
-        </div>
+      {/* ---------------- DAY 6: THE ERA OF RESPONSIBILITY (THE WALL OF WAVES) ---------------- */}
+      {phase === "day6" && (
+        <Day6
+          key={reviewKey}
+          reducedMotion={reducedMotion}
+          reviewApi={reviewApi}
+          onMenu={() => setPhase("menu")}
+          onComplete={() => markDayComplete(6)}
+          onPath={() => goTo("levels")}
+        />
+      )}
+
+      {/* ---------------- DAY 7: FIRST LIGHT (THE AOKIRI EXPANSE), AND THE SANCTUARY ---------------- */}
+      {phase === "day7" && (
+        <Day7
+          key={reviewKey}
+          reducedMotion={reducedMotion}
+          reviewApi={reviewApi}
+          onMenu={() => setPhase("menu")}
+          onComplete={() => markDayComplete(7)}
+          onPath={() => goTo("levels")}
+          onTrial={(day) => {
+            // the Sanctuary: open that Day's practice
+            openPractice(day);
+            setReviewKey((k) => k + 1);
+            setPhase(`day${day}`);
+          }}
+        />
+      )}
+
+      {REVIEW && (
+        <ReviewPanel
+          phase={phase}
+          setPhase={setPhase}
+          reviewApi={reviewApi}
+          bump={() => setReviewKey((k) => k + 1)}
+          setCompletedDays={setCompletedDays}
+          setDayIntroIndex={setDayIntroIndex}
+        />
       )}
     </div>
   );

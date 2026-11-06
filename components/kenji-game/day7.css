@@ -1,0 +1,78 @@
+/* Day Seven: First Light (the Aokiri Expanse). Scoped to .d7 / .d7-*, built
+   on Day One's tokens and frames and Day Two's little buttons (see day1.css
+   and day2.css). */
+
+.d7-hero { display: block; width: 100%; aspect-ratio: 1672 / 941; object-fit: cover; }
+.d7-host {
+  padding: 18px; border: 1px solid var(--d1-stone); border-radius: 12px;
+  background: linear-gradient(rgba(8, 20, 14, 0.84), rgba(8, 20, 14, 0.94)), url("/kenji-game/day7/expanse-puzzle-table.webp") center / cover;
+}
+.d7-host:empty { display: none; }
+.d7-whole { display: block; width: min(100%, 520px); border: 3px solid #8a6324; border-radius: 6px; }
+.d7-stat { margin: 0 0 10px; font-size: 15px; color: rgba(241, 230, 207, 0.6); }
+.d7-msg { min-height: 1.5em; margin: 0 0 10px; font-family: var(--d1-cinema); font-size: 19px; color: var(--qi-ivory); }
+.d7-side { min-width: 0; }
+
+/* ---------- the assembled scroll ---------- */
+.d7-sc { display: grid; grid-template-columns: minmax(0, 560px) minmax(200px, 1fr); gap: 22px; align-items: start; }
+.d7-sc-board {
+  position: relative; aspect-ratio: 1; overflow: hidden; touch-action: manipulation; border-radius: 6px; background: #2a1e12;
+  box-shadow: 0 0 0 3px #8a6324, 0 14px 34px rgba(0, 0, 0, 0.55);
+}
+.d7-sc-tile {
+  position: absolute; box-sizing: border-box; padding: 0; cursor: pointer; background-repeat: no-repeat;
+  border: 1px solid rgba(40, 26, 10, 0.6); transition: left 0.16s ease, top 0.16s ease;
+}
+.d7-sc.solved .d7-sc-tile { border-color: transparent; }
+.d7-sc-ref { width: 120px; margin: 6px 0 12px; border: 2px solid #8a6324; border-radius: 4px; opacity: 0.9; }
+@media (max-width: 760px) { .d7-sc { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- stillness ---------- */
+.d7-still {
+  position: relative; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; user-select: none; -webkit-user-select: none;
+  min-height: min(72vh, 600px); padding-bottom: 28px; border: 1px solid #23402e; border-radius: 12px; scroll-margin-top: 10px;
+  background: linear-gradient(rgba(6, 14, 8, 0.45), rgba(6, 14, 8, 0.7)), url("/kenji-game/day7/sanctuary-stillness.webp") center / cover;
+}
+.d7-vision {
+  position: absolute; left: 50%; top: 44%; max-height: 68%; max-width: 70%; opacity: 0; pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.96); transition: opacity 2.6s ease, transform 9s ease, filter 2.6s ease;
+}
+.d7-vision.on { opacity: 0.82; transform: translate(-50%, -50%) scale(1.04); }
+.d7-vision.fear { filter: brightness(0.55) sepia(0.6) hue-rotate(-30deg) saturate(1.6) drop-shadow(0 0 30px rgba(170, 30, 20, 0.6)); }
+.d7-vision.grief { filter: sepia(0.25) brightness(1.08) drop-shadow(0 0 34px rgba(255, 220, 170, 0.55)); }
+.d7-vision.desire { filter: saturate(1.15) drop-shadow(0 0 40px rgba(255, 200, 90, 0.6)); }
+.d7-whisper {
+  position: absolute; left: 50%; top: 12%; width: min(640px, 90%); margin: 0; text-align: center; transform: translateX(-50%); pointer-events: none;
+  font-family: var(--d1-cinema); font-style: italic; font-size: clamp(18px, 2.4vw, 24px); color: #dfe8de; opacity: 0; transition: opacity 1.6s ease;
+}
+.d7-whisper.on { opacity: 0.9; }
+.d7-vname {
+  position: absolute; left: 50%; top: 76%; margin: 0; transform: translateX(-50%); pointer-events: none;
+  font-family: var(--d1-cinema); font-size: clamp(22px, 3vw, 30px); letter-spacing: 0.08em; color: var(--qi-gold); opacity: 0; transition: opacity 1.4s ease;
+}
+.d7-vname.on { opacity: 1; }
+.d7-still-ui { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.d7-hold {
+  width: 110px; height: 110px; border-radius: 50%; cursor: pointer; touch-action: none; color: var(--qi-ivory); font-size: 14px;
+  border: 2px solid var(--qi-gold); background: radial-gradient(circle, #2c4a33, #10241a); transition: box-shadow 0.6s ease, transform 0.6s ease;
+}
+.d7-hold.held { box-shadow: 0 0 0 10px rgba(229, 181, 76, 0.12), 0 0 40px rgba(229, 181, 76, 0.45); transform: scale(0.96); }
+.d7-still-msg { min-height: 1.4em; margin: 0; text-align: center; font-size: 15px; color: #b9c8bb; }
+.d7-dots { display: flex; gap: 10px; }
+.d7-dots i { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--qi-gold); }
+.d7-dots i.done { background: var(--qi-gold); }
+
+/* ---------- the Sanctuary ---------- */
+.d7-daily { margin: 6px 0 10px; padding: 14px 16px; border: 1px solid var(--qi-gold); border-radius: 12px; background: rgba(229, 181, 76, 0.06); }
+.d7-daily b { font-weight: 500; color: var(--qi-gold); }
+.d7-daily p { margin: 4px 0 10px; }
+.d7-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 12px 0 18px; }
+.d7-grid button { padding: 14px; border-radius: 12px; text-align: left; line-height: 1.4; }
+.d7-grid b { display: block; font-weight: 500; color: var(--qi-gold); }
+
+/* ---------- the opening and the closing ---------- */
+.d7-prelude .d1-shot-img { transform-origin: 40% 60%; }
+@media (max-width: 640px) { .d7-prelude .d1-shot-img { object-position: 40% 50%; } }
+.d7-finale .d1-shot-img { transform-origin: 50% 60%; }
+.d7-finale .d1-shot-fill { object-fit: cover; object-position: 50% 50%; }
+.d7-finale .d1-shot-shade { background: linear-gradient(0deg, rgba(5, 10, 18, 0.94) 0, rgba(5, 10, 18, 0.72) 40%, rgba(5, 10, 18, 0) 68%); }

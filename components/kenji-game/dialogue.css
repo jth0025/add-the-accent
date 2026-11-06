@@ -76,3 +76,109 @@
   .d1-dlg.low-think .d1-box.think.from-left,
   .d1-dlg.low-think .d1-box.think.from-right { left: 50%; right: auto; top: auto; width: 92%; }
 }
+
+/* ---------- a picture can push in on a spot (zoom) ---------- */
+.d1-scene, .d1-scene-sharp {
+  transition: opacity 0.8s ease, filter 0.7s ease, object-position 1s ease, transform 1.2s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .d1-scene, .d1-scene-sharp { transition: opacity 0.3s ease; }
+}
+
+/* ---------- a box beside a face in the picture (Day Three) ----------
+   It is the same scroll, set by script to its place (left, top, width) before it
+   is painted, so it never slides. It only fades in, after a push-in has settled. */
+.d1-box.anch {
+  right: auto; bottom: auto; transform: none; margin: 0;
+  animation: d1-anchIn 0.26s ease both; animation-delay: var(--anch-delay, 0s);
+}
+@keyframes d1-anchIn { from { opacity: 0; } to { opacity: 1; } }
+.d1-box.anch.think { border-radius: 46px; padding: 18px 34px 12px; border: 1.5px solid rgba(70, 40, 12, 0.7); }
+.d1-box.anch.think::before, .d1-box.anch.think::after { display: none; }
+/* the thought's three beads lead from the box toward the face */
+.d1-box.anch.think .dots i { display: block; }
+.d1-box.anch-r .dots i:nth-child(1), .d1-box.anch-l .dots i:nth-child(1) { width: 20px; height: 20px; }
+.d1-box.anch-r .dots i:nth-child(2), .d1-box.anch-l .dots i:nth-child(2) { width: 13px; height: 13px; }
+.d1-box.anch-r .dots i:nth-child(3), .d1-box.anch-l .dots i:nth-child(3) { width: 8px; height: 8px; }
+.d1-box.anch-r .dots i { top: calc(var(--at, 50%) - 10px); }
+.d1-box.anch-l .dots i { top: calc(var(--at, 50%) - 10px); }
+.d1-box.anch-r .dots i:nth-child(1) { left: -22px; right: auto; }
+.d1-box.anch-r .dots i:nth-child(2) { left: -42px; right: auto; margin-top: 4px; }
+.d1-box.anch-r .dots i:nth-child(3) { left: -57px; right: auto; margin-top: 8px; }
+.d1-box.anch-l .dots i:nth-child(1) { right: -22px; left: auto; }
+.d1-box.anch-l .dots i:nth-child(2) { right: -42px; left: auto; margin-top: 4px; }
+.d1-box.anch-l .dots i:nth-child(3) { right: -57px; left: auto; margin-top: 8px; }
+.d1-box.anch-b .dots i, .d1-box.anch-a .dots i { left: calc(var(--at, 50%) - 10px); right: auto; }
+.d1-box.anch-b .dots i:nth-child(1) { width: 20px; height: 20px; top: -22px; bottom: auto; }
+.d1-box.anch-b .dots i:nth-child(2) { width: 13px; height: 13px; top: -40px; bottom: auto; margin-left: 3px; }
+.d1-box.anch-b .dots i:nth-child(3) { width: 8px; height: 8px; top: -54px; bottom: auto; margin-left: 6px; }
+.d1-box.anch-a .dots i:nth-child(1) { width: 20px; height: 20px; bottom: -22px; top: auto; }
+.d1-box.anch-a .dots i:nth-child(2) { width: 13px; height: 13px; bottom: -40px; top: auto; margin-left: 3px; }
+.d1-box.anch-a .dots i:nth-child(3) { width: 8px; height: 8px; bottom: -54px; top: auto; margin-left: 6px; }
+@media (prefers-reduced-motion: reduce) { .d1-box.anch { animation: none; } }
+
+/* ---------- a line that asks a question ---------- */
+.d1-choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.d1-choices button {
+  padding: 8px 16px; font: inherit; font-size: 15px; cursor: pointer; color: #2a1a0b;
+  background: rgba(255, 244, 214, 0.45); border: 1px solid rgba(70, 40, 12, 0.7); border-radius: 999px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.d1-choices button:hover, .d1-choices button:focus-visible { background: rgba(255, 244, 214, 0.85); border-color: #7b2410; color: #7b2410; }
+
+/* a narrow box beside a face keeps its "Tap or press Enter" on one line */
+.d1-box.anch .d1-ctl span { padding: 4px 9px; letter-spacing: 0.1em; white-space: nowrap; }
+.d1-box.anch .d1-ctl { gap: 8px; }
+
+/* ---------- Days Four to Seven ---------- */
+
+/* a box set at an author's point on the picture carries no thought beads */
+.d1-box.anch-box .dots { display: none; }
+.d1-box.anch.compact { padding: 12px 18px; }
+.d1-box.anch.compact .d1-text { font-size: 16px; line-height: 1.45; min-height: 0; }
+.d1-box.anch.compact .d1-ctl { margin-top: 6px; }
+
+/* a silhouette turning into the person */
+.d1-dlg .d1-por.reveal { transition: opacity 0.45s ease, transform 0.45s ease, filter 2.8s ease; }
+
+/* mist: a bank of mist drifting behind the portraits and the box */
+.d1-mist { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; overflow: hidden; transition: opacity 1.2s ease; }
+.d1-mist i {
+  position: absolute; top: 0; bottom: 0; left: 0; width: 200%; animation: d1-mistRoll 38s linear infinite;
+  background: url("/kenji-game/shared/mist-layer.webp") repeat-x 0 100% / 50% 100%;
+}
+.d1-mist i + i { opacity: 0.7; transform: scaleY(0.8); transform-origin: bottom; animation-duration: 24s; animation-direction: reverse; }
+.d1-mist.roll { opacity: 0.85; }
+.d1-mist.gust { opacity: 1; }
+.d1-mist.gust i { animation-duration: 3.2s; }
+.d1-mist.full { opacity: 1; z-index: 2; background: rgba(236, 232, 234, 0.92); transition: opacity 1.6s ease, background 1.6s ease; }
+.d1-mist.full i { animation-duration: 9s; }
+@keyframes d1-mistRoll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .d1-mist i { animation: none; } }
+
+/* a fade to white */
+.d1-flash {
+  position: absolute; inset: 0; z-index: 30; pointer-events: none; opacity: 0; transition: opacity 1.05s ease;
+  background: radial-gradient(circle at 50% 45%, #fffdf6 0, #fff4dc 60%, #f6e3b8 100%);
+}
+.d1-flash.on { opacity: 1; }
+
+/* a whip-pan: the picture slides out, blurred, and a new one settles in */
+.d1-dlg.fx-whip-out .d1-scene { transition: transform 0.21s cubic-bezier(0.55, 0, 1, 0.45), filter 0.21s ease-in !important; transform: translateX(-38%) scale(1.08) !important; filter: blur(22px) brightness(0.55) !important; }
+.d1-dlg.fx-whip-in .d1-scene { transition: none !important; transform: translateX(38%) scale(1.08) !important; filter: blur(22px) brightness(0.55) !important; }
+.d1-dlg.fx-whip-settle .d1-scene { transition: transform 0.34s cubic-bezier(0, 0.55, 0.25, 1), filter 0.34s ease-out !important; }
+.d1-dlg.whipping .d1-box, .d1-dlg.whipping .d1-por { opacity: 0 !important; transition: opacity 0.12s !important; }
+@media (prefers-reduced-motion: reduce) { .d1-dlg.fx-whip-out .d1-scene, .d1-dlg.fx-whip-in .d1-scene { transform: none !important; filter: none !important; } }
+
+/* a written line: a letter, an inscription. The card is the game's own parchment. */
+.d1-box.parch {
+  background: url("/kenji-game/shared/parchment-frame.webp") center / 100% 100% no-repeat !important;
+  border: 0 !important; border-radius: 0 !important; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5) !important;
+  padding: 34px 46px 26px !important; color: #3a2610;
+}
+.d1-box.parch::before, .d1-box.parch::after { display: none !important; }
+.d1-box.parch .d1-name { text-align: center; margin-bottom: 10px; font-size: 13px; letter-spacing: 0.14em; color: #7a4a1a; }
+.d1-text.parch-text { white-space: pre-line; text-align: center; font-size: clamp(20px, 2.4vw, 26px); line-height: 1.6; font-style: normal; color: #2e1d0a; }
+.d1-box.parch.compact .d1-text { font-size: clamp(14px, 1.25vw, 17px); line-height: 1.5; }
+.d1-box.parch .d1-ctl, .d1-box.parch .d1-ctl * { color: #6a4a24; }
+@media (max-width: 640px) { .d1-box.parch { padding: 28px 30px 22px !important; } .d1-text.parch-text { font-size: 18px; } }

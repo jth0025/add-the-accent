@@ -1,0 +1,58 @@
+/* Day Six: the Era of Responsibility (the Wall of Waves). Scoped to .d6 /
+   .d6-*, built on Day One's tokens and frames and Day Two's little buttons
+   (see day1.css and day2.css). */
+
+.d6-hero { display: block; width: 100%; aspect-ratio: 1672 / 941; object-fit: cover; }
+.d6-host { padding: 18px; border: 1px solid var(--d1-stone); border-radius: 12px; }
+.d6-host--lock {
+  background: linear-gradient(rgba(6, 14, 24, 0.8), rgba(6, 14, 24, 0.92)), url("/kenji-game/day6/wall-tide-corridor.webp") center / cover;
+}
+.d6-host--mirror {
+  background: linear-gradient(rgba(6, 14, 24, 0.72), rgba(6, 14, 24, 0.9)), url("/kenji-game/day6/wall-pool-dark.webp") center / cover;
+}
+.d6-host--mirror.lit {
+  background: linear-gradient(rgba(6, 14, 24, 0.45), rgba(6, 14, 24, 0.75)), url("/kenji-game/day6/wall-pool-stirs.webp") center / cover;
+}
+.d6-host:empty { display: none; }
+.d6-stat { margin: 0 0 10px; font-size: 15px; color: rgba(241, 230, 207, 0.6); }
+.d6-msg { min-height: 1.5em; margin: 0 0 10px; font-family: var(--d1-cinema); font-size: 19px; color: var(--qi-ivory); }
+.d6-side { min-width: 0; }
+
+/* ---------- the tide locks ---------- */
+.d6-tl { display: grid; grid-template-columns: minmax(0, 520px) minmax(200px, 1fr); gap: 22px; align-items: start; }
+.d6-tl-board {
+  position: relative; width: 100%; aspect-ratio: 1263 / 1246; touch-action: none; user-select: none; -webkit-user-select: none;
+  background: url("/kenji-game/day6/tide-board.webp") center / 100% 100% no-repeat;
+}
+/* the 6 x 6 grid sits at these fractions of the board art; re-measure if the art changes */
+.d6-tl-inner { position: absolute; left: 16.15%; top: 15.73%; width: 67.3%; height: 67%; }
+.d6-tl-piece { position: absolute; cursor: grab; transition: left 0.12s ease, top 0.12s ease; filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.55)); }
+.d6-tl-piece img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; -webkit-user-drag: none; }
+.d6-tl-piece.v img { left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(90deg); }
+.d6-tl-piece.v.l2 img { width: 200%; height: 50%; }
+.d6-tl-piece.v.l3 img { width: 300%; height: 33.34%; }
+.d6-tl-piece.tide { filter: drop-shadow(0 0 12px rgba(95, 200, 230, 0.7)); }
+.d6-tl-piece.drag { transition: none; cursor: grabbing; z-index: 2; }
+
+/* ---------- the mirrors ---------- */
+.d6-mr { display: grid; grid-template-columns: minmax(0, 520px) minmax(200px, 1fr); gap: 22px; align-items: start; }
+.d6-mr-board {
+  display: grid; gap: 6px; aspect-ratio: 1; place-content: center; border-radius: 50%;
+  background: url("/kenji-game/day6/mirror-pool.webp") center / cover; box-shadow: 0 0 0 3px #6b4a1f, 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+.d6-mr-board button {
+  aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; cursor: pointer; box-shadow: none; transition: transform 0.1s, filter 0.25s;
+  background: url("/kenji-game/day6/mirror-dark.webp") center / contain no-repeat;
+}
+.d6-mr-board button.lit { background-image: url("/kenji-game/day6/mirror-lit.webp"); filter: drop-shadow(0 0 10px rgba(255, 210, 120, 0.75)); }
+.d6-mr-board button:active { transform: scale(0.94); }
+.d6-mr.solved .d6-mr-board { box-shadow: 0 0 0 3px #6b4a1f, 0 0 40px rgba(255, 210, 120, 0.45); }
+
+@media (max-width: 760px) { .d6-tl, .d6-mr { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- the opening and the closing ---------- */
+.d6-prelude .d1-shot-img { transform-origin: 55% 55%; }
+@media (max-width: 640px) { .d6-prelude .d1-shot-img { object-position: 45% 50%; } }
+.d6-finale .d1-shot-img { transform-origin: 55% 62%; }
+.d6-finale .d1-shot-fill { object-fit: cover; object-position: 55% 50%; }
+.d6-finale .d1-shot-shade { background: linear-gradient(0deg, rgba(5, 10, 18, 0.94) 0, rgba(5, 10, 18, 0.72) 40%, rgba(5, 10, 18, 0) 68%); }
