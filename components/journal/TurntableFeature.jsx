@@ -67,6 +67,12 @@ export default function TurntableFeature({ entry, allEntries }) {
   const collection = getCollectionForEntry(entry);
   const catalog = catalogNumber(entry, allEntries);
   const href = `/journal/${entry.slug}`;
+  // One long word (e.g. "Acquiesce") can't wrap, so it would spill past
+  // the column: shrink the headline in step with its longest word.
+  const longestWord = Math.max(
+    ...String(stripSeries(entry.title, entry.series) || "").split(/\s+/).map((w) => w.length),
+  );
+  const titleScale = Math.min(1, 7.2 / Math.max(longestWord, 1));
   const poster = posterArt(entry);
   const published =
     collection?.kind === "series"
@@ -120,7 +126,10 @@ export default function TurntableFeature({ entry, allEntries }) {
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-[#ffd98a]">
               Featured Release
             </p>
-            <h3 className="mt-2 font-display text-[2.6rem] uppercase leading-[0.94] tracking-tight [filter:drop-shadow(0_2px_3px_rgba(0,0,0,0.5))] sm:text-[3.5rem]">
+            <h3
+              className="mt-2 font-display text-[length:calc(2.6rem*var(--ft-scale,1))] uppercase leading-[0.94] tracking-tight [filter:drop-shadow(0_2px_3px_rgba(0,0,0,0.5))] sm:text-[length:calc(3.5rem*var(--ft-scale,1))]"
+              style={{ "--ft-scale": titleScale }}
+            >
               <Link href={href} className="ft-title" style={{ "--ft-color": collection?.color || "#d3ac52" }}>
                 {entry.titleHtml ? (
                   <span

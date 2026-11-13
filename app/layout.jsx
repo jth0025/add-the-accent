@@ -190,7 +190,7 @@ const JOURNAL_SERIES = [
   },
   {
     name: "Back to Oui",
-    sub: "The Question → Lone Star",
+    sub: "The Question → Acquiesce",
     href: "/journal?series=Back%20to%20Oui",
     cover: "/journal-art/lp-back-to-oui.webp",
     color: "#e0555f",
